@@ -765,7 +765,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4659099560958779104, guid: d332e2961f1c5f74a8a8e32c3b1c41de, type: 3}
       propertyPath: fuerzaRetroceso
-      value: 4
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4894836271247328158, guid: d332e2961f1c5f74a8a8e32c3b1c41de, type: 3}
       propertyPath: m_Name
