@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class MovimientoAlastor : MonoBehaviour
 {
     public float speed = 6f;
     public float RotationSpeed = 10f;
