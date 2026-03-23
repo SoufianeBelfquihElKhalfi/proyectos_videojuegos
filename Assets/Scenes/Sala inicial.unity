@@ -474,7 +474,7 @@ Transform:
   m_GameObject: {fileID: 247762203}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.94516474, z: -0, w: -0.32659397}
-  m_LocalPosition: {x: -20.25459, y: 0.5100002, z: -46.116295}
+  m_LocalPosition: {x: 2.6, y: 0.5100002, z: -17}
   m_LocalScale: {x: 5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -544,13 +544,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1821142552394651292, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6463228544794707355, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1171558349}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
 --- !u!1001 &683764588
 PrefabInstance:
@@ -1302,34 +1300,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3287713270935523003, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
   m_PrefabInstance: {fileID: 1136674949}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1171558347 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6463228544794707355, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-  m_PrefabInstance: {fileID: 619684854}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1171558348 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 805932474989920479, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
   m_PrefabInstance: {fileID: 619684854}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1171558349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1171558347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66cb0dc672303f7449c5e5af7d06f73d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 6
-  RotationSpeed: 10
-  dashSpeed: 20
-  dashDuration: 0.1
-  forward: {x: 0, y: 0, z: 0}
-  right: {x: 0, y: 0, z: 0}
 --- !u!1 &1192694505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1655,7 +1630,7 @@ Transform:
   m_GameObject: {fileID: 1697848603}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.94516474, z: -0, w: -0.32659397}
-  m_LocalPosition: {x: -7.2426395, y: 0.5, z: -34.56632}
+  m_LocalPosition: {x: 4.3, y: 0.5, z: -19.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

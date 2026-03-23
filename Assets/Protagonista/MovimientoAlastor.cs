@@ -6,7 +6,7 @@ public class MovimientoAlastor : MonoBehaviour
     public float speed = 6f;
     public float RotationSpeed = 10f;
 
-    public float dashSpeed = 80f;
+    public float dashSpeed = 15f;
     public float dashDuration = 0.2f;
     private bool isDashing = false;
 
