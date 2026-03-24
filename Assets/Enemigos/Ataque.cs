@@ -1,12 +1,15 @@
 using Enemy.FSM;
-
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class Ataque : EstadoFSM
 {
     Transform player;
     NavMeshAgent agent;
+
+    [SerializeField] float distanciaCaptura = 1.5f;
+    [SerializeField] string nombreEscena = "SplashScreen";
 
     void OnEnable()
     {
@@ -30,6 +33,13 @@ public class Ataque : EstadoFSM
 
         float distanciaAlPlayer = Vector3.Distance(transform.position, player.position);
 
+        if (distanciaAlPlayer <= distanciaCaptura)
+        {
+            Debug.Log("¡Jugador capturado! Cargando escena: " + nombreEscena);
+            SceneManager.LoadScene(nombreEscena);
+            return;
+        }
+
         if (distanciaAlPlayer < 5f)
         {
             agent.SetDestination(player.position);
@@ -44,5 +54,8 @@ public class Ataque : EstadoFSM
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, 5f);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, distanciaCaptura);
     }
 }
