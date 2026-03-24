@@ -25,7 +25,7 @@ public class MovimientoAlastor : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0) && !isDashing)
         {
             StartCoroutine(Dash());
         }
