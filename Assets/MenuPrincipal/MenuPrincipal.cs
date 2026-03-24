@@ -5,6 +5,6 @@ public class MenuPrincipal : MonoBehaviour
 {
     public void CargarEscena()
     {
-        SceneManager.LoadScene("Escena_1");
+        SceneManager.LoadScene("Sala_Inicial");
     }
 }
