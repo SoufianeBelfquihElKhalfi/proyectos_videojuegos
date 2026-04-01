@@ -184,7 +184,6 @@ GameObject:
   - component: {fileID: 805932474989920479}
   - component: {fileID: 3297372314019663128}
   - component: {fileID: 951142449977718972}
-  - component: {fileID: 1821142552394651292}
   m_Layer: 0
   m_Name: Alastor
   m_TagString: Untagged
@@ -251,27 +250,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6
   RotationSpeed: 10
+  dashSpeed: 15
+  dashDuration: 0.2
   forward: {x: 0, y: 0, z: 0}
   right: {x: 0, y: 0, z: 0}
---- !u!114 &1821142552394651292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6463228544794707355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b99d001e89ffc0448218a35f95d5a5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  danio: 20
-  rangoAtaque: 1.5
-  cooldownAtaque: 0.4
-  puntoAtaque: {fileID: 7275646671039893548}
-  capaEnemigos:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!1 &9081644268362654423
 GameObject:
   m_ObjectHideFlags: 0
