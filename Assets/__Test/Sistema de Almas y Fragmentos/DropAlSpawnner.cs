@@ -24,7 +24,7 @@ public class DropAlSpawnner : MonoBehaviour
             if (dropAlma != null)
             {
                 dropAlma.tipo = DropAlma.TipoDrop.Alma;
-                dropAlma.cantidad = almasPorPrefab + (i == 0 ? resto : 0);
+                dropAlma.cantidad = 1;
             }
         }
 

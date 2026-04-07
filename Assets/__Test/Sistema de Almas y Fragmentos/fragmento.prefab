@@ -14,9 +14,8 @@ GameObject:
   - component: {fileID: 1621575459579683046}
   - component: {fileID: 2297905491165672082}
   - component: {fileID: 3387032514003913314}
-  - component: {fileID: 5719862728768291564}
   m_Layer: 0
-  m_Name: Alma
+  m_Name: fragmento
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.728, y: 1.83, z: -1.453}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalScale: {x: -0.34, y: -1.3, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -105,8 +104,8 @@ MonoBehaviour:
   tipo: 0
   cantidad: 1
   fuerzaSalida: 5
-  radioRecoleccion: 1.5
-  velocidadAtraccion: 8
+  radioRecoleccion: 10
+  velocidadAtraccion: 5
   alturaFlotacion: 0.5
   floatAmplitud: 0.15
   floatFrecuencia: 2
@@ -158,23 +157,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5719862728768291564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7680720925938580253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f55e15097d0583a428c9c464deaf3bc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tipo: 0
-  cantidad: 1
-  fuerzaSalida: 5
-  radioRecoleccion: 1.5
-  velocidadAtraccion: 8
-  alturaFlotacion: 0.5
-  floatAmplitud: 0.15
-  floatFrecuencia: 2

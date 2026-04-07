@@ -20,7 +20,7 @@ namespace Enemy.FSM
                 if (_estado == value) return;
 
                 _estado = value;
-                Debug.Log("Nuevo estado: " + _estado.Nombre);
+                //Debug.Log("Nuevo estado: " + _estado.Nombre);
 
                 foreach (EstadoFSM estado in estados)
                 {
@@ -60,7 +60,7 @@ namespace Enemy.FSM
                 }
             }
 
-            Debug.LogError($"No hay un estado llamado: {nombre}");
+            //Debug.LogError($"No hay un estado llamado: {nombre}");
         }
     }
 }

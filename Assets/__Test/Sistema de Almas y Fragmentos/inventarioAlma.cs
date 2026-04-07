@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class InventarioAlmas : MonoBehaviour
 {
@@ -8,8 +9,11 @@ public class InventarioAlmas : MonoBehaviour
     [SerializeField] private int almas = 0;
     [SerializeField] private int fragmentos = 0;
 
+    private Dictionary<string, int> contadores = new Dictionary<string, int>();
+
     public UnityEvent<int> OnAlmasCambiaron;
     public UnityEvent<int> OnFragmentosCambiaron;
+    public UnityEvent<string, int> OnContadorCambio;
 
     public int Almas => almas;
     public int Fragmentos => fragmentos;
@@ -21,14 +25,17 @@ public class InventarioAlmas : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         Instancia = this;
         DontDestroyOnLoad(gameObject);
+
+        if (OnAlmasCambiaron == null) OnAlmasCambiaron = new UnityEvent<int>();
+        if (OnFragmentosCambiaron == null) OnFragmentosCambiaron = new UnityEvent<int>();
     }
 
     public void AgregarAlmas(int cantidad)
     {
         almas += cantidad;
+        Debug.Log("AgregarAlmas llamado. Total ahora: " + almas + " | Listeners: " + OnAlmasCambiaron.GetPersistentEventCount());
         OnAlmasCambiaron?.Invoke(almas);
     }
 
@@ -36,12 +43,25 @@ public class InventarioAlmas : MonoBehaviour
     {
         fragmentos += cantidad;
         OnFragmentosCambiaron?.Invoke(fragmentos);
+        RegistrarContador("Fragmentos", cantidad);
+    }
+
+    private void RegistrarContador(string nombre, int cantidad)
+    {
+        if (!contadores.ContainsKey(nombre))
+            contadores[nombre] = 0;
+        contadores[nombre] += cantidad;
+        OnContadorCambio?.Invoke(nombre, contadores[nombre]);
+    }
+
+    public int ObtenerContador(string nombre)
+    {
+        return contadores.ContainsKey(nombre) ? contadores[nombre] : 0;
     }
 
     public bool GastarAlmas(int cantidad)
     {
         if (almas < cantidad) return false;
-
         almas -= cantidad;
         OnAlmasCambiaron?.Invoke(almas);
         return true;

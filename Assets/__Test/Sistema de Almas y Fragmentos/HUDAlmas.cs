@@ -8,27 +8,25 @@ public class HUDAlmas : MonoBehaviour
 
     void Start()
     {
-        if (InventarioAlmas.Instancia != null)
-        {
-            InventarioAlmas.Instancia.OnAlmasCambiaron.AddListener(ActualizarAlmas);
-            InventarioAlmas.Instancia.OnFragmentosCambiaron.AddListener(ActualizarFragmentos);
+        //Debug.Log("HUDAlmas Start. Instancia: " + (InventarioAlmas.Instancia != null));
 
-            // Inicializar con valores actuales
-            ActualizarAlmas(InventarioAlmas.Instancia.Almas);
-            ActualizarFragmentos(InventarioAlmas.Instancia.Fragmentos);
-        }
+        if (InventarioAlmas.Instancia == null) return;
+
+        InventarioAlmas.Instancia.OnAlmasCambiaron.AddListener(ActualizarAlmas);
+        InventarioAlmas.Instancia.OnFragmentosCambiaron.AddListener(ActualizarFragmentos);
+
+        ActualizarAlmas(InventarioAlmas.Instancia.Almas);
+        ActualizarFragmentos(InventarioAlmas.Instancia.Fragmentos);
     }
 
     void ActualizarAlmas(int valor)
     {
-        if (textoAlmas != null)
-            textoAlmas.text = valor.ToString();
+        if (textoAlmas != null) textoAlmas.text = valor.ToString();
     }
 
     void ActualizarFragmentos(int valor)
     {
-        if (textoFragmentos != null)
-            textoFragmentos.text = valor.ToString();
+        if (textoFragmentos != null) textoFragmentos.text = valor.ToString();
     }
 
     void OnDestroy()

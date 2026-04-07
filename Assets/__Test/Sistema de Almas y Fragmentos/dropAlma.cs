@@ -57,14 +57,14 @@ public class DropAlma : MonoBehaviour
         enSuelo = true;
     }
 
-
     void Update()
     {
-        if (!enSuelo || jugador == null) return;
+        if (!enSuelo) { Debug.Log("No en suelo"); return; }
+        if (jugador == null) { Debug.Log("Jugador NULL"); return; }
 
         float offsetY = Mathf.Sin(Time.time * floatFrecuencia) * floatAmplitud;
-
         float distancia = Vector3.Distance(transform.position, jugador.position);
+        Debug.Log("Distancia al jugador: " + distancia);
 
         if (distancia <= radioRecoleccion)
         {
@@ -74,7 +74,7 @@ public class DropAlma : MonoBehaviour
                 velocidadAtraccion * Time.deltaTime
             );
 
-            if (Vector3.Distance(transform.position, jugador.position) < 0.3f)
+            if (Vector3.Distance(transform.position, jugador.position + Vector3.up * 0.5f) < 0.5f)
             {
                 Recoger();
             }
@@ -87,15 +87,18 @@ public class DropAlma : MonoBehaviour
 
     void Recoger()
     {
+        Debug.Log("Recoger llamado. Instancia: " + (InventarioAlmas.Instancia != null));
+
         if (InventarioAlmas.Instancia == null) return;
 
         switch (tipo)
         {
             case TipoDrop.Alma:
-                InventarioAlmas.Instancia.AgregarAlmas(cantidad);
+                InventarioAlmas.Instancia.AgregarAlmas(1);
+                Debug.Log("Alma sumada. Total: " + InventarioAlmas.Instancia.Almas);
                 break;
             case TipoDrop.FragmentoDeAlma:
-                InventarioAlmas.Instancia.AgregarFragmento(cantidad);
+                InventarioAlmas.Instancia.AgregarFragmento(1);
                 break;
         }
 
