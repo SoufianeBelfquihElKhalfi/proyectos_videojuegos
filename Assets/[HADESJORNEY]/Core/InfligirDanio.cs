@@ -7,11 +7,17 @@ public class InfligirDanio : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        SistemaVida vida = other.GetComponent<SistemaVida>();
+        Debug.Log("Flecha tocó: " + other.gameObject.name);
 
+        SistemaVida vida = other.GetComponent<SistemaVida>();
         if (vida != null)
         {
             vida.RecibirDanio(danioMitadCorazones);
+            Debug.Log("Daño aplicado a: " + other.gameObject.name);
+        }
+        else
+        {
+            Debug.Log("Sin SistemaVida en: " + other.gameObject.name);
         }
     }
 }
