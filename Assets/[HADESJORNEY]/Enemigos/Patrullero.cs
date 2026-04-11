@@ -1,11 +1,11 @@
 using Enemy.FSM;
-
 using UnityEngine;
 
 public class Patrullero : MaquinaFSM
 {
     [SerializeField] GameString patrulla;
     [SerializeField] GameString ataque;
+    [SerializeField] private float rangoDeteccion = 10f;
     Transform player;
 
     void Start()
@@ -13,9 +13,6 @@ public class Patrullero : MaquinaFSM
         var jugador = FindFirstObjectByType<MovimientoAlastor>();
         if (jugador != null)
             player = jugador.transform;
-
-        //Debug.Log("Valor Patrulla = [" + patrulla.Value + "]");
-        //Debug.Log("Valor Ataque = [" + ataque.Value + "]");
     }
 
     void Update()
@@ -23,16 +20,13 @@ public class Patrullero : MaquinaFSM
         if (player == null) return;
 
         float distanciaAlPlayer = Vector3.Distance(transform.position, player.position);
-        //Debug.Log("Distancia al jugador: " + distanciaAlPlayer);
 
-        if (distanciaAlPlayer < 5f)
+        if (distanciaAlPlayer < rangoDeteccion)
         {
-           // Debug.Log("Intento cambiar a: " + ataque.Value);
             SetEstado(ataque.Value);
         }
         else
         {
-            //Debug.Log("Intento cambiar a: " + patrulla.Value);
             SetEstado(patrulla.Value);
         }
     }
@@ -40,6 +34,6 @@ public class Patrullero : MaquinaFSM
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 5f);
+        Gizmos.DrawWireSphere(transform.position, rangoDeteccion);
     }
 }

@@ -1,15 +1,18 @@
 using Enemy.FSM;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.SceneManagement;
 
 public class Ataque : EstadoFSM
 {
     Transform player;
     NavMeshAgent agent;
 
-    [SerializeField] float distanciaCaptura = 1.5f;
-    [SerializeField] string nombreEscena = "SplashScreen";
+    [SerializeField] private float distanciaAtaque = 2f;
+    [SerializeField] private float tiempoEspera = 1.5f;
+    [SerializeField] private float velocidadRotacion = 10f;
+
+    private float tiempoUltimoAtaque;
+    private bool esperando = false;
 
     void OnEnable()
     {
@@ -21,9 +24,12 @@ public class Ataque : EstadoFSM
             agent = GetComponent<NavMeshAgent>();
 
         if (agent != null)
+        {
             agent.isStopped = false;
+            agent.updateRotation = false;
+        }
 
-        Debug.Log("Estado ATAQUE activado");
+        esperando = false;
     }
 
     void Update()
@@ -31,31 +37,34 @@ public class Ataque : EstadoFSM
         if (player == null || agent == null) return;
         if (!agent.isOnNavMesh) return;
 
-        float distanciaAlPlayer = Vector3.Distance(transform.position, player.position);
+        Vector3 direccion = (player.position - transform.position);
+        direccion.y = 0;
+        if (direccion != Vector3.zero)
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direccion), velocidadRotacion * Time.deltaTime);
 
-        if (distanciaAlPlayer <= distanciaCaptura)
+        float distancia = Vector3.Distance(transform.position, player.position);
+
+        if (esperando)
         {
-            Debug.Log("¡Jugador capturado! Cargando escena: " + nombreEscena);
-            SceneManager.LoadScene(nombreEscena);
+            agent.isStopped = true;
+
+            if (Time.time - tiempoUltimoAtaque >= tiempoEspera)
+            {
+                esperando = false;
+                agent.isStopped = false;
+            }
             return;
         }
 
-        if (distanciaAlPlayer < 5f)
+        if (distancia > distanciaAtaque)
         {
             agent.SetDestination(player.position);
         }
         else
         {
-            agent.ResetPath();
+            agent.isStopped = true;
+            tiempoUltimoAtaque = Time.time;
+            esperando = true;
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, 5f);
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, distanciaCaptura);
     }
 }
