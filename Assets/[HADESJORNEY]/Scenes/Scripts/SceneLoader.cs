@@ -9,10 +9,10 @@ public static class SceneLoader
 
     // Propiedades para almacenar el nombre de la escena objetivo y el mensaje de carga.
     public static string TargetSceneName { get; private set; }
-    public static string LoadingMessage { get; private set; } = "Cargando...";
+    public static string LoadingMessage { get; private set; } = "Descendiendo por el Inframundo...";
 
     // Método para iniciar la carga de una escena con un mensaje opcional.
-    public static void Load(string targetSceneName, string loadingMessage = "Cargando...")
+    public static void Load(string targetSceneName, string loadingMessage = "Descendiendo por el Inframundo...")
     {
         if (string.IsNullOrWhiteSpace(targetSceneName))
         {
