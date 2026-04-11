@@ -879,9 +879,41 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6629924287559741552, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1182927328}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7908649603255971601, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 722529978}
   m_SourcePrefab: {fileID: 100100000, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
+--- !u!1 &722529977 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7908649603255971601, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
+  m_PrefabInstance: {fileID: 722529976}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &722529978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722529977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afabc0f8b100a3d45bd71b40d00b003f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duracionCombate: 7
+  cooldown: 10
+  puntoDisparo: {fileID: 1182927328}
+  prefabFlecha: {fileID: 4421249402237693187, guid: 12e1f547ad93f9144beddcd0550c5dc5, type: 3}
+  velocidadFlecha: 15
+  intervaloDisparo: 1
+  enModoCombate: 0
+  tiempoRestanteCombate: 0
+  tiempoRestanteCooldown: 0
 --- !u!1001 &750834005
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1418,17 +1450,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 805932474989920479, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
   m_PrefabInstance: {fileID: 619684854}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1171558349 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -73500163641640762, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-  m_PrefabInstance: {fileID: 619684854}
+--- !u!1 &1182927327
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6acd8d4a737cfa941976d87723d2529f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1182927328}
+  m_Layer: 0
+  m_Name: PuntoDisparo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1182927328
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182927327}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 19.184492, y: 1.2000003, z: 21.36073}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1865302934}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1192694505
 GameObject:
   m_ObjectHideFlags: 0
@@ -2455,6 +2507,11 @@ Transform:
   - {fileID: 688182846}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 30, y: 45, z: 0}
+--- !u!4 &1865302934 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6629924287559741552, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
+  m_PrefabInstance: {fileID: 722529976}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1868449686
 GameObject:
   m_ObjectHideFlags: 0

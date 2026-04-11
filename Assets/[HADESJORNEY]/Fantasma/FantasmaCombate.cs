@@ -16,16 +16,17 @@ public class FantasmaCombate : MonoBehaviour
     [SerializeField] private float tiempoRestanteCooldown = 0f;
 
     private float timerDisparo = 0f;
-   
+
     void Update()
     {
-        // Input del jugador
         if (Input.GetKeyDown(KeyCode.E) && !enModoCombate && tiempoRestanteCooldown <= 0f)
         {
-            EntrarModoCombate();
+            if (BuscarEnemigoMasCercano() != null)
+            {
+                EntrarModoCombate();
+            }
         }
 
-        // Tick modo combate
         if (enModoCombate)
         {
             tiempoRestanteCombate -= Time.deltaTime;
@@ -43,7 +44,6 @@ public class FantasmaCombate : MonoBehaviour
             }
         }
 
-        // Tick cooldown
         if (tiempoRestanteCooldown > 0f)
         {
             tiempoRestanteCooldown -= Time.deltaTime;
@@ -54,9 +54,8 @@ public class FantasmaCombate : MonoBehaviour
     {
         enModoCombate = true;
         tiempoRestanteCombate = duracionCombate;
-        timerDisparo = 0f; // dispara inmediatamente al activar
+        timerDisparo = 0f;
 
-        // Aquí puedes activar animaciones, VFX, etc.
         Debug.Log("Fantasma: MODO COMBATE activado");
     }
 
@@ -73,15 +72,20 @@ public class FantasmaCombate : MonoBehaviour
         if (prefabFlecha == null || puntoDisparo == null) return;
 
         Transform objetivo = BuscarEnemigoMasCercano();
-        Vector3 direccionInicial = objetivo != null
-            ? (objetivo.position - puntoDisparo.position).normalized
-            : puntoDisparo.forward;
 
-        GameObject flecha = Instantiate(prefabFlecha, puntoDisparo.position, Quaternion.LookRotation(direccionInicial));
+        if (objetivo == null)
+            return;
 
-        // Pasarle el objetivo para que lo persiga
+        Vector3 direccionInicial = (objetivo.position - puntoDisparo.position).normalized;
+
+        GameObject flecha = Instantiate(
+            prefabFlecha,
+            puntoDisparo.position,
+            Quaternion.LookRotation(direccionInicial)
+        );
+
         FlechaFantasma scriptFlecha = flecha.GetComponent<FlechaFantasma>();
-        if (scriptFlecha != null && objetivo != null)
+        if (scriptFlecha != null)
         {
             scriptFlecha.objetivo = objetivo;
             scriptFlecha.velocidad = velocidadFlecha;
@@ -92,7 +96,6 @@ public class FantasmaCombate : MonoBehaviour
 
     Transform BuscarEnemigoMasCercano()
     {
-        // Ajusta el tag "Enemy" al que uses en tu proyecto
         GameObject[] enemigos = GameObject.FindGameObjectsWithTag("Enemy");
         Transform masCercano = null;
         float distanciaMin = Mathf.Infinity;
@@ -106,10 +109,10 @@ public class FantasmaCombate : MonoBehaviour
                 masCercano = e.transform;
             }
         }
+
         return masCercano;
     }
 
-    // Propiedades públicas para la UI
     public bool EnModoCombate => enModoCombate;
     public float TiempoRestanteCombate => tiempoRestanteCombate;
     public float TiempoRestanteCooldown => tiempoRestanteCooldown;
