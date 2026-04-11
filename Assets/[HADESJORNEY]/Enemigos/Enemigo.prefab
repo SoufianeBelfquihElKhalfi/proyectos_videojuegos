@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7774064709394538755}
   - component: {fileID: 7315028648807167886}
   - component: {fileID: 6219862288937555132}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,11 +120,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3719021246143193787}
+  - component: {fileID: 4353696231194767546}
+  - component: {fileID: 2078155753436968067}
   - component: {fileID: 1988742261835483692}
   - component: {fileID: 3871358505971979066}
   - component: {fileID: 1339936255835575097}
   - component: {fileID: 2152054689134268052}
-  m_Layer: 0
+  - component: {fileID: 5258551260066614983}
+  m_Layer: 6
   m_Name: Enemigo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,6 +150,50 @@ Transform:
   - {fileID: 5514152452656478234}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4353696231194767546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5366638020437931414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6acd8d4a737cfa941976d87723d2529f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  corazonesMaximos: 3
+  corazonesMitadIniciales: -1
+  alMorir:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2078155753436968067}
+        m_TargetAssemblyTypeName: MuerteEnemigo, Assembly-CSharp
+        m_MethodName: Morir
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  alCambiarVida:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2078155753436968067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5366638020437931414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f4adb65c985fb7468e3c81f750e18dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!195 &1988742261835483692
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -201,6 +248,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nombre: {fileID: 11400000, guid: 85d9a32424a1c25418bcd68a313471e6, type: 2}
   inicial: 0
+  distanciaCaptura: 1.5
+  nombreEscena: SplashScreen
 --- !u!114 &2152054689134268052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,6 +267,23 @@ MonoBehaviour:
       m_Calls: []
   patrulla: {fileID: 11400000, guid: a29210d9d3dd0d545b0d0f1fc1e16cae, type: 2}
   ataque: {fileID: 11400000, guid: 85d9a32424a1c25418bcd68a313471e6, type: 2}
+--- !u!114 &5258551260066614983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5366638020437931414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a578196ce17025f4f921c037de2fec5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabAlma: {fileID: 7680720925938580253, guid: cfd1eaa3331666342bc8bd380a258fdf, type: 3}
+  cantidadAlmas: 20
+  numeroDePrefabs: 3
+  dropFragmento: 1
+  prefabFragmento: {fileID: 7680720925938580253, guid: 7a02b5abbe777a946a738852a3bdde22, type: 3}
 --- !u!1 &8009326880956877489
 GameObject:
   m_ObjectHideFlags: 0

@@ -186,9 +186,10 @@ GameObject:
   - component: {fileID: 951142449977718972}
   - component: {fileID: 6272437019516206938}
   - component: {fileID: -73500163641640762}
+  - component: {fileID: 8919980005731924212}
   m_Layer: 0
   m_Name: Alastor
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -301,6 +302,32 @@ MonoBehaviour:
   alCambiarVida:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8919980005731924212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6463228544794707355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b5d8142293971042a40e324e29143e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxGolpesCombo: 3
+  tiempoEntreGolpes: 0.8
+  tiempoResetCombo: 1.2
+  danioPorGolpe: 010000000100000002000000
+  retrocesoPorGolpe:
+  - 1
+  - 1
+  - 2
+  duracionRetroceso: 0.25
+  puntoAtaque: {fileID: 7275646671039893548}
+  rangoAtaque: 4
+  capaEnemigos:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &9081644268362654423
 GameObject:
   m_ObjectHideFlags: 0
