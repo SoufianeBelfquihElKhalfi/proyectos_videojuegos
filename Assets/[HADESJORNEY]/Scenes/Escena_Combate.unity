@@ -1110,11 +1110,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6130764762032957781, guid: 3ed46dd1694b5974e9b62ca279f1da65, type: 3}
   m_PrefabInstance: {fileID: 791279822}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &897503385 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2256820607302975723, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-  m_PrefabInstance: {fileID: 579931087}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &897603705
 GameObject:
   m_ObjectHideFlags: 0
@@ -1584,10 +1579,10 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3287713270935523003, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
   m_PrefabInstance: {fileID: 1136674949}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1177229549 stripped
+--- !u!4 &1144712650 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 3287713270935523003, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
-  m_PrefabInstance: {fileID: 1196213412}
+  m_CorrespondingSourceObject: {fileID: 3988958809520673554, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
+  m_PrefabInstance: {fileID: 1902402881}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1192694505
 GameObject:
@@ -2313,6 +2308,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
+--- !u!1 &1760487432
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1760487433}
+  m_Layer: 0
+  m_Name: PuntoDisparo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1760487433
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760487432}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1902402883}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1772118993
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2730,7 +2756,7 @@ PrefabInstance:
     - target: {fileID: 7425308181066597827, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
       propertyPath: followTarget
       value: 
-      objectReference: {fileID: 897503385}
+      objectReference: {fileID: 1144712650}
     - target: {fileID: 7425308181066597827, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
       propertyPath: playerCenter
       value: 
@@ -2739,11 +2765,56 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArgosGhostRoot
       objectReference: {fileID: 0}
+    - target: {fileID: 7793067757123489276, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
+      propertyPath: m_TagString
+      value: Ghost
+      objectReference: {fileID: 0}
+    - target: {fileID: 7908649603255971601, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
+      propertyPath: m_TagString
+      value: Ghost
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6629924287559741552, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1760487433}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7793067757123489276, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1902402884}
   m_SourcePrefab: {fileID: 100100000, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
+--- !u!1 &1902402882 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7793067757123489276, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
+  m_PrefabInstance: {fileID: 1902402881}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1902402883 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6629924287559741552, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
+  m_PrefabInstance: {fileID: 1902402881}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1902402884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902402882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afabc0f8b100a3d45bd71b40d00b003f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duracionCombate: 7
+  cooldown: 10
+  puntoDisparo: {fileID: 1760487433}
+  prefabFlecha: {fileID: 4421249402237693187, guid: 12e1f547ad93f9144beddcd0550c5dc5, type: 3}
+  velocidadFlecha: 15
+  intervaloDisparo: 1
+  enModoCombate: 0
+  tiempoRestanteCombate: 0
+  tiempoRestanteCooldown: 0
 --- !u!1001 &1951367759
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2935,7 +3006,7 @@ GameObject:
   - component: {fileID: 2053705666}
   m_Layer: 0
   m_Name: NavMesh
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2970,7 +3041,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 102c224dee5058646abf3baed9fa0b1a, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 3eced8d63739d504cab7ab260ff38909, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &2053705667
 Transform:
@@ -3178,7 +3249,10 @@ SceneRoots:
   m_Roots:
   - {fileID: 106100423}
   - {fileID: 1697848604}
+  - {fileID: 1902402881}
   - {fileID: 247762208}
+  - {fileID: 524685129}
+  - {fileID: 641976380}
   - {fileID: 2053705667}
   - {fileID: 1434091105}
   - {fileID: 1811301695}
