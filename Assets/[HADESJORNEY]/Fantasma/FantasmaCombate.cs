@@ -9,7 +9,6 @@ public class FantasmaCombate : MonoBehaviour
     public GameObject prefabFlecha;
     public float velocidadFlecha = 15f;
     public float intervaloDisparo = 1f;
-    public float radioDeteccion = 10f;
 
     [Header("Estado (solo lectura)")]
     [SerializeField] private bool enModoCombate = false;
@@ -21,7 +20,12 @@ public class FantasmaCombate : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && !enModoCombate && tiempoRestanteCooldown <= 0f)
-            EntrarModoCombate();
+        {
+            if (BuscarEnemigoMasCercano() != null)
+            {
+                EntrarModoCombate();
+            }
+        }
 
         if (enModoCombate)
         {
@@ -35,11 +39,15 @@ public class FantasmaCombate : MonoBehaviour
             }
 
             if (tiempoRestanteCombate <= 0f)
+            {
                 SalirModoCombate();
+            }
         }
 
         if (tiempoRestanteCooldown > 0f)
+        {
             tiempoRestanteCooldown -= Time.deltaTime;
+        }
     }
 
     void EntrarModoCombate()
@@ -47,12 +55,16 @@ public class FantasmaCombate : MonoBehaviour
         enModoCombate = true;
         tiempoRestanteCombate = duracionCombate;
         timerDisparo = 0f;
+
+        Debug.Log("Fantasma: MODO COMBATE activado");
     }
 
     void SalirModoCombate()
     {
         enModoCombate = false;
         tiempoRestanteCooldown = cooldown;
+
+        Debug.Log("Fantasma: modo combate terminado. Cooldown iniciado.");
     }
 
     void DisparrarFlecha()
@@ -60,11 +72,17 @@ public class FantasmaCombate : MonoBehaviour
         if (prefabFlecha == null || puntoDisparo == null) return;
 
         Transform objetivo = BuscarEnemigoMasCercano();
-        if (objetivo == null) return; // no hay enemigos en el radio, no dispara
+
+        if (objetivo == null)
+            return;
 
         Vector3 direccionInicial = (objetivo.position - puntoDisparo.position).normalized;
 
-        GameObject flecha = Instantiate(prefabFlecha, puntoDisparo.position, Quaternion.LookRotation(direccionInicial));
+        GameObject flecha = Instantiate(
+            prefabFlecha,
+            puntoDisparo.position,
+            Quaternion.LookRotation(direccionInicial)
+        );
 
         FlechaFantasma scriptFlecha = flecha.GetComponent<FlechaFantasma>();
         if (scriptFlecha != null)
@@ -85,8 +103,6 @@ public class FantasmaCombate : MonoBehaviour
         foreach (GameObject e in enemigos)
         {
             float d = Vector3.Distance(transform.position, e.transform.position);
-            if (d > radioDeteccion) continue;
-
             if (d < distanciaMin)
             {
                 distanciaMin = d;
@@ -95,13 +111,6 @@ public class FantasmaCombate : MonoBehaviour
         }
 
         return masCercano;
-    }
-
-    // Visualiza el radio en la Scene
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, radioDeteccion);
     }
 
     public bool EnModoCombate => enModoCombate;

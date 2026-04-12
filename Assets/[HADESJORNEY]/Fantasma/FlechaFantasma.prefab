@@ -113,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objetivo: {fileID: 0}
   velocidad: 15
-  fuerzaGiro: 8
+  fuerzaGiro: 10
 --- !u!1 &9066986117137277604
 GameObject:
   m_ObjectHideFlags: 0

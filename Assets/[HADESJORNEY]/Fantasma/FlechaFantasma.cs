@@ -6,6 +6,7 @@ public class FlechaFantasma : MonoBehaviour
     [HideInInspector] public Transform objetivo;
     public float velocidad = 15f;
     public float fuerzaGiro = 5f;
+    public int danioMitadCorazones = 1;
 
     private Rigidbody rb;
 
@@ -36,11 +37,18 @@ public class FlechaFantasma : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(nuevaDireccion);
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Ghost") )
+        if (other.CompareTag("Player") || other.CompareTag("Ghost"))
             return;
 
-        Destroy(gameObject); // se destruye aquí directamente
+        SistemaVida vida = other.GetComponent<SistemaVida>();
+
+        if (vida != null)
+        {
+            vida.RecibirDanio(danioMitadCorazones);
+        }
+
+        Destroy(gameObject);
     }
 }
