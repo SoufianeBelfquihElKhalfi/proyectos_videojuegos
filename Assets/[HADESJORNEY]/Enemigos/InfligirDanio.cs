@@ -106,17 +106,5 @@ public class InfligirDanio : MonoBehaviour
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, distanciaGolpe);
     }
-    //Flecha fantasma   
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") || other.CompareTag("Ghost") )
-            return;
-
-        SistemaVida vida = other.GetComponent<SistemaVida>();
-        if (vida != null)
-        {
-            vida.RecibirDanio(danioMitadCorazones);
-        }
-        
-    }
+   
 }
