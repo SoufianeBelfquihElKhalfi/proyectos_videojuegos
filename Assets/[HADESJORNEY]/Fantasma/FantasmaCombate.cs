@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class FantasmaCombate : MonoBehaviour
 {
-    [Header("Configuración")]
+    [Header("Configuraciï¿½n")]
     public float duracionCombate = 7f;
     public float cooldown = 10f;
     public Transform puntoDisparo;

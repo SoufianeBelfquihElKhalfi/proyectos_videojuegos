@@ -951,11 +951,9 @@ GameObject:
   - component: {fileID: 641976378}
   - component: {fileID: 641976377}
   - component: {fileID: 641976376}
-  - component: {fileID: 641976382}
-  - component: {fileID: 641976381}
   m_Layer: 0
   m_Name: Enemigo_02
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1049,50 +1047,6 @@ Transform:
   - {fileID: 1536978324}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &641976381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 641976375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f4adb65c985fb7468e3c81f750e18dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &641976382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 641976375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6acd8d4a737cfa941976d87723d2529f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  corazonesMaximos: 3
-  corazonesMitadIniciales: -1
-  alMorir:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 641976381}
-        m_TargetAssemblyTypeName: MuerteEnemigo, Assembly-CSharp
-        m_MethodName: Morir
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  alCambiarVida:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &683764588
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1748,10 +1702,10 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3287713270935523003, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
   m_PrefabInstance: {fileID: 1136674949}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1192071744 stripped
+--- !u!4 &1144712650 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 2256820607302975723, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-  m_PrefabInstance: {fileID: 579931087}
+  m_CorrespondingSourceObject: {fileID: 3988958809520673554, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
+  m_PrefabInstance: {fileID: 1902402881}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1192694505
 GameObject:
@@ -2371,7 +2325,7 @@ GameObject:
   - component: {fileID: 1536978325}
   m_Layer: 0
   m_Name: Capsule
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3151,7 +3105,7 @@ PrefabInstance:
     - target: {fileID: 7425308181066597827, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
       propertyPath: followTarget
       value: 
-      objectReference: {fileID: 1192071744}
+      objectReference: {fileID: 1144712650}
     - target: {fileID: 7425308181066597827, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
       propertyPath: playerCenter
       value: 
@@ -3210,11 +3164,6 @@ MonoBehaviour:
   enModoCombate: 0
   tiempoRestanteCombate: 0
   tiempoRestanteCooldown: 0
---- !u!4 &1922163792 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3287713270935523003, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
-  m_PrefabInstance: {fileID: 1196213412}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1951367759
 PrefabInstance:
   m_ObjectHideFlags: 0

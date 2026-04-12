@@ -41,6 +41,6 @@ public class FlechaFantasma : MonoBehaviour
         if (other.CompareTag("Player") || other.CompareTag("Ghost") )
             return;
 
-        Destroy(gameObject); // se destruye aquí directamente
+        Destroy(gameObject); // se destruye aquï¿½ directamente
     }
 }
