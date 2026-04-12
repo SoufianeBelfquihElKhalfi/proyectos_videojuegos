@@ -127,12 +127,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c574389336b7ee448735ce2fa98e950, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rangoDeteccion: 10
-  distanciaDisparo: 15
+  rangoDeteccion: 15
+  distanciaDisparo: 8
   prefabProyectil: {fileID: 4537737509914126809, guid: f37506e4e980264439ab2a3b31499c5f, type: 3}
   puntoDisparo: {fileID: 7352544224495285170}
-  cadenciaDisparo: 0.5
-  distanciaMinima: 5
+  cadenciaDisparo: 1
+  distanciaMinima: 4.5
   puntosRuta:
   - {fileID: 0}
   - {fileID: 0}
