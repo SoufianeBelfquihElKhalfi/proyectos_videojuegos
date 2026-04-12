@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6540905947307157686}
   - component: {fileID: 3220552293695496863}
   - component: {fileID: 270440847448341074}
-  - component: {fileID: 3846227717353179474}
   - component: {fileID: 1673161449827467430}
+  - component: {fileID: -5986757476415791290}
   m_Layer: 0
   m_Name: FlechaFantasma
   m_TagString: Untagged
@@ -86,19 +86,6 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3846227717353179474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4421249402237693187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c41084165b06f814f9674c4f1dd42e4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  danioMitadCorazones: 1
 --- !u!114 &1673161449827467430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +101,19 @@ MonoBehaviour:
   objetivo: {fileID: 0}
   velocidad: 15
   fuerzaGiro: 8
+--- !u!114 &-5986757476415791290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4421249402237693187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee7adc0d3afbad849a9ded3455aee669, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  danioMitadCorazones: 1
 --- !u!1 &9066986117137277604
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,7 +179,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 36eafd66a7254794bb9bfae22a9381a2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -745,7 +745,9 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4353696231194767546, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
+    - {fileID: 2078155753436968067, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -934,6 +936,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   escenaInicio: SplashScreen
   panelGameOver: {fileID: 0}
+--- !u!114 &579931093 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -73500163641640762, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
+  m_PrefabInstance: {fileID: 579931087}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579931088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6acd8d4a737cfa941976d87723d2529f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &683764588
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1672,7 +1685,7 @@ MonoBehaviour:
   alMorir:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1165154798}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MuerteEnemigo, Assembly-CSharp
         m_MethodName: Morir
         m_Mode: 1
@@ -1687,55 +1700,17 @@ MonoBehaviour:
   alCambiarVida:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &1165154797 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5366638020437931414, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
+--- !u!114 &1165154807 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2078155753436968067, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
   m_PrefabInstance: {fileID: 1656070220}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1165154798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1165154797}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f4adb65c985fb7468e3c81f750e18dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1165154799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1165154797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6acd8d4a737cfa941976d87723d2529f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  corazonesMaximos: 1
-  corazonesMitadIniciales: -1
-  alMorir:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1165154798}
-        m_TargetAssemblyTypeName: MuerteEnemigo, Assembly-CSharp
-        m_MethodName: Morir
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  alCambiarVida:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1192694505
 GameObject:
   m_ObjectHideFlags: 0
@@ -2015,7 +1990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 816f57ca9b141b24caf23d71cd742d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sistemaVida: {fileID: 579931089}
+  sistemaVida: {fileID: 579931093}
   prefabCorazon: {fileID: 361228700}
   contenedorCorazones: {fileID: 2011009602}
   corazonLleno: {fileID: 21300000, guid: 7bf83b75144c64347bd0864d0252fa53, type: 3}
@@ -2573,6 +2548,14 @@ PrefabInstance:
       propertyPath: 'ruta.Array.data[2]'
       value: 
       objectReference: {fileID: 1622977008}
+    - target: {fileID: 4353696231194767546, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1165154807}
+    - target: {fileID: 4353696231194767546, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Morir
+      objectReference: {fileID: 0}
     - target: {fileID: 5366638020437931414, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
       propertyPath: m_Name
       value: Enemigo_01 (1)
@@ -2585,12 +2568,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5366638020437931414, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1165154799}
-    - targetCorrespondingSourceObject: {fileID: 5366638020437931414, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1165154798}
     - targetCorrespondingSourceObject: {fileID: 2450265037206060723, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1145077083}
