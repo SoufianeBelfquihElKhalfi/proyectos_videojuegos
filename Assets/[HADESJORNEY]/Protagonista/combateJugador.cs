@@ -20,6 +20,9 @@ public class CombateJugador : MonoBehaviour
     [SerializeField] private float rangoAtaque = 1.5f;
     [SerializeField] private LayerMask capaEnemigos;
 
+    [Header("Visual")]
+    [SerializeField] private ArmaVisual armaVisual;
+
     private int golpeActual = 0;
     private float tiempoUltimoGolpe;
     private bool puedeAtacar = true;
@@ -50,6 +53,8 @@ public class CombateJugador : MonoBehaviour
 
         puedeAtacar = false;
         tiempoUltimoGolpe = Time.time;
+
+        if (armaVisual != null) armaVisual.Mostrar();
 
         if (animator != null)
         {
@@ -97,12 +102,9 @@ public class CombateJugador : MonoBehaviour
         while (tiempo < duracionRetroceso)
         {
             if (objetivo == null) yield break;
-
             tiempo += Time.deltaTime;
             float t = tiempo / duracionRetroceso;
-            // Curva que empieza rápido y frena suave
             float curva = 1f - Mathf.Pow(1f - t, 3f);
-
             objetivo.position = Vector3.Lerp(inicio, destino, curva);
             yield return null;
         }
