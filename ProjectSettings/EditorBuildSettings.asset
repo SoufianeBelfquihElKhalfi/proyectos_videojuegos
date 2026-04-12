@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/[HADESJORNEY]/Scenes/SplashScreen.unity
     guid: 9a8c47d55f1a87043a634643dd994336
   - enabled: 1
+    path: Assets/[HADESJORNEY]/Scenes/LoadingScene.unity
+    guid: c2639ab4bde53ac4f99aff1a4b71644b
+  - enabled: 1
     path: Assets/[HADESJORNEY]/Scenes/Sala_Inicial.unity
     guid: 1ed05e81b6c74c34fb638750ca40a58b
   - enabled: 1
