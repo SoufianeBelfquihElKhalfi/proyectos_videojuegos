@@ -250,8 +250,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nombre: {fileID: 11400000, guid: 85d9a32424a1c25418bcd68a313471e6, type: 2}
   inicial: 0
-  distanciaAtaque: 4
-  tiempoEspera: 0.5
+  distanciaAtaque: 2.2
+  tiempoPreparacion: 0.25
+  tiempoRecuperacion: 0.45
   velocidadRotacion: 10
 --- !u!114 &2152054689134268052
 MonoBehaviour:
