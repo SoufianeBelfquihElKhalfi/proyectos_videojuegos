@@ -360,10 +360,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   danioMitadCorazones: 1
-  distanciaGolpe: 4
-  cooldown: 1.5
+  distanciaGolpe: 2
   fuerzaRetroceso: 2
-  duracionRetroceso: 0.2
+  duracionRetroceso: 0.15
   duracionParpadeo: 0.3
   cantidadParpadeos: 3
 --- !u!1 &8009326880956877489
