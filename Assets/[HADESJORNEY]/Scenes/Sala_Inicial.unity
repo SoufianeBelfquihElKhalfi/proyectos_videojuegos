@@ -597,10 +597,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -73500163641640762, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-      propertyPath: corazonesMaximos
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 805932474989920479, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: m_LocalPosition.x
       value: -17.43
@@ -641,24 +637,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 951142449977718972, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-      propertyPath: dashSpeed
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3297372314019663128, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-      propertyPath: m_Constraints
-      value: 80
-      objectReference: {fileID: 0}
     - target: {fileID: 6463228544794707355, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: m_Name
       value: Alastor (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 6463228544794707355, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1821142552394651292, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -819,6 +802,7 @@ MonoBehaviour:
   prefabFlecha: {fileID: 4421249402237693187, guid: 12e1f547ad93f9144beddcd0550c5dc5, type: 3}
   velocidadFlecha: 15
   intervaloDisparo: 1
+  radioDeteccion: 10
   enModoCombate: 0
   tiempoRestanteCombate: 0
   tiempoRestanteCooldown: 0
@@ -1667,7 +1651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 816f57ca9b141b24caf23d71cd742d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sistemaVida: {fileID: 1171558349}
+  sistemaVida: {fileID: 0}
   prefabCorazon: {fileID: 7876958118406782308, guid: a0ebabb1e17118e468033581906a2596, type: 3}
   contenedorCorazones: {fileID: 2011009602}
   corazonLleno: {fileID: 21300000, guid: 7bf83b75144c64347bd0864d0252fa53, type: 3}
@@ -2626,8 +2610,7 @@ Transform:
   m_LocalPosition: {x: -17.124493, y: -0.18000013, z: -44.890728}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 688182846}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 30, y: 45, z: 0}
 --- !u!4 &1865302934 stripped
@@ -3180,3 +3163,4 @@ SceneRoots:
   - {fileID: 839214991}
   - {fileID: 1477079336}
   - {fileID: 1411730431}
+  - {fileID: 1854428437}
