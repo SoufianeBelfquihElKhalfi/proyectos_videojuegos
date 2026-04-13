@@ -3929,6 +3929,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4279699597995595499, guid: 53970c453f198f748834fd7ccc85061c, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4279699597995595499, guid: 53970c453f198f748834fd7ccc85061c, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4279699597995595499, guid: 53970c453f198f748834fd7ccc85061c, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1233282641}
+    - target: {fileID: 4279699597995595499, guid: 53970c453f198f748834fd7ccc85061c, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4279699597995595499, guid: 53970c453f198f748834fd7ccc85061c, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: EnemigoDerrotado
+      objectReference: {fileID: 0}
+    - target: {fileID: 4279699597995595499, guid: 53970c453f198f748834fd7ccc85061c, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: SalaCombateController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4279699597995595499, guid: 53970c453f198f748834fd7ccc85061c, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5228841194378294964, guid: 53970c453f198f748834fd7ccc85061c, type: 3}
       propertyPath: rangoDeteccion
       value: 12
@@ -4451,6 +4479,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2041146755135536228, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
+      propertyPath: mensajeCarga
+      value: Entrando en la sala del mercader...
+      objectReference: {fileID: 0}
+    - target: {fileID: 2041146755135536228, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
+      propertyPath: nombreEscena
+      value: SalaMercader
+      objectReference: {fileID: 0}
     - target: {fileID: 4147684963964894912, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
       propertyPath: m_Name
       value: TeleportSalida
@@ -4691,12 +4727,40 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1622977008}
     - target: {fileID: 4353696231194767546, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4353696231194767546, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4353696231194767546, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
       propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1165154807}
     - target: {fileID: 4353696231194767546, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1233282641}
+    - target: {fileID: 4353696231194767546, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4353696231194767546, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
       propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Morir
+      objectReference: {fileID: 0}
+    - target: {fileID: 4353696231194767546, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: EnemigoDerrotado
+      objectReference: {fileID: 0}
+    - target: {fileID: 4353696231194767546, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: SalaCombateController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4353696231194767546, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5366638020437931414, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
       propertyPath: m_Name
@@ -5436,6 +5500,67 @@ MonoBehaviour:
   enModoCombate: 0
   tiempoRestanteCombate: 0
   tiempoRestanteCooldown: 0
+--- !u!1001 &1929990943
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3287713270935523003, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3287713270935523003, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3287713270935523003, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 3287713270935523003, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -25.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 3287713270935523003, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3287713270935523003, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3287713270935523003, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3287713270935523003, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3287713270935523003, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3287713270935523003, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3287713270935523003, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6121352319288339481, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
+      propertyPath: m_Name
+      value: Pared (6)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
 --- !u!1001 &1951367759
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5929,6 +6054,7 @@ SceneRoots:
   - {fileID: 47808112}
   - {fileID: 1196213412}
   - {fileID: 144644465}
+  - {fileID: 1929990943}
   - {fileID: 1273742686}
   - {fileID: 168302329}
   - {fileID: 1368258495}
