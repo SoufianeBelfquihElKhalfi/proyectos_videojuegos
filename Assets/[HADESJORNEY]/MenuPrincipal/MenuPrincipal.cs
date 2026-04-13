@@ -1,10 +1,10 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
+// Controlador para el menú principal del juego, maneja la interacción del usuario para cargar la escena inicial
 public class MenuPrincipal : MonoBehaviour
 {
     public void CargarEscena()
     {
-        SceneManager.LoadScene("Sala_Inicial");
+        SceneLoader.Load("Sala_Inicial", "Abriendo las puertas del Inframundo...");
     }
 }

@@ -1,61 +1,114 @@
 using Enemy.FSM;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.SceneManagement;
+using System.Collections;
 
+/** Se ha cambiado la manera de funcionar de este script:
+ * ANTES el enemigo se movía hacia el jugador y hacía daño por proximidad constantemente,
+ * AHORA:
+ *  - el enemigo busca al jugador,
+ *  - gira hacia él,
+ *  - si está lejos, le persigue,
+ *  - si está en rango, se para, espera un poco, intenta golpear una vez, espera recuperación, y vuelve a estar libre para actuar.
+ */
 public class Ataque : EstadoFSM
 {
-    Transform player;
-    NavMeshAgent agent;
+    [SerializeField] private float distanciaAtaque = 2.2f;
+    [SerializeField] private float tiempoPreparacion = 0.25f;
+    [SerializeField] private float tiempoRecuperacion = 0.45f;
+    [SerializeField] private float velocidadRotacion = 10f;
 
-    [SerializeField] float distanciaCaptura = 1.5f;
-    [SerializeField] string nombreEscena = "SplashScreen";
+    private Transform player;
+    private NavMeshAgent agent;
+    private InfligirDanio infligirDanio;
 
-    void OnEnable()
+    private bool atacando = false;
+
+    private void OnEnable()
     {
         var jugador = FindFirstObjectByType<MovimientoAlastor>();
         if (jugador != null)
+        {
             player = jugador.transform;
+        }
 
         if (agent == null)
+        {
             agent = GetComponent<NavMeshAgent>();
+        }
+
+        if (infligirDanio == null)
+        {
+            infligirDanio = GetComponent<InfligirDanio>();
+        }
 
         if (agent != null)
+        {
             agent.isStopped = false;
+            agent.updateRotation = false;
+        }
 
-        Debug.Log("Estado ATAQUE activado");
+        atacando = false;
     }
 
-    void Update()
+    private void Update()
     {
-        if (player == null || agent == null) return;
-        if (!agent.isOnNavMesh) return;
-
-        float distanciaAlPlayer = Vector3.Distance(transform.position, player.position);
-
-        if (distanciaAlPlayer <= distanciaCaptura)
+        if (player == null || agent == null || infligirDanio == null)
         {
-            Debug.Log("¡Jugador capturado! Cargando escena: " + nombreEscena);
-            SceneManager.LoadScene(nombreEscena);
             return;
         }
 
-        if (distanciaAlPlayer < 5f)
+        if (!agent.isOnNavMesh)
         {
+            return;
+        }
+
+        Vector3 direccion = player.position - transform.position;
+        direccion.y = 0f;
+
+        if (direccion != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direccion);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, velocidadRotacion * Time.deltaTime);
+        }
+
+        if (atacando)
+        {
+            return;
+        }
+
+        float distancia = Vector3.Distance(transform.position, player.position);
+
+        if (distancia > distanciaAtaque)
+        {
+            agent.isStopped = false;
             agent.SetDestination(player.position);
         }
         else
         {
-            agent.ResetPath();
+            StartCoroutine(RealizarAtaque());
         }
     }
 
-    private void OnDrawGizmos()
+    private IEnumerator RealizarAtaque()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, 5f);
+        atacando = true;
+        agent.isStopped = true;
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, distanciaCaptura);
+        yield return new WaitForSeconds(tiempoPreparacion);
+
+        if (player != null)
+        {
+            infligirDanio.IntentarGolpear(player);
+        }
+
+        yield return new WaitForSeconds(tiempoRecuperacion);
+
+        if (agent != null && agent.isOnNavMesh)
+        {
+            agent.isStopped = false;
+        }
+
+        atacando = false;
     }
 }
