@@ -2661,7 +2661,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3788509860308714730, guid: 53970c453f198f748834fd7ccc85061c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.6920986
+      value: -6.07
       objectReference: {fileID: 0}
     - target: {fileID: 3788509860308714730, guid: 53970c453f198f748834fd7ccc85061c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2669,7 +2669,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3788509860308714730, guid: 53970c453f198f748834fd7ccc85061c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.4912982
+      value: -18.8
       objectReference: {fileID: 0}
     - target: {fileID: 3788509860308714730, guid: 53970c453f198f748834fd7ccc85061c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2699,6 +2699,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5228841194378294964, guid: 53970c453f198f748834fd7ccc85061c, type: 3}
+      propertyPath: rangoDeteccion
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228841194378294964, guid: 53970c453f198f748834fd7ccc85061c, type: 3}
+      propertyPath: distanciaDisparo
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5228841194378294964, guid: 53970c453f198f748834fd7ccc85061c, type: 3}
+      propertyPath: 'puntosRuta.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1811301695}
+    - target: {fileID: 5228841194378294964, guid: 53970c453f198f748834fd7ccc85061c, type: 3}
+      propertyPath: 'puntosRuta.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1434091105}
+    - target: {fileID: 5228841194378294964, guid: 53970c453f198f748834fd7ccc85061c, type: 3}
+      propertyPath: 'puntosRuta.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1622977008}
     - target: {fileID: 5581582144472617927, guid: 53970c453f198f748834fd7ccc85061c, type: 3}
       propertyPath: m_Name
       value: enemigo distancia
@@ -3150,6 +3170,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2152054689134268052, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
+      propertyPath: rangoDeteccion
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3719021246143193787, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.2452335
