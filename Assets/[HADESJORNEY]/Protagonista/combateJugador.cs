@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class CombateJugador : MonoBehaviour
@@ -26,11 +27,13 @@ public class CombateJugador : MonoBehaviour
     private int golpeActual = 0;
     private float tiempoUltimoGolpe;
     private bool puedeAtacar = true;
+    private bool combateHabilitado = true;
     private Animator animator;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        ComprobarSiSePuedeAtacarEnLaEscena();
     }
 
     void Update()
@@ -40,9 +43,23 @@ public class CombateJugador : MonoBehaviour
             golpeActual = 0;
         }
 
-        if (Input.GetMouseButtonDown(0) && puedeAtacar)
+        if (Input.GetMouseButtonDown(0) && puedeAtacar && combateHabilitado)
         {
             Atacar();
+        }
+    }
+
+    void ComprobarSiSePuedeAtacarEnLaEscena()
+    {
+        string nombreEscena = SceneManager.GetActiveScene().name;
+
+        if (nombreEscena == "SalaMercader")
+        {
+            combateHabilitado = false;
+        }
+        else
+        {
+            combateHabilitado = true;
         }
     }
 
