@@ -14,7 +14,7 @@ public class SalaCombateController : MonoBehaviour
     private int enemigosRestantes;
     private bool salidaAbierta = false;
 
-    private void Awake()
+    private void Start()
     {
         enemigosRestantes = 0;
 
