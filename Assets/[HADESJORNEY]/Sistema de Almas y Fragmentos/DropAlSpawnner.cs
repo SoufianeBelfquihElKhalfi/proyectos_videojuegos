@@ -1,36 +1,58 @@
 using UnityEngine;
 
+/* CAMBIOS REALIZADOS:
+ * Distrobuye correctamente las almas entre los drops.
+ */
 public class DropAlSpawnner : MonoBehaviour
 {
-    public GameObject prefabAlma;
-    public int cantidadAlmas = 20;
-    public int numeroDePrefabs = 3;
+    [SerializeField] private GameObject prefabAlma;
+    [SerializeField] private int cantidadAlmas = 20;
+    [SerializeField] private int numeroDePrefabs = 3;
 
-    public bool dropFragmento = false;
-    public GameObject prefabFragmento;
+    [SerializeField] private bool dropFragmento = false;
+    [SerializeField] private GameObject prefabFragmento;
 
-    void OnDestroy()
+    private void OnDestroy()
     {
-        if (!gameObject.scene.isLoaded) return; // Evita drops al cerrar escena
-
-        int almasPorPrefab = cantidadAlmas / numeroDePrefabs;
-        int resto = cantidadAlmas % numeroDePrefabs;
-
-        for (int i = 0; i < numeroDePrefabs; i++)
+        if (!gameObject.scene.isLoaded)
         {
-            GameObject drop = Instantiate(prefabAlma, transform.position + Vector3.up * 0.5f, Quaternion.identity);
+            return;
+        }
+
+        if (prefabAlma == null || cantidadAlmas <= 0 || numeroDePrefabs <= 0)
+        {
+            return;
+        }
+
+        int cantidadDrops = Mathf.Min(numeroDePrefabs, cantidadAlmas);
+        int almasPorDrop = cantidadAlmas / cantidadDrops;
+        int resto = cantidadAlmas % cantidadDrops;
+
+        for (int i = 0; i < cantidadDrops; i++)
+        {
+            GameObject drop = Instantiate(
+                prefabAlma,
+                transform.position + Vector3.up * 0.5f,
+                Quaternion.identity
+            );
+
             DropAlma dropAlma = drop.GetComponent<DropAlma>();
 
             if (dropAlma != null)
             {
                 dropAlma.tipo = DropAlma.TipoDrop.Alma;
-                dropAlma.cantidad = 1;
+                dropAlma.cantidad = almasPorDrop + (i < resto ? 1 : 0);
             }
         }
 
         if (dropFragmento && prefabFragmento != null)
         {
-            GameObject frag = Instantiate(prefabFragmento, transform.position + Vector3.up * 0.5f, Quaternion.identity);
+            GameObject frag = Instantiate(
+                prefabFragmento,
+                transform.position + Vector3.up * 0.5f,
+                Quaternion.identity
+            );
+
             DropAlma dropFrag = frag.GetComponent<DropAlma>();
 
             if (dropFrag != null)
