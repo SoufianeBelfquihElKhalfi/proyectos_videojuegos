@@ -35,7 +35,9 @@ public class FantasmaCombate : MonoBehaviour
     void Update()
     {
         if (Input.GetButtonDown("HijoDelRayo") && habilidadEHabilitada && !enModoCombate && tiempoRestanteCooldown <= 0f)
+        {
             EntrarModoCombate();
+        }
 
         if (enModoCombate)
         {
@@ -49,11 +51,15 @@ public class FantasmaCombate : MonoBehaviour
             }
 
             if (tiempoRestanteCombate <= 0f)
+            {
                 SalirModoCombate();
+            }
         }
 
         if (tiempoRestanteCooldown > 0f)
+        {
             tiempoRestanteCooldown -= Time.deltaTime;
+        }
     }
 
     void ComprobarSiLaHabilidadFantasmaSePuedeUsarEnLaEscena()
