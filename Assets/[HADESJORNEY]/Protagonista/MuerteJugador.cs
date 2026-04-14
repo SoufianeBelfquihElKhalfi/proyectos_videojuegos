@@ -113,35 +113,32 @@ public class MuerteJugador : MonoBehaviour
 
 
     public void Reintentar()
-
     {
-
         RestaurarEstado();
 
+        string escenaDestino = "Sala_Inicial";
+        string mensajeCarga = "Reiniciando partida...";
 
+        bool hayCheckpointValido =
+            CheckpointData.Instancia != null &&
+            CheckpointData.Instancia.HayCheckpoint &&
+            !string.IsNullOrEmpty(CheckpointData.Instancia.EscenaCheckpoint);
 
-        string escenaActual = SceneManager.GetActiveScene().name;
-
-
+        if (hayCheckpointValido)
+        {
+            escenaDestino = CheckpointData.Instancia.EscenaCheckpoint;
+            mensajeCarga = "Volviendo al checkpoint...";
+        }
 
         if (usarLoadingScreen)
-
         {
-
-            SceneLoader.Load(escenaActual, "Reintentando...");
-
+            SceneLoader.Load(escenaDestino, mensajeCarga);
         }
-
         else
-
         {
-
-            SceneManager.LoadScene(escenaActual);
-
+            SceneManager.LoadScene(escenaDestino);
         }
-
     }
-
 
 
     public void VolverAlMenu()
