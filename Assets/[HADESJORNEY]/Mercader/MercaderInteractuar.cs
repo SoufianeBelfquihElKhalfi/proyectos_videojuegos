@@ -1,80 +1,155 @@
 using UnityEngine;
+using TMPro;
 
 public class MercaderInteractuar : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private GameObject textoInteraccion;
+    [SerializeField] private GameObject bocadillo;
+    [SerializeField] private TMP_Text textoBocadillo;
+    [SerializeField] private string mensajeMercader = "¡Querido Alástor! ¿Qué deseas comprar?";
 
     [Header("Tienda")]
     [SerializeField] private GameObject tienda;
 
     private bool jugadorCerca = false;
+    private bool bocadilloMostrado = false;
     private bool tiendaAbierta = false;
 
-    void Start()
+    private void Start()
     {
         if (textoInteraccion != null)
+        {
             textoInteraccion.SetActive(false);
+        }
+
+        if (bocadillo != null)
+        {
+            bocadillo.SetActive(false);
+        }
 
         if (tienda != null)
+        {
             tienda.SetActive(false);
+        }
     }
 
-    void Update()
+    private void Update()
     {
-        if (jugadorCerca && Input.GetKeyDown(KeyCode.E) && !tiendaAbierta)
+        if (!jugadorCerca || tiendaAbierta)
         {
-            AbrirTienda();
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (!bocadilloMostrado)
+            {
+                MostrarBocadillo();
+            }
+            else
+            {
+                AbrirTienda();
+            }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!other.CompareTag("Player"))
         {
-            jugadorCerca = true;
+            return;
+        }
 
-            if (textoInteraccion != null && !tiendaAbierta)
-                textoInteraccion.SetActive(true);
+        jugadorCerca = true;
+
+        if (!tiendaAbierta && !bocadilloMostrado && textoInteraccion != null)
+        {
+            textoInteraccion.SetActive(true);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!other.CompareTag("Player"))
         {
-            jugadorCerca = false;
+            return;
+        }
 
-            if (textoInteraccion != null)
-                textoInteraccion.SetActive(false);
+        jugadorCerca = false;
+        bocadilloMostrado = false;
+
+        if (textoInteraccion != null)
+        {
+            textoInteraccion.SetActive(false);
+        }
+
+        if (bocadillo != null)
+        {
+            bocadillo.SetActive(false);
         }
     }
 
-    void AbrirTienda()
+    private void MostrarBocadillo()
     {
-        if (tiendaAbierta) return;
-        if (tienda == null) return;
+        bocadilloMostrado = true;
+
+        if (textoInteraccion != null)
+        {
+            textoInteraccion.SetActive(false);
+        }
+
+        if (textoBocadillo != null)
+        {
+            textoBocadillo.text = mensajeMercader;
+        }
+
+        if (bocadillo != null)
+        {
+            bocadillo.SetActive(true);
+        }
+    }
+
+    private void AbrirTienda()
+    {
+        if (tiendaAbierta || tienda == null)
+        {
+            return;
+        }
 
         tiendaAbierta = true;
 
         if (textoInteraccion != null)
-            textoInteraccion.SetActive(false);
-
-        if (!tienda.activeSelf)
         {
-            Debug.Log("Abriendo HUD de tienda: " + tienda.name);
-            tienda.SetActive(true);
+            textoInteraccion.SetActive(false);
         }
+
+        if (bocadillo != null)
+        {
+            bocadillo.SetActive(false);
+        }
+
+        tienda.SetActive(true);
     }
 
     public void CerrarTienda()
     {
         tiendaAbierta = false;
+        bocadilloMostrado = false;
 
         if (tienda != null)
+        {
             tienda.SetActive(false);
+        }
+
+        if (bocadillo != null)
+        {
+            bocadillo.SetActive(false);
+        }
 
         if (jugadorCerca && textoInteraccion != null)
+        {
             textoInteraccion.SetActive(true);
+        }
     }
 }
