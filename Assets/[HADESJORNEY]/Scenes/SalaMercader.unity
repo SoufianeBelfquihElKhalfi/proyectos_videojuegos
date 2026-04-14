@@ -3424,6 +3424,25 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ed46dd1694b5974e9b62ca279f1da65, type: 3}
+--- !u!1 &1571240836 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4705223582855657196, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
+  m_PrefabInstance: {fileID: 565967905801299018}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1571240842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571240836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e4213bf98b0c9144a74fbb46a876123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nombreEscena: Sala_Jefe
+  mensajeCarga: Avanzando a la siguiente sala...
 --- !u!1001 &1654057894
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4834,10 +4853,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Telport
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2041146755135536228, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4705223582855657196, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1571240842}
   m_SourcePrefab: {fileID: 100100000, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
 --- !u!1001 &6260919377544518468
 PrefabInstance:

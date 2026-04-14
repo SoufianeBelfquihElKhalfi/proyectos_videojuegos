@@ -1,7 +1,5 @@
 using UnityEngine;
 
-// comentarios simples
-
 // Controlador para el cambio de escena al entrar en un trigger, verifica que el objeto que entra es el jugador y luego inicia la carga de la nueva escena con un mensaje personalizado
 public class CambioDeEscena : MonoBehaviour
 {
