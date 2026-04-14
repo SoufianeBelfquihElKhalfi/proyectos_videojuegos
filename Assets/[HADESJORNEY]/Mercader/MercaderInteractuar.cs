@@ -1,12 +1,10 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MercaderInteractuar : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private GameObject textoInteraccion;
-
-    [Header("Tienda")]
-    [SerializeField] private GameObject shopUI;
 
     private bool jugadorCerca = false;
 
@@ -42,9 +40,7 @@ public class MercaderInteractuar : MonoBehaviour
 
     void AbrirTienda()
     {
-        Debug.Log("Tienda abierta");
-
-        if (shopUI != null)
-            shopUI.SetActive(true);
+        Debug.Log("Cargando escena de la tienda");
+        SceneManager.LoadScene("HUDMercader");
     }
 }
