@@ -34,7 +34,7 @@ public class FantasmaCombate : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && habilidadEHabilitada && !enModoCombate && tiempoRestanteCooldown <= 0f)
+        if (Input.GetButtonDown("HijoDelRayo") && habilidadEHabilitada && !enModoCombate && tiempoRestanteCooldown <= 0f)
             EntrarModoCombate();
 
         if (enModoCombate)
