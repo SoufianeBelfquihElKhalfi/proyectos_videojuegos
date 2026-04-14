@@ -1,6 +1,12 @@
 using UnityEngine;
 using System.Collections;
 
+
+/* CAMBIOS REALIZADOS:
+ * - Quitar el uso de jugador.GetComponent<MonoBehaviour>().StartCoroutine(...).
+ * - Lanzar las corrutinas desde el propio script Proyectil.
+ * - No depender de other.collider.CompareTag("Player") para aplicar daño; comprobar mejor la jerarquía / SistemaVida.
+ */
 public class Proyectil : MonoBehaviour
 {
     [Header("Configuración")]
@@ -29,38 +35,42 @@ public class Proyectil : MonoBehaviour
         Destroy(gameObject, tiempoVida);
     }
 
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        if (!inicializado || rb == null) return;
+        if (!inicializado || rb == null)
+        {
+            return;
+        }
 
         velocidadActual.y -= gravedad * Time.fixedDeltaTime;
         rb.linearVelocity = velocidadActual;
 
         if (velocidadActual != Vector3.zero)
+        {
             transform.rotation = Quaternion.LookRotation(velocidadActual);
+        }
     }
 
-    void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter(Collision other)
     {
         SistemaVida vida = other.collider.GetComponentInParent<SistemaVida>();
-        if (vida != null && other.collider.CompareTag("Player"))
+
+        if (vida != null)
         {
+            Transform objetivo = vida.transform;
+
             vida.RecibirDanio(danio);
 
-            Transform jugador = vida.transform;
+            Vector3 direccion = (objetivo.position - transform.position).normalized;
+            direccion.y = 0f;
 
-            // Retroceso
-            Vector3 direccion = (jugador.position - transform.position).normalized;
-            direccion.y = 0;
-            jugador.GetComponent<MonoBehaviour>().StartCoroutine(RetrocesoSuave(jugador, direccion, fuerzaRetroceso));
-
-            // Parpadeo rojo
-            jugador.GetComponent<MonoBehaviour>().StartCoroutine(ParpadeoGolpe(jugador));
+            StartCoroutine(RetrocesoSuave(objetivo, direccion, fuerzaRetroceso));
+            StartCoroutine(ParpadeoGolpe(objetivo));
 
             Destroy(gameObject);
             return;
@@ -72,9 +82,12 @@ public class Proyectil : MonoBehaviour
         }
     }
 
-    IEnumerator RetrocesoSuave(Transform objetivo, Vector3 direccion, float distancia)
+    private IEnumerator RetrocesoSuave(Transform objetivo, Vector3 direccion, float distancia)
     {
-        if (objetivo == null) yield break;
+        if (objetivo == null)
+        {
+            yield break;
+        }
 
         Vector3 inicio = objetivo.position;
         Vector3 destino = inicio + direccion * distancia;
@@ -82,18 +95,26 @@ public class Proyectil : MonoBehaviour
 
         while (tiempo < duracionRetroceso)
         {
-            if (objetivo == null) yield break;
+            if (objetivo == null)
+            {
+                yield break;
+            }
+
             tiempo += Time.deltaTime;
             float t = tiempo / duracionRetroceso;
             float curva = 1f - Mathf.Pow(1f - t, 3f);
             objetivo.position = Vector3.Lerp(inicio, destino, curva);
+
             yield return null;
         }
     }
 
-    IEnumerator ParpadeoGolpe(Transform objetivo)
+    private IEnumerator ParpadeoGolpe(Transform objetivo)
     {
-        if (objetivo == null) yield break;
+        if (objetivo == null)
+        {
+            yield break;
+        }
 
         Renderer[] renderers = objetivo.GetComponentsInChildren<Renderer>();
         Color colorGolpe = Color.red;
@@ -106,15 +127,21 @@ public class Proyectil : MonoBehaviour
             foreach (Renderer r in renderers)
             {
                 if (r.material.HasProperty("_Color"))
+                {
                     r.material.color = colorGolpe;
+                }
             }
+
             yield return new WaitForSeconds(tiempoPorParpadeo / 2f);
 
             foreach (Renderer r in renderers)
             {
                 if (r.material.HasProperty("_Color"))
+                {
                     r.material.color = colorOriginal;
+                }
             }
+
             yield return new WaitForSeconds(tiempoPorParpadeo / 2f);
         }
     }
