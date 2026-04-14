@@ -129,7 +129,7 @@ public class CombateJugador : MonoBehaviour
 
     void ResetAtaque()
     {
-        puedeAtacar = true;
+        puedeAtacar = true; 
     }
 
     void OnDrawGizmosSelected()
