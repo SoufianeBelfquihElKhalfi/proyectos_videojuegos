@@ -29,5 +29,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/[HADESJORNEY]/Scenes/SalaMercader.unity
     guid: ebc9d220b8f681b46b490059ab41f515
+  - enabled: 1
+    path: Assets/[HADESJORNEY]/Scenes/Sala_Jefe.unity
+    guid: 179336a15a3b5204a809c4c90aed666a
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
