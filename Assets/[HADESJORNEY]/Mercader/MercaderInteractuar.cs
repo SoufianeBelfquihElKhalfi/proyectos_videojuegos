@@ -1,16 +1,28 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MercaderInteractuar : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private GameObject textoInteraccion;
 
+    [Header("Tienda")]
+    [SerializeField] private GameObject tienda;
+
     private bool jugadorCerca = false;
+    private bool tiendaAbierta = false;
+
+    void Start()
+    {
+        if (textoInteraccion != null)
+            textoInteraccion.SetActive(false);
+
+        if (tienda != null)
+            tienda.SetActive(false);
+    }
 
     void Update()
     {
-        if (jugadorCerca && Input.GetKeyDown(KeyCode.E))
+        if (jugadorCerca && Input.GetKeyDown(KeyCode.E) && !tiendaAbierta)
         {
             AbrirTienda();
         }
@@ -22,7 +34,7 @@ public class MercaderInteractuar : MonoBehaviour
         {
             jugadorCerca = true;
 
-            if (textoInteraccion != null)
+            if (textoInteraccion != null && !tiendaAbierta)
                 textoInteraccion.SetActive(true);
         }
     }
@@ -40,7 +52,26 @@ public class MercaderInteractuar : MonoBehaviour
 
     void AbrirTienda()
     {
-        Debug.Log("Cargando escena de la tienda");
-        SceneManager.LoadScene("HUDMercader");
+        tiendaAbierta = true;
+
+        if (textoInteraccion != null)
+            textoInteraccion.SetActive(false);
+
+        if (tienda != null)
+        {
+            Debug.Log("Abriendo HUD de tienda");
+            tienda.SetActive(true);
+        }
+    }
+
+    public void CerrarTienda()
+    {
+        tiendaAbierta = false;
+
+        if (tienda != null)
+            tienda.SetActive(false);
+
+        if (jugadorCerca && textoInteraccion != null)
+            textoInteraccion.SetActive(true);
     }
 }
