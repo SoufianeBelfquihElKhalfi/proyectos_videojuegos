@@ -1,5 +1,10 @@
 using UnityEngine;
 
+/* CAMBIOS REALIZADOS:
+ * Ya se usa cantidad.
+ * Se han quitado logs basura.
+ * Ya no fija la Y absoluta a alturaFlotacion.
+ */
 public class DropAlma : MonoBehaviour
 {
     public enum TipoDrop { Alma, FragmentoDeAlma }
@@ -23,7 +28,7 @@ public class DropAlma : MonoBehaviour
     private bool enSuelo = false;
     private Vector3 posBase;
 
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
 
@@ -40,31 +45,34 @@ public class DropAlma : MonoBehaviour
 
         var jugadorObj = FindFirstObjectByType<MovimientoAlastor>();
         if (jugadorObj != null)
+        {
             jugador = jugadorObj.transform;
+        }
 
         Invoke(nameof(Aterrizar), 0.8f);
     }
 
-    void Aterrizar()
+    private void Aterrizar()
     {
         if (rb != null)
         {
             rb.isKinematic = true;
         }
 
-        posBase = new Vector3(transform.position.x, alturaFlotacion, transform.position.z);
+        posBase = transform.position + Vector3.up * alturaFlotacion;
         transform.position = posBase;
         enSuelo = true;
     }
 
-    void Update()
+    private void Update()
     {
-        if (!enSuelo) { Debug.Log("No en suelo"); return; }
-        if (jugador == null) { Debug.Log("Jugador NULL"); return; }
+        if (!enSuelo || jugador == null)
+        {
+            return;
+        }
 
         float offsetY = Mathf.Sin(Time.time * floatFrecuencia) * floatAmplitud;
         float distancia = Vector3.Distance(transform.position, jugador.position);
-        Debug.Log("Distancia al jugador: " + distancia);
 
         if (distancia <= radioRecoleccion)
         {
@@ -85,20 +93,21 @@ public class DropAlma : MonoBehaviour
         }
     }
 
-    void Recoger()
+    private void Recoger()
     {
-        Debug.Log("Recoger llamado. Instancia: " + (InventarioAlmas.Instancia != null));
-
-        if (InventarioAlmas.Instancia == null) return;
+        if (InventarioAlmas.Instancia == null)
+        {
+            return;
+        }
 
         switch (tipo)
         {
             case TipoDrop.Alma:
-                InventarioAlmas.Instancia.AgregarAlmas(1);
-                Debug.Log("Alma sumada. Total: " + InventarioAlmas.Instancia.Almas);
+                InventarioAlmas.Instancia.AgregarAlmas(cantidad);
                 break;
+
             case TipoDrop.FragmentoDeAlma:
-                InventarioAlmas.Instancia.AgregarFragmento(1);
+                InventarioAlmas.Instancia.AgregarFragmento(cantidad);
                 break;
         }
 
