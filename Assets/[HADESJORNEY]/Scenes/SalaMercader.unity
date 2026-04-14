@@ -405,14 +405,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &84094839
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 135226188}
-  m_CullTransparentMesh: 1
 --- !u!224 &93512721 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5087721867754218627, guid: a0a06273a9de38041b2e42094a293220, type: 3}
@@ -428,8 +420,6 @@ GameObject:
   m_Component:
   - component: {fileID: 135226189}
   - component: {fileID: 135226191}
-  - component: {fileID: 135226190}
-  - component: {fileID: 84094839}
   - component: {fileID: 84094838}
   m_Layer: 5
   m_Name: Counter
@@ -457,18 +447,6 @@ RectTransform:
   m_AnchoredPosition: {x: -26, y: -16}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &135226190
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 135226188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &135226191
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -611,7 +589,6 @@ Transform:
   - {fileID: 1394604090}
   - {fileID: 144603851}
   - {fileID: 1706978608}
-  - {fileID: 986404157}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &157143076
@@ -1745,11 +1722,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2256820607302975723, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
   m_PrefabInstance: {fileID: 1191038271}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &986404157 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4978613129867789838, guid: 2a4954706b9eb4a4e85b86d90f00abf2, type: 3}
-  m_PrefabInstance: {fileID: 1185859795}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1034228443 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 805932474989920479, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
@@ -2409,19 +2381,19 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 149375901}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4978613129867789838, guid: 2a4954706b9eb4a4e85b86d90f00abf2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.546455
+      value: -9.246455
       objectReference: {fileID: 0}
     - target: {fileID: 4978613129867789838, guid: 2a4954706b9eb4a4e85b86d90f00abf2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4978613129867789838, guid: 2a4954706b9eb4a4e85b86d90f00abf2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -18.752003
+      value: -33.892002
       objectReference: {fileID: 0}
     - target: {fileID: 4978613129867789838, guid: 2a4954706b9eb4a4e85b86d90f00abf2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4458,8 +4430,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2051554399}
   - component: {fileID: 2051554403}
-  - component: {fileID: 2051554402}
-  - component: {fileID: 2051554401}
   - component: {fileID: 2051554400}
   m_Layer: 5
   m_Name: Counter
@@ -4579,26 +4549,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &2051554401
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2051554398}
-  m_CullTransparentMesh: 1
---- !u!114 &2051554402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2051554398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &2051554403
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4981,3 +4931,4 @@ SceneRoots:
   - {fileID: 149375901}
   - {fileID: 2137099109}
   - {fileID: 39600731}
+  - {fileID: 1185859795}
