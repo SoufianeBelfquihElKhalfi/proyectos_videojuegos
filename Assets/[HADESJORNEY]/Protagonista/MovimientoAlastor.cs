@@ -1,36 +1,54 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
+/* Mejorado el input del dash, ya no está hardcodeado.
+ * Se han cambiado los public a SerializeField.
+ * RotationSpeed → rotationSpeed
+ * null check para Camera.main
+ */
 public class MovimientoAlastor : MonoBehaviour
 {
-    public float speed = 6f;
-    public float RotationSpeed = 10f;
-    public float dashSpeed = 15f;
-    public float dashDuration = 0.2f;
+    [SerializeField] private float speed = 6f;
+    [SerializeField] private float rotationSpeed = 10f;
+    [SerializeField] private float dashSpeed = 15f;
+    [SerializeField] private float dashDuration = 0.2f;
+
     private bool isDashing = false;
-    public Vector3 forward, right;
+    private Vector3 forward;
+    private Vector3 right;
     private Rigidbody rb;
 
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
 
+        if (Camera.main == null)
+        {
+            Debug.LogError("MovimientoAlastor: no se ha encontrado Main Camera.");
+            enabled = false;
+            return;
+        }
+
         forward = Camera.main.transform.forward;
-        forward.y = 0;
+        forward.y = 0f;
         forward = Vector3.Normalize(forward);
+
         right = Camera.main.transform.right;
-        right.y = 0;
+        right.y = 0f;
         right = Vector3.Normalize(right);
     }
 
-    void Update()
+    private void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0)) && !isDashing)
+        if (Input.GetButtonDown("Dash") && !isDashing)
         {
             StartCoroutine(Dash());
         }
 
-        if (isDashing) return;
+        if (isDashing)
+        {
+            return;
+        }
 
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -44,22 +62,23 @@ public class MovimientoAlastor : MonoBehaviour
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
                 targetRotation,
-                RotationSpeed * Time.deltaTime
+                rotationSpeed * Time.deltaTime
             );
         }
     }
 
-    IEnumerator Dash()
+    private IEnumerator Dash()
     {
         isDashing = true;
         float startTime = Time.time;
+
         while (Time.time < startTime + dashDuration)
         {
-            Vector3 movimiento = transform.forward * dashSpeed * Time.deltaTime;
+            Vector3 movement = transform.forward * dashSpeed * Time.deltaTime;
 
-            if (!Physics.Raycast(rb.position, transform.forward, movimiento.magnitude + 0.5f))
+            if (!Physics.Raycast(rb.position, transform.forward, movement.magnitude + 0.5f))
             {
-                rb.MovePosition(rb.position + movimiento);
+                rb.MovePosition(rb.position + movement);
             }
             else
             {
@@ -68,6 +87,7 @@ public class MovimientoAlastor : MonoBehaviour
 
             yield return null;
         }
+
         isDashing = false;
     }
 }
