@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FantasmaCombate : MonoBehaviour
 {
-    [Header("Configuraci�n")]
+    [Header("Configuración")]
     public float duracionCombate = 7f;
     public float cooldown = 10f;
     public Transform puntoDisparo;
@@ -17,10 +18,16 @@ public class FantasmaCombate : MonoBehaviour
     [SerializeField] private float tiempoRestanteCooldown = 0f;
 
     private float timerDisparo = 0f;
+    private bool habilidadEHabilitada = true;
+
+    void Start()
+    {
+        ComprobarSiLaHabilidadFantasmaSePuedeUsarEnLaEscena();
+    }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !enModoCombate && tiempoRestanteCooldown <= 0f)
+        if (Input.GetKeyDown(KeyCode.E) && habilidadEHabilitada && !enModoCombate && tiempoRestanteCooldown <= 0f)
             EntrarModoCombate();
 
         if (enModoCombate)
@@ -42,6 +49,20 @@ public class FantasmaCombate : MonoBehaviour
             tiempoRestanteCooldown -= Time.deltaTime;
     }
 
+    void ComprobarSiLaHabilidadFantasmaSePuedeUsarEnLaEscena()
+    {
+        string nombreEscena = SceneManager.GetActiveScene().name;
+
+        if (nombreEscena == "SalaMercader")
+        {
+            habilidadEHabilitada = false;
+        }
+        else
+        {
+            habilidadEHabilitada = true;
+        }
+    }
+
     void EntrarModoCombate()
     {
         enModoCombate = true;
@@ -60,7 +81,7 @@ public class FantasmaCombate : MonoBehaviour
         if (prefabFlecha == null || puntoDisparo == null) return;
 
         Transform objetivo = BuscarEnemigoMasCercano();
-        if (objetivo == null) return; // no hay enemigos en el radio, no dispara
+        if (objetivo == null) return;
 
         Vector3 direccionInicial = (objetivo.position - puntoDisparo.position).normalized;
 
@@ -97,7 +118,6 @@ public class FantasmaCombate : MonoBehaviour
         return masCercano;
     }
 
-    // Visualiza el radio en la Scene
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
