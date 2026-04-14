@@ -52,14 +52,17 @@ public class MercaderInteractuar : MonoBehaviour
 
     void AbrirTienda()
     {
+        if (tiendaAbierta) return;
+        if (tienda == null) return;
+
         tiendaAbierta = true;
 
         if (textoInteraccion != null)
             textoInteraccion.SetActive(false);
 
-        if (tienda != null)
+        if (!tienda.activeSelf)
         {
-            Debug.Log("Abriendo HUD de tienda");
+            Debug.Log("Abriendo HUD de tienda: " + tienda.name);
             tienda.SetActive(true);
         }
     }
