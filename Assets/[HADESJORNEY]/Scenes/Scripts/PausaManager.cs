@@ -39,4 +39,13 @@ public class PausaManager : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene("SplashScreen"); 
     }
+
+    public void SalirDelJuego()
+    {
+        Time.timeScale = 1f;
+        Application.Quit();
+
+        // Para comprobarlo dentro del editor de Unity
+        Debug.Log("Saliendo del juego...");
+    }
 }
