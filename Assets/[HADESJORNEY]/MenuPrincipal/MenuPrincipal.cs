@@ -1,9 +1,16 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-// Controlador para el menú principal del juego
 public class MenuPrincipal : MonoBehaviour
 {
+    public GameObject canvasMenuPrincipal;
+    public GameObject canvasOpciones;
+
+    void Start()
+    {
+        canvasMenuPrincipal.SetActive(true);
+        canvasOpciones.SetActive(false);
+    }
+
     public void CargarEscena()
     {
         SceneLoader.Load("Sala_Inicial", "Abriendo las puertas del Inframundo...");
@@ -11,14 +18,19 @@ public class MenuPrincipal : MonoBehaviour
 
     public void AbrirOpciones()
     {
-        //SceneManager.LoadScene("Opciones");
+        canvasMenuPrincipal.SetActive(false);
+        canvasOpciones.SetActive(true);
+    }
+
+    public void VolverAlMenu()
+    {
+        canvasOpciones.SetActive(false);
+        canvasMenuPrincipal.SetActive(true);
     }
 
     public void SalirDelJuego()
     {
         Application.Quit();
-
-        // Solo sirve para comprobar que funciona dentro del editor de Unity
         Debug.Log("Saliendo del juego...");
     }
 }
