@@ -190,6 +190,7 @@ GameObject:
   - component: {fileID: 5143925065065630734}
   - component: {fileID: 9006032280513914664}
   - component: {fileID: 6120368885700007913}
+  - component: {fileID: 945139530723195239}
   m_Layer: 0
   m_Name: Alastor
   m_TagString: Player
@@ -256,11 +257,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  RotationSpeed: 10
+  rotationSpeed: 10
   dashSpeed: 15
   dashDuration: 0.2
-  forward: {x: 0, y: 0, z: 0}
-  right: {x: 0, y: 0, z: 0}
 --- !u!114 &6272437019516206938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,8 +272,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78043cd3f978659438eb90c62f8e6083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  escenaInicio: SplashScreen
   panelGameOver: {fileID: 0}
+  componentesADesactivar: []
+  escenaMenu: SplashScreen
+  usarLoadingScreen: 1
 --- !u!114 &-73500163641640762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,8 +394,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78043cd3f978659438eb90c62f8e6083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  escenaInicio: SplashScreen
   panelGameOver: {fileID: 0}
+  componentesADesactivar: []
+  escenaMenu: SplashScreen
+  usarLoadingScreen: 1
+--- !u!114 &945139530723195239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6463228544794707355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc7e4bf213cd4d47924c4318a7e6d2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  limiteCorazones: 3
+  multiplicadorDanio: 1
 --- !u!1 &9081644268362654423
 GameObject:
   m_ObjectHideFlags: 0

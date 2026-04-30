@@ -61,9 +61,13 @@ public class InventarioAlmas : MonoBehaviour
 
     public bool GastarAlmas(int cantidad)
     {
-        if (almas < cantidad) return false;
+        if (Almas < cantidad)
+        {
+            return false;
+        }
+
         almas -= cantidad;
-        OnAlmasCambiaron?.Invoke(almas);
+        OnAlmasCambiaron.Invoke(Almas);
         return true;
     }
 
