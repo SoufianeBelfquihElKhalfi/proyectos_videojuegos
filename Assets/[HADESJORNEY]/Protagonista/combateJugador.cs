@@ -82,6 +82,11 @@ public class CombateJugador : MonoBehaviour
         Collider[] enemigos = Physics.OverlapSphere(puntoAtaque.position, rangoAtaque, capaEnemigos);
 
         int danio = danioPorGolpe[golpeActual];
+
+        if (EstadisticasJugador.Instancia != null)
+        {
+            danio = Mathf.CeilToInt(danio * EstadisticasJugador.Instancia.multiplicadorDanio);
+        }
         float retroceso = retrocesoPorGolpe[golpeActual];
 
         foreach (Collider enemigo in enemigos)
