@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 5258551260066614983}
   - component: {fileID: 1417781521366815517}
   - component: {fileID: 1922654829058931504}
+  - component: {fileID: -3655118003531589829}
   m_Layer: 6
   m_Name: Enemigo
   m_TagString: Enemy
@@ -366,6 +367,27 @@ MonoBehaviour:
   duracionRetroceso: 0.15
   duracionParpadeo: 0.3
   cantidadParpadeos: 3
+--- !u!114 &-3655118003531589829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5366638020437931414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1da104c470ebf384491ecbba400d7433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heartFull: {fileID: 21300000, guid: 7bf83b75144c64347bd0864d0252fa53, type: 3}
+  heartHalf: {fileID: 21300000, guid: cd93449d7a4ba0a46993dd6e87c13800, type: 3}
+  heartEmpty: {fileID: 21300000, guid: 8c9621c4d77ba01458f30128077fa551, type: 3}
+  offset: {x: 0, y: 3, z: 0}
+  iconSize: 0.325
+  spacing: 0.05
+  colorLleno: {r: 1, g: 0, b: 0, a: 1}
+  colorMitad: {r: 1, g: 0.5, b: 0.5, a: 1}
+  colorVacio: {r: 0.3, g: 0.3, b: 0.3, a: 0.7}
 --- !u!1 &8009326880956877489
 GameObject:
   m_ObjectHideFlags: 0
