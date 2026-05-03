@@ -1574,7 +1574,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 805932474989920479, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.54
+      value: 0.513
       objectReference: {fileID: 0}
     - target: {fileID: 805932474989920479, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4625,6 +4625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 122133251}
   offset: {x: 0, y: 0, z: 0}
+  smoothTime: 0.1
 --- !u!4 &1456740071
 Transform:
   m_ObjectHideFlags: 0
