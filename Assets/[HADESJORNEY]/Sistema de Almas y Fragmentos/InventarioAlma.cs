@@ -76,4 +76,10 @@ public class InventarioAlmas : MonoBehaviour
         almas = 0;
         OnAlmasCambiaron?.Invoke(almas);
     }
+
+    public void PerderTodosLosFragmentos()
+    {
+        fragmentos = 0;
+        OnFragmentosCambiaron?.Invoke(fragmentos);
+    }
 }

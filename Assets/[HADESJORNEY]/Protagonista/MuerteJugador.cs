@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 /* Se ha cambiado por completo este script.
 
- * ANTES: el jugador perdía toda la vida, se llamaba a MuerteJugador.Morir() y se cargaba SplashScreen directamente.
+ * ANTES: el jugador perdï¿½a toda la vida, se llamaba a MuerteJugador.Morir() y se cargaba SplashScreen directamente.
 
  * AHORA:
 
@@ -16,11 +16,11 @@ using UnityEngine.SceneManagement;
 
  * - pausa el juego con Time.timeScale = 0,
 
- * - muestra el panel de muerte si existe, si no existe, usa fallback al menú
+ * - muestra el panel de muerte si existe, si no existe, usa fallback al menï¿½
 
  * - permite reintentar cargando la escena actual (cambiar para checkpoints)
 
- * - permite volver al menú
+ * - permite volver al menï¿½
 
  * - usa SceneLoader.
 
@@ -104,7 +104,7 @@ public class MuerteJugador : MonoBehaviour
 
 
 
-        Debug.LogWarning("MuerteJugador: no hay panel de Game Over asignado. Volviendo al menú.");
+        Debug.LogWarning("MuerteJugador: no hay panel de Game Over asignado. Volviendo al menï¿½.");
 
         VolverAlMenu();
 
@@ -115,6 +115,7 @@ public class MuerteJugador : MonoBehaviour
     public void Reintentar()
     {
         RestaurarEstado();
+        RestaurarDesdeCheckpoint();
 
         string escenaDestino = "Sala_Inicial";
         string mensajeCarga = "Reiniciando partida...";
@@ -140,6 +141,29 @@ public class MuerteJugador : MonoBehaviour
         }
     }
 
+    private void RestaurarDesdeCheckpoint()
+    {
+        InventarioAlmas inventario = InventarioAlmas.Instancia;
+        if (inventario == null) return;
+
+        inventario.PerderTodasLasAlmas();
+        inventario.PerderTodosLosFragmentos();
+
+        CheckpointData datos = CheckpointData.Instancia;
+        if (datos != null && datos.HayCheckpoint)
+        {
+            inventario.AgregarAlmas(datos.AlmasGuardadas);
+            inventario.AgregarFragmento(datos.FragmentosGuardados);
+
+            SistemaVida vida = GetComponent<SistemaVida>();
+            if (vida != null)
+            {
+                int corazones = datos.VidaMaximaGuardada / 2;
+                vida.CambiarCorazonesMaximos(corazones, true);
+            }
+        }
+    }
+
 
     public void VolverAlMenu()
 
@@ -153,7 +177,7 @@ public class MuerteJugador : MonoBehaviour
 
         {
 
-            SceneLoader.Load(escenaMenu, "Volviendo al menú...");
+            SceneLoader.Load(escenaMenu, "Volviendo al menï¿½...");
 
         }
 
@@ -177,6 +201,14 @@ public class MuerteJugador : MonoBehaviour
         if (panelGameOver != null)
         {
             panelGameOver.SetActive(false);
+        }
+
+        foreach (MonoBehaviour componente in componentesADesactivar)
+        {
+            if (componente != null)
+            {
+                componente.enabled = true;
+            }
         }
 
         haMuerto = false;

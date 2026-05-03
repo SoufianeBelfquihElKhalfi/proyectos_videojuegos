@@ -31,6 +31,8 @@ public class Checkpoint : MonoBehaviour
 
         Vector3 posicionGuardada = puntoRespawn != null ? puntoRespawn.position : vida.transform.position;
 
+        Debug.Log($"[Checkpoint] DISPARADO en escena {SceneManager.GetActiveScene().name} | almas a guardar: {inventario.Almas} | fragmentos: {inventario.Fragmentos}");
+
         CheckpointData.Instancia.Guardar(
             posicionGuardada,
             SceneManager.GetActiveScene().name,
