@@ -1,15 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-
-/* CAMBIOS REALIZADOS:
- * - Quitar el uso de jugador.GetComponent<MonoBehaviour>().StartCoroutine(...).
- * - Lanzar las corrutinas desde el propio script Proyectil.
- * - No depender de other.collider.CompareTag("Player") para aplicar daño; comprobar mejor la jerarquía / SistemaVida.
- */
 public class Proyectil : MonoBehaviour
 {
-    [Header("Configuración")]
+    [Header("Configuraciï¿½n")]
     [SerializeField] private float velocidad = 10f;
     [SerializeField] private int danio = 1;
     [SerializeField] private float tiempoVida = 5f;
@@ -69,8 +63,8 @@ public class Proyectil : MonoBehaviour
             Vector3 direccion = (objetivo.position - transform.position).normalized;
             direccion.y = 0f;
 
-            StartCoroutine(RetrocesoSuave(objetivo, direccion, fuerzaRetroceso));
-            StartCoroutine(ParpadeoGolpe(objetivo));
+            vida.StartCoroutine(RetrocesoSuave(objetivo, direccion, fuerzaRetroceso));
+            vida.StartCoroutine(ParpadeoGolpe(objetivo));
 
             Destroy(gameObject);
             return;
@@ -118,7 +112,13 @@ public class Proyectil : MonoBehaviour
 
         Renderer[] renderers = objetivo.GetComponentsInChildren<Renderer>();
         Color colorGolpe = Color.red;
-        Color colorOriginal = Color.white;
+
+        Color[] coloresOriginales = new Color[renderers.Length];
+        for (int j = 0; j < renderers.Length; j++)
+        {
+            if (renderers[j].material.HasProperty("_Color"))
+                coloresOriginales[j] = renderers[j].material.color;
+        }
 
         float tiempoPorParpadeo = duracionParpadeo / cantidadParpadeos;
 
@@ -134,11 +134,11 @@ public class Proyectil : MonoBehaviour
 
             yield return new WaitForSeconds(tiempoPorParpadeo / 2f);
 
-            foreach (Renderer r in renderers)
+            for (int j = 0; j < renderers.Length; j++)
             {
-                if (r.material.HasProperty("_Color"))
+                if (renderers[j].material.HasProperty("_Color"))
                 {
-                    r.material.color = colorOriginal;
+                    renderers[j].material.color = coloresOriginales[j];
                 }
             }
 

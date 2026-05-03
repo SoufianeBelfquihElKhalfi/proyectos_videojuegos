@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class RespawnJugador : MonoBehaviour
 {
-    [Header("Posición inicial si no hay checkpoint")]
+    [Header("Posiciï¿½n inicial si no hay checkpoint")]
     [SerializeField] private Transform posicionInicial;
 
     private void Start()
@@ -38,17 +38,10 @@ public class RespawnJugador : MonoBehaviour
     private void ColocarJugador(Vector3 posicion)
     {
         CharacterController cc = GetComponent<CharacterController>();
-        Rigidbody rb = GetComponent<Rigidbody>();
 
         if (cc != null) cc.enabled = false;
 
         transform.position = posicion;
-
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-        }
 
         if (cc != null) cc.enabled = true;
     }

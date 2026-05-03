@@ -1,13 +1,8 @@
 using UnityEngine;
 using System.Collections;
-
-/** Se ha cambiado la forma de funcionar de este script:
- * ANTES el script decidía dañar por proximidad constantemente,
- * AHORA el script solo hace daño cuando se llama a IntentarGolpear.
- */
 public class InfligirDanio : MonoBehaviour
 {
-    [Tooltip("1 = medio corazón, 2 = un corazón")]
+    [Tooltip("1 = medio corazï¿½n, 2 = un corazï¿½n")]
     [SerializeField] private int danioMitadCorazones = 1;
 
     [Header("Golpe")]
@@ -78,7 +73,13 @@ public class InfligirDanio : MonoBehaviour
 
         Renderer[] renderers = objetivo.GetComponentsInChildren<Renderer>();
         Color colorGolpe = Color.red;
-        Color colorOriginal = Color.white;
+
+        Color[] coloresOriginales = new Color[renderers.Length];
+        for (int j = 0; j < renderers.Length; j++)
+        {
+            if (renderers[j].material.HasProperty("_Color"))
+                coloresOriginales[j] = renderers[j].material.color;
+        }
 
         float tiempoPorParpadeo = duracionParpadeo / cantidadParpadeos;
 
@@ -94,11 +95,11 @@ public class InfligirDanio : MonoBehaviour
 
             yield return new WaitForSeconds(tiempoPorParpadeo * 0.5f);
 
-            foreach (Renderer r in renderers)
+            for (int j = 0; j < renderers.Length; j++)
             {
-                if (r.material.HasProperty("_Color"))
+                if (renderers[j].material.HasProperty("_Color"))
                 {
-                    r.material.color = colorOriginal;
+                    renderers[j].material.color = coloresOriginales[j];
                 }
             }
 

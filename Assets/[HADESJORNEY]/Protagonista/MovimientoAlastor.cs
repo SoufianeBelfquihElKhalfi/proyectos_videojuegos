@@ -12,15 +12,17 @@ public class MovimientoAlastor : MonoBehaviour
     [SerializeField] private float rotationSpeed = 10f;
     [SerializeField] private float dashSpeed = 15f;
     [SerializeField] private float dashDuration = 0.2f;
+    [SerializeField] private float gravedad = 20f;
 
     private bool isDashing = false;
     private Vector3 forward;
     private Vector3 right;
-    private Rigidbody rb;
+    private CharacterController cc;
+    private float velocidadVertical;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        cc = GetComponent<CharacterController>();
 
         if (Camera.main == null)
         {
@@ -40,24 +42,28 @@ public class MovimientoAlastor : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Dash") && !isDashing)
+        if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
         {
             StartCoroutine(Dash());
         }
 
-        if (isDashing)
-        {
-            return;
-        }
+        if (isDashing) return;
 
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         Vector3 direction = horizontalInput * right + verticalInput * forward;
 
+        if (cc.isGrounded)
+            velocidadVertical = -1f;
+        else
+            velocidadVertical -= gravedad * Time.deltaTime;
+
+        Vector3 movimiento = direction * speed;
+        movimiento.y = velocidadVertical;
+        cc.Move(movimiento * Time.deltaTime);
+
         if (direction.magnitude > 0.1f)
         {
-            rb.MovePosition(rb.position + direction * speed * Time.deltaTime);
-
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
@@ -75,15 +81,9 @@ public class MovimientoAlastor : MonoBehaviour
         while (Time.time < startTime + dashDuration)
         {
             Vector3 movement = transform.forward * dashSpeed * Time.deltaTime;
+            movement.y = cc.isGrounded ? -1f : -gravedad * Time.deltaTime;
 
-            if (!Physics.Raycast(rb.position, transform.forward, movement.magnitude + 0.5f))
-            {
-                rb.MovePosition(rb.position + movement);
-            }
-            else
-            {
-                break;
-            }
+            cc.Move(movement);
 
             yield return null;
         }
