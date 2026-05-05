@@ -1,8 +1,8 @@
 using UnityEngine;
-using System.Collections;
+
 public class InfligirDanio : MonoBehaviour
 {
-    [Tooltip("1 = medio coraz�n, 2 = un coraz�n")]
+    [Tooltip("1 = medio corazon, 2 = un corazon")]
     [SerializeField] private int danioMitadCorazones = 1;
 
     [Header("Golpe")]
@@ -20,12 +20,14 @@ public class InfligirDanio : MonoBehaviour
         }
 
         float distancia = Vector3.Distance(transform.position, jugador.position);
+
         if (distancia > distanciaGolpe)
         {
             return false;
         }
 
         SistemaVida vida = jugador.GetComponentInParent<SistemaVida>();
+
         if (vida == null)
         {
             return false;
@@ -33,33 +35,21 @@ public class InfligirDanio : MonoBehaviour
 
         vida.RecibirDanio(danioMitadCorazones);
 
-        Vector3 direccion = (jugador.position - transform.position).normalized;
-        direccion.y = 0f;
+        MovimientoAlastor movimientoJugador = jugador.GetComponentInParent<MovimientoAlastor>();
 
-        StartCoroutine(RetrocesoSuave(jugador, direccion, fuerzaRetroceso));
+        if (movimientoJugador != null)
+        {
+            Vector3 direccion = jugador.position - transform.position;
+            direccion.y = 0f;
+
+            movimientoJugador.AplicarRetroceso(
+                direccion,
+                fuerzaRetroceso,
+                duracionRetroceso
+            );
+        }
 
         return true;
-    }
-
-    private IEnumerator RetrocesoSuave(Transform objetivo, Vector3 direccion, float distancia)
-    {
-        if (objetivo == null) yield break;
-
-        Vector3 inicio = objetivo.position;
-        Vector3 destino = inicio + direccion * distancia;
-        float tiempo = 0f;
-
-        while (tiempo < duracionRetroceso)
-        {
-            if (objetivo == null) yield break;
-
-            tiempo += Time.deltaTime;
-            float t = tiempo / duracionRetroceso;
-            float curva = 1f - Mathf.Pow(1f - t, 3f);
-            objetivo.position = Vector3.Lerp(inicio, destino, curva);
-
-            yield return null;
-        }
     }
 
     private void OnDrawGizmosSelected()
