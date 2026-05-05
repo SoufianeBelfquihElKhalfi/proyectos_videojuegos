@@ -13,10 +13,6 @@ public class Proyectil : MonoBehaviour
     [SerializeField] private float fuerzaRetroceso = 2f;
     [SerializeField] private float duracionRetroceso = 0.2f;
 
-    [Header("Efecto visual")]
-    [SerializeField] private float duracionParpadeo = 0.3f;
-    [SerializeField] private int cantidadParpadeos = 3;
-
     private Vector3 velocidadActual;
     private bool inicializado = false;
     private Rigidbody rb;
@@ -64,7 +60,6 @@ public class Proyectil : MonoBehaviour
             direccion.y = 0f;
 
             vida.StartCoroutine(RetrocesoSuave(objetivo, direccion, fuerzaRetroceso));
-            vida.StartCoroutine(ParpadeoGolpe(objetivo));
 
             Destroy(gameObject);
             return;
@@ -103,46 +98,4 @@ public class Proyectil : MonoBehaviour
         }
     }
 
-    private IEnumerator ParpadeoGolpe(Transform objetivo)
-    {
-        if (objetivo == null)
-        {
-            yield break;
-        }
-
-        Renderer[] renderers = objetivo.GetComponentsInChildren<Renderer>();
-        Color colorGolpe = Color.red;
-
-        Color[] coloresOriginales = new Color[renderers.Length];
-        for (int j = 0; j < renderers.Length; j++)
-        {
-            if (renderers[j].material.HasProperty("_Color"))
-                coloresOriginales[j] = renderers[j].material.color;
-        }
-
-        float tiempoPorParpadeo = duracionParpadeo / cantidadParpadeos;
-
-        for (int i = 0; i < cantidadParpadeos; i++)
-        {
-            foreach (Renderer r in renderers)
-            {
-                if (r.material.HasProperty("_Color"))
-                {
-                    r.material.color = colorGolpe;
-                }
-            }
-
-            yield return new WaitForSeconds(tiempoPorParpadeo / 2f);
-
-            for (int j = 0; j < renderers.Length; j++)
-            {
-                if (renderers[j].material.HasProperty("_Color"))
-                {
-                    renderers[j].material.color = coloresOriginales[j];
-                }
-            }
-
-            yield return new WaitForSeconds(tiempoPorParpadeo / 2f);
-        }
-    }
 }

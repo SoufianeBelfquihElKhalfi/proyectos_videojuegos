@@ -1,8 +1,13 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
 
 public class SistemaVida : MonoBehaviour
 {
+    [Header("Efecto visual al recibir daño")]
+    [SerializeField] private float duracionParpadeo = 0.3f;
+    [SerializeField] private int cantidadParpadeos = 3;
+
     [Header("Vida en corazones")]
     [Min(1)] public int corazonesMaximos = 3;
 
@@ -16,6 +21,9 @@ public class SistemaVida : MonoBehaviour
 
     private int corazonesMitadMaximos;
     private int corazonesMitadActuales;
+
+    private Coroutine parpadeoActivo;
+    private Color[] coloresOriginales;
 
     public int VidaActual => corazonesMitadActuales;
     public int VidaMaxima => corazonesMitadMaximos;
@@ -51,10 +59,65 @@ public class SistemaVida : MonoBehaviour
         corazonesMitadActuales = Mathf.Clamp(corazonesMitadActuales, 0, corazonesMitadMaximos);
 
         NotificarCambioVida();
+        IniciarParpadeo();
 
         if (corazonesMitadActuales <= 0)
         {
             Morir();
+        }
+    }
+
+    private void IniciarParpadeo()
+    {
+        if (parpadeoActivo != null)
+        {
+            StopCoroutine(parpadeoActivo);
+            RestaurarColores();
+        }
+
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        coloresOriginales = new Color[renderers.Length];
+        for (int j = 0; j < renderers.Length; j++)
+        {
+            if (renderers[j].material.HasProperty("_Color"))
+                coloresOriginales[j] = renderers[j].material.color;
+        }
+
+        parpadeoActivo = StartCoroutine(ParpadeoGolpe(renderers));
+    }
+
+    private IEnumerator ParpadeoGolpe(Renderer[] renderers)
+    {
+        Color colorGolpe = Color.red;
+        float tiempoPorParpadeo = duracionParpadeo / cantidadParpadeos;
+
+        for (int i = 0; i < cantidadParpadeos; i++)
+        {
+            foreach (Renderer r in renderers)
+            {
+                if (r != null && r.material.HasProperty("_Color"))
+                    r.material.color = colorGolpe;
+            }
+
+            yield return new WaitForSecondsRealtime(tiempoPorParpadeo / 2f);
+
+            RestaurarColores();
+
+            yield return new WaitForSecondsRealtime(tiempoPorParpadeo / 2f);
+        }
+
+        parpadeoActivo = null;
+    }
+
+    private void RestaurarColores()
+    {
+        if (coloresOriginales == null) return;
+
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        for (int j = 0; j < renderers.Length && j < coloresOriginales.Length; j++)
+        {
+            if (renderers[j].material.HasProperty("_Color"))
+                renderers[j].material.color = coloresOriginales[j];
         }
     }
 
