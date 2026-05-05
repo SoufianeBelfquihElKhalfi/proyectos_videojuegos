@@ -1,9 +1,8 @@
 using UnityEngine;
-using System.Collections;
 
 public class Proyectil : MonoBehaviour
 {
-    [Header("Configuraci�n")]
+    [Header("Configuracion")]
     [SerializeField] private float velocidad = 10f;
     [SerializeField] private int danio = 1;
     [SerializeField] private float tiempoVida = 5f;
@@ -22,6 +21,7 @@ public class Proyectil : MonoBehaviour
         Vector3 dirConArco = (dir.normalized + Vector3.up * 0.4f).normalized;
         velocidadActual = dirConArco * velocidad;
         inicializado = true;
+
         Destroy(gameObject, tiempoVida);
     }
 
@@ -52,14 +52,21 @@ public class Proyectil : MonoBehaviour
 
         if (vida != null)
         {
-            Transform objetivo = vida.transform;
-
             vida.RecibirDanio(danio);
 
-            Vector3 direccion = (objetivo.position - transform.position).normalized;
-            direccion.y = 0f;
+            MovimientoAlastor movimientoJugador = vida.GetComponent<MovimientoAlastor>();
 
-            vida.StartCoroutine(RetrocesoSuave(objetivo, direccion, fuerzaRetroceso));
+            if (movimientoJugador != null)
+            {
+                Vector3 direccion = vida.transform.position - transform.position;
+                direccion.y = 0f;
+
+                movimientoJugador.AplicarRetroceso(
+                    direccion,
+                    fuerzaRetroceso,
+                    duracionRetroceso
+                );
+            }
 
             Destroy(gameObject);
             return;
@@ -70,32 +77,4 @@ public class Proyectil : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    private IEnumerator RetrocesoSuave(Transform objetivo, Vector3 direccion, float distancia)
-    {
-        if (objetivo == null)
-        {
-            yield break;
-        }
-
-        Vector3 inicio = objetivo.position;
-        Vector3 destino = inicio + direccion * distancia;
-        float tiempo = 0f;
-
-        while (tiempo < duracionRetroceso)
-        {
-            if (objetivo == null)
-            {
-                yield break;
-            }
-
-            tiempo += Time.deltaTime;
-            float t = tiempo / duracionRetroceso;
-            float curva = 1f - Mathf.Pow(1f - t, 3f);
-            objetivo.position = Vector3.Lerp(inicio, destino, curva);
-
-            yield return null;
-        }
-    }
-
 }
