@@ -3524,7 +3524,7 @@ MonoBehaviour:
   - {fileID: 2114623032}
   puertaVisual: {fileID: 561013300}
   bloqueadorSalida: {fileID: 825562645}
-  teleportSalida: {fileID: 1552870515}
+  teleportSalida: {fileID: 4147684962697859761}
 --- !u!4 &1233282642
 Transform:
   m_ObjectHideFlags: 0
@@ -4654,7 +4654,7 @@ PrefabInstance:
       addedObject: {fileID: 825562644}
     - targetCorrespondingSourceObject: {fileID: 3749644048615883782, guid: 6acf27f3a4b30404a9ef9e4a7c80d5a5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1552870514}
+      addedObject: {fileID: 510587242894007305}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6acf27f3a4b30404a9ef9e4a7c80d5a5, type: 3}
 --- !u!4 &1533054955 stripped
@@ -4662,168 +4662,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3749644048615883782, guid: 6acf27f3a4b30404a9ef9e4a7c80d5a5, type: 3}
   m_PrefabInstance: {fileID: 1533054954}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1552870513
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1533054955}
-    m_Modifications:
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1886692529630809667, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2041146755135536228, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: mensajeCarga
-      value: Entrando en la sala del mercader...
-      objectReference: {fileID: 0}
-    - target: {fileID: 2041146755135536228, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: nombreEscena
-      value: SalaMercader
-      objectReference: {fileID: 0}
-    - target: {fileID: 2101379979933693755, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4147684963964894912, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_Name
-      value: TeleportSalida
-      objectReference: {fileID: 0}
-    - target: {fileID: 4147684963964894912, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4705223582855657196, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5377507718321052475, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5839629777591549818, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8454840677600523441, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9080455415013428776, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1297473193665745944, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-    - {fileID: 5513607012243639193, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4147684963964894912, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1552870517}
-    - targetCorrespondingSourceObject: {fileID: 4147684963964894912, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1552870516}
-  m_SourcePrefab: {fileID: 100100000, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
---- !u!4 &1552870514 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-  m_PrefabInstance: {fileID: 1552870513}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1552870515 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4147684963964894912, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-  m_PrefabInstance: {fileID: 1552870513}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1552870516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552870515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e4213bf98b0c9144a74fbb46a876123, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nombreEscena: SalaMercader
-  mensajeCarga: Entrando en la sala del mercader...
---- !u!65 &1552870517
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552870515}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1580754651
 GameObject:
   m_ObjectHideFlags: 0
@@ -6186,6 +6024,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6acd8d4a737cfa941976d87723d2529f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &510587242894007305 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+  m_PrefabInstance: {fileID: 5640622372440421543}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3082199921811882517
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6321,6 +6164,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3287713270935523003, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
   m_PrefabInstance: {fileID: 3464029894799021551}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4147684962697859761 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1758374391007834812, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+  m_PrefabInstance: {fileID: 5640622372440421543}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5573250028897697496
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6383,6 +6231,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6130764762032957781, guid: 3ed46dd1694b5974e9b62ca279f1da65, type: 3}
   m_PrefabInstance: {fileID: 5573250028897697496}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5640622372440421543
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1533054955}
+    m_Modifications:
+    - target: {fileID: 1758374391007834812, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_Name
+      value: TeleportSalida
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
 --- !u!1001 &8312202536989214924
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1252,6 +1252,68 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffe44d7f4c791314f980d7796231e220, type: 3}
+--- !u!1001 &445456191
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1533054955}
+    m_Modifications:
+    - target: {fileID: 1758374391007834812, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_Name
+      value: TeleportSalida
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+--- !u!4 &445456192 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+  m_PrefabInstance: {fileID: 445456191}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &522360906
 GameObject:
   m_ObjectHideFlags: 0
@@ -3098,6 +3160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6acd8d4a737cfa941976d87723d2529f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  duracionParpadeo: 0.3
+  cantidadParpadeos: 3
   corazonesMaximos: 1
   corazonesMitadIniciales: -1
   alMorir:
@@ -3676,7 +3740,7 @@ MonoBehaviour:
   - {fileID: 2114623032}
   puertaVisual: {fileID: 561013300}
   bloqueadorSalida: {fileID: 825562645}
-  teleportSalida: {fileID: 1552870515}
+  teleportSalida: {fileID: 0}
 --- !u!4 &1233282642
 Transform:
   m_ObjectHideFlags: 0
@@ -4968,7 +5032,7 @@ PrefabInstance:
       addedObject: {fileID: 825562644}
     - targetCorrespondingSourceObject: {fileID: 3749644048615883782, guid: 6acf27f3a4b30404a9ef9e4a7c80d5a5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1552870514}
+      addedObject: {fileID: 445456192}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6acf27f3a4b30404a9ef9e4a7c80d5a5, type: 3}
 --- !u!4 &1533054955 stripped
@@ -4976,134 +5040,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3749644048615883782, guid: 6acf27f3a4b30404a9ef9e4a7c80d5a5, type: 3}
   m_PrefabInstance: {fileID: 1533054954}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1552870513
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1533054955}
-    m_Modifications:
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.19999996
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 22.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -13.100001
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.47
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2041146755135536228, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: mensajeCarga
-      value: Entrando en la sala del mercader...
-      objectReference: {fileID: 0}
-    - target: {fileID: 2041146755135536228, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: nombreEscena
-      value: Sala_Jefe
-      objectReference: {fileID: 0}
-    - target: {fileID: 4147684963964894912, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_Name
-      value: TeleportSalida
-      objectReference: {fileID: 0}
-    - target: {fileID: 4147684963964894912, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4147684963964894912, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1552870517}
-    - targetCorrespondingSourceObject: {fileID: 4147684963964894912, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1552870516}
-  m_SourcePrefab: {fileID: 100100000, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
---- !u!4 &1552870514 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-  m_PrefabInstance: {fileID: 1552870513}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1552870515 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4147684963964894912, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-  m_PrefabInstance: {fileID: 1552870513}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1552870516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552870515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e4213bf98b0c9144a74fbb46a876123, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nombreEscena: SalaMercader
-  mensajeCarga: Entrando en la sala del mercader...
---- !u!65 &1552870517
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552870515}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1609753212
 GameObject:
   m_ObjectHideFlags: 0
