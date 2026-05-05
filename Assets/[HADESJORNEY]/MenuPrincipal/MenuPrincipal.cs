@@ -5,7 +5,7 @@ public class MenuPrincipal : MonoBehaviour
     public GameObject canvasMenuPrincipal;
     public GameObject canvasOpciones;
 
-    void Start()
+    private void Start()
     {
         canvasMenuPrincipal.SetActive(true);
         canvasOpciones.SetActive(false);
@@ -13,8 +13,29 @@ public class MenuPrincipal : MonoBehaviour
 
     public void CargarEscena()
     {
-        DatosGlobales.ReiniciarPartida();
-        SceneLoader.Load("Sala_Inicial", "Abriendo las puertas del Inframundo...");
+        ReiniciarPartida();
+
+        SceneLoader.Load(
+            "Sala_Inicial",
+            "Abriendo las puertas del Inframundo..."
+        );
+    }
+
+    private void ReiniciarPartida()
+    {
+        if (InventarioAlmas.Instancia != null)
+        {
+            InventarioAlmas.Instancia.ResetearInventario();
+        }
+
+        if (CheckpointData.Instancia != null)
+        {
+            CheckpointData.Instancia.BorrarCheckpoint();
+        }
+
+        DatosGlobales.hayDatosVida = false;
+        DatosGlobales.vidaActual = 0;
+        DatosGlobales.vidaMaxima = 0;
     }
 
     public void AbrirOpciones()

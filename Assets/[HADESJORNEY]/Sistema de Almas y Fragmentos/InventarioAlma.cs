@@ -18,57 +18,70 @@ public class InventarioAlmas : MonoBehaviour
     public int Almas => almas;
     public int Fragmentos => fragmentos;
 
-    void Awake()
+    private void Awake()
     {
         if (Instancia != null && Instancia != this)
         {
             Destroy(gameObject);
             return;
         }
+
         Instancia = this;
         DontDestroyOnLoad(gameObject);
 
         if (OnAlmasCambiaron == null) OnAlmasCambiaron = new UnityEvent<int>();
         if (OnFragmentosCambiaron == null) OnFragmentosCambiaron = new UnityEvent<int>();
+        if (OnContadorCambio == null) OnContadorCambio = new UnityEvent<string, int>();
+    }
+
+    private void Start()
+    {
+        NotificarCambios();
     }
 
     public void AgregarAlmas(int cantidad)
     {
+        if (cantidad <= 0) return;
+
         almas += cantidad;
-        Debug.Log("AgregarAlmas llamado. Total ahora: " + almas + " | Listeners: " + OnAlmasCambiaron.GetPersistentEventCount());
         OnAlmasCambiaron?.Invoke(almas);
     }
 
     public void AgregarFragmento(int cantidad = 1)
     {
+        if (cantidad <= 0) return;
+
         fragmentos += cantidad;
         OnFragmentosCambiaron?.Invoke(fragmentos);
         RegistrarContador("Fragmentos", cantidad);
     }
 
-    private void RegistrarContador(string nombre, int cantidad)
-    {
-        if (!contadores.ContainsKey(nombre))
-            contadores[nombre] = 0;
-        contadores[nombre] += cantidad;
-        OnContadorCambio?.Invoke(nombre, contadores[nombre]);
-    }
-
-    public int ObtenerContador(string nombre)
-    {
-        return contadores.ContainsKey(nombre) ? contadores[nombre] : 0;
-    }
-
     public bool GastarAlmas(int cantidad)
     {
-        if (Almas < cantidad)
+        if (cantidad <= 0) return false;
+
+        if (almas < cantidad)
         {
             return false;
         }
 
         almas -= cantidad;
-        OnAlmasCambiaron.Invoke(Almas);
+        OnAlmasCambiaron?.Invoke(almas);
         return true;
+    }
+
+    public void EstablecerInventario(int nuevasAlmas, int nuevosFragmentos)
+    {
+        almas = Mathf.Max(0, nuevasAlmas);
+        fragmentos = Mathf.Max(0, nuevosFragmentos);
+
+        NotificarCambios();
+    }
+
+    public void ResetearInventario()
+    {
+        EstablecerInventario(0, 0);
+        contadores.Clear();
     }
 
     public void PerderTodasLasAlmas()
@@ -80,6 +93,28 @@ public class InventarioAlmas : MonoBehaviour
     public void PerderTodosLosFragmentos()
     {
         fragmentos = 0;
+        OnFragmentosCambiaron?.Invoke(fragmentos);
+    }
+
+    private void RegistrarContador(string nombre, int cantidad)
+    {
+        if (!contadores.ContainsKey(nombre))
+        {
+            contadores[nombre] = 0;
+        }
+
+        contadores[nombre] += cantidad;
+        OnContadorCambio?.Invoke(nombre, contadores[nombre]);
+    }
+
+    public int ObtenerContador(string nombre)
+    {
+        return contadores.ContainsKey(nombre) ? contadores[nombre] : 0;
+    }
+
+    private void NotificarCambios()
+    {
+        OnAlmasCambiaron?.Invoke(almas);
         OnFragmentosCambiaron?.Invoke(fragmentos);
     }
 }
