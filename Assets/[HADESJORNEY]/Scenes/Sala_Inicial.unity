@@ -1254,10 +1254,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -73500163641640762, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-      propertyPath: usarVidaGuardadaEntreEscenas
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 805932474989920479, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.8092337
@@ -1298,50 +1294,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2137511015635395932, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4389861204625397304, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 6420554188688410435, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 6463228544794707355, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: m_Name
       value: Alastor (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 9081644268362654423, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6463228544794707355, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1171558349}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
 --- !u!114 &619684855 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -73500163641640762, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
   m_PrefabInstance: {fileID: 619684854}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 619684856}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6acd8d4a737cfa941976d87723d2529f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &619684856 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6463228544794707355, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-  m_PrefabInstance: {fileID: 619684854}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &665836050
 GameObject:
   m_ObjectHideFlags: 0
@@ -2678,19 +2650,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 805932474989920479, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
   m_PrefabInstance: {fileID: 619684854}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1171558349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 619684856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f918322a16cea0747a5ab4fd05b113ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  posicionInicial: {fileID: 0}
 --- !u!1001 &1175632068
 PrefabInstance:
   m_ObjectHideFlags: 0

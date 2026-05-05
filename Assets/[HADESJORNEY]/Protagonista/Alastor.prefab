@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7275646671039893548}
   m_Layer: 0
   m_Name: areaGolpe
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 2256820607302975723}
   m_Layer: 0
   m_Name: GhostAnchor
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -190,6 +190,7 @@ GameObject:
   - component: {fileID: 6120368885700007913}
   - component: {fileID: 945139530723195239}
   - component: {fileID: 1581732458979445829}
+  - component: {fileID: 3634187348101386907}
   m_Layer: 0
   m_Name: Alastor
   m_TagString: Player
@@ -262,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6acd8d4a737cfa941976d87723d2529f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usarVidaGuardadaEntreEscenas: 0
+  usarVidaGuardadaEntreEscenas: 1
   duracionParpadeo: 0.3
   cantidadParpadeos: 3
   corazonesMaximos: 3
@@ -417,6 +418,19 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3634187348101386907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6463228544794707355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f918322a16cea0747a5ab4fd05b113ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  posicionInicial: {fileID: 0}
 --- !u!1001 &4692785168677505829
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -468,6 +482,10 @@ PrefabInstance:
     - target: {fileID: 6668117797699071609, guid: a04523783ff067545b424135bde1d033, type: 3}
       propertyPath: m_Name
       value: Cube
+      objectReference: {fileID: 0}
+    - target: {fileID: 6668117797699071609, guid: a04523783ff067545b424135bde1d033, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
