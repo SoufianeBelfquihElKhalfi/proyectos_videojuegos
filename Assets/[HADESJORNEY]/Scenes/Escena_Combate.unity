@@ -4672,23 +4672,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.19999996
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 22.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -13.100001
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.47
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4718,6 +4722,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1886692529630809667, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2041146755135536228, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
       propertyPath: mensajeCarga
       value: Entrando en la sala del mercader...
@@ -4725,6 +4733,10 @@ PrefabInstance:
     - target: {fileID: 2041146755135536228, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
       propertyPath: nombreEscena
       value: SalaMercader
+      objectReference: {fileID: 0}
+    - target: {fileID: 2101379979933693755, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4147684963964894912, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
       propertyPath: m_Name
@@ -4734,7 +4746,29 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 4705223582855657196, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377507718321052475, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839629777591549818, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8454840677600523441, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9080455415013428776, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1297473193665745944, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
+    - {fileID: 5513607012243639193, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
