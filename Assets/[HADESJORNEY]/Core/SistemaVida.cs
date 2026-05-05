@@ -4,6 +4,10 @@ using System.Collections;
 
 public class SistemaVida : MonoBehaviour
 {
+    [Header("Persistencia")]
+    [Tooltip("Activar solo en el jugador. Los enemigos deben tenerlo desactivado.")]
+    [SerializeField] private bool usarVidaGuardadaEntreEscenas = false;
+
     [Header("Efecto visual al recibir daño")]
     [SerializeField] private float duracionParpadeo = 0.3f;
     [SerializeField] private int cantidadParpadeos = 3;
@@ -29,26 +33,49 @@ public class SistemaVida : MonoBehaviour
     public int VidaActual => corazonesMitadActuales;
     public int VidaMaxima => corazonesMitadMaximos;
     public bool EstaMuerto => corazonesMitadActuales <= 0;
+    public bool UsaVidaGuardadaEntreEscenas => usarVidaGuardadaEntreEscenas;
 
     private void Awake()
     {
+        InicializarVida();
+        NotificarCambioVida();
+    }
+
+    private void InicializarVida()
+    {
+        corazonesMaximos = Mathf.Max(1, corazonesMaximos);
         corazonesMitadMaximos = corazonesMaximos * 2;
 
-        if (DatosGlobales.hayDatosVida)
+        if (usarVidaGuardadaEntreEscenas && DatosGlobales.hayDatosVida)
         {
-            corazonesMitadActuales = DatosGlobales.vidaActual;
-            corazonesMitadMaximos = DatosGlobales.vidaMaxima;
-            corazonesMaximos = corazonesMitadMaximos / 2;
+            CargarVidaGuardada();
+            return;
+        }
+
+        InicializarVidaNormal();
+    }
+
+    private void CargarVidaGuardada()
+    {
+        corazonesMitadMaximos = Mathf.Max(2, DatosGlobales.vidaMaxima);
+        corazonesMitadActuales = Mathf.Clamp(DatosGlobales.vidaActual, 0, corazonesMitadMaximos);
+        corazonesMaximos = Mathf.Max(1, corazonesMitadMaximos / 2);
+    }
+
+    private void InicializarVidaNormal()
+    {
+        if (corazonesMitadIniciales < 0)
+        {
+            corazonesMitadActuales = corazonesMitadMaximos;
         }
         else
         {
-            if (corazonesMitadIniciales < 0)
-                corazonesMitadActuales = corazonesMitadMaximos;
-            else
-                corazonesMitadActuales = Mathf.Clamp(corazonesMitadIniciales, 0, corazonesMitadMaximos);
+            corazonesMitadActuales = Mathf.Clamp(
+                corazonesMitadIniciales,
+                0,
+                corazonesMitadMaximos
+            );
         }
-
-        NotificarCambioVida();
     }
 
     public void RecibirDanio(int danioMitadCorazones)
@@ -78,10 +105,13 @@ public class SistemaVida : MonoBehaviour
 
         renderersGuardados = GetComponentsInChildren<Renderer>();
         coloresOriginales = new Color[renderersGuardados.Length];
+
         for (int j = 0; j < renderersGuardados.Length; j++)
         {
-            if (renderersGuardados[j].material.HasProperty("_Color"))
+            if (renderersGuardados[j] != null && renderersGuardados[j].material.HasProperty("_Color"))
+            {
                 coloresOriginales[j] = renderersGuardados[j].material.color;
+            }
         }
 
         parpadeoActivo = StartCoroutine(ParpadeoGolpe());
@@ -97,7 +127,9 @@ public class SistemaVida : MonoBehaviour
             for (int j = 0; j < renderersGuardados.Length; j++)
             {
                 if (renderersGuardados[j] != null && renderersGuardados[j].material.HasProperty("_Color"))
+                {
                     renderersGuardados[j].material.color = colorGolpe;
+                }
             }
 
             yield return new WaitForSecondsRealtime(tiempoPorParpadeo / 2f);
@@ -117,7 +149,9 @@ public class SistemaVida : MonoBehaviour
         for (int j = 0; j < renderersGuardados.Length; j++)
         {
             if (renderersGuardados[j] != null && renderersGuardados[j].material.HasProperty("_Color"))
+            {
                 renderersGuardados[j].material.color = coloresOriginales[j];
+            }
         }
     }
 
@@ -138,9 +172,13 @@ public class SistemaVida : MonoBehaviour
         corazonesMitadMaximos = corazonesMaximos * 2;
 
         if (rellenarVida)
+        {
             corazonesMitadActuales = corazonesMitadMaximos;
+        }
         else
+        {
             corazonesMitadActuales = Mathf.Clamp(corazonesMitadActuales, 0, corazonesMitadMaximos);
+        }
 
         NotificarCambioVida();
     }
