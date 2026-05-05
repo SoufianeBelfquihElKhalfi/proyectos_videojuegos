@@ -1109,7 +1109,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 805932474989920479, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 805932474989920479, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1117,7 +1117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 805932474989920479, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 805932474989920479, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: m_LocalRotation.z
@@ -1129,7 +1129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 805932474989920479, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 805932474989920479, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -2687,7 +2687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 342fb3bac12d6af4e9271509dfa6de2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fantasmaCombate: {fileID: 1613645403}
+  fantasmaCombate: {fileID: 0}
   iconoFondo: {fileID: 1113876225}
   iconoFill: {fileID: 2124417886}
   textoCooldown: {fileID: 2014498076}
@@ -4627,35 +4627,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1608212788}
   m_CullTransparentMesh: 1
---- !u!1 &1613645402 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7793067757123489276, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
-  m_PrefabInstance: {fileID: 1925871101}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1613645403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1613645402}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afabc0f8b100a3d45bd71b40d00b003f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duracionCombate: 7
-  cooldown: 10
-  puntoDisparo: {fileID: 1438316577}
-  prefabFlecha: {fileID: 4421249402237693187, guid: 12e1f547ad93f9144beddcd0550c5dc5, type: 3}
-  velocidadFlecha: 15
-  intervaloDisparo: 1
-  radioDeteccion: 10
-  colorNormal: {r: 1, g: 1, b: 1, a: 1}
-  colorCombate: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  enModoCombate: 0
-  tiempoRestanteCombate: 0
-  tiempoRestanteCooldown: 0
 --- !u!4 &1613645404 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6629924287559741552, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
@@ -5371,10 +5342,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6629924287559741552, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1438316577}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7793067757123489276, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1613645403}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
 --- !u!1001 &1939729831
 PrefabInstance:
