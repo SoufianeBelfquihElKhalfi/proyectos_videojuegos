@@ -2661,45 +2661,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6629924287559741552, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1127402798}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7793067757123489276, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 658115764}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
---- !u!1 &658115762 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7793067757123489276, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
-  m_PrefabInstance: {fileID: 658115761}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &658115763 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6629924287559741552, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
   m_PrefabInstance: {fileID: 658115761}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &658115764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 658115762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afabc0f8b100a3d45bd71b40d00b003f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duracionCombate: 7
-  cooldown: 10
-  puntoDisparo: {fileID: 1127402798}
-  prefabFlecha: {fileID: 4421249402237693187, guid: 12e1f547ad93f9144beddcd0550c5dc5, type: 3}
-  velocidadFlecha: 15
-  intervaloDisparo: 1
-  radioDeteccion: 10
-  colorNormal: {r: 1, g: 1, b: 1, a: 1}
-  colorCombate: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  enModoCombate: 0
-  tiempoRestanteCombate: 0
-  tiempoRestanteCooldown: 0
 --- !u!1 &665561757
 GameObject:
   m_ObjectHideFlags: 0
@@ -6214,7 +6182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 342fb3bac12d6af4e9271509dfa6de2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fantasmaCombate: {fileID: 658115764}
+  fantasmaCombate: {fileID: 0}
   iconoFondo: {fileID: 1665674581}
   iconoFill: {fileID: 272579179}
   textoCooldown: {fileID: 218057232}
