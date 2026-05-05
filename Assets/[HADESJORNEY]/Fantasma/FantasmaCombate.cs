@@ -121,19 +121,41 @@ public class FantasmaCombate : MonoBehaviour
     Transform BuscarEnemigoMasCercano()
     {
         GameObject[] enemigos = GameObject.FindGameObjectsWithTag("Enemy");
+
+        Debug.Log("[FANTASMA] Enemigos encontrados con tag Enemy: " + enemigos.Length);
+
         Transform masCercano = null;
         float distanciaMin = Mathf.Infinity;
 
         foreach (GameObject e in enemigos)
         {
             float d = Vector3.Distance(transform.position, e.transform.position);
-            if (d > radioDeteccion) continue;
+
+            Debug.Log("[FANTASMA] Revisando enemigo: " + e.name + " | Distancia: " + d);
+
+            if (d > radioDeteccion)
+            {
+                Debug.Log("[FANTASMA] Enemigo fuera del radio: " + e.name);
+                continue;
+            }
+
             if (d < distanciaMin)
             {
                 distanciaMin = d;
                 masCercano = e.transform;
+                Debug.Log("[FANTASMA] Nuevo enemigo más cercano: " + e.name);
             }
         }
+
+        if (masCercano == null)
+        {
+            Debug.LogWarning("[FANTASMA] No hay enemigos válidos dentro del radio.");
+        }
+        else
+        {
+            Debug.Log("[FANTASMA] Enemigo final seleccionado: " + masCercano.name);
+        }
+
         return masCercano;
     }
 

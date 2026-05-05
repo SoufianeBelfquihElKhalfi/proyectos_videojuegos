@@ -1,46 +1,77 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public class FlechaFantasma : MonoBehaviour
 {
-    [HideInInspector] public Transform objetivo;
+    public Transform objetivo;
     public float velocidad = 15f;
-    public float fuerzaGiro = 5f;
+    public float rotacionSuavizada = 10f;
 
     private Rigidbody rb;
 
-    void Awake()
+    private void Awake()
     {
+        Debug.Log("[FLECHA MOVIMIENTO] Awake en: " + gameObject.name);
+
         rb = GetComponent<Rigidbody>();
+
+        if (rb == null)
+        {
+            Debug.LogWarning("[FLECHA MOVIMIENTO] No había Rigidbody. Se añade automáticamente.");
+            rb = gameObject.AddComponent<Rigidbody>();
+        }
+
         rb.useGravity = false;
+        rb.isKinematic = true;
+        rb.constraints = RigidbodyConstraints.None;
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+
+        Debug.Log("[FLECHA MOVIMIENTO] Rigidbody configurado correctamente.");
     }
 
-    void FixedUpdate()
+    private void Start()
     {
         if (objetivo == null)
         {
-            rb.linearVelocity = transform.forward * velocidad;
+            Debug.LogError("[FLECHA MOVIMIENTO] La flecha NO tiene objetivo asignado en Start.");
+        }
+        else
+        {
+            Debug.Log("[FLECHA MOVIMIENTO] Objetivo recibido en Start: " + objetivo.name);
+        }
+    }
+
+    private void Update()
+    {
+        if (objetivo == null)
+        {
+            Debug.LogWarning("[FLECHA MOVIMIENTO] Objetivo perdido. Destruyendo flecha.");
+            Destroy(gameObject);
             return;
         }
 
-        Vector3 dirObjetivo = (objetivo.position - transform.position).normalized;
+        Vector3 direccion = objetivo.position - transform.position;
 
-        Vector3 nuevaDireccion = Vector3.RotateTowards(
-            transform.forward,
-            dirObjetivo,
-            fuerzaGiro * Time.fixedDeltaTime,
-            0f
-        );
+        Debug.Log("[FLECHA MOVIMIENTO] Moviendo hacia: " + objetivo.name +
+                  " | Distancia: " + direccion.magnitude);
 
-        rb.linearVelocity = nuevaDireccion * velocidad;
-        transform.rotation = Quaternion.LookRotation(nuevaDireccion);
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") || other.CompareTag("Ghost") )
+        if (direccion.magnitude < 0.2f)
+        {
+            Debug.Log("[FLECHA MOVIMIENTO] Flecha llegó al objetivo.");
             return;
+        }
 
-        Destroy(gameObject); // se destruye aqu� directamente
+        direccion.Normalize();
+
+        transform.position += direccion * velocidad * Time.deltaTime;
+
+        if (direccion != Vector3.zero)
+        {
+            Quaternion rotacionObjetivo = Quaternion.LookRotation(direccion);
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                rotacionObjetivo,
+                rotacionSuavizada * Time.deltaTime
+            );
+        }
     }
 }
