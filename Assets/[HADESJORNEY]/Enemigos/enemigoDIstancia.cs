@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class EnemigoDistancia : MonoBehaviour
 {
-    [Header("Detección")]
+    [Header("Detecciï¿½n")]
     [SerializeField] private float rangoDeteccion = 15f;
     [SerializeField] private float distanciaDisparo = 8f;
 
@@ -60,18 +60,22 @@ public class EnemigoDistancia : MonoBehaviour
         {
             Vector3 huir = transform.position - jugador.position;
             huir.y = 0;
-            Vector3 destino = transform.position + huir.normalized * 3f;
-            if (agente != null) agente.SetDestination(destino);
+            Vector3 destino = transform.position + huir.normalized * (distanciaDisparo - distancia);
+
+            if (agente != null && (!agente.hasPath || agente.remainingDistance < 0.5f))
+            {
+                agente.SetDestination(destino);
+            }
         }
         else
         {
             if (agente != null) agente.ResetPath();
+        }
 
-            if (Time.time - tiempoUltimoDisparo >= cadenciaDisparo)
-            {
-                Disparar();
-                tiempoUltimoDisparo = Time.time;
-            }
+        if (distancia <= distanciaDisparo && Time.time - tiempoUltimoDisparo >= cadenciaDisparo)
+        {
+            Disparar();
+            tiempoUltimoDisparo = Time.time;
         }
     }
 

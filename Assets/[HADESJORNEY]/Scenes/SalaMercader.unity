@@ -1374,6 +1374,75 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f539626d5b6363940bee2c9c3ad95978, type: 3}
+--- !u!1001 &514192644
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1758374391007834812, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_Name
+      value: TeleportSalida
+      objectReference: {fileID: 0}
+    - target: {fileID: 1758374391007834812, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494074459433570608, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6627529796511674722, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: mensajeCarga
+      value: Avanzando a la siguiente sala...
+      objectReference: {fileID: 0}
+    - target: {fileID: 6627529796511674722, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
+      propertyPath: nombreEscena
+      value: Escena_Combate_2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
 --- !u!1001 &527234592
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3214,7 +3283,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 805932474989920479, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 1.188
       objectReference: {fileID: 0}
     - target: {fileID: 805932474989920479, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3551,11 +3620,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6629924287559741552, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.75
+      value: 4.2
       objectReference: {fileID: 0}
     - target: {fileID: 6629924287559741552, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.56
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6629924287559741552, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4002,25 +4071,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ed46dd1694b5974e9b62ca279f1da65, type: 3}
---- !u!1 &1571240836 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4705223582855657196, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-  m_PrefabInstance: {fileID: 565967905801299018}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1571240842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1571240836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e4213bf98b0c9144a74fbb46a876123, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nombreEscena: Escena_Combate_2
-  mensajeCarga: Avanzando a la siguiente sala...
 --- !u!1 &1600286839
 GameObject:
   m_ObjectHideFlags: 0
@@ -6087,71 +6137,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1063713618}
   m_SourcePrefab: {fileID: 100100000, guid: d14748e7b1384534e8dc94f0521d32bd, type: 3}
---- !u!1001 &565967905801299018
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -14.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -21.974638
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 13.84
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.94509816
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.3267865
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -38.148
-      objectReference: {fileID: 0}
-    - target: {fileID: 510587242147082360, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2041146755135536228, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: nombreEscena
-      value: Sala_Jefe
-      objectReference: {fileID: 0}
-    - target: {fileID: 4147684963964894912, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      propertyPath: m_Name
-      value: Telport
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2041146755135536228, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4705223582855657196, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1571240842}
-  m_SourcePrefab: {fileID: 100100000, guid: 55ef07e97fed7bf4faafd7a215021c65, type: 3}
 --- !u!1001 &6260919377544518468
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6239,8 +6224,8 @@ SceneRoots:
   - {fileID: 1566951745}
   - {fileID: 772898908}
   - {fileID: 6260919377544518468}
-  - {fileID: 565967905801299018}
   - {fileID: 1365516240}
+  - {fileID: 514192644}
   - {fileID: 2137099109}
   - {fileID: 39600731}
   - {fileID: 1185859795}

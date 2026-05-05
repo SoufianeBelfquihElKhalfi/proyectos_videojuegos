@@ -1,8 +1,13 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
 
 public class SistemaVida : MonoBehaviour
 {
+    [Header("Efecto visual al recibir daño")]
+    [SerializeField] private float duracionParpadeo = 0.3f;
+    [SerializeField] private int cantidadParpadeos = 3;
+
     [Header("Vida en corazones")]
     [Min(1)] public int corazonesMaximos = 3;
 
@@ -16,6 +21,10 @@ public class SistemaVida : MonoBehaviour
 
     private int corazonesMitadMaximos;
     private int corazonesMitadActuales;
+
+    private Coroutine parpadeoActivo;
+    private Renderer[] renderersGuardados;
+    private Color[] coloresOriginales;
 
     public int VidaActual => corazonesMitadActuales;
     public int VidaMaxima => corazonesMitadMaximos;
@@ -51,10 +60,64 @@ public class SistemaVida : MonoBehaviour
         corazonesMitadActuales = Mathf.Clamp(corazonesMitadActuales, 0, corazonesMitadMaximos);
 
         NotificarCambioVida();
+        IniciarParpadeo();
 
         if (corazonesMitadActuales <= 0)
         {
             Morir();
+        }
+    }
+
+    private void IniciarParpadeo()
+    {
+        if (parpadeoActivo != null)
+        {
+            StopCoroutine(parpadeoActivo);
+            RestaurarColores();
+        }
+
+        renderersGuardados = GetComponentsInChildren<Renderer>();
+        coloresOriginales = new Color[renderersGuardados.Length];
+        for (int j = 0; j < renderersGuardados.Length; j++)
+        {
+            if (renderersGuardados[j].material.HasProperty("_Color"))
+                coloresOriginales[j] = renderersGuardados[j].material.color;
+        }
+
+        parpadeoActivo = StartCoroutine(ParpadeoGolpe());
+    }
+
+    private IEnumerator ParpadeoGolpe()
+    {
+        Color colorGolpe = Color.red;
+        float tiempoPorParpadeo = duracionParpadeo / cantidadParpadeos;
+
+        for (int i = 0; i < cantidadParpadeos; i++)
+        {
+            for (int j = 0; j < renderersGuardados.Length; j++)
+            {
+                if (renderersGuardados[j] != null && renderersGuardados[j].material.HasProperty("_Color"))
+                    renderersGuardados[j].material.color = colorGolpe;
+            }
+
+            yield return new WaitForSecondsRealtime(tiempoPorParpadeo / 2f);
+
+            RestaurarColores();
+
+            yield return new WaitForSecondsRealtime(tiempoPorParpadeo / 2f);
+        }
+
+        parpadeoActivo = null;
+    }
+
+    private void RestaurarColores()
+    {
+        if (renderersGuardados == null || coloresOriginales == null) return;
+
+        for (int j = 0; j < renderersGuardados.Length; j++)
+        {
+            if (renderersGuardados[j] != null && renderersGuardados[j].material.HasProperty("_Color"))
+                renderersGuardados[j].material.color = coloresOriginales[j];
         }
     }
 
