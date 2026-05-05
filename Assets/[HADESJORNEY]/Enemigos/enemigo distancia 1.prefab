@@ -250,6 +250,10 @@ PrefabInstance:
       propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5258551260066614983, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
+      propertyPath: cantidadAlmas
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 5366638020437931414, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
       propertyPath: m_Name
       value: enemigo distancia 1

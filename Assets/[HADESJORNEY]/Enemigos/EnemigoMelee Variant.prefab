@@ -88,6 +88,10 @@ PrefabInstance:
       propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5258551260066614983, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
+      propertyPath: cantidadAlmas
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 5366638020437931414, guid: 1d847d979fa09be4f9280634786a6cc2, type: 3}
       propertyPath: m_Name
       value: EnemigoMelee Variant
@@ -138,6 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6acd8d4a737cfa941976d87723d2529f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  duracionParpadeo: 0.3
+  cantidadParpadeos: 3
   corazonesMaximos: 1
   corazonesMitadIniciales: -1
   alMorir:
