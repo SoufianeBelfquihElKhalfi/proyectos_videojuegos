@@ -1,11 +1,19 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Collider))]
 public class CambioDeEscena : MonoBehaviour
 {
     [SerializeField] private string nombreEscena;
     [SerializeField] private string mensajeCarga = "Avanzando a la siguiente sala...";
 
     private bool isLoading = false;
+    private Collider triggerCollider;
+
+    private void Awake()
+    {
+        triggerCollider = GetComponent<Collider>();
+        triggerCollider.isTrigger = true;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -23,7 +31,13 @@ public class CambioDeEscena : MonoBehaviour
 
         if (string.IsNullOrWhiteSpace(nombreEscena))
         {
-            Debug.LogError("CambioDeEscena: nombreEscena está vacío.");
+            Debug.LogError("CambioDeEscena: nombreEscena está vacío.", this);
+            return;
+        }
+
+        if (!Application.CanStreamedLevelBeLoaded(nombreEscena))
+        {
+            Debug.LogError($"CambioDeEscena: la escena '{nombreEscena}' no está en Build Settings o el nombre no coincide.", this);
             return;
         }
 
@@ -35,6 +49,7 @@ public class CambioDeEscena : MonoBehaviour
         }
 
         isLoading = true;
+        Time.timeScale = 1f;
         SceneLoader.Load(nombreEscena, mensajeCarga);
     }
 }

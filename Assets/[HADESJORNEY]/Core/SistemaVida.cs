@@ -23,6 +23,7 @@ public class SistemaVida : MonoBehaviour
     private int corazonesMitadActuales;
 
     private Coroutine parpadeoActivo;
+    private Renderer[] renderersGuardados;
     private Color[] coloresOriginales;
 
     public int VidaActual => corazonesMitadActuales;
@@ -75,28 +76,28 @@ public class SistemaVida : MonoBehaviour
             RestaurarColores();
         }
 
-        Renderer[] renderers = GetComponentsInChildren<Renderer>();
-        coloresOriginales = new Color[renderers.Length];
-        for (int j = 0; j < renderers.Length; j++)
+        renderersGuardados = GetComponentsInChildren<Renderer>();
+        coloresOriginales = new Color[renderersGuardados.Length];
+        for (int j = 0; j < renderersGuardados.Length; j++)
         {
-            if (renderers[j].material.HasProperty("_Color"))
-                coloresOriginales[j] = renderers[j].material.color;
+            if (renderersGuardados[j].material.HasProperty("_Color"))
+                coloresOriginales[j] = renderersGuardados[j].material.color;
         }
 
-        parpadeoActivo = StartCoroutine(ParpadeoGolpe(renderers));
+        parpadeoActivo = StartCoroutine(ParpadeoGolpe());
     }
 
-    private IEnumerator ParpadeoGolpe(Renderer[] renderers)
+    private IEnumerator ParpadeoGolpe()
     {
         Color colorGolpe = Color.red;
         float tiempoPorParpadeo = duracionParpadeo / cantidadParpadeos;
 
         for (int i = 0; i < cantidadParpadeos; i++)
         {
-            foreach (Renderer r in renderers)
+            for (int j = 0; j < renderersGuardados.Length; j++)
             {
-                if (r != null && r.material.HasProperty("_Color"))
-                    r.material.color = colorGolpe;
+                if (renderersGuardados[j] != null && renderersGuardados[j].material.HasProperty("_Color"))
+                    renderersGuardados[j].material.color = colorGolpe;
             }
 
             yield return new WaitForSecondsRealtime(tiempoPorParpadeo / 2f);
@@ -111,13 +112,12 @@ public class SistemaVida : MonoBehaviour
 
     private void RestaurarColores()
     {
-        if (coloresOriginales == null) return;
+        if (renderersGuardados == null || coloresOriginales == null) return;
 
-        Renderer[] renderers = GetComponentsInChildren<Renderer>();
-        for (int j = 0; j < renderers.Length && j < coloresOriginales.Length; j++)
+        for (int j = 0; j < renderersGuardados.Length; j++)
         {
-            if (renderers[j].material.HasProperty("_Color"))
-                renderers[j].material.color = coloresOriginales[j];
+            if (renderersGuardados[j] != null && renderersGuardados[j].material.HasProperty("_Color"))
+                renderersGuardados[j].material.color = coloresOriginales[j];
         }
     }
 
