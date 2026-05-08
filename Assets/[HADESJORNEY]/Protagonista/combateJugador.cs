@@ -89,6 +89,9 @@ public class CombateJugador : MonoBehaviour
         }
         float retroceso = retrocesoPorGolpe[golpeActual];
 
+
+        bool maniquiGolpeado = false;
+
         foreach (Collider enemigo in enemigos)
         {
             SistemaVida vida = enemigo.GetComponentInParent<SistemaVida>();
@@ -96,10 +99,23 @@ public class CombateJugador : MonoBehaviour
             {
                 vida.RecibirDanio(danio);
 
+                if (enemigo.CompareTag("maniqui"))
+                {
+                    if (!maniquiGolpeado)
+                    {
+                        Maniqui maniqui = enemigo.GetComponentInParent<Maniqui>();
+                        if (maniqui != null)
+                        {
+                            maniqui.RecibirDanio();
+                            maniquiGolpeado = true;
+                        }
+                    }
+                    continue;
+                }
+
                 Transform enemigoRoot = vida.transform;
                 Vector3 direccion = (enemigoRoot.position - transform.position).normalized;
                 direccion.y = 0;
-
                 StartCoroutine(RetrocesoSuave(enemigoRoot, direccion, retroceso));
             }
         }

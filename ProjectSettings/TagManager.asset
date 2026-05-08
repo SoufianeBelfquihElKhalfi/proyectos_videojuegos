@@ -8,6 +8,7 @@ TagManager:
   - Ghost
   - Lava
   - FlechaFantasma
+  - maniqui
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Enemy
   - Teleport
   - Player
-  - 
+  - Maniqui
   - 
   - 
   - 
