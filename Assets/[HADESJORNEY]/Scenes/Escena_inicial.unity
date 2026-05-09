@@ -3638,6 +3638,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Suelo (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 6925293066780444624, guid: 07f1d484e9d37ac4f980c2458342fea7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3958,7 +3962,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2730153040141374236, guid: d2351dd48f008a6428853ceb0e32cdef, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.5
+      value: 3.19
       objectReference: {fileID: 0}
     - target: {fileID: 2730153040141374236, guid: d2351dd48f008a6428853ceb0e32cdef, type: 3}
       propertyPath: m_LocalPosition.y

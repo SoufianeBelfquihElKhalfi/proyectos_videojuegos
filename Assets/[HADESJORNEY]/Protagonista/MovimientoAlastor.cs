@@ -11,6 +11,7 @@ public class MovimientoAlastor : MonoBehaviour
     [Header("Dash")]
     [SerializeField] private float dashSpeed = 15f;
     [SerializeField] private float dashDuration = 0.2f;
+    [SerializeField] private ParticleSystem particulasPisada;
 
     private bool isDashing = false;
     private bool isInKnockback = false;
@@ -23,6 +24,11 @@ public class MovimientoAlastor : MonoBehaviour
 
     private Coroutine dashActivo;
     private Coroutine retrocesoActivo;
+
+    public Animator anim;
+
+    private float tiempoPisada = 0f;
+    private float intervaloPisada = 0.3f;
 
     private void Awake()
     {
@@ -57,14 +63,15 @@ public class MovimientoAlastor : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isDashing && !isInKnockback)
         {
+            if (dashActivo != null) StopCoroutine(dashActivo);
             dashActivo = StartCoroutine(Dash());
+
         }
 
         if (isDashing || isInKnockback)
         {
             return;
         }
-
         MoverJugador();
     }
 
@@ -92,6 +99,22 @@ public class MovimientoAlastor : MonoBehaviour
                 rotationSpeed * Time.deltaTime
             );
         }
+        if(direction.magnitude > 0.01f)
+        {
+            anim.SetBool("correr", true);
+            tiempoPisada += Time.deltaTime;
+            if (tiempoPisada >= intervaloPisada)
+            {
+                particulasPisada.Play();
+                tiempoPisada = 0f;
+            }
+
+        }
+        else
+        {
+            tiempoPisada = 0f;
+            anim.SetBool("correr", false);
+        }
     }
 
     private void AplicarGravedad()
@@ -109,7 +132,7 @@ public class MovimientoAlastor : MonoBehaviour
     private IEnumerator Dash()
     {
         isDashing = true;
-
+        anim.SetBool("dash", true);
         float startTime = Time.time;
 
         while (Time.time < startTime + dashDuration)
@@ -126,6 +149,7 @@ public class MovimientoAlastor : MonoBehaviour
 
         isDashing = false;
         dashActivo = null;
+        anim.SetBool("dash", false);
     }
 
     public void AplicarRetroceso(Vector3 direccion, float distancia, float duracion)
