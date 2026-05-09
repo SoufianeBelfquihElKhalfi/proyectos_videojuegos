@@ -35,10 +35,13 @@ public class SistemaVida : MonoBehaviour
     public bool EstaMuerto => corazonesMitadActuales <= 0;
     public bool UsaVidaGuardadaEntreEscenas => usarVidaGuardadaEntreEscenas;
 
+    private Animator animator;
+
     private void Awake()
     {
         InicializarVida();
         NotificarCambioVida();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void InicializarVida()
@@ -88,10 +91,21 @@ public class SistemaVida : MonoBehaviour
 
         NotificarCambioVida();
         IniciarParpadeo();
+        if (animator != null)
+            animator.SetTrigger("Danio");
 
         if (corazonesMitadActuales <= 0)
         {
             Morir();
+        }
+        if (animator != null)
+        {
+            Debug.Log("Trigger Daño activado");
+            animator.SetTrigger("Danio");
+        }
+        else
+        {
+            Debug.Log("Animator null en SistemaVida");
         }
     }
 
@@ -192,9 +206,16 @@ public class SistemaVida : MonoBehaviour
 
     private void Morir()
     {
+        if (animator != null)
+            animator.SetTrigger("Muerte");
+
+        StartCoroutine(EsperarMuerte());
+    }
+    private IEnumerator EsperarMuerte()
+    {
+        yield return new WaitForSeconds(4f);
         alMorir?.Invoke();
     }
-
     private void NotificarCambioVida()
     {
         alCambiarVida?.Invoke(corazonesMitadActuales, corazonesMitadMaximos);

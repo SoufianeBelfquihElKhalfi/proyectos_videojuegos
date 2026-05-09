@@ -6,8 +6,8 @@ public class CombateJugador : MonoBehaviour
 {
     [Header("Combo")]
     [SerializeField] private int maxGolpesCombo = 3;
-    [SerializeField] private float tiempoEntreGolpes = 0.8f;
-    [SerializeField] private float tiempoResetCombo = 1.2f;
+    [SerializeField] private float tiempoEntreGolpes = 2f;
+    [SerializeField] private float tiempoResetCombo = 3f;
 
     [Header("Daño por golpe (medio corazón = 1)")]
     [SerializeField] private int[] danioPorGolpe = { 1, 1, 2 };
@@ -28,12 +28,17 @@ public class CombateJugador : MonoBehaviour
     private float tiempoUltimoGolpe;
     private bool puedeAtacar = true;
     private bool combateHabilitado = true;
+    private bool inputGuardado = false;
     private Animator animator;
 
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         ComprobarSiSePuedeAtacarEnLaEscena();
+        if (animator == null)
+            Debug.Log("Animator es null");
+        else
+            Debug.Log("Animator encontrado");
     }
 
     void Update()
@@ -43,9 +48,12 @@ public class CombateJugador : MonoBehaviour
             golpeActual = 0;
         }
 
-        if (Input.GetMouseButtonDown(0) && puedeAtacar && combateHabilitado)
+        if (Input.GetMouseButtonDown(0) && combateHabilitado)
         {
-            Atacar();
+            if (puedeAtacar)
+                Atacar();
+            else
+                inputGuardado = true;
         }
     }
 
@@ -65,6 +73,7 @@ public class CombateJugador : MonoBehaviour
 
     void Atacar()
     {
+        if (!puedeAtacar) return;
         if (Time.time - tiempoUltimoGolpe < tiempoEntreGolpes && golpeActual > 0)
             return;
 
@@ -75,6 +84,7 @@ public class CombateJugador : MonoBehaviour
 
         if (animator != null)
         {
+            Debug.Log("Golpe: " + golpeActual);
             animator.SetTrigger("Ataque");
             animator.SetInteger("GolpeCombo", golpeActual);
         }
@@ -126,7 +136,7 @@ public class CombateJugador : MonoBehaviour
             golpeActual = 0;
         }
 
-        Invoke(nameof(ResetAtaque), tiempoEntreGolpes);
+        Invoke(nameof(ResetAtaque), 1f);
     }
 
     IEnumerator RetrocesoSuave(Transform objetivo, Vector3 direccion, float distancia)
@@ -150,7 +160,13 @@ public class CombateJugador : MonoBehaviour
 
     void ResetAtaque()
     {
-        puedeAtacar = true; 
+        puedeAtacar = true;
+
+        if (inputGuardado)
+        {
+            inputGuardado = false;
+            Atacar();
+        }
     }
 
     void OnDrawGizmosSelected()
