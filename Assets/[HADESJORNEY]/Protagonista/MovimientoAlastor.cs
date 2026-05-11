@@ -61,7 +61,7 @@ public class MovimientoAlastor : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isDashing && !isInKnockback)
+        if (Input.GetButtonDown("Dash") && !isDashing && !isInKnockback)
         {
             if (dashActivo != null) StopCoroutine(dashActivo);
             dashActivo = StartCoroutine(Dash());
