@@ -6,14 +6,18 @@ using System.Collections.Generic;
 
 public class AtaqueJefe : EstadoFSM
 {
+    [Header("Configuración de Rotación")]
+   
+    private string[] ordenAtaques = { "embestida", "mazazo", "embestida", "salto", "embestida", "barrido" };
+    private int indiceAtaqueActual = 0;
+
     [Header("Distancias")]
-    [SerializeField] private float rangoCorto = 3f;
-    [SerializeField] private float rangoMedio = 7f;
-    [SerializeField] private float rangoLargo = 12f;
-    [SerializeField] private float rangoDeteccionIntro = 10f; // Área para activar la caída
+    [SerializeField] private float rangoMazazo = 3.5f;
+    [SerializeField] private float rangoLargo = 18f;
+    [SerializeField] private float rangoDeteccionIntro = 10f;
 
     [Header("Tiempos")]
-    [SerializeField] private float tiempoEntreAtaques = 0.2f;
+    [SerializeField] private float tiempoEntreAtaques = 1.2f;
 
     [Header("Rotación")]
     [SerializeField] private float velocidadRotacion = 8f;
@@ -30,12 +34,8 @@ public class AtaqueJefe : EstadoFSM
 
     private bool atacando = false;
     private bool introTerminada = false;
-    private bool cayendo = false; // Control de estado de caída
-
+    private bool cayendo = false;
     private float cooldown = 0f;
-
-    private Dictionary<string, float> cdAtaques = new Dictionary<string, float>();
-    private string ultimoAtaque = "";
 
     private void OnEnable()
     {
@@ -45,16 +45,10 @@ public class AtaqueJefe : EstadoFSM
 
         if (agent != null) agent.updateRotation = false;
 
-        cdAtaques["mazazo"] = 0;
-        cdAtaques["barrido"] = 0;
-        cdAtaques["embestida"] = 0;
-        cdAtaques["salto"] = 0;
-
         if (hacerIntro)
         {
             introTerminada = false;
             cayendo = false;
-            // Posicionar al jefe en el aire desde el inicio
             if (agent != null) agent.enabled = false;
             transform.position += Vector3.up * alturaInicio;
         }
@@ -71,29 +65,18 @@ public class AtaqueJefe : EstadoFSM
         if (hacerIntro && !introTerminada && !cayendo)
         {
             float distanciaAlJugador = Vector3.Distance(new Vector3(transform.position.x, player.position.y, transform.position.z), player.position);
-
-            if (distanciaAlJugador <= rangoDeteccionIntro)
-            {
-                StartCoroutine(IntroCaida());
-            }
-            return; // No ejecutar ataques hasta caer
+            if (distanciaAlJugador <= rangoDeteccionIntro) StartCoroutine(IntroCaida());
+            return;
         }
 
-        if (!introTerminada) return;
-
+        if (!introTerminada || atacando) return;
         if (!agent.enabled || !agent.isOnNavMesh) return;
-
-        ActualizarCooldowns();
-
-        if (atacando) return;
 
         RotarHaciaJugador();
 
         float distancia = Vector3.Distance(transform.position, player.position);
-
         if (distancia > rangoLargo)
         {
-            agent.isStopped = false;
             if (estadoPerseguir != null)
             {
                 this.enabled = false;
@@ -105,99 +88,38 @@ public class AtaqueJefe : EstadoFSM
         cooldown -= Time.deltaTime;
         if (cooldown <= 0f)
         {
-            DecidirAtaque(distancia);
+            EjecutarAtaque(ordenAtaques[indiceAtaqueActual]);
+            indiceAtaqueActual = (indiceAtaqueActual + 1) % ordenAtaques.Length;
+            cooldown = tiempoEntreAtaques;
         }
-    }
-
-    private IEnumerator IntroCaida()
-    {
-        cayendo = true;
-        atacando = true;
-
-        Vector3 suelo = transform.position - Vector3.up * alturaInicio;
-        Vector3 inicio = transform.position;
-
-        float t = 0f;
-        while (t < duracionCaida)
-        {
-            float progreso = t / duracionCaida;
-            // Caída lineal
-            transform.position = Vector3.Lerp(inicio, suelo, progreso);
-
-            t += Time.deltaTime;
-            yield return null;
-        }
-
-        transform.position = suelo;
-        OndaChoque(8f);
-
-        yield return new WaitForSeconds(0.5f);
-
-        if (agent != null)
-        {
-            agent.enabled = true;
-            if (agent.isOnNavMesh) agent.isStopped = false;
-        }
-
-        atacando = false;
-        introTerminada = true;
-    }
-
-    private void DecidirAtaque(float distancia)
-    {
-        List<string> opciones = new List<string>();
-
-        if (distancia <= rangoCorto)
-        {
-            if (cdAtaques["mazazo"] <= 0) opciones.Add("mazazo");
-            if (cdAtaques["barrido"] <= 0) opciones.Add("barrido");
-        }
-        else if (distancia <= rangoMedio)
-        {
-            if (cdAtaques["embestida"] <= 0) opciones.Add("embestida");
-            if (cdAtaques["mazazo"] <= 0) opciones.Add("mazazo");
-        }
-        else
-        {
-            if (cdAtaques["salto"] <= 0) opciones.Add("salto");
-            if (cdAtaques["embestida"] <= 0) opciones.Add("embestida");
-        }
-
-        opciones.Remove(ultimoAtaque);
-        if (opciones.Count == 0) return;
-
-        string elegido = opciones[Random.Range(0, opciones.Count)];
-        ultimoAtaque = elegido;
-        EjecutarAtaque(elegido);
-        cooldown = tiempoEntreAtaques;
     }
 
     private void EjecutarAtaque(string nombre)
     {
         switch (nombre)
         {
-            case "mazazo": cdAtaques["mazazo"] = 3f; StartCoroutine(Mazazo()); break;
-            case "barrido": cdAtaques["barrido"] = 4f; StartCoroutine(Barrido()); break;
-            case "embestida": cdAtaques["embestida"] = 5f; StartCoroutine(Embestida()); break;
-            case "salto": cdAtaques["salto"] = 6f; StartCoroutine(Salto()); break;
-        }
-    }
-
-    private void ActualizarCooldowns()
-    {
-        List<string> keys = new List<string>(cdAtaques.Keys);
-        foreach (string k in keys)
-        {
-            if (cdAtaques[k] > 0) cdAtaques[k] -= Time.deltaTime;
+            case "mazazo": StartCoroutine(Mazazo()); break;
+            case "barrido": StartCoroutine(Barrido()); break;
+            case "embestida": StartCoroutine(Embestida()); break;
+            case "salto": StartCoroutine(Salto()); break;
         }
     }
 
     private IEnumerator Mazazo()
     {
         atacando = true;
-        if (agent.isOnNavMesh) agent.isStopped = true;
+        // Se acerca al jugador si está lejos
+        while (Vector3.Distance(transform.position, player.position) > rangoMazazo)
+        {
+            agent.isStopped = false;
+            agent.SetDestination(player.position);
+            RotarHaciaJugador();
+            yield return null;
+        }
+
+        agent.isStopped = true;
         yield return new WaitForSeconds(0.4f);
-        if (infligirDanio != null) infligirDanio.IntentarGolpear(player);
+        AplicarDañoSiCerca(rangoMazazo + 1f);
         yield return new WaitForSeconds(0.8f);
         FinAtaque();
     }
@@ -206,9 +128,11 @@ public class AtaqueJefe : EstadoFSM
     {
         atacando = true;
         if (agent.isOnNavMesh) agent.isStopped = true;
-        yield return new WaitForSeconds(0.3f);
-        if (infligirDanio != null) infligirDanio.IntentarGolpear(player);
-        EmpujarJugador(6f);
+        yield return new WaitForSeconds(0.4f);
+
+        AplicarDañoSiCerca(5f);
+        EmpujarJugador(8f);
+
         yield return new WaitForSeconds(0.7f);
         FinAtaque();
     }
@@ -217,13 +141,14 @@ public class AtaqueJefe : EstadoFSM
     {
         atacando = true;
         float t = 0f;
-        while (t < 1f)
+        Vector3 direccionCarga = transform.forward;
+        while (t < 0.8f) 
         {
-            transform.Translate(Vector3.forward * 12f * Time.deltaTime);
+            transform.Translate(direccionCarga * 14f * Time.deltaTime, Space.World);
             t += Time.deltaTime;
             yield return null;
         }
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.3f);
         FinAtaque();
     }
 
@@ -236,16 +161,50 @@ public class AtaqueJefe : EstadoFSM
         float t = 0f;
         while (t < 1f)
         {
-            float altura = Mathf.Sin(t * Mathf.PI) * 4f;
+            float altura = Mathf.Sin(t * Mathf.PI) * 5f;
             transform.position = Vector3.Lerp(inicio, destino, t) + Vector3.up * altura;
             t += Time.deltaTime;
             yield return null;
         }
+
         agent.enabled = true;
-        if (infligirDanio != null) infligirDanio.IntentarGolpear(player);
+        AplicarDañoSiCerca(6f);
         OndaChoque(7f);
-        yield return new WaitForSeconds(0.6f);
+
+        yield return new WaitForSeconds(0.8f);
         FinAtaque();
+    }
+
+    private void AplicarDañoSiCerca(float radio)
+    {
+        if (player == null || infligirDanio == null) return;
+
+        float distancia = Vector3.Distance(transform.position, player.position);
+        if (distancia <= radio)
+        {
+            infligirDanio.IntentarGolpear(player);
+        }
+    }
+
+    private IEnumerator IntroCaida()
+    {
+        cayendo = true;
+        atacando = true;
+        Vector3 suelo = new Vector3(transform.position.x, transform.position.y - alturaInicio, transform.position.z);
+        Vector3 inicio = transform.position;
+        float t = 0f;
+        while (t < duracionCaida)
+        {
+            transform.position = Vector3.Lerp(inicio, suelo, t / duracionCaida);
+            t += Time.deltaTime;
+            yield return null;
+        }
+        transform.position = suelo;
+        OndaChoque(8f);
+        yield return new WaitForSeconds(0.5f);
+        if (agent != null) { agent.enabled = true; agent.isStopped = false; }
+        atacando = false;
+        introTerminada = true;
     }
 
     private void RotarHaciaJugador()
@@ -253,9 +212,7 @@ public class AtaqueJefe : EstadoFSM
         Vector3 dir = (player.position - transform.position).normalized;
         dir.y = 0;
         if (dir != Vector3.zero)
-        {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), velocidadRotacion * Time.deltaTime);
-        }
     }
 
     private void EmpujarJugador(float fuerza)
