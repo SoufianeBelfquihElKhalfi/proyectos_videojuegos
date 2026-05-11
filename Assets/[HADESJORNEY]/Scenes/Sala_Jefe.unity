@@ -1911,13 +1911,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1417781521366815517, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417781521366815517, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
+      propertyPath: m_Center.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988742261835483692, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
+      propertyPath: m_BaseOffset
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988742261835483692, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
+      propertyPath: m_WalkableMask
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3719021246143193787, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.41
       objectReference: {fileID: 0}
     - target: {fileID: 3719021246143193787, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3719021246143193787, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
       propertyPath: m_LocalPosition.z
