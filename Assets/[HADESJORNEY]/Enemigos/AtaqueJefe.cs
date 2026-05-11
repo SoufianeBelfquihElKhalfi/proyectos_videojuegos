@@ -13,7 +13,7 @@ public class AtaqueJefe : EstadoFSM
     [SerializeField] private float rangoDeteccionIntro = 10f; // Área para activar la caída
 
     [Header("Tiempos")]
-    [SerializeField] private float tiempoEntreAtaques = 0.5f;
+    [SerializeField] private float tiempoEntreAtaques = 0.2f;
 
     [Header("Rotación")]
     [SerializeField] private float velocidadRotacion = 8f;
@@ -68,7 +68,6 @@ public class AtaqueJefe : EstadoFSM
     {
         if (player == null || agent == null) return;
 
-        // Lógica de detección para la caída inicial
         if (hacerIntro && !introTerminada && !cayendo)
         {
             float distanciaAlJugador = Vector3.Distance(new Vector3(transform.position.x, player.position.y, transform.position.z), player.position);
@@ -143,8 +142,6 @@ public class AtaqueJefe : EstadoFSM
         atacando = false;
         introTerminada = true;
     }
-
-    // ... (El resto de funciones de ataque y decisión se mantienen igual que en la versión anterior) ...
 
     private void DecidirAtaque(float distancia)
     {

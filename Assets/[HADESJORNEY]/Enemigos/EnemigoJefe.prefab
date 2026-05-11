@@ -164,6 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6acd8d4a737cfa941976d87723d2529f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usarVidaGuardadaEntreEscenas: 0
+  duracionParpadeo: 0.3
+  cantidadParpadeos: 3
   corazonesMaximos: 15
   corazonesMitadIniciales: -1
   alMorir:
@@ -292,8 +295,6 @@ MonoBehaviour:
   distanciaGolpe: 2
   fuerzaRetroceso: 2
   duracionRetroceso: 0.15
-  duracionParpadeo: 0.3
-  cantidadParpadeos: 3
 --- !u!114 &-3655118003531589829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,12 +333,13 @@ MonoBehaviour:
   rangoCorto: 3
   rangoMedio: 7
   rangoLargo: 12
+  rangoDeteccionIntro: 10
   tiempoEntreAtaques: 1.2
   velocidadRotacion: 8
   alturaInicio: 15
   duracionCaida: 1.2
   hacerIntro: 1
-  estadoPerseguir: {fileID: 0}
+  estadoPerseguir: {fileID: 3871358505971979066}
 --- !u!1 &8009326880956877489
 GameObject:
   m_ObjectHideFlags: 0
