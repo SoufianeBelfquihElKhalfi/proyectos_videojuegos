@@ -48,7 +48,7 @@ public class CombateJugador : MonoBehaviour
             golpeActual = 0;
         }
 
-        if (Input.GetMouseButtonDown(0) && combateHabilitado)
+        if (Input.GetButtonDown("Ataque") && combateHabilitado)
         {
             if (puedeAtacar)
                 Atacar();
