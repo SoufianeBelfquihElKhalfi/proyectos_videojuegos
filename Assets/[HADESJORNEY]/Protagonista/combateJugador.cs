@@ -24,6 +24,8 @@ public class CombateJugador : MonoBehaviour
     [Header("Efectos")]
     [SerializeField] private GameObject efectoGolpe;
     [SerializeField] private GameObject efectoDestello;
+    [SerializeField] private GameObject objetoEstela;
+    private TrailRenderer estela;
 
 
     [Header("Visual")]
@@ -45,6 +47,12 @@ public class CombateJugador : MonoBehaviour
             Debug.Log("Animator es null");
         else
             Debug.Log("Animator encontrado");
+
+        if (objetoEstela != null)
+        {
+            estela = objetoEstela.GetComponent<TrailRenderer>();
+            objetoEstela.SetActive(false);
+        }
     }
 
     void Update()
@@ -82,7 +90,11 @@ public class CombateJugador : MonoBehaviour
         if (!puedeAtacar) return;
         if (Time.time - tiempoUltimoGolpe < tiempoEntreGolpes && golpeActual > 0)
             return;
-
+        if (estela != null)
+        {
+            objetoEstela.SetActive(true);
+            estela.Clear();
+        }
         puedeAtacar = false;
         tiempoUltimoGolpe = Time.time;
 
@@ -144,6 +156,7 @@ public class CombateJugador : MonoBehaviour
                 direccion.y = 0;
                 StartCoroutine(RetrocesoSuave(enemigoRoot, direccion, retroceso));
             }
+
         }
 
         golpeActual++;
@@ -183,6 +196,12 @@ public class CombateJugador : MonoBehaviour
             inputGuardado = false;
             Atacar();
         }
+        else
+        {
+            if (estela != null)
+                objetoEstela.SetActive(false);
+        }
+
     }
 
     void OnDrawGizmosSelected()
