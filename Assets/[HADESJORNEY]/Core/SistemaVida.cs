@@ -1,6 +1,8 @@
-using UnityEngine;
-using UnityEngine.Events;
 using System.Collections;
+using UnityEditor.Rendering.LookDev;
+using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class SistemaVida : MonoBehaviour
 {
@@ -30,6 +32,7 @@ public class SistemaVida : MonoBehaviour
     private Renderer[] renderersGuardados;
     private Color[] coloresOriginales;
 
+    [SerializeField] private bool esJugador = false;
     public int VidaActual => corazonesMitadActuales;
     public int VidaMaxima => corazonesMitadMaximos;
     public bool EstaMuerto => corazonesMitadActuales <= 0;
@@ -85,7 +88,8 @@ public class SistemaVida : MonoBehaviour
     {
         if (EstaMuerto) return;
         if (danioMitadCorazones <= 0) return;
-
+        if (esJugador && flashGolpe.Instancia != null)
+            StartCoroutine(flashGolpe.Instancia.MostrarFlash());
         corazonesMitadActuales -= danioMitadCorazones;
         corazonesMitadActuales = Mathf.Clamp(corazonesMitadActuales, 0, corazonesMitadMaximos);
 
@@ -208,6 +212,26 @@ public class SistemaVida : MonoBehaviour
     {
         if (animator != null)
             animator.SetTrigger("Muerte");
+        var movimiento = GetComponent<MovimientoAlastor>();
+        if (movimiento != null) movimiento.enabled = false;
+
+        var combate = GetComponent<CombateJugador>();
+        if (combate != null) combate.enabled = false;
+
+        if (esJugador)
+        {
+            var patrulleros = FindObjectsByType<Patrullero>(FindObjectsSortMode.None);
+            foreach (var p in patrulleros)
+                p.enabled = false;
+
+            var enemigosDistancia = FindObjectsByType<EnemigoDistancia>(FindObjectsSortMode.None);
+            foreach (var e in enemigosDistancia)
+                e.enabled = false;
+
+            var agentes = FindObjectsByType<NavMeshAgent>(FindObjectsSortMode.None);
+            foreach (var a in agentes)
+                a.isStopped = true;
+        }
 
         StartCoroutine(EsperarMuerte());
     }

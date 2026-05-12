@@ -288,6 +288,7 @@ MonoBehaviour:
   alCambiarVida:
     m_PersistentCalls:
       m_Calls: []
+  esJugador: 1
 --- !u!114 &8919980005731924212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,6 +354,7 @@ MonoBehaviour:
   alCambiarVida:
     m_PersistentCalls:
       m_Calls: []
+  esJugador: 0
 --- !u!114 &6120368885700007913
 MonoBehaviour:
   m_ObjectHideFlags: 0
