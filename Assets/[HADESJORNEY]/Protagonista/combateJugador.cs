@@ -21,8 +21,14 @@ public class CombateJugador : MonoBehaviour
     [SerializeField] private float rangoAtaque = 1.5f;
     [SerializeField] private LayerMask capaEnemigos;
 
+    [Header("Efectos")]
+    [SerializeField] private GameObject efectoGolpe;
+    [SerializeField] private GameObject efectoDestello;
+
+
     [Header("Visual")]
     [SerializeField] private ArmaVisual armaVisual;
+
 
     private int golpeActual = 0;
     private float tiempoUltimoGolpe;
@@ -48,7 +54,7 @@ public class CombateJugador : MonoBehaviour
             golpeActual = 0;
         }
 
-        if (Input.GetButtonDown("Ataque") && combateHabilitado)
+        if (Input.GetMouseButtonDown(0) && combateHabilitado)
         {
             if (puedeAtacar)
                 Atacar();
@@ -108,6 +114,16 @@ public class CombateJugador : MonoBehaviour
             if (vida != null)
             {
                 vida.RecibirDanio(danio);
+                if (efectoGolpe != null)
+                {
+                    GameObject efecto = Instantiate(efectoGolpe, enemigo.transform.position + Vector3.up, Quaternion.identity);
+                    Destroy(efecto, 0.5f);
+                }
+                if (efectoDestello != null)
+                {
+                    GameObject destello = Instantiate(efectoDestello, enemigo.transform.position + Vector3.up, Quaternion.identity);
+                    Destroy(destello, 0.3f);
+                }
 
                 if (enemigo.CompareTag("maniqui"))
                 {
