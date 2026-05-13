@@ -10,10 +10,11 @@ public class MovimientoAlastor : MonoBehaviour
 
     [Header("Dash")]
     [SerializeField] private float dashSpeed = 15f;
-    [SerializeField] private float dashDuration = 0.2f;
+    [SerializeField] private float dashDuration = 1f;
     [SerializeField] private ParticleSystem particulasPisada;
 
-    private bool isDashing = false;
+    private EfectoDash dash;
+    public bool isDashing = false;
     private bool isInKnockback = false;
 
     private Vector3 forward;
@@ -29,6 +30,7 @@ public class MovimientoAlastor : MonoBehaviour
 
     private float tiempoPisada = 0f;
     private float intervaloPisada = 0.3f;
+    public float velocidadActual = 0f;
 
     private void Awake()
     {
@@ -43,6 +45,7 @@ public class MovimientoAlastor : MonoBehaviour
 
     private void Start()
     {
+        dash = GetComponent<EfectoDash>();
         if (Camera.main == null)
         {
             Debug.LogError("MovimientoAlastor: no se ha encontrado Main Camera.");
@@ -81,6 +84,7 @@ public class MovimientoAlastor : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
 
         Vector3 direction = horizontalInput * right + verticalInput * forward;
+        velocidadActual = direction.magnitude;
 
         AplicarGravedad();
 
@@ -133,6 +137,8 @@ public class MovimientoAlastor : MonoBehaviour
     {
         isDashing = true;
         anim.SetBool("dash", true);
+
+        if (dash != null) dash.Activar();
         float startTime = Time.time;
 
         while (Time.time < startTime + dashDuration)
@@ -150,6 +156,8 @@ public class MovimientoAlastor : MonoBehaviour
         isDashing = false;
         dashActivo = null;
         anim.SetBool("dash", false);
+        if (dash != null) dash.Desactivar();
+        dashActivo = null;
     }
 
     public void AplicarRetroceso(Vector3 direccion, float distancia, float duracion)
@@ -218,5 +226,9 @@ public class MovimientoAlastor : MonoBehaviour
 
         isInKnockback = false;
         retrocesoActivo = null;
+    }
+    public bool EstaMoviendose()
+    {
+        return velocidadActual > 0.1f;
     }
 }

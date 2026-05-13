@@ -32,15 +32,25 @@ public class CombateJugador : MonoBehaviour
     [SerializeField] private ArmaVisual armaVisual;
 
 
+
     private int golpeActual = 0;
     private float tiempoUltimoGolpe;
     private bool puedeAtacar = true;
     private bool combateHabilitado = true;
     private bool inputGuardado = false;
     private Animator animator;
-
+    private MovimientoAlastor movimiento;
     void Start()
     {
+        movimiento = GetComponent<MovimientoAlastor>();
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("Click detectado. CombateHabilitado: " + combateHabilitado);
+        }
+        if (movimiento == null)
+            Debug.Log("MovimientoAlastor es null");
+        else
+            Debug.Log("MovimientoAlastor encontrado");
         animator = GetComponentInChildren<Animator>();
         ComprobarSiSePuedeAtacarEnLaEscena();
         if (animator == null)
@@ -62,7 +72,7 @@ public class CombateJugador : MonoBehaviour
             golpeActual = 0;
         }
 
-        if (Input.GetButtonDown("Ataque") && combateHabilitado)
+        if (Input.GetMouseButtonDown(0) && combateHabilitado && !movimiento.EstaMoviendose())
         {
             if (puedeAtacar)
                 Atacar();
