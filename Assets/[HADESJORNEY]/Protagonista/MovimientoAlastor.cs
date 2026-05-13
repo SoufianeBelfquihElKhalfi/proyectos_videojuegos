@@ -31,6 +31,7 @@ public class MovimientoAlastor : MonoBehaviour
     private float tiempoPisada = 0f;
     private float intervaloPisada = 0.3f;
     public float velocidadActual = 0f;
+    public bool movimientoHabilitado = true;
 
     private void Awake()
     {
@@ -80,6 +81,7 @@ public class MovimientoAlastor : MonoBehaviour
 
     private void MoverJugador()
     {
+        if (!movimientoHabilitado) return;
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 

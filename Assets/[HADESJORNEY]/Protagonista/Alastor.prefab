@@ -240,6 +240,7 @@ MonoBehaviour:
   isDashing: 0
   anim: {fileID: 6601499350363298445}
   velocidadActual: 0
+  movimientoHabilitado: 1
 --- !u!114 &6272437019516206938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,7 +440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   intervaloClones: 0.03
-  duracionClon: 1
+  duracionClon: 0.5
   colorClon: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 0.078431375}
 --- !u!1 &8522339133795825142
 GameObject:

@@ -40,7 +40,7 @@ public class EfectoDash : MonoBehaviour
 
             GameObject clon = new GameObject("Ghost");
             clon.transform.position = smr.transform.position;
-            clon.transform.rotation = smr.transform.rotation;
+            clon.transform.rotation = transform.rotation;
             clon.transform.localScale = smr.transform.lossyScale * 0.5f;
 
             MeshFilter mf = clon.AddComponent<MeshFilter>();

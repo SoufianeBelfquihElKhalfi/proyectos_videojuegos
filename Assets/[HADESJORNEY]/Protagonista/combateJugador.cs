@@ -72,7 +72,7 @@ public class CombateJugador : MonoBehaviour
             golpeActual = 0;
         }
 
-        if (Input.GetMouseButtonDown(0) && combateHabilitado && !movimiento.EstaMoviendose())
+        if (Input.GetMouseButtonDown(0) && combateHabilitado)
         {
             if (puedeAtacar)
                 Atacar();
@@ -106,6 +106,8 @@ public class CombateJugador : MonoBehaviour
             estela.Clear();
         }
         puedeAtacar = false;
+        if (movimiento != null)
+            movimiento.movimientoHabilitado = false;
         tiempoUltimoGolpe = Time.time;
 
         if (armaVisual != null) armaVisual.Mostrar();
@@ -200,6 +202,9 @@ public class CombateJugador : MonoBehaviour
     void ResetAtaque()
     {
         puedeAtacar = true;
+
+        if (movimiento != null)
+            movimiento.movimientoHabilitado = true;
 
         if (inputGuardado)
         {
