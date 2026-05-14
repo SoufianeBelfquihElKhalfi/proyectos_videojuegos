@@ -22,15 +22,20 @@ public class EnemigoDistancia : MonoBehaviour
     private NavMeshAgent agente;
     private float tiempoUltimoDisparo;
     private int puntoActual = 0;
+    private Animator animator;
+    private bool jugadorDetectado = false;
 
     void Start()
     {
         agente = GetComponent<NavMeshAgent>();
-
+        animator = GetComponentInChildren<Animator>();
         var jugadorObj = FindFirstObjectByType<MovimientoAlastor>();
         if (jugadorObj != null)
             jugador = jugadorObj.transform;
-
+        if (animator == null)
+            Debug.Log("Animator null en EnemigoDistancia");
+        else
+            Debug.Log("Animator encontrado en EnemigoDistancia");
         IrAlSiguientePunto();
     }
 
@@ -76,6 +81,18 @@ public class EnemigoDistancia : MonoBehaviour
         {
             Disparar();
             tiempoUltimoDisparo = Time.time;
+        }
+        if (distancia < rangoDeteccion && !jugadorDetectado)
+        {
+            jugadorDetectado = true;
+            Debug.Log("Jugador detectado - activando trigger Deteccion");
+            if (animator != null)
+                animator.SetTrigger("Deteccion");
+        }
+
+        if (distancia > rangoDeteccion)
+        {
+            jugadorDetectado = false;
         }
     }
 

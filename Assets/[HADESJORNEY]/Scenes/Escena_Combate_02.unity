@@ -3582,6 +3582,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pausa: {fileID: 2043679119}
+  primerBotonPausa: {fileID: 0}
+  botonPausa: Pausa
+  botonCancelar: Cancel
+  botonAceptar: Submit
+  ejeHorizontal: Horizontal
+  ejeVertical: Vertical
+  escenaMenu: SplashScreen
 --- !u!4 &1297396521
 Transform:
   m_ObjectHideFlags: 0
