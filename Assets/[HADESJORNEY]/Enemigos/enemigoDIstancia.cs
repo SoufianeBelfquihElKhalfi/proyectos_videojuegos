@@ -46,8 +46,8 @@ public class EnemigoDistancia : MonoBehaviour
 
     void Update()
     {
-        if (jugador == null) return;
-        Debug.Log("Velocidad: " + agente.velocity.magnitude + " Correr: " + animator.GetBool("Correr"));
+        if (animator != null)
+            Debug.Log("Estado actual: " + animator.GetCurrentAnimatorStateInfo(0).IsName("Correr"));
 
         float distancia = Vector3.Distance(transform.position, jugador.position);
 
@@ -56,7 +56,7 @@ public class EnemigoDistancia : MonoBehaviour
         {
             bool seEstaMoviendo = agente.velocity.magnitude > 0.1f;
             if (animator != null)
-                animator.SetBool("Correr", seEstaMoviendo);
+                animator.SetBool("correr", seEstaMoviendo);
         }
 
         if (distancia > rangoDeteccion)
@@ -133,8 +133,16 @@ public class EnemigoDistancia : MonoBehaviour
 
     void Disparar()
     {
+        Debug.Log("Disparar llamado");
         if (prefabProyectil == null || puntoDisparo == null) return;
-
+        Debug.Log("Posición puntoDisparo Y: " + puntoDisparo.position.y);
+        if (animator != null) { 
+            Debug.Log("Activando trigger Disparar");
+        animator.SetTrigger("Disparar");
+    }
+        else{
+            Debug.Log("Animator null");
+        }
         GameObject bola = Instantiate(prefabProyectil, puntoDisparo.position, Quaternion.identity);
         Proyectil proy = bola.GetComponent<Proyectil>();
 

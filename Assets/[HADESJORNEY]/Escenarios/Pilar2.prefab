@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pilar2
       objectReference: {fileID: 0}
+    - target: {fileID: 5961299423441367172, guid: d2351dd48f008a6428853ceb0e32cdef, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6285011749352539804, guid: d2351dd48f008a6428853ceb0e32cdef, type: 3}
       propertyPath: m_Mesh
       value: 

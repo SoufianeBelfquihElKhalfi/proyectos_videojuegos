@@ -37,7 +37,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6940204238969897458}
-  - {fileID: 4937282293473048002}
   - {fileID: 6864964977908107222}
   - {fileID: 986394621675776536}
   m_Father: {fileID: 0}
@@ -163,7 +162,7 @@ MonoBehaviour:
   distanciaDisparo: 5
   prefabProyectil: {fileID: 4537737509914126809, guid: f37506e4e980264439ab2a3b31499c5f, type: 3}
   puntoDisparo: {fileID: 4937282293473048002}
-  cadenciaDisparo: 1
+  cadenciaDisparo: 4
   distanciaMinima: 4.5
   puntosRuta:
   - {fileID: 0}
@@ -381,12 +380,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7868989980842891378}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.2, z: 1.2}
+  m_LocalRotation: {x: 0.4531163, y: 0.15971924, z: -0.55287415, w: -0.68081254}
+  m_LocalPosition: {x: -0.732, y: 0.456, z: 0.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1584909338501983404}
+  m_Father: {fileID: 4940156079364219324}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8220525333140977947
 GameObject:
@@ -482,6 +481,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1330755669629619180, guid: 545f6bec8bdb187488d5f59786b48db6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4937282293473048002}
     - targetCorrespondingSourceObject: {fileID: -3321919801592875672, guid: 545f6bec8bdb187488d5f59786b48db6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7822860959480895099}
@@ -493,6 +495,11 @@ PrefabInstance:
 --- !u!4 &513152482379669304 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -3321919801592875672, guid: 545f6bec8bdb187488d5f59786b48db6, type: 3}
+  m_PrefabInstance: {fileID: 6267109611441089104}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4940156079364219324 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1330755669629619180, guid: 545f6bec8bdb187488d5f59786b48db6, type: 3}
   m_PrefabInstance: {fileID: 6267109611441089104}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &5869183731018534331 stripped
@@ -522,7 +529,13 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
+    'mixamorig:LeftHandIndex1'\n\tTransform 'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform
+    'mixamorig:RightArm'\n\tTransform 'mixamorig:LeftLeg'\n\tTransform 'mixamorig:LeftShoulder'\n\tTransform
+    'mixamorig:RightHandIndex3'\n\tTransform 'mixamorig:RightFoot'\n\tand more ...\n\tFrom
+    animation clip 'Proyectil'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0

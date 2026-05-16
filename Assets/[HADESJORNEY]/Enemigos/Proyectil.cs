@@ -6,7 +6,7 @@ public class Proyectil : MonoBehaviour
     [SerializeField] private float velocidad = 10f;
     [SerializeField] private int danio = 1;
     [SerializeField] private float tiempoVida = 5f;
-    [SerializeField] private float gravedad = 9.8f;
+    [SerializeField] private float gravedad = 2f;
 
     [Header("Retroceso")]
     [SerializeField] private float fuerzaRetroceso = 2f;
@@ -18,7 +18,9 @@ public class Proyectil : MonoBehaviour
 
     public void Inicializar(Vector3 dir)
     {
-        Vector3 dirConArco = (dir.normalized + Vector3.up * 0.4f).normalized;
+        Debug.Log("Dirección inicial: " + dir);
+        Vector3 dirConArco = (dir.normalized + Vector3.up * 0.2f).normalized;
+        Debug.Log("Dirección con arco: " + dirConArco);
         velocidadActual = dirConArco * velocidad;
         inicializado = true;
 
@@ -26,6 +28,9 @@ public class Proyectil : MonoBehaviour
     }
 
     private void Start()
+    {
+    }
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }

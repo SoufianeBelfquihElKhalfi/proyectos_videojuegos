@@ -123,14 +123,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b01c05c43dd895849a750b8af6141b61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 10
+  velocidad: 15
   danio: 1
   tiempoVida: 5
-  gravedad: 9.8
+  gravedad: 0.5
   fuerzaRetroceso: 2
   duracionRetroceso: 0.2
-  duracionParpadeo: 0.3
-  cantidadParpadeos: 3
 --- !u!54 &6907569369499859406
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -221,6 +219,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 69800e0728764dd4ea564579d294513b, type: 3}
       propertyPath: m_Name
       value: PROYECTIL
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 69800e0728764dd4ea564579d294513b, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
