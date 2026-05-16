@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class EnemigoDistancia : MonoBehaviour
 {
@@ -25,6 +26,10 @@ public class EnemigoDistancia : MonoBehaviour
     private Animator animator;
     private bool jugadorDetectado = false;
 
+    [SerializeField] private GameObject prefabExclamacion;
+    [SerializeField] private Transform puntoExclamacion;
+    private bool detectando = false;
+
     void Start()
     {
         agente = GetComponent<NavMeshAgent>();
@@ -42,8 +47,17 @@ public class EnemigoDistancia : MonoBehaviour
     void Update()
     {
         if (jugador == null) return;
+        Debug.Log("Velocidad: " + agente.velocity.magnitude + " Correr: " + animator.GetBool("Correr"));
 
         float distancia = Vector3.Distance(transform.position, jugador.position);
+
+        // Animación de correr - ANTES del return
+        if (agente != null)
+        {
+            bool seEstaMoviendo = agente.velocity.magnitude > 0.1f;
+            if (animator != null)
+                animator.SetBool("Correr", seEstaMoviendo);
+        }
 
         if (distancia > rangoDeteccion)
         {
@@ -82,12 +96,10 @@ public class EnemigoDistancia : MonoBehaviour
             Disparar();
             tiempoUltimoDisparo = Time.time;
         }
-        if (distancia < rangoDeteccion && !jugadorDetectado)
+        if (distancia < rangoDeteccion && !jugadorDetectado && !detectando)
         {
-            jugadorDetectado = true;
-            Debug.Log("Jugador detectado - activando trigger Deteccion");
-            if (animator != null)
-                animator.SetTrigger("Deteccion");
+            detectando = true;
+            StartCoroutine(SecuenciaDeteccion());
         }
 
         if (distancia > rangoDeteccion)
@@ -141,5 +153,36 @@ public class EnemigoDistancia : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, distanciaDisparo);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, distanciaMinima);
+    }
+    public void RecibirDanioAnimacion()
+    {
+        Debug.Log("RecibirDanioAnimacion llamado");
+        if (animator != null)
+        {
+            Debug.Log("Trigger Daño activado");
+            animator.SetTrigger("danio");
+        }
+        else
+            Debug.Log("Animator null en RecibirDanioAnimacion");
+    }
+    IEnumerator SecuenciaDeteccion()
+    {
+        agente.isStopped = true;
+
+        GameObject exclamacion = null;
+        if (prefabExclamacion != null && puntoExclamacion != null)
+        {
+            exclamacion = Instantiate(prefabExclamacion, puntoExclamacion.position, Quaternion.identity);
+            exclamacion.transform.SetParent(puntoExclamacion);
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        if (exclamacion != null)
+            Destroy(exclamacion);
+
+        agente.isStopped = false;
+        jugadorDetectado = true;
+        detectando = false;
     }
 }

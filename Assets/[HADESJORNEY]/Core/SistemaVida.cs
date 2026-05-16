@@ -111,6 +111,9 @@ public class SistemaVida : MonoBehaviour
         {
             Debug.Log("Animator null en SistemaVida");
         }
+        var enemigoDistancia = GetComponent<EnemigoDistancia>();
+        if (enemigoDistancia != null)
+            enemigoDistancia.RecibirDanioAnimacion();
     }
 
     private void IniciarParpadeo()
