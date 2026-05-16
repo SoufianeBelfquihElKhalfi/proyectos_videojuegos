@@ -215,6 +215,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2898722035299297360}
+  - component: {fileID: 8910898267598767998}
   m_Layer: 6
   m_Name: PivoteFuego
   m_TagString: Untagged
@@ -238,6 +239,25 @@ Transform:
   - {fileID: 3939998345094438958}
   m_Father: {fileID: 7822860959480895099}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8910898267598767998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673987647173703564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a958f77018f8c094ba7b837482dd93f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objetivoMovimiento: {fileID: 1584909338501983404}
+  pivoteFuego: {fileID: 2898722035299297360}
+  velocidadParaInclinacionMaxima: 3.5
+  inclinacionMaxima: 28
+  suavizado: 12
+  umbralVelocidad: 0.05
+  distanciaMaximaSinTeleport: 2
 --- !u!1 &2451101837818799036
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,7 +330,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7822860959480895099}
-  - component: {fileID: 572315064219672848}
   m_Layer: 6
   m_Name: FueguitoCabeza
   m_TagString: Untagged
@@ -334,25 +353,6 @@ Transform:
   - {fileID: 2898722035299297360}
   m_Father: {fileID: 5869183731018534331}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &572315064219672848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6358192375671295299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a958f77018f8c094ba7b837482dd93f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objetivoMovimiento: {fileID: 0}
-  pivoteFuego: {fileID: 0}
-  velocidadParaInclinacionMaxima: 3.5
-  inclinacionMaxima: 28
-  suavizado: 12
-  umbralVelocidad: 0.05
-  distanciaMaximaSinTeleport: 2
 --- !u!1 &7868989980842891378
 GameObject:
   m_ObjectHideFlags: 0
