@@ -12,6 +12,8 @@ public class FantasmaCombate : MonoBehaviour
     public float intervaloDisparo = 1f;
     public float radioDeteccion = 10f;
 
+    
+
     [Header("Visual Combate")]
     public Color colorNormal = Color.white;
     public Color colorCombate = Color.yellow;
@@ -24,12 +26,19 @@ public class FantasmaCombate : MonoBehaviour
     private float timerDisparo = 0f;
     private bool habilidadEHabilitada = true;
     private Renderer[] renderers;
+    private Animator animator;
 
     void Start()
     {
-        // Obtener todos los Renderers del fantasma y sus hijos
+        animator = GetComponentInChildren<Animator>();
+
         renderers = GetComponentsInChildren<Renderer>();
         ComprobarSiLaHabilidadFantasmaSePuedeUsarEnLaEscena();
+
+        if (animator != null)
+        {
+            animator.SetBool("transformado", false);
+        }
     }
 
     void Update()
@@ -73,6 +82,12 @@ public class FantasmaCombate : MonoBehaviour
         enModoCombate = true;
         tiempoRestanteCombate = duracionCombate;
         timerDisparo = 0f;
+
+        if (animator != null)
+        {
+            animator.SetBool("transformado", true);
+        }
+
         AplicarColor(colorCombate);
     }
 
@@ -80,6 +95,12 @@ public class FantasmaCombate : MonoBehaviour
     {
         enModoCombate = false;
         tiempoRestanteCooldown = cooldown;
+
+        if (animator != null)
+        {
+            animator.SetBool("transformado", false);
+        }
+
         AplicarColor(colorNormal);
     }
 
@@ -87,13 +108,16 @@ public class FantasmaCombate : MonoBehaviour
     {
         foreach (Renderer rend in renderers)
         {
-            // Compatibe con materiales que usen _Color o _BaseColor (URP/HDRP)
             foreach (Material mat in rend.materials)
             {
                 if (mat.HasProperty("_BaseColor"))
+                {
                     mat.SetColor("_BaseColor", color);
+                }
                 else if (mat.HasProperty("_Color"))
+                {
                     mat.SetColor("_Color", color);
+                }
             }
         }
     }
@@ -106,9 +130,15 @@ public class FantasmaCombate : MonoBehaviour
         if (objetivo == null) return;
 
         Vector3 direccionInicial = (objetivo.position - puntoDisparo.position).normalized;
-        GameObject flecha = Instantiate(prefabFlecha, puntoDisparo.position, Quaternion.LookRotation(direccionInicial));
+
+        GameObject flecha = Instantiate(
+            prefabFlecha,
+            puntoDisparo.position,
+            Quaternion.LookRotation(direccionInicial)
+        );
 
         FlechaFantasma scriptFlecha = flecha.GetComponent<FlechaFantasma>();
+
         if (scriptFlecha != null)
         {
             scriptFlecha.objetivo = objetivo;
