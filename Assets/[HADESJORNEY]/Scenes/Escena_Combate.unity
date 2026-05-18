@@ -1154,22 +1154,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1830006704909261352, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: 'puntosRuta.Array.data[0]'
-      value: 
-      objectReference: {fileID: 1811301695}
-    - target: {fileID: 1830006704909261352, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: 'puntosRuta.Array.data[1]'
-      value: 
-      objectReference: {fileID: 1434091105}
-    - target: {fileID: 1830006704909261352, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: 'puntosRuta.Array.data[2]'
-      value: 
-      objectReference: {fileID: 1622977008}
-    - target: {fileID: 1835004264168806087, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: m_WarningMessage
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4759751360084756910, guid: 8b64039002b027246930189e5db5a193, type: 3}
       propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
