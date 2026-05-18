@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: -4995579672940724724}
   - component: {fileID: 4759751360084756910}
   - component: {fileID: -124856648918149877}
-  - component: {fileID: 1830006704909261352}
   - component: {fileID: 225849526631632457}
   - component: {fileID: 6170180798692012991}
+  - component: {fileID: 3697238576570648250}
+  - component: {fileID: 891519275970777900}
   m_Layer: 6
   m_Name: PF_Enemigo_PortadorIncensario
   m_TagString: Enemy
@@ -146,31 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f4adb65c985fb7468e3c81f750e18dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1830006704909261352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 588417347952441320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c574389336b7ee448735ce2fa98e950, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rangoDeteccion: 7
-  distanciaDisparo: 5
-  prefabProyectil: {fileID: 4537737509914126809, guid: f37506e4e980264439ab2a3b31499c5f, type: 3}
-  puntoDisparo: {fileID: 4937282293473048002}
-  cadenciaDisparo: 4
-  distanciaMinima: 4.5
-  puntosRuta:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  prefabExclamacion: {fileID: 629870405857442683, guid: 907c7f23531e941459e9c64a7d5c7257, type: 3}
-  puntoExclamacion: {fileID: 986394621675776536}
 --- !u!114 &225849526631632457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,6 +185,48 @@ MonoBehaviour:
   numeroDePrefabs: 3
   dropFragmento: 1
   prefabFragmento: {fileID: 7680720925938580253, guid: 7a02b5abbe777a946a738852a3bdde22, type: 3}
+--- !u!114 &3697238576570648250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588417347952441320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1d33cbd14984224d843811bf6dc9efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rangoDeteccion: 12
+  distanciaDisparo: 8
+  prefabProyectil: {fileID: 4537737509914126809, guid: f37506e4e980264439ab2a3b31499c5f, type: 3}
+  puntoDisparo: {fileID: 4937282293473048002}
+  cadenciaDisparo: 2
+  distanciaMinima: 4
+  puntosRuta: []
+  prefabExclamacion: {fileID: 629870405857442683, guid: 907c7f23531e941459e9c64a7d5c7257, type: 3}
+  puntoExclamacion: {fileID: 986394621675776536}
+--- !u!114 &891519275970777900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588417347952441320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1d33cbd14984224d843811bf6dc9efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rangoDeteccion: 12
+  distanciaDisparo: 8
+  prefabProyectil: {fileID: 4537737509914126809, guid: f37506e4e980264439ab2a3b31499c5f, type: 3}
+  puntoDisparo: {fileID: 0}
+  cadenciaDisparo: 2
+  distanciaMinima: 4
+  puntosRuta: []
+  prefabExclamacion: {fileID: 629870405857442683, guid: 907c7f23531e941459e9c64a7d5c7257, type: 3}
+  puntoExclamacion: {fileID: 986394621675776536}
 --- !u!1 &1673987647173703564
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,10 +444,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6940204238969897458}
     m_Modifications:
-    - target: {fileID: 5022863689346868685, guid: 67f872d67309e1040add38afab872974, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 224d1501499d819409386a24fa2144f1, type: 2}
     - target: {fileID: -8679921383154817045, guid: 545f6bec8bdb187488d5f59786b48db6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -475,6 +489,10 @@ PrefabInstance:
       value: Incensario
       objectReference: {fileID: 0}
     - target: {fileID: 5022863689346868685, guid: 545f6bec8bdb187488d5f59786b48db6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 224d1501499d819409386a24fa2144f1, type: 2}
+    - target: {fileID: 5022863689346868685, guid: 67f872d67309e1040add38afab872974, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 224d1501499d819409386a24fa2144f1, type: 2}
@@ -529,13 +547,7 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
-    'mixamorig:LeftHandIndex1'\n\tTransform 'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform
-    'mixamorig:RightArm'\n\tTransform 'mixamorig:LeftLeg'\n\tTransform 'mixamorig:LeftShoulder'\n\tTransform
-    'mixamorig:RightHandIndex3'\n\tTransform 'mixamorig:RightFoot'\n\tand more ...\n\tFrom
-    animation clip 'Proyectil'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
