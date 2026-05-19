@@ -215,11 +215,19 @@ public class SistemaVida : MonoBehaviour
     {
         if (animator != null)
             animator.SetTrigger("Muerte");
+
         var movimiento = GetComponent<MovimientoAlastor>();
         if (movimiento != null) movimiento.enabled = false;
 
         var combate = GetComponent<CombateJugador>();
         if (combate != null) combate.enabled = false;
+
+        // Desactivar enemigo para que no siga atacando
+        var enemigoDistancia = GetComponent<EnemigoDistancia>();
+        if (enemigoDistancia != null) enemigoDistancia.enabled = false;
+
+        var collider = GetComponent<Collider>();
+        if (collider != null) collider.enabled = false;
 
         if (esJugador)
         {
@@ -238,10 +246,62 @@ public class SistemaVida : MonoBehaviour
 
         StartCoroutine(EsperarMuerte());
     }
+
     private IEnumerator EsperarMuerte()
     {
-        yield return new WaitForSeconds(4f);
-        alMorir?.Invoke();
+        // Espera a que termine la animación de muerte
+        yield return new WaitForSeconds(2f);
+
+        // Fade out solo para enemigos
+        if (!esJugador)
+        {
+            Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+            // Cambiar materiales a transparente
+            foreach (Renderer rend in renderers)
+            {
+                foreach (Material mat in rend.materials)
+                {
+                    mat.SetFloat("_Mode", 3);
+                    mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                    mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                    mat.SetInt("_ZWrite", 0);
+                    mat.DisableKeyword("_ALPHATEST_ON");
+                    mat.EnableKeyword("_ALPHABLEND_ON");
+                    mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                    mat.renderQueue = 3000;
+                }
+            }
+
+            float duracionFade = 1.5f;
+            float tiempo = 0f;
+
+            while (tiempo < duracionFade)
+            {
+                tiempo += Time.deltaTime;
+                float alpha = 1f - (tiempo / duracionFade);
+
+                foreach (Renderer rend in renderers)
+                {
+                    foreach (Material mat in rend.materials)
+                    {
+                        if (mat.HasProperty("_Color"))
+                        {
+                            Color color = mat.color;
+                            color.a = alpha;
+                            mat.color = color;
+                        }
+                    }
+                }
+                yield return null;
+            }
+
+            Destroy(gameObject);
+        }
+        else
+        {
+            alMorir?.Invoke();
+        }
     }
     private void NotificarCambioVida()
     {

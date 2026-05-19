@@ -40,6 +40,7 @@ public class CombateJugador : MonoBehaviour
     private bool inputGuardado = false;
     private Animator animator;
     private MovimientoAlastor movimiento;
+    private int golpeActualParaEvento;
     void Start()
     {
         movimiento = GetComponent<MovimientoAlastor>();
@@ -118,59 +119,7 @@ public class CombateJugador : MonoBehaviour
             animator.SetTrigger("Ataque");
             animator.SetInteger("GolpeCombo", golpeActual);
         }
-
-        Collider[] enemigos = Physics.OverlapSphere(puntoAtaque.position, rangoAtaque, capaEnemigos);
-
-        int danio = danioPorGolpe[golpeActual];
-
-        if (EstadisticasJugador.Instancia != null)
-        {
-            danio = Mathf.CeilToInt(danio * EstadisticasJugador.Instancia.multiplicadorDanio);
-        }
-        float retroceso = retrocesoPorGolpe[golpeActual];
-
-
-        bool maniquiGolpeado = false;
-
-        foreach (Collider enemigo in enemigos)
-        {
-            SistemaVida vida = enemigo.GetComponentInParent<SistemaVida>();
-            if (vida != null)
-            {
-                vida.RecibirDanio(danio);
-                if (efectoGolpe != null)
-                {
-                    GameObject efecto = Instantiate(efectoGolpe, enemigo.transform.position + Vector3.up, Quaternion.identity);
-                    Destroy(efecto, 0.5f);
-                }
-                if (efectoDestello != null)
-                {
-                    GameObject destello = Instantiate(efectoDestello, enemigo.transform.position + Vector3.up, Quaternion.identity);
-                    Destroy(destello, 0.3f);
-                }
-
-                if (enemigo.CompareTag("maniqui"))
-                {
-                    if (!maniquiGolpeado)
-                    {
-                        Maniqui maniqui = enemigo.GetComponentInParent<Maniqui>();
-                        if (maniqui != null)
-                        {
-                            maniqui.RecibirDanio();
-                            maniquiGolpeado = true;
-                        }
-                    }
-                    continue;
-                }
-
-                Transform enemigoRoot = vida.transform;
-                Vector3 direccion = (enemigoRoot.position - transform.position).normalized;
-                direccion.y = 0;
-                StartCoroutine(RetrocesoSuave(enemigoRoot, direccion, retroceso));
-            }
-
-        }
-
+        golpeActualParaEvento = golpeActual;
         golpeActual++;
         if (golpeActual >= maxGolpesCombo)
         {
@@ -224,5 +173,54 @@ public class CombateJugador : MonoBehaviour
         if (puntoAtaque == null) return;
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(puntoAtaque.position, rangoAtaque);
+    }
+    public void AplicarDanioGolpe()
+    {
+        Collider[] enemigos = Physics.OverlapSphere(puntoAtaque.position, rangoAtaque, capaEnemigos);
+
+        int danio = danioPorGolpe[golpeActualParaEvento];
+        if (EstadisticasJugador.Instancia != null)
+            danio = Mathf.CeilToInt(danio * EstadisticasJugador.Instancia.multiplicadorDanio);
+
+        float retroceso = retrocesoPorGolpe[golpeActualParaEvento];
+        bool maniquiGolpeado = false;
+
+        foreach (Collider enemigo in enemigos)
+        {
+            SistemaVida vida = enemigo.GetComponentInParent<SistemaVida>();
+            if (vida != null)
+            {
+                vida.RecibirDanio(danio);
+                if (efectoGolpe != null)
+                {
+                    GameObject efecto = Instantiate(efectoGolpe, enemigo.transform.position + Vector3.up, Quaternion.identity);
+                    Destroy(efecto, 0.5f);
+                }
+                if (efectoDestello != null)
+                {
+                    GameObject destello = Instantiate(efectoDestello, enemigo.transform.position + Vector3.up, Quaternion.identity);
+                    Destroy(destello, 0.3f);
+                }
+
+                if (enemigo.CompareTag("maniqui"))
+                {
+                    if (!maniquiGolpeado)
+                    {
+                        Maniqui maniqui = enemigo.GetComponentInParent<Maniqui>();
+                        if (maniqui != null)
+                        {
+                            maniqui.RecibirDanio();
+                            maniquiGolpeado = true;
+                        }
+                    }
+                    continue;
+                }
+
+                Transform enemigoRoot = vida.transform;
+                Vector3 direccion = (enemigoRoot.position - transform.position).normalized;
+                direccion.y = 0;
+                StartCoroutine(RetrocesoSuave(enemigoRoot, direccion, retroceso));
+            }
+        }
     }
 }

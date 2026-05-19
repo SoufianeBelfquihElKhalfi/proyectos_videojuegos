@@ -4525,6 +4525,10 @@ PrefabInstance:
         more ...\n\tFrom animation clip 'mixamo.com'"
       objectReference: {fileID: 0}
     - target: {fileID: 3697238576570648250, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: cadenciaDisparo
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697238576570648250, guid: 8b64039002b027246930189e5db5a193, type: 3}
       propertyPath: puntosRuta.Array.size
       value: 4
       objectReference: {fileID: 0}
