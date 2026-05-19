@@ -1154,27 +1154,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1830006704909261352, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: 'puntosRuta.Array.data[0]'
-      value: 
-      objectReference: {fileID: 1811301695}
-    - target: {fileID: 1830006704909261352, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: 'puntosRuta.Array.data[1]'
-      value: 
-      objectReference: {fileID: 1434091105}
-    - target: {fileID: 1830006704909261352, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: 'puntosRuta.Array.data[2]'
-      value: 
-      objectReference: {fileID: 1622977008}
     - target: {fileID: 4759751360084756910, guid: 8b64039002b027246930189e5db5a193, type: 3}
       propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1233282641}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4367570343250200088, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 376561573}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b64039002b027246930189e5db5a193, type: 3}
+--- !u!4 &239284437 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4367570343250200088, guid: 8b64039002b027246930189e5db5a193, type: 3}
+  m_PrefabInstance: {fileID: 239284436}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &320325724
 GameObject:
   m_ObjectHideFlags: 0
@@ -1325,6 +1321,68 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 361228700}
   m_CullTransparentMesh: 1
+--- !u!1001 &376561572
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 239284437}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 2b95915ae6396ee42b089e5cc702fd0b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b95915ae6396ee42b089e5cc702fd0b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b95915ae6396ee42b089e5cc702fd0b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b95915ae6396ee42b089e5cc702fd0b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b95915ae6396ee42b089e5cc702fd0b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b95915ae6396ee42b089e5cc702fd0b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b95915ae6396ee42b089e5cc702fd0b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b95915ae6396ee42b089e5cc702fd0b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b95915ae6396ee42b089e5cc702fd0b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b95915ae6396ee42b089e5cc702fd0b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2b95915ae6396ee42b089e5cc702fd0b, type: 3}
+      propertyPath: m_Name
+      value: Incienso
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2b95915ae6396ee42b089e5cc702fd0b, type: 3}
+--- !u!4 &376561573 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2b95915ae6396ee42b089e5cc702fd0b, type: 3}
+  m_PrefabInstance: {fileID: 376561572}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &402473676
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4076,6 +4134,7 @@ GameObject:
   - component: {fileID: 1368258495}
   - component: {fileID: 1368258494}
   - component: {fileID: 1368258493}
+  - component: {fileID: 1368258496}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4157,6 +4216,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1368258496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368258492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &1383678989
 GameObject:
   m_ObjectHideFlags: 0

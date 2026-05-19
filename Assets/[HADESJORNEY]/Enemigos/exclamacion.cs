@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class exclamacion : MonoBehaviour
+public class Exclamacion : MonoBehaviour
 {
     private Camera cam;
 
