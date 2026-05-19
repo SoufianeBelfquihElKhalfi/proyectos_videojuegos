@@ -439,8 +439,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94830f8501a9b7e468d156822305cf25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intervaloClones: 0.03
-  duracionClon: 0.5
+  intervaloClones: 0.05
+  duracionClon: 0.2
   colorClon: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 0.078431375}
 --- !u!1 &8522339133795825142
 GameObject:

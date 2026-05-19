@@ -4519,11 +4519,31 @@ PrefabInstance:
       value: "\nBinding warning: Some generic clip(s) animate transforms that are
         already bound by a Humanoid avatar. These transforms can only be changed
         by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
-        'mixamorig:LeftHandIndex1'\n\tTransform 'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform
-        'mixamorig:RightArm'\n\tTransform 'mixamorig:LeftLeg'\n\tTransform 'mixamorig:LeftShoulder'\n\tTransform
-        'mixamorig:RightHandIndex3'\n\tTransform 'mixamorig:RightFoot'\n\tand more
-        ...\n\tFrom animation clip 'Proyectil'"
+        'mixamorig:Spine1'\n\tTransform 'mixamorig:RightArm'\n\tTransform 'mixamorig:LeftLeg'\n\tTransform
+        'mixamorig:LeftShoulder'\n\tTransform 'mixamorig:RightHandIndex3'\n\tTransform
+        'mixamorig:RightFoot'\n\tTransform 'mixamorig:Head'\n\tTransform 'mixamorig:LeftUpLeg'\n\tand
+        more ...\n\tFrom animation clip 'mixamo.com'"
       objectReference: {fileID: 0}
+    - target: {fileID: 3697238576570648250, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: puntosRuta.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697238576570648250, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: 'puntosRuta.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1521424118}
+    - target: {fileID: 3697238576570648250, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: 'puntosRuta.Array.data[1]'
+      value: 
+      objectReference: {fileID: 223904527}
+    - target: {fileID: 3697238576570648250, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: 'puntosRuta.Array.data[2]'
+      value: 
+      objectReference: {fileID: 671578636}
+    - target: {fileID: 3697238576570648250, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: 'puntosRuta.Array.data[3]'
+      value: 
+      objectReference: {fileID: 104505255}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
