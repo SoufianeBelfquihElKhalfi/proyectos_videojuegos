@@ -228,11 +228,10 @@ public class SistemaVida : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
 
+        alMorir?.Invoke();
+
         if (esJugador)
-        {
-            alMorir?.Invoke();
             yield break;
-        }
 
         yield return DesvanecerYDestruir();
     }
