@@ -88,6 +88,12 @@ public class SistemaVida : MonoBehaviour
     {
         if (EstaMuerto) return;
         if (danioMitadCorazones <= 0) return;
+
+        // NUEVO: comprobar invencibilidad del dash
+        var movimiento = GetComponent<MovimientoAlastor>();
+        if (movimiento != null && movimiento.esInvulnerable) return;
+        if (EstaMuerto) return;
+        if (danioMitadCorazones <= 0) return;
         if (esJugador && flashGolpe.Instancia != null)
             StartCoroutine(flashGolpe.Instancia.MostrarFlash());
         corazonesMitadActuales -= danioMitadCorazones;
@@ -105,7 +111,7 @@ public class SistemaVida : MonoBehaviour
         if (animator != null)
         {
             Debug.Log("Trigger Daño activado");
-            animator.SetTrigger("Danio");
+            animator.SetTrigger("Golpe");
         }
         else
         {

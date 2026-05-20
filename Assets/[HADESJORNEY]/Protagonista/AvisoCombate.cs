@@ -13,4 +13,12 @@ public class AvisoCombate : MonoBehaviour
     {
         combate?.AplicarDanioGolpe();
     }
+    public void AbrirVentanaCombo()
+    {
+        combate?.AbrirVentanaCombo();
+    }
+    public void CerrarVentanaCombo()
+    {
+        combate?.CerrarVentanaCombo();
+    }
 }

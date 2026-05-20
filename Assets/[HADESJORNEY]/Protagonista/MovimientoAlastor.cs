@@ -1,52 +1,59 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(CharacterController))]
 public class MovimientoAlastor : MonoBehaviour
 {
     [Header("Movimiento")]
     [SerializeField] private float speed = 6f;
-    [SerializeField] private float rotationSpeed = 10f;
+    [SerializeField] private float aceleracion = 25f;
+    [SerializeField] private float deceleracion = 30f;
+    [SerializeField] private float rotacionVelocidadGrados = 720f;
     [SerializeField] private float gravedad = 20f;
+    [SerializeField] private float multiplicadorCaida = 1.5f;
 
     [Header("Dash")]
-    [SerializeField] private float dashSpeed = 15f;
-    [SerializeField] private float dashDuration = 1f;
+    [SerializeField] private float dashSpeed = 25f;
+    [SerializeField] private float dashDuration = 0.3f;
+    [SerializeField] private float dashCooldown = 0.5f;
     [SerializeField] private ParticleSystem particulasPisada;
 
-    private EfectoDash dash;
+    [Header("Pisadas")]
+    [SerializeField] private float intervaloPisada = 0.3f;
+
+    [Header("Animator")]
+    public Animator anim;
+
+    // Estado público
+    public bool movimientoHabilitado = true;
     public bool isDashing = false;
-    private bool isInKnockback = false;
+    public bool esInvulnerable = false;
+    public float velocidadActual = 0f;
 
-    private Vector3 forward;
-    private Vector3 right;
-
+    // Componentes y referencias cacheadas
     private CharacterController cc;
+    private Transform camTransform;
+    private EfectoDash dash;
+
+    // Estado interno
+    private Vector3 velocidadHorizontal;
     private float velocidadVertical;
+    private float tiempoPisada;
+    private float tiempoUltimoDash = -999f;
+    private bool isInKnockback = false;
 
     private Coroutine dashActivo;
     private Coroutine retrocesoActivo;
 
-    public Animator anim;
-
-    private float tiempoPisada = 0f;
-    private float intervaloPisada = 0.3f;
-    public float velocidadActual = 0f;
-    public bool movimientoHabilitado = true;
-
     private void Awake()
     {
         cc = GetComponent<CharacterController>();
-
-        if (cc == null)
-        {
-            Debug.LogError("MovimientoAlastor: falta CharacterController en el jugador.");
-            enabled = false;
-        }
     }
 
     private void Start()
     {
         dash = GetComponent<EfectoDash>();
+
         if (Camera.main == null)
         {
             Debug.LogError("MovimientoAlastor: no se ha encontrado Main Camera.");
@@ -54,73 +61,78 @@ public class MovimientoAlastor : MonoBehaviour
             return;
         }
 
-        forward = Camera.main.transform.forward;
-        forward.y = 0f;
-        forward = Vector3.Normalize(forward);
-
-        right = Camera.main.transform.right;
-        right.y = 0f;
-        right = Vector3.Normalize(right);
+        camTransform = Camera.main.transform;
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Dash") && !isDashing && !isInKnockback)
-        {
-            if (dashActivo != null) StopCoroutine(dashActivo);
-            dashActivo = StartCoroutine(Dash());
-
-        }
+        ProcesarInputDash();
 
         if (isDashing || isInKnockback)
-        {
             return;
-        }
+
         MoverJugador();
+    }
+
+    private void ProcesarInputDash()
+    {
+        if (!Input.GetButtonDown("Dash")) return;
+        if (isDashing || isInKnockback) return;
+        if (Time.time - tiempoUltimoDash < dashCooldown) return;
+
+        tiempoUltimoDash = Time.time;
+
+        if (dashActivo != null) StopCoroutine(dashActivo);
+        dashActivo = StartCoroutine(Dash());
     }
 
     private void MoverJugador()
     {
-        if (!movimientoHabilitado) return;
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-
-        Vector3 direction = horizontalInput * right + verticalInput * forward;
-        velocidadActual = direction.magnitude;
-
-        AplicarGravedad();
-
-        Vector3 movimiento = direction * speed;
-        movimiento.y = velocidadVertical;
-
-        cc.Move(movimiento * Time.deltaTime);
-
-        if (direction.magnitude > 0.1f)
+        if (!movimientoHabilitado)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetRotation,
-                rotationSpeed * Time.deltaTime
-            );
-        }
-        if(direction.magnitude > 0.01f)
-        {
-            anim.SetBool("correr", true);
-            tiempoPisada += Time.deltaTime;
-            if (tiempoPisada >= intervaloPisada)
-            {
-                particulasPisada.Play();
-                tiempoPisada = 0f;
-            }
-
-        }
-        else
-        {
-            tiempoPisada = 0f;
+            velocidadHorizontal = Vector3.zero;
+            velocidadActual = 0f;
             anim.SetBool("correr", false);
+            return;
         }
+
+        Vector3 direccionInput = ObtenerDireccionInput();
+        ActualizarVelocidad(direccionInput);
+        AplicarGravedad();
+        AplicarMovimiento();
+        ActualizarRotacion(direccionInput);
+        ActualizarAnimacionYPisadas(direccionInput);
+    }
+
+    private Vector3 ObtenerDireccionInput()
+    {
+        // Recalcular ejes de cámara cada frame por si rota
+        Vector3 forward = camTransform.forward;
+        forward.y = 0f;
+        forward.Normalize();
+
+        Vector3 right = camTransform.right;
+        right.y = 0f;
+        right.Normalize();
+
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+
+        return h * right + v * forward;
+    }
+
+    private void ActualizarVelocidad(Vector3 direccionInput)
+    {
+        Vector3 objetivo = direccionInput * speed;
+        float factor = direccionInput.magnitude > 0.1f ? aceleracion : deceleracion;
+
+        velocidadHorizontal = Vector3.MoveTowards(velocidadHorizontal, objetivo, factor * Time.deltaTime);
+
+        // Evita micro-residuos de velocidad
+        if (velocidadHorizontal.magnitude < 0.05f)
+            velocidadHorizontal = Vector3.zero;
+
+        velocidadActual = velocidadHorizontal.magnitude / speed;
     }
 
     private void AplicarGravedad()
@@ -131,32 +143,71 @@ public class MovimientoAlastor : MonoBehaviour
         }
         else
         {
-            velocidadVertical -= gravedad * Time.deltaTime;
+            float mult = velocidadVertical < 0 ? multiplicadorCaida : 1f;
+            velocidadVertical -= gravedad * mult * Time.deltaTime;
+        }
+    }
+
+    private void AplicarMovimiento()
+    {
+        Vector3 movimiento = velocidadHorizontal;
+        movimiento.y = velocidadVertical;
+        cc.Move(movimiento * Time.deltaTime);
+    }
+
+    private void ActualizarRotacion(Vector3 direccionInput)
+    {
+        if (direccionInput.magnitude < 0.1f) return;
+
+        Quaternion objetivo = Quaternion.LookRotation(direccionInput);
+        transform.rotation = Quaternion.RotateTowards(
+            transform.rotation,
+            objetivo,
+            rotacionVelocidadGrados * Time.deltaTime
+        );
+    }
+
+    private void ActualizarAnimacionYPisadas(Vector3 direccionInput)
+    {
+        bool moviendose = direccionInput.magnitude > 0.01f;
+        anim.SetBool("correr", moviendose);
+
+        if (!moviendose)
+        {
+            tiempoPisada = 0f;
+            return;
+        }
+
+        tiempoPisada += Time.deltaTime;
+        if (tiempoPisada >= intervaloPisada)
+        {
+            if (particulasPisada != null) particulasPisada.Play();
+            tiempoPisada = 0f;
         }
     }
 
     private IEnumerator Dash()
     {
         isDashing = true;
+        esInvulnerable = true;
         anim.SetBool("dash", true);
-
         if (dash != null) dash.Activar();
-        float startTime = Time.time;
 
-        while (Time.time < startTime + dashDuration)
+        float tiempo = 0f;
+        while (tiempo < dashDuration)
         {
+            tiempo += Time.deltaTime;
             AplicarGravedad();
 
             Vector3 movimiento = transform.forward * dashSpeed;
             movimiento.y = velocidadVertical;
-
             cc.Move(movimiento * Time.deltaTime);
 
             yield return null;
         }
 
         isDashing = false;
-        dashActivo = null;
+        esInvulnerable = false;
         anim.SetBool("dash", false);
         if (dash != null) dash.Desactivar();
         dashActivo = null;
@@ -164,31 +215,26 @@ public class MovimientoAlastor : MonoBehaviour
 
     public void AplicarRetroceso(Vector3 direccion, float distancia, float duracion)
     {
-        if (!isActiveAndEnabled || cc == null)
-        {
-            return;
-        }
+        if (!isActiveAndEnabled || cc == null) return;
 
         direccion.y = 0f;
-
-        if (direccion.sqrMagnitude <= 0.001f)
-        {
-            return;
-        }
+        if (direccion.sqrMagnitude <= 0.001f) return;
 
         direccion.Normalize();
 
+        // Cancela dash si está activo
         if (dashActivo != null)
         {
             StopCoroutine(dashActivo);
             dashActivo = null;
             isDashing = false;
+            esInvulnerable = false;
+            anim.SetBool("dash", false);
+            if (dash != null) dash.Desactivar();
         }
 
         if (retrocesoActivo != null)
-        {
             StopCoroutine(retrocesoActivo);
-        }
 
         retrocesoActivo = StartCoroutine(RetrocesoConColisiones(direccion, distancia, duracion));
     }
@@ -219,9 +265,7 @@ public class MovimientoAlastor : MonoBehaviour
             CollisionFlags colisiones = cc.Move(desplazamiento);
 
             if ((colisiones & CollisionFlags.Sides) != 0)
-            {
                 break;
-            }
 
             yield return null;
         }
@@ -229,8 +273,6 @@ public class MovimientoAlastor : MonoBehaviour
         isInKnockback = false;
         retrocesoActivo = null;
     }
-    public bool EstaMoviendose()
-    {
-        return velocidadActual > 0.1f;
-    }
+
+    public bool EstaMoviendose() => velocidadActual > 0.1f;
 }
