@@ -3211,6 +3211,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35aa669d020c8d845b913badb4ebfff7, type: 3}
+--- !u!114 &768269711 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4759751360084756910, guid: 8b64039002b027246930189e5db5a193, type: 3}
+  m_PrefabInstance: {fileID: 1111622679}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6acd8d4a737cfa941976d87723d2529f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &787089472
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4597,6 +4608,18 @@ PrefabInstance:
       propertyPath: 'puntosRuta.Array.data[3]'
       value: 
       objectReference: {fileID: 104505255}
+    - target: {fileID: 4759751360084756910, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: colorParpadeo.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4759751360084756910, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: colorParpadeo.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4759751360084756910, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: colorParpadeo.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9340,6 +9363,14 @@ PrefabInstance:
       propertyPath: animatorPuerta
       value: 
       objectReference: {fileID: 3697929599066729825}
+    - target: {fileID: 1455380715838146745, guid: cba0b5f2e64d3d6468866983ff18d683, type: 3}
+      propertyPath: enemigos.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455380715838146745, guid: cba0b5f2e64d3d6468866983ff18d683, type: 3}
+      propertyPath: 'enemigos.Array.data[0]'
+      value: 
+      objectReference: {fileID: 768269711}
     - target: {fileID: 2030782161354349196, guid: cba0b5f2e64d3d6468866983ff18d683, type: 3}
       propertyPath: m_LocalPosition.x
       value: -161.505
