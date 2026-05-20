@@ -12,11 +12,8 @@ public class FantasmaCombate : MonoBehaviour
     public float intervaloDisparo = 1f;
     public float radioDeteccion = 10f;
 
-    
-
     [Header("Visual Combate")]
-    public Color colorNormal = Color.white;
-    public Color colorCombate = Color.yellow;
+    public Material materialHijoDelRayo;
 
     [Header("Estado (solo lectura)")]
     [SerializeField] private bool enModoCombate = false;
@@ -28,11 +25,21 @@ public class FantasmaCombate : MonoBehaviour
     private Renderer[] renderers;
     private Animator animator;
 
+    // Guardamos los materiales originales de cada renderer
+    private Material[][] materialesOriginales;
+
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
-
         renderers = GetComponentsInChildren<Renderer>();
+
+        // Guardamos una copia de los materiales originales antes de tocar nada
+        materialesOriginales = new Material[renderers.Length][];
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            materialesOriginales[i] = renderers[i].materials;
+        }
+
         ComprobarSiLaHabilidadFantasmaSePuedeUsarEnLaEscena();
 
         if (animator != null)
@@ -88,7 +95,7 @@ public class FantasmaCombate : MonoBehaviour
             animator.SetBool("transformado", true);
         }
 
-        AplicarColor(colorCombate);
+        AplicarMaterialCombate();
     }
 
     void SalirModoCombate()
@@ -101,24 +108,30 @@ public class FantasmaCombate : MonoBehaviour
             animator.SetBool("transformado", false);
         }
 
-        AplicarColor(colorNormal);
+        RestaurarMaterialesOriginales();
     }
 
-    void AplicarColor(Color color)
+    void AplicarMaterialCombate()
     {
+        if (materialHijoDelRayo == null) return;
+
         foreach (Renderer rend in renderers)
         {
-            foreach (Material mat in rend.materials)
+            // Creamos un array del mismo tamaño que los slots originales, todo con el material de combate
+            Material[] nuevosMateriales = new Material[rend.materials.Length];
+            for (int i = 0; i < nuevosMateriales.Length; i++)
             {
-                if (mat.HasProperty("_BaseColor"))
-                {
-                    mat.SetColor("_BaseColor", color);
-                }
-                else if (mat.HasProperty("_Color"))
-                {
-                    mat.SetColor("_Color", color);
-                }
+                nuevosMateriales[i] = materialHijoDelRayo;
             }
+            rend.materials = nuevosMateriales;
+        }
+    }
+
+    void RestaurarMaterialesOriginales()
+    {
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            renderers[i].materials = materialesOriginales[i];
         }
     }
 
