@@ -18,10 +18,16 @@ public class EnemigoDistancia : MonoBehaviour
     [Header("Movimiento de combate")]
     [SerializeField] private float distanciaMinima = 6f;
     [SerializeField] private float velocidadRotacion = 8f;
-    [Tooltip("Tiempo entre decisiones de moverse en combate")]
-    [SerializeField] private float intervaloDecision = 1.5f;
-    [Tooltip("Distancia que strafea lateralmente")]
-    [SerializeField] private float distanciaStrafe = 3f;
+
+    [Tooltip("Tiempo mínimo entre decisiones de movimiento")]
+    [SerializeField] private float intervaloDecisionMin = 0.6f;
+    [Tooltip("Tiempo máximo entre decisiones de movimiento")]
+    [SerializeField] private float intervaloDecisionMax = 1.2f;
+
+    [Tooltip("Distancia mínima de strafe")]
+    [SerializeField] private float distanciaStrafeMin = 2f;
+    [Tooltip("Distancia máxima de strafe")]
+    [SerializeField] private float distanciaStrafeMax = 4f;
 
     [Header("Patrulla")]
     [SerializeField] private Transform[] puntosRuta;
@@ -37,6 +43,7 @@ public class EnemigoDistancia : MonoBehaviour
     private Estado estadoActual = Estado.Patrullar;
     private float tiempoUltimoDisparo;
     private float tiempoUltimaDecision;
+    private float intervaloActual = 1f;
     private int puntoActual = 0;
 
     void Start()
@@ -130,7 +137,6 @@ public class EnemigoDistancia : MonoBehaviour
 
     private void EstadoCombate(float distancia)
     {
-        // Si pierde al jugador, vuelve a patrullar
         if (distancia > rangoDeteccion * 1.3f)
         {
             estadoActual = Estado.Patrullar;
@@ -138,28 +144,30 @@ public class EnemigoDistancia : MonoBehaviour
             return;
         }
 
-        // Rotar suavemente hacia el jugador
-        Vector3 direccion = jugador.position - transform.position;
-        direccion.y = 0;
-        if (direccion.sqrMagnitude > 0.01f)
-        {
-            Quaternion targetRot = Quaternion.LookRotation(direccion);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, velocidadRotacion * Time.deltaTime);
-        }
+        RotarHaciaJugador();
 
-        // Decidir movimiento cada cierto tiempo
-        if (Time.time - tiempoUltimaDecision >= intervaloDecision)
+        if (Time.time - tiempoUltimaDecision >= intervaloActual)
         {
             DecidirMovimientoCombate(distancia);
             tiempoUltimaDecision = Time.time;
+            intervaloActual = Random.Range(intervaloDecisionMin, intervaloDecisionMax);
         }
 
-        // Disparar si cumple cadencia y mira hacia el jugador
         if (Time.time - tiempoUltimoDisparo >= cadenciaDisparo)
         {
             Disparar();
             tiempoUltimoDisparo = Time.time;
         }
+    }
+
+    private void RotarHaciaJugador()
+    {
+        Vector3 direccion = jugador.position - transform.position;
+        direccion.y = 0;
+        if (direccion.sqrMagnitude < 0.01f) return;
+
+        Quaternion targetRot = Quaternion.LookRotation(direccion);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, velocidadRotacion * Time.deltaTime);
     }
 
     private void DecidirMovimientoCombate(float distancia)
@@ -168,23 +176,43 @@ public class EnemigoDistancia : MonoBehaviour
 
         if (distancia > distanciaDisparo)
         {
-            // Demasiado lejos: acercarse
-            destino = jugador.position;
+            // Demasiado lejos: acercarse con desviación lateral
+            Vector3 lateral = transform.right * Random.Range(-2f, 2f);
+            destino = jugador.position + lateral;
         }
         else if (distancia < distanciaMinima)
         {
-            // Demasiado cerca: huir
+            // Demasiado cerca: huir oblicuamente
             Vector3 huir = (transform.position - jugador.position).normalized;
-            destino = transform.position + huir * (distanciaDisparo - distancia);
+            Vector3 lateral = transform.right * Random.Range(-1.5f, 1.5f);
+            destino = transform.position + huir * (distanciaDisparo - distancia) + lateral;
         }
         else
         {
-            // En rango: strafear lateralmente (izquierda o derecha aleatoriamente)
+            // En rango: variedad de movimientos
+            float decision = Random.value;
             Vector3 lateral = transform.right * (Random.value > 0.5f ? 1f : -1f);
-            destino = transform.position + lateral * distanciaStrafe;
+            float distanciaStrafe = Random.Range(distanciaStrafeMin, distanciaStrafeMax);
+
+            if (decision < 0.6f)
+            {
+                // Strafe puro lateral
+                destino = transform.position + lateral * distanciaStrafe;
+            }
+            else if (decision < 0.85f)
+            {
+                // Strafe combinado con acercar/alejar
+                Vector3 haciaJugador = (jugador.position - transform.position).normalized;
+                float acercarse = Random.Range(-1.5f, 1.5f);
+                destino = transform.position + lateral * distanciaStrafe + haciaJugador * acercarse;
+            }
+            else
+            {
+                // Quedarse quieto un momento
+                return;
+            }
         }
 
-        // Asegurar que el destino sea válido en el NavMesh
         if (NavMesh.SamplePosition(destino, out NavMeshHit hit, 2f, NavMesh.AllAreas))
             agente.SetDestination(hit.position);
     }
@@ -202,7 +230,6 @@ public class EnemigoDistancia : MonoBehaviour
         }
     }
 
-    // Llamado por Animation Event
     public void LanzarProyectil()
     {
         if (prefabProyectil == null || puntoDisparo == null) return;
@@ -220,7 +247,11 @@ public class EnemigoDistancia : MonoBehaviour
     public void RecibirDanioAnimacion()
     {
         if (animator != null)
-            animator.SetTrigger("danio");
+        {
+            animator.ResetTrigger("Disparar");
+            animator.SetTrigger("Golpe");
+        }
+        tiempoUltimoDisparo = Time.time;
     }
 
     void OnDrawGizmosSelected()
