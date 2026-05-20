@@ -41,6 +41,7 @@ public class CombateJugador : MonoBehaviour
     private Animator animator;
     private MovimientoAlastor movimiento;
     private int golpeActualParaEvento;
+    private bool puedeCancelar = false;
     void Start()
     {
         movimiento = GetComponent<MovimientoAlastor>();
@@ -77,6 +78,8 @@ public class CombateJugador : MonoBehaviour
         {
             if (puedeAtacar)
                 Atacar();
+            else if (puedeCancelar)
+                Atacar(); // cancela la animación actual y enlaza el siguiente
             else
                 inputGuardado = true;
         }
@@ -99,7 +102,7 @@ public class CombateJugador : MonoBehaviour
     void Atacar()
     {
         if (!puedeAtacar) return;
-        if (Time.time - tiempoUltimoGolpe < tiempoEntreGolpes && golpeActual > 0)
+        if (!puedeCancelar && Time.time - tiempoUltimoGolpe < tiempoEntreGolpes && golpeActual > 0)
             return;
         if (estela != null)
         {
@@ -107,6 +110,7 @@ public class CombateJugador : MonoBehaviour
             estela.Clear();
         }
         puedeAtacar = false;
+        puedeCancelar = false;
         if (movimiento != null)
             movimiento.movimientoHabilitado = false;
         tiempoUltimoGolpe = Time.time;
@@ -184,6 +188,7 @@ public class CombateJugador : MonoBehaviour
 
         float retroceso = retrocesoPorGolpe[golpeActualParaEvento];
         bool maniquiGolpeado = false;
+        bool algunEnemigoGolpeado = false; // NUEVO
 
         foreach (Collider enemigo in enemigos)
         {
@@ -191,6 +196,8 @@ public class CombateJugador : MonoBehaviour
             if (vida != null)
             {
                 vida.RecibirDanio(danio);
+                algunEnemigoGolpeado = true; // NUEVO
+
                 if (efectoGolpe != null)
                 {
                     GameObject efecto = Instantiate(efectoGolpe, enemigo.transform.position + Vector3.up, Quaternion.identity);
@@ -222,5 +229,28 @@ public class CombateJugador : MonoBehaviour
                 StartCoroutine(RetrocesoSuave(enemigoRoot, direccion, retroceso));
             }
         }
+
+        // NUEVO: Hitstop solo si se ha conectado algún golpe
+        if (algunEnemigoGolpeado)
+        {
+            // Más fuerte en el último golpe del combo
+            float duracionHitstop = (golpeActualParaEvento == maxGolpesCombo - 1) ? 0.1f : 0.05f;
+            StartCoroutine(Hitstop(duracionHitstop));
+        }
+    }
+    IEnumerator Hitstop(float duracion)
+    {
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(duracion);
+        Time.timeScale = 1f;
+    }
+    public void AbrirVentanaCombo()
+    {
+        puedeCancelar = true;
+    }
+
+    public void CerrarVentanaCombo()
+    {
+        puedeCancelar = false;
     }
 }

@@ -4,7 +4,9 @@ using System.Collections;
 
 public class EnemigoDistancia : MonoBehaviour
 {
-    [Header("Detecci�n")]
+    private enum Estado { Patrullar, Detectando, Combate }
+
+    [Header("Detección")]
     [SerializeField] private float rangoDeteccion = 15f;
     [SerializeField] private float distanciaDisparo = 8f;
 
@@ -13,116 +15,94 @@ public class EnemigoDistancia : MonoBehaviour
     [SerializeField] private Transform puntoDisparo;
     [SerializeField] private float cadenciaDisparo = 2f;
 
-    [Header("Movimiento")]
+    [Header("Movimiento de combate")]
     [SerializeField] private float distanciaMinima = 6f;
+    [SerializeField] private float velocidadRotacion = 8f;
+
+    [Tooltip("Tiempo mínimo entre decisiones de movimiento")]
+    [SerializeField] private float intervaloDecisionMin = 0.6f;
+    [Tooltip("Tiempo máximo entre decisiones de movimiento")]
+    [SerializeField] private float intervaloDecisionMax = 1.2f;
+
+    [Tooltip("Distancia mínima de strafe")]
+    [SerializeField] private float distanciaStrafeMin = 2f;
+    [Tooltip("Distancia máxima de strafe")]
+    [SerializeField] private float distanciaStrafeMax = 4f;
 
     [Header("Patrulla")]
     [SerializeField] private Transform[] puntosRuta;
 
-    private Transform jugador;
-    private NavMeshAgent agente;
-    private float tiempoUltimoDisparo;
-    private int puntoActual = 0;
-    private Animator animator;
-    private bool jugadorDetectado = false;
-
+    [Header("Detección Visual")]
     [SerializeField] private GameObject prefabExclamacion;
     [SerializeField] private Transform puntoExclamacion;
-    private bool detectando = false;
+
+    private Transform jugador;
+    private NavMeshAgent agente;
+    private Animator animator;
+
+    private Estado estadoActual = Estado.Patrullar;
+    private float tiempoUltimoDisparo;
+    private float tiempoUltimaDecision;
+    private float intervaloActual = 1f;
+    private int puntoActual = 0;
 
     void Start()
     {
         agente = GetComponent<NavMeshAgent>();
+        agente.updateRotation = false;
         animator = GetComponentInChildren<Animator>();
+
         var jugadorObj = FindFirstObjectByType<MovimientoAlastor>();
-        if (jugadorObj != null)
-            jugador = jugadorObj.transform;
-        if (animator == null)
-            Debug.Log("Animator null en EnemigoDistancia");
-        else
-            Debug.Log("Animator encontrado en EnemigoDistancia");
+        if (jugadorObj != null) jugador = jugadorObj.transform;
+
         IrAlSiguientePunto();
     }
 
     void Update()
     {
-        if (animator != null)
-            Debug.Log("Estado actual: " + animator.GetCurrentAnimatorStateInfo(0).IsName("Correr"));
+        if (jugador == null) return;
+
+        ActualizarAnimacionMovimiento();
 
         float distancia = Vector3.Distance(transform.position, jugador.position);
 
-        // Animación de correr - ANTES del return
-        if (agente != null)
+        switch (estadoActual)
         {
-            bool seEstaMoviendo = agente.velocity.magnitude > 0.1f;
-            if (animator != null)
-                animator.SetBool("correr", seEstaMoviendo);
-        }
-
-        if (distancia > rangoDeteccion)
-        {
-            Patrullar();
-            return;
-        }
-
-        // Mirar al jugador
-        Vector3 direccion = (jugador.position - transform.position);
-        direccion.y = 0;
-        if (direccion != Vector3.zero)
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direccion), 5f * Time.deltaTime);
-
-        if (distancia > distanciaDisparo)
-        {
-            if (agente != null) agente.SetDestination(jugador.position);
-        }
-        else if (distancia < distanciaMinima)
-        {
-            Vector3 huir = transform.position - jugador.position;
-            huir.y = 0;
-            Vector3 destino = transform.position + huir.normalized * (distanciaDisparo - distancia);
-
-            if (agente != null && (!agente.hasPath || agente.remainingDistance < 0.5f))
-            {
-                agente.SetDestination(destino);
-            }
-        }
-        else
-        {
-            if (agente != null) agente.ResetPath();
-        }
-
-        if (distancia <= distanciaDisparo && Time.time - tiempoUltimoDisparo >= cadenciaDisparo)
-        {
-            Disparar();
-            tiempoUltimoDisparo = Time.time;
-        }
-        if (distancia < rangoDeteccion && !jugadorDetectado && !detectando)
-        {
-            detectando = true;
-            StartCoroutine(SecuenciaDeteccion());
-        }
-
-        if (distancia > rangoDeteccion)
-        {
-            jugadorDetectado = false;
+            case Estado.Patrullar:
+                EstadoPatrullar(distancia);
+                break;
+            case Estado.Detectando:
+                // La corrutina se encarga
+                break;
+            case Estado.Combate:
+                EstadoCombate(distancia);
+                break;
         }
     }
 
-    void Patrullar()
+    private void ActualizarAnimacionMovimiento()
     {
-        if (agente == null || puntosRuta == null || puntosRuta.Length == 0)
+        if (agente == null || animator == null) return;
+        animator.SetBool("correr", agente.velocity.magnitude > 0.1f);
+    }
+
+    // ---------- ESTADO: PATRULLAR ----------
+
+    private void EstadoPatrullar(float distancia)
+    {
+        if (distancia < rangoDeteccion)
         {
-            if (agente != null) agente.ResetPath();
+            StartCoroutine(SecuenciaDeteccion());
             return;
         }
+
+        if (puntosRuta == null || puntosRuta.Length == 0) return;
 
         if (!agente.pathPending && agente.remainingDistance <= 0.5f)
-        {
             IrAlSiguientePunto();
-        }
     }
 
-    void IrAlSiguientePunto()
+    private void IrAlSiguientePunto()
     {
         if (puntosRuta == null || puntosRuta.Length == 0) return;
         if (agente == null || !agente.isOnNavMesh) return;
@@ -131,7 +111,115 @@ public class EnemigoDistancia : MonoBehaviour
         puntoActual = (puntoActual + 1) % puntosRuta.Length;
     }
 
-    void Disparar()
+    // ---------- ESTADO: DETECTANDO ----------
+
+    private IEnumerator SecuenciaDeteccion()
+    {
+        estadoActual = Estado.Detectando;
+        agente.isStopped = true;
+
+        GameObject exclamacion = null;
+        if (prefabExclamacion != null && puntoExclamacion != null)
+        {
+            exclamacion = Instantiate(prefabExclamacion, puntoExclamacion.position, Quaternion.identity);
+            exclamacion.transform.SetParent(puntoExclamacion);
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        if (exclamacion != null) Destroy(exclamacion);
+
+        agente.isStopped = false;
+        estadoActual = Estado.Combate;
+    }
+
+    // ---------- ESTADO: COMBATE ----------
+
+    private void EstadoCombate(float distancia)
+    {
+        if (distancia > rangoDeteccion * 1.3f)
+        {
+            estadoActual = Estado.Patrullar;
+            IrAlSiguientePunto();
+            return;
+        }
+
+        RotarHaciaJugador();
+
+        if (Time.time - tiempoUltimaDecision >= intervaloActual)
+        {
+            DecidirMovimientoCombate(distancia);
+            tiempoUltimaDecision = Time.time;
+            intervaloActual = Random.Range(intervaloDecisionMin, intervaloDecisionMax);
+        }
+
+        if (Time.time - tiempoUltimoDisparo >= cadenciaDisparo)
+        {
+            Disparar();
+            tiempoUltimoDisparo = Time.time;
+        }
+    }
+
+    private void RotarHaciaJugador()
+    {
+        Vector3 direccion = jugador.position - transform.position;
+        direccion.y = 0;
+        if (direccion.sqrMagnitude < 0.01f) return;
+
+        Quaternion targetRot = Quaternion.LookRotation(direccion);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, velocidadRotacion * Time.deltaTime);
+    }
+
+    private void DecidirMovimientoCombate(float distancia)
+    {
+        Vector3 destino;
+
+        if (distancia > distanciaDisparo)
+        {
+            // Demasiado lejos: acercarse con desviación lateral
+            Vector3 lateral = transform.right * Random.Range(-2f, 2f);
+            destino = jugador.position + lateral;
+        }
+        else if (distancia < distanciaMinima)
+        {
+            // Demasiado cerca: huir oblicuamente
+            Vector3 huir = (transform.position - jugador.position).normalized;
+            Vector3 lateral = transform.right * Random.Range(-1.5f, 1.5f);
+            destino = transform.position + huir * (distanciaDisparo - distancia) + lateral;
+        }
+        else
+        {
+            // En rango: variedad de movimientos
+            float decision = Random.value;
+            Vector3 lateral = transform.right * (Random.value > 0.5f ? 1f : -1f);
+            float distanciaStrafe = Random.Range(distanciaStrafeMin, distanciaStrafeMax);
+
+            if (decision < 0.6f)
+            {
+                // Strafe puro lateral
+                destino = transform.position + lateral * distanciaStrafe;
+            }
+            else if (decision < 0.85f)
+            {
+                // Strafe combinado con acercar/alejar
+                Vector3 haciaJugador = (jugador.position - transform.position).normalized;
+                float acercarse = Random.Range(-1.5f, 1.5f);
+                destino = transform.position + lateral * distanciaStrafe + haciaJugador * acercarse;
+            }
+            else
+            {
+                // Quedarse quieto un momento
+                return;
+            }
+        }
+
+        if (NavMesh.SamplePosition(destino, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+            agente.SetDestination(hit.position);
+    }
+
+    // ---------- DISPARO ----------
+
+    private void Disparar()
     {
         if (prefabProyectil == null || puntoDisparo == null) return;
 
@@ -140,9 +228,8 @@ public class EnemigoDistancia : MonoBehaviour
             animator.speed = 1f;
             animator.SetTrigger("Disparar");
         }
-
-        tiempoUltimoDisparo = Time.time;
     }
+
     public void LanzarProyectil()
     {
         if (prefabProyectil == null || puntoDisparo == null) return;
@@ -156,6 +243,17 @@ public class EnemigoDistancia : MonoBehaviour
             proy.Inicializar(direccion);
         }
     }
+
+    public void RecibirDanioAnimacion()
+    {
+        if (animator != null)
+        {
+            animator.ResetTrigger("Disparar");
+            animator.SetTrigger("Golpe");
+        }
+        tiempoUltimoDisparo = Time.time;
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
@@ -164,36 +262,5 @@ public class EnemigoDistancia : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, distanciaDisparo);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, distanciaMinima);
-    }
-    public void RecibirDanioAnimacion()
-    {
-        Debug.Log("RecibirDanioAnimacion llamado");
-        if (animator != null)
-        {
-            Debug.Log("Trigger Daño activado");
-            animator.SetTrigger("danio");
-        }
-        else
-            Debug.Log("Animator null en RecibirDanioAnimacion");
-    }
-    IEnumerator SecuenciaDeteccion()
-    {
-        agente.isStopped = true;
-
-        GameObject exclamacion = null;
-        if (prefabExclamacion != null && puntoExclamacion != null)
-        {
-            exclamacion = Instantiate(prefabExclamacion, puntoExclamacion.position, Quaternion.identity);
-            exclamacion.transform.SetParent(puntoExclamacion);
-        }
-
-        yield return new WaitForSeconds(1f);
-
-        if (exclamacion != null)
-            Destroy(exclamacion);
-
-        agente.isStopped = false;
-        jugadorDetectado = true;
-        detectando = false;
     }
 }

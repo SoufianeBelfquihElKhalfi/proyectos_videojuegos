@@ -232,15 +232,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  rotationSpeed: 10
+  aceleracion: 50
+  deceleracion: 30
+  rotacionVelocidadGrados: 720
   gravedad: 20
+  multiplicadorCaida: 1.5
   dashSpeed: 15
   dashDuration: 0.2
+  dashCooldown: 0.5
   particulasPisada: {fileID: 398032931113155924}
-  isDashing: 0
+  intervaloPisada: 0.3
   anim: {fileID: 6601499350363298445}
-  velocidadActual: 0
   movimientoHabilitado: 1
+  isDashing: 0
+  esInvulnerable: 0
+  velocidadActual: 0
 --- !u!114 &6272437019516206938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,11 +275,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6acd8d4a737cfa941976d87723d2529f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  esJugador: 1
   usarVidaGuardadaEntreEscenas: 1
-  duracionParpadeo: 0.3
-  cantidadParpadeos: 3
   corazonesMaximos: 3
   corazonesMitadIniciales: -1
+  colorParpadeo: {r: 1, g: 0, b: 0, a: 1}
+  duracionParpadeo: 0.3
+  cantidadParpadeos: 3
   alMorir:
     m_PersistentCalls:
       m_Calls:
@@ -292,7 +300,6 @@ MonoBehaviour:
   alCambiarVida:
     m_PersistentCalls:
       m_Calls: []
-  esJugador: 1
 --- !u!114 &8919980005731924212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,8 +313,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxGolpesCombo: 3
-  tiempoEntreGolpes: 0.2
-  tiempoResetCombo: 1
+  tiempoEntreGolpes: 0.4
+  tiempoResetCombo: 1.2
   danioPorGolpe: 010000000100000002000000
   retrocesoPorGolpe:
   - 1
@@ -335,11 +342,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6acd8d4a737cfa941976d87723d2529f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  esJugador: 0
   usarVidaGuardadaEntreEscenas: 0
-  duracionParpadeo: 0.3
-  cantidadParpadeos: 3
   corazonesMaximos: 3
   corazonesMitadIniciales: -1
+  colorParpadeo: {r: 1, g: 0, b: 0, a: 1}
+  duracionParpadeo: 0.3
+  cantidadParpadeos: 3
   alMorir:
     m_PersistentCalls:
       m_Calls:
@@ -358,7 +367,6 @@ MonoBehaviour:
   alCambiarVida:
     m_PersistentCalls:
       m_Calls: []
-  esJugador: 0
 --- !u!114 &6120368885700007913
 MonoBehaviour:
   m_ObjectHideFlags: 0
