@@ -9,6 +9,11 @@ public class ControladorSala : MonoBehaviour
     void Start()
     {
         enemigosVivos = enemigos.Length;
+        foreach (var enemigo in enemigos)
+        {
+            if (enemigo != null)
+                enemigo.alMorir.AddListener(EnemigoMuerto);
+        }
     }
 
     public void EnemigoMuerto()
