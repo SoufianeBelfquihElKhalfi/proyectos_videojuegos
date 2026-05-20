@@ -19,10 +19,9 @@ public class ControladorSala : MonoBehaviour
     public void EnemigoMuerto()
     {
         enemigosVivos--;
+        Debug.Log("Enemigo muerto. Quedan: " + enemigosVivos);
         if (enemigosVivos <= 0)
-        {
             AbrirPuerta();
-        }
     }
 
     void AbrirPuerta()

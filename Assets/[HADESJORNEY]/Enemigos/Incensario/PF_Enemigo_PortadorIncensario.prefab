@@ -110,7 +110,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -124856648918149877}
         m_TargetAssemblyTypeName: MuerteEnemigo, Assembly-CSharp
-        m_MethodName: Morir
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -204,8 +204,10 @@ MonoBehaviour:
   cadenciaDisparo: 2
   distanciaMinima: 6
   velocidadRotacion: 8
-  intervaloDecision: 0.6
-  distanciaStrafe: 3
+  intervaloDecisionMin: 0.6
+  intervaloDecisionMax: 1.2
+  distanciaStrafeMin: 2
+  distanciaStrafeMax: 4
   puntosRuta: []
   prefabExclamacion: {fileID: 629870405857442683, guid: 907c7f23531e941459e9c64a7d5c7257, type: 3}
   puntoExclamacion: {fileID: 986394621675776536}
