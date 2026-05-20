@@ -45,6 +45,7 @@ public class EnemigoDistancia : MonoBehaviour
     private float tiempoUltimaDecision;
     private float intervaloActual = 1f;
     private int puntoActual = 0;
+    private bool estaDisparando = false;
 
     void Start()
     {
@@ -100,6 +101,19 @@ public class EnemigoDistancia : MonoBehaviour
 
         if (!agente.pathPending && agente.remainingDistance <= 0.5f)
             IrAlSiguientePunto();
+
+        RotarHaciaMovimiento();
+    }
+
+    private void RotarHaciaMovimiento()
+    {
+        if (agente.velocity.sqrMagnitude < 0.01f) return;
+
+        Vector3 direccion = agente.velocity;
+        direccion.y = 0;
+
+        Quaternion targetRot = Quaternion.LookRotation(direccion);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, velocidadRotacion * Time.deltaTime);
     }
 
     private void IrAlSiguientePunto()
@@ -145,7 +159,7 @@ public class EnemigoDistancia : MonoBehaviour
         }
 
         RotarHaciaJugador();
-
+        if (estaDisparando) return;
         if (Time.time - tiempoUltimaDecision >= intervaloActual)
         {
             DecidirMovimientoCombate(distancia);
@@ -223,6 +237,10 @@ public class EnemigoDistancia : MonoBehaviour
     {
         if (prefabProyectil == null || puntoDisparo == null) return;
 
+        estaDisparando = true;
+        agente.ResetPath();
+        agente.velocity = Vector3.zero;
+
         if (animator != null)
         {
             animator.speed = 1f;
@@ -232,6 +250,8 @@ public class EnemigoDistancia : MonoBehaviour
 
     public void LanzarProyectil()
     {
+        estaDisparando = false;
+        tiempoUltimaDecision = 0f;
         if (prefabProyectil == null || puntoDisparo == null) return;
 
         GameObject bola = Instantiate(prefabProyectil, puntoDisparo.position, Quaternion.identity);
@@ -246,6 +266,8 @@ public class EnemigoDistancia : MonoBehaviour
 
     public void RecibirDanioAnimacion()
     {
+        estaDisparando = false;
+        tiempoUltimaDecision = 0f;
         if (animator != null)
         {
             animator.ResetTrigger("Disparar");
