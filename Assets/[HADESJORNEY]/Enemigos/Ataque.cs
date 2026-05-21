@@ -3,30 +3,29 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 
-/** Se ha cambiado la manera de funcionar de este script:
- * ANTES el enemigo se movía hacia el jugador y hacía daño por proximidad constantemente,
- * AHORA:
- *  - el enemigo busca al jugador,
- *  - gira hacia él,
- *  - si está lejos, le persigue,
- *  - si está en rango, se para, espera un poco, intenta golpear una vez, espera recuperación, y vuelve a estar libre para actuar.
- */
 public class Ataque : EstadoFSM
 {
+    [Header("Ataque")]
     [SerializeField] private float distanciaAtaque = 2.2f;
     [SerializeField] private float tiempoPreparacion = 0.25f;
     [SerializeField] private float tiempoRecuperacion = 0.45f;
     [SerializeField] private float velocidadRotacion = 10f;
+
+    [Header("Animacion")]
+    [SerializeField] private AnimacionEnemigoMelee animacion;
+    [SerializeField] private bool alternarAtaques = true;
 
     private Transform player;
     private NavMeshAgent agent;
     private InfligirDanio infligirDanio;
 
     private bool atacando = false;
+    private bool siguienteAtaqueEsCorte = false;
 
     private void OnEnable()
     {
         var jugador = FindFirstObjectByType<MovimientoAlastor>();
+
         if (jugador != null)
         {
             player = jugador.transform;
@@ -40,6 +39,11 @@ public class Ataque : EstadoFSM
         if (infligirDanio == null)
         {
             infligirDanio = GetComponent<InfligirDanio>();
+        }
+
+        if (animacion == null)
+        {
+            animacion = GetComponent<AnimacionEnemigoMelee>();
         }
 
         if (agent != null)
@@ -69,7 +73,11 @@ public class Ataque : EstadoFSM
         if (direccion != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direccion);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, velocidadRotacion * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRotation,
+                velocidadRotacion * Time.deltaTime
+            );
         }
 
         if (atacando)
@@ -94,6 +102,18 @@ public class Ataque : EstadoFSM
     {
         atacando = true;
         agent.isStopped = true;
+
+        bool usarCorte = alternarAtaques && siguienteAtaqueEsCorte;
+
+        if (animacion != null)
+        {
+            animacion.ReproducirAtaque(usarCorte);
+        }
+
+        if (alternarAtaques)
+        {
+            siguienteAtaqueEsCorte = !siguienteAtaqueEsCorte;
+        }
 
         yield return new WaitForSeconds(tiempoPreparacion);
 
