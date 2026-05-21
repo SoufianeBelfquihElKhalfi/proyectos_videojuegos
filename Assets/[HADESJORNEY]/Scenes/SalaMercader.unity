@@ -5774,8 +5774,7 @@ MonoBehaviour:
   velocidadFlecha: 15
   intervaloDisparo: 1
   radioDeteccion: 10
-  colorNormal: {r: 1, g: 1, b: 1, a: 1}
-  colorCombate: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  materialHijoDelRayo: {fileID: 0}
   enModoCombate: 0
   tiempoRestanteCombate: 0
   tiempoRestanteCooldown: 0
