@@ -962,7 +962,7 @@ GameObject:
   m_Component:
   - component: {fileID: 147292877}
   m_Layer: 0
-  m_Name: PAREDES
+  m_Name: Paredes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2183,7 +2183,7 @@ GameObject:
   m_Component:
   - component: {fileID: 410087500}
   m_Layer: 0
-  m_Name: DECORACION
+  m_Name: Decoracion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6281,7 +6281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1210374164}
   m_Layer: 0
-  m_Name: SUELO
+  m_Name: Suelo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9021,7 +9021,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1937019836}
   m_Layer: 0
-  m_Name: ESCENARIO
+  m_Name: Escenario
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
