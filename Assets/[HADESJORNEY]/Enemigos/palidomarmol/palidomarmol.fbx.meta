@@ -22,7 +22,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -80,7 +80,52 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: palidomarmol(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Box001
+      parentName: palidomarmol(Clone)
+      position: {x: -0.18369201, y: 0.6559187, z: 0.22297981}
+      rotation: {x: -0.50000006, y: 0.49999994, z: 0.49999994, w: 0.50000006}
+      scale: {x: 0.888277, y: 0.731073, z: 0.888277}
+    - name: brazo1
+      parentName: palidomarmol(Clone)
+      position: {x: 0.8673432, y: 2.4366095, z: 0.076154366}
+      rotation: {x: 0.7071069, y: 0.000000015454308, z: -0.70710665, w: 0.000000015454312}
+      scale: {x: 0.888277, y: 0.888277, z: 0.888277}
+    - name: ala1
+      parentName: palidomarmol(Clone)
+      position: {x: -0.22126651, y: 2.4780266, z: -0.22507447}
+      rotation: {x: -0.5000001, y: 0.49999994, z: 0.49999994, w: 0.5000001}
+      scale: {x: 0.888277, y: 0.888277, z: 0.888277}
+    - name: cabeza
+      parentName: palidomarmol(Clone)
+      position: {x: -0.1591469, y: 0.6705189, z: 0.034898292}
+      rotation: {x: -0.5000001, y: 0.49999994, z: 0.49999994, w: 0.5000001}
+      scale: {x: 0.888277, y: 0.888277, z: 0.888277}
+    - name: cuerno1
+      parentName: palidomarmol(Clone)
+      position: {x: -0.3571902, y: 3.250502, z: 0.20213623}
+      rotation: {x: -0.5000001, y: 0.49999994, z: 0.49999994, w: 0.5000001}
+      scale: {x: 0.888277, y: 0.888277, z: 0.888277}
+    - name: cuerno2
+      parentName: palidomarmol(Clone)
+      position: {x: 0.06760807, y: 3.2505019, z: 0.20431179}
+      rotation: {x: -0.5000001, y: 0.49999994, z: 0.49999994, w: 0.5000001}
+      scale: {x: 0.888277, y: 0.888277, z: 0.888277}
+    - name: brazo002
+      parentName: palidomarmol(Clone)
+      position: {x: -1.2095003, y: 2.4685152, z: 0.07615436}
+      rotation: {x: -0.000000015454312, y: -0.70710665, z: -0.000000015454306, w: 0.7071069}
+      scale: {x: -0.888277, y: -0.888277, z: -0.888277}
+    - name: ala002
+      parentName: palidomarmol(Clone)
+      position: {x: -0.1280961, y: 2.4780266, z: -0.22507447}
+      rotation: {x: 0.5000001, y: -0.49999994, z: 0.49999994, w: 0.5000001}
+      scale: {x: -0.888277, y: -0.888277, z: -0.888277}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -89,9 +134,9 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: 
+    rootMotionBoneName: Box001
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1

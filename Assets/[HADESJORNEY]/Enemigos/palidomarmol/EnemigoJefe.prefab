@@ -305,6 +305,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: palidomarmol
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 9b0d03bfa54c1ee4d8ea890388c183f4, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 4414a01249e2d8646b5cbe925795ddc5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

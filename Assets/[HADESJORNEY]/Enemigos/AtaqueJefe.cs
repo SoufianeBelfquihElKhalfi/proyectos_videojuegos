@@ -41,7 +41,7 @@ public class AtaqueJefe : EstadoFSM
         player = FindFirstObjectByType<MovimientoAlastor>()?.transform;
         agent = GetComponent<NavMeshAgent>();
         infligirDanio = GetComponent<InfligirDanio>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
 
         if (agent != null) agent.updateRotation = false;
 
@@ -49,15 +49,13 @@ public class AtaqueJefe : EstadoFSM
         {
             introTerminada = false;
             cayendo = false;
-
-            // Apagamos el agente primero para que no fuerce al jefe al suelo
             if (agent != null) agent.enabled = false;
             transform.position += Vector3.up * alturaInicio;
         }
         else
         {
             introTerminada = true;
-            if (animator != null) animator.Play("Idle");
+            ResetearParametrosMovimiento();
         }
     }
 
@@ -76,24 +74,24 @@ public class AtaqueJefe : EstadoFSM
                     StartCoroutine(IntroCaida());
                 }
             }
-            return; // Bloquea la IA hasta que termine de caer
+            return;
         }
 
         // 2. COMPROBACIONES DE SEGURIDAD
         if (agent == null || !agent.enabled || !agent.isOnNavMesh) return;
-        if (atacando) return;
+        if (atacando) return; // Si está atacando, el Update no toca el Animator
 
-        // 3. MOVIMIENTO Y ROTACIÓN BASE
+        // 3. MOVIMIENTO Y ROTACIÓN BASE (Usa los Bools del Animator)
         RotarHaciaJugador();
         ControlarAnimacionMovimiento();
 
-        // 4. CAMBIO DE ESTADO (Si el jugador se aleja demasiado)
+        // 4. CAMBIO DE ESTADO
         float distancia = Vector3.Distance(transform.position, player.position);
         if (distancia > rangoLargo)
         {
             if (estadoPerseguir != null)
             {
-                if (animator != null) animator.Play("Idle");
+                ResetearParametrosMovimiento();
                 this.enabled = false;
                 estadoPerseguir.enabled = true;
             }
@@ -114,14 +112,28 @@ public class AtaqueJefe : EstadoFSM
     {
         if (animator == null || agent == null) return;
 
-        // CORREGIDO: remainingDistance se evalúa directamente sobre el componente NavMeshAgent
+        // Si el agente se está desplazando activamente
         if (agent.remainingDistance > 0.1f || agent.velocity.sqrMagnitude > 0.1f)
         {
-            animator.Play("caminar");
+            animator.SetBool("caminando", true);
+            animator.SetBool("girando", false);
         }
         else
         {
-            animator.Play("Idle");
+            // Si está quieto pero rotando de forma pronunciada hacia el jugador
+            Vector3 direccionAlJugador = (player.position - transform.position).normalized;
+            float angulo = Vector3.Angle(transform.forward, direccionAlJugador);
+
+            if (angulo > 15f) // Si el ángulo es notable, activa la animación de girar
+            {
+                animator.SetBool("caminando", false);
+                animator.SetBool("girando", true);
+            }
+            else // Completamente quieto en Idle
+            {
+                animator.SetBool("caminando", false);
+                animator.SetBool("girando", false);
+            }
         }
     }
 
@@ -133,6 +145,15 @@ public class AtaqueJefe : EstadoFSM
             case "salto": StartCoroutine(Salto()); break;
             case "embestida": StartCoroutine(Embestida()); break;
             case "barrido": StartCoroutine(Barrido()); break;
+        }
+    }
+
+    private void ResetearParametrosMovimiento()
+    {
+        if (animator != null)
+        {
+            animator.SetBool("caminando", false);
+            animator.SetBool("girando", false);
         }
     }
 
@@ -156,23 +177,25 @@ public class AtaqueJefe : EstadoFSM
 
         transform.position = suelo;
         OndaChoque(8f);
-
         yield return new WaitForSeconds(0.5f);
 
         if (agent != null)
         {
             agent.enabled = true;
-            yield return new WaitForEndOfFrame(); // Espera un frame para que el NavMesh se estabilice
+            yield return new WaitForEndOfFrame();
             agent.isStopped = false;
         }
 
         atacando = false;
         introTerminada = true;
+        ResetearParametrosMovimiento();
     }
 
     private IEnumerator Mazazo()
     {
         atacando = true;
+        ResetearParametrosMovimiento(); // Apaga caminar/girar para que no estorben
+
         float tiempoMaximoPersecucion = 2.5f;
         float distanciaParaGolpear = rangoMazazo;
 
@@ -182,7 +205,7 @@ public class AtaqueJefe : EstadoFSM
         {
             if (agent != null && agent.isOnNavMesh) agent.SetDestination(player.position);
             RotarHaciaJugador();
-            if (animator != null) animator.Play("caminar");
+            if (animator != null) animator.SetBool("caminando", true);
 
             tiempoMaximoPersecucion -= Time.deltaTime;
             yield return null;
@@ -194,27 +217,30 @@ public class AtaqueJefe : EstadoFSM
             agent.velocity = Vector3.zero;
         }
 
-        if (animator != null) animator.Play("mazazo");
+        ResetearParametrosMovimiento();
+        if (animator != null) animator.Play("mazazo"); // Forzamos el clip de mazazo de forma absoluta
 
-        yield return new WaitForSeconds(0.4f); // Anticipación visual antes del impacto físico
+        yield return new WaitForSeconds(0.4f); // Anticipación del golpe
 
         if (Vector3.Distance(transform.position, player.position) <= rangoMazazo + 1.5f)
         {
             if (infligirDanio != null) infligirDanio.IntentarGolpear(player);
         }
 
-        yield return new WaitForSeconds(1.0f); // Animación terminando/recuperación
+        yield return new WaitForSeconds(1.0f); // Fin de la animación
         FinAtaque();
     }
 
     private IEnumerator Salto()
     {
         atacando = true;
+        ResetearParametrosMovimiento();
+
         Vector3 inicio = transform.position;
         Vector3 destino = player.position;
 
         if (agent != null) agent.enabled = false;
-        if (animator != null) animator.Play("salto");
+        if (animator != null) animator.Play("salto"); // Forzamos el clip de salto
 
         float t = 0f;
         while (t < 1f)
@@ -241,9 +267,11 @@ public class AtaqueJefe : EstadoFSM
     private IEnumerator Embestida()
     {
         atacando = true;
+        ResetearParametrosMovimiento();
+
         float t = 0f;
         Vector3 direccionCarga = transform.forward;
-        if (animator != null) animator.Play("girar"); // Usa "girar" provisionalmente mientras embiste
+        if (animator != null) animator.SetBool("girando", true); // Usa la animación de girar como carga visual
 
         while (t < 0.8f)
         {
@@ -258,8 +286,10 @@ public class AtaqueJefe : EstadoFSM
     private IEnumerator Barrido()
     {
         atacando = true;
+        ResetearParametrosMovimiento();
+
         if (agent != null && agent.isOnNavMesh) agent.isStopped = true;
-        if (animator != null) animator.Play("girar");
+        if (animator != null) animator.SetBool("girando", true);
 
         yield return new WaitForSeconds(0.4f);
         AplicarDañoSiCerca(5f);
@@ -301,6 +331,6 @@ public class AtaqueJefe : EstadoFSM
     {
         atacando = false;
         if (agent != null && agent.enabled && agent.isOnNavMesh) agent.isStopped = false;
-        if (animator != null) animator.Play("Idle");
+        ResetearParametrosMovimiento();
     }
 }
