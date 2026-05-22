@@ -1161,8 +1161,22 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 588417347952441320, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 341550361}
   m_SourcePrefab: {fileID: 100100000, guid: 8b64039002b027246930189e5db5a193, type: 3}
+--- !u!114 &239284437 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4759751360084756910, guid: 8b64039002b027246930189e5db5a193, type: 3}
+  m_PrefabInstance: {fileID: 239284436}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341550353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6acd8d4a737cfa941976d87723d2529f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &320325724
 GameObject:
   m_ObjectHideFlags: 0
@@ -1238,6 +1252,29 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &341550353 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 588417347952441320, guid: 8b64039002b027246930189e5db5a193, type: 3}
+  m_PrefabInstance: {fileID: 239284436}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &341550361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341550353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446a57bfb7a30d44aa1493749dd75f09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nombre: {fileID: 11400000, guid: a29210d9d3dd0d545b0d0f1fc1e16cae, type: 2}
+  inicial: 1
+  ruta:
+  - {fileID: 1622977008}
+  - {fileID: 1434091105}
+  - {fileID: 1811301695}
 --- !u!1 &361228700
 GameObject:
   m_ObjectHideFlags: 0
@@ -3574,8 +3611,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemigosSala:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 239284437}
+  - {fileID: 8771213177140100800}
   puertaVisual: {fileID: 561013300}
   bloqueadorSalida: {fileID: 825562645}
   teleportSalida: {fileID: 4147684962697859761}
@@ -6144,6 +6181,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be86cafcfe5bc6940a271f3d0f297b1a, type: 3}
+--- !u!114 &8771213177140100800 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3863164281159034767, guid: be86cafcfe5bc6940a271f3d0f297b1a, type: 3}
+  m_PrefabInstance: {fileID: 8771213177140100799}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6acd8d4a737cfa941976d87723d2529f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
