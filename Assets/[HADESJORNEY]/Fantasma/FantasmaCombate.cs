@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class FantasmaCombate : MonoBehaviour
 {
     [Header("Configuración")]
@@ -11,9 +12,16 @@ public class FantasmaCombate : MonoBehaviour
     public float velocidadFlecha = 15f;
     public float intervaloDisparo = 1f;
     public float radioDeteccion = 10f;
+ 
 
     [Header("Visual Combate")]
     public Material materialHijoDelRayo;
+
+    [Header("VFX")]
+    public ParticleSystem vfxBurst;
+    public ParticleSystem vfxLoop;
+    public Light VFXLight;
+
 
     [Header("Estado (solo lectura)")]
     [SerializeField] private bool enModoCombate = false;
@@ -24,16 +32,16 @@ public class FantasmaCombate : MonoBehaviour
     private bool habilidadEHabilitada = true;
     private Renderer[] renderers;
     private Animator animator;
-
-    // Guardamos los materiales originales de cada renderer
     private Material[][] materialesOriginales;
 
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
-        renderers = GetComponentsInChildren<Renderer>();
+        renderers = System.Array.FindAll(
+    GetComponentsInChildren<Renderer>(),
+    r => r.GetComponent<ParticleSystem>() == null
+);
 
-        // Guardamos una copia de los materiales originales antes de tocar nada
         materialesOriginales = new Material[renderers.Length][];
         for (int i = 0; i < renderers.Length; i++)
         {
@@ -43,17 +51,13 @@ public class FantasmaCombate : MonoBehaviour
         ComprobarSiLaHabilidadFantasmaSePuedeUsarEnLaEscena();
 
         if (animator != null)
-        {
             animator.SetBool("transformado", false);
-        }
     }
 
     void Update()
     {
         if (Input.GetButtonDown("HijoDelRayo") && habilidadEHabilitada && !enModoCombate && tiempoRestanteCooldown <= 0f)
-        {
             EntrarModoCombate();
-        }
 
         if (enModoCombate)
         {
@@ -67,15 +71,11 @@ public class FantasmaCombate : MonoBehaviour
             }
 
             if (tiempoRestanteCombate <= 0f)
-            {
                 SalirModoCombate();
-            }
         }
 
         if (tiempoRestanteCooldown > 0f)
-        {
             tiempoRestanteCooldown -= Time.deltaTime;
-        }
     }
 
     void ComprobarSiLaHabilidadFantasmaSePuedeUsarEnLaEscena()
@@ -91,11 +91,14 @@ public class FantasmaCombate : MonoBehaviour
         timerDisparo = 0f;
 
         if (animator != null)
-        {
             animator.SetBool("transformado", true);
-        }
 
         AplicarMaterialCombate();
+
+        if (vfxBurst != null) vfxBurst.Play();
+        if (vfxLoop != null) vfxLoop.Play();
+        if (VFXLight != null) VFXLight.enabled = true;
+
     }
 
     void SalirModoCombate()
@@ -104,11 +107,12 @@ public class FantasmaCombate : MonoBehaviour
         tiempoRestanteCooldown = cooldown;
 
         if (animator != null)
-        {
             animator.SetBool("transformado", false);
-        }
 
         RestaurarMaterialesOriginales();
+
+        if (vfxLoop != null) vfxLoop.Stop();
+        if (VFXLight != null) VFXLight.enabled = false;
     }
 
     void AplicarMaterialCombate()
@@ -117,12 +121,9 @@ public class FantasmaCombate : MonoBehaviour
 
         foreach (Renderer rend in renderers)
         {
-            // Creamos un array del mismo tamaño que los slots originales, todo con el material de combate
             Material[] nuevosMateriales = new Material[rend.materials.Length];
             for (int i = 0; i < nuevosMateriales.Length; i++)
-            {
                 nuevosMateriales[i] = materialHijoDelRayo;
-            }
             rend.materials = nuevosMateriales;
         }
     }
@@ -130,9 +131,7 @@ public class FantasmaCombate : MonoBehaviour
     void RestaurarMaterialesOriginales()
     {
         for (int i = 0; i < renderers.Length; i++)
-        {
             renderers[i].materials = materialesOriginales[i];
-        }
     }
 
     void DisparrarFlecha()
@@ -151,7 +150,6 @@ public class FantasmaCombate : MonoBehaviour
         );
 
         FlechaFantasma scriptFlecha = flecha.GetComponent<FlechaFantasma>();
-
         if (scriptFlecha != null)
         {
             scriptFlecha.objetivo = objetivo;
@@ -165,8 +163,6 @@ public class FantasmaCombate : MonoBehaviour
     {
         GameObject[] enemigos = GameObject.FindGameObjectsWithTag("Enemy");
 
-        Debug.Log("[FANTASMA] Enemigos encontrados con tag Enemy: " + enemigos.Length);
-
         Transform masCercano = null;
         float distanciaMin = Mathf.Infinity;
 
@@ -174,29 +170,13 @@ public class FantasmaCombate : MonoBehaviour
         {
             float d = Vector3.Distance(transform.position, e.transform.position);
 
-            Debug.Log("[FANTASMA] Revisando enemigo: " + e.name + " | Distancia: " + d);
-
-            if (d > radioDeteccion)
-            {
-                Debug.Log("[FANTASMA] Enemigo fuera del radio: " + e.name);
-                continue;
-            }
+            if (d > radioDeteccion) continue;
 
             if (d < distanciaMin)
             {
                 distanciaMin = d;
                 masCercano = e.transform;
-                Debug.Log("[FANTASMA] Nuevo enemigo más cercano: " + e.name);
             }
-        }
-
-        if (masCercano == null)
-        {
-            Debug.LogWarning("[FANTASMA] No hay enemigos válidos dentro del radio.");
-        }
-        else
-        {
-            Debug.Log("[FANTASMA] Enemigo final seleccionado: " + masCercano.name);
         }
 
         return masCercano;
