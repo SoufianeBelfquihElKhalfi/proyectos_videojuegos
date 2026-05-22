@@ -2,12 +2,10 @@ using Enemy.FSM;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
-using System.Collections.Generic;
 
 public class AtaqueJefe : EstadoFSM
 {
     [Header("Configuración de Rotación")]
-   
     private string[] ordenAtaques = { "embestida", "mazazo", "embestida", "salto", "embestida", "barrido" };
     private int indiceAtaqueActual = 0;
 
@@ -31,6 +29,7 @@ public class AtaqueJefe : EstadoFSM
     private Transform player;
     private NavMeshAgent agent;
     private InfligirDanio infligirDanio;
+    private Animator animator;
 
     private bool atacando = false;
     private bool introTerminada = false;
@@ -42,6 +41,7 @@ public class AtaqueJefe : EstadoFSM
         player = FindFirstObjectByType<MovimientoAlastor>()?.transform;
         agent = GetComponent<NavMeshAgent>();
         infligirDanio = GetComponent<InfligirDanio>();
+        animator = GetComponent<Animator>();
 
         if (agent != null) agent.updateRotation = false;
 
@@ -49,42 +49,58 @@ public class AtaqueJefe : EstadoFSM
         {
             introTerminada = false;
             cayendo = false;
+
+            // Apagamos el agente primero para que no fuerce al jefe al suelo
             if (agent != null) agent.enabled = false;
             transform.position += Vector3.up * alturaInicio;
         }
         else
         {
             introTerminada = true;
+            if (animator != null) animator.Play("Idle");
         }
     }
 
     private void Update()
     {
-        if (player == null || agent == null) return;
+        if (player == null) return;
 
-        if (hacerIntro && !introTerminada && !cayendo)
+        // 1. CONTROL DE LA INTRO (Caída inicial)
+        if (hacerIntro && !introTerminada)
         {
-            float distanciaAlJugador = Vector3.Distance(new Vector3(transform.position.x, player.position.y, transform.position.z), player.position);
-            if (distanciaAlJugador <= rangoDeteccionIntro) StartCoroutine(IntroCaida());
-            return;
+            if (!cayendo)
+            {
+                float distanciaAlJugador = Vector3.Distance(new Vector3(transform.position.x, player.position.y, transform.position.z), player.position);
+                if (distanciaAlJugador <= rangoDeteccionIntro)
+                {
+                    StartCoroutine(IntroCaida());
+                }
+            }
+            return; // Bloquea la IA hasta que termine de caer
         }
 
-        if (!introTerminada || atacando) return;
-        if (!agent.enabled || !agent.isOnNavMesh) return;
+        // 2. COMPROBACIONES DE SEGURIDAD
+        if (agent == null || !agent.enabled || !agent.isOnNavMesh) return;
+        if (atacando) return;
 
+        // 3. MOVIMIENTO Y ROTACIÓN BASE
         RotarHaciaJugador();
+        ControlarAnimacionMovimiento();
 
+        // 4. CAMBIO DE ESTADO (Si el jugador se aleja demasiado)
         float distancia = Vector3.Distance(transform.position, player.position);
         if (distancia > rangoLargo)
         {
             if (estadoPerseguir != null)
             {
+                if (animator != null) animator.Play("Idle");
                 this.enabled = false;
                 estadoPerseguir.enabled = true;
             }
             return;
         }
 
+        // 5. BUCLE DE ATAQUES
         cooldown -= Time.deltaTime;
         if (cooldown <= 0f)
         {
@@ -94,70 +110,112 @@ public class AtaqueJefe : EstadoFSM
         }
     }
 
+    private void ControlarAnimacionMovimiento()
+    {
+        if (animator == null || agent == null) return;
+
+        // CORREGIDO: remainingDistance se evalúa directamente sobre el componente NavMeshAgent
+        if (agent.remainingDistance > 0.1f || agent.velocity.sqrMagnitude > 0.1f)
+        {
+            animator.Play("caminar");
+        }
+        else
+        {
+            animator.Play("Idle");
+        }
+    }
+
     private void EjecutarAtaque(string nombre)
     {
         switch (nombre)
         {
             case "mazazo": StartCoroutine(Mazazo()); break;
-            case "barrido": StartCoroutine(Barrido()); break;
-            case "embestida": StartCoroutine(Embestida()); break;
             case "salto": StartCoroutine(Salto()); break;
+            case "embestida": StartCoroutine(Embestida()); break;
+            case "barrido": StartCoroutine(Barrido()); break;
         }
+    }
+
+    private IEnumerator IntroCaida()
+    {
+        cayendo = true;
+        atacando = true;
+
+        if (animator != null) animator.Play("Caída");
+
+        Vector3 suelo = new Vector3(transform.position.x, transform.position.y - alturaInicio, transform.position.z);
+        Vector3 inicio = transform.position;
+        float t = 0f;
+
+        while (t < duracionCaida)
+        {
+            transform.position = Vector3.Lerp(inicio, suelo, t / duracionCaida);
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = suelo;
+        OndaChoque(8f);
+
+        yield return new WaitForSeconds(0.5f);
+
+        if (agent != null)
+        {
+            agent.enabled = true;
+            yield return new WaitForEndOfFrame(); // Espera un frame para que el NavMesh se estabilice
+            agent.isStopped = false;
+        }
+
+        atacando = false;
+        introTerminada = true;
     }
 
     private IEnumerator Mazazo()
     {
         atacando = true;
-        // Se acerca al jugador si está lejos
-        while (Vector3.Distance(transform.position, player.position) > rangoMazazo)
+        float tiempoMaximoPersecucion = 2.5f;
+        float distanciaParaGolpear = rangoMazazo;
+
+        if (agent != null) agent.isStopped = false;
+
+        while (Vector3.Distance(transform.position, player.position) > distanciaParaGolpear && tiempoMaximoPersecucion > 0)
         {
-            agent.isStopped = false;
-            agent.SetDestination(player.position);
+            if (agent != null && agent.isOnNavMesh) agent.SetDestination(player.position);
             RotarHaciaJugador();
+            if (animator != null) animator.Play("caminar");
+
+            tiempoMaximoPersecucion -= Time.deltaTime;
             yield return null;
         }
 
-        agent.isStopped = true;
-        yield return new WaitForSeconds(0.4f);
-        AplicarDañoSiCerca(rangoMazazo + 1f);
-        yield return new WaitForSeconds(0.8f);
-        FinAtaque();
-    }
-
-    private IEnumerator Barrido()
-    {
-        atacando = true;
-        if (agent.isOnNavMesh) agent.isStopped = true;
-        yield return new WaitForSeconds(0.4f);
-
-        AplicarDañoSiCerca(5f);
-        EmpujarJugador(8f);
-
-        yield return new WaitForSeconds(0.7f);
-        FinAtaque();
-    }
-
-    private IEnumerator Embestida()
-    {
-        atacando = true;
-        float t = 0f;
-        Vector3 direccionCarga = transform.forward;
-        while (t < 0.8f) 
+        if (agent != null && agent.isOnNavMesh)
         {
-            transform.Translate(direccionCarga * 14f * Time.deltaTime, Space.World);
-            t += Time.deltaTime;
-            yield return null;
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;
         }
-        yield return new WaitForSeconds(0.3f);
+
+        if (animator != null) animator.Play("mazazo");
+
+        yield return new WaitForSeconds(0.4f); // Anticipación visual antes del impacto físico
+
+        if (Vector3.Distance(transform.position, player.position) <= rangoMazazo + 1.5f)
+        {
+            if (infligirDanio != null) infligirDanio.IntentarGolpear(player);
+        }
+
+        yield return new WaitForSeconds(1.0f); // Animación terminando/recuperación
         FinAtaque();
     }
 
     private IEnumerator Salto()
     {
         atacando = true;
-        agent.enabled = false;
         Vector3 inicio = transform.position;
         Vector3 destino = player.position;
+
+        if (agent != null) agent.enabled = false;
+        if (animator != null) animator.Play("salto");
+
         float t = 0f;
         while (t < 1f)
         {
@@ -167,7 +225,12 @@ public class AtaqueJefe : EstadoFSM
             yield return null;
         }
 
-        agent.enabled = true;
+        if (agent != null)
+        {
+            agent.enabled = true;
+            yield return new WaitForEndOfFrame();
+        }
+
         AplicarDañoSiCerca(6f);
         OndaChoque(7f);
 
@@ -175,36 +238,43 @@ public class AtaqueJefe : EstadoFSM
         FinAtaque();
     }
 
-    private void AplicarDañoSiCerca(float radio)
+    private IEnumerator Embestida()
     {
-        if (player == null || infligirDanio == null) return;
-
-        float distancia = Vector3.Distance(transform.position, player.position);
-        if (distancia <= radio)
-        {
-            infligirDanio.IntentarGolpear(player);
-        }
-    }
-
-    private IEnumerator IntroCaida()
-    {
-        cayendo = true;
         atacando = true;
-        Vector3 suelo = new Vector3(transform.position.x, transform.position.y - alturaInicio, transform.position.z);
-        Vector3 inicio = transform.position;
         float t = 0f;
-        while (t < duracionCaida)
+        Vector3 direccionCarga = transform.forward;
+        if (animator != null) animator.Play("girar"); // Usa "girar" provisionalmente mientras embiste
+
+        while (t < 0.8f)
         {
-            transform.position = Vector3.Lerp(inicio, suelo, t / duracionCaida);
+            transform.Translate(direccionCarga * 14f * Time.deltaTime, Space.World);
             t += Time.deltaTime;
             yield return null;
         }
-        transform.position = suelo;
-        OndaChoque(8f);
-        yield return new WaitForSeconds(0.5f);
-        if (agent != null) { agent.enabled = true; agent.isStopped = false; }
-        atacando = false;
-        introTerminada = true;
+        yield return new WaitForSeconds(0.3f);
+        FinAtaque();
+    }
+
+    private IEnumerator Barrido()
+    {
+        atacando = true;
+        if (agent != null && agent.isOnNavMesh) agent.isStopped = true;
+        if (animator != null) animator.Play("girar");
+
+        yield return new WaitForSeconds(0.4f);
+        AplicarDañoSiCerca(5f);
+        EmpujarJugador(8f);
+        yield return new WaitForSeconds(0.7f);
+        FinAtaque();
+    }
+
+    private void AplicarDañoSiCerca(float radio)
+    {
+        if (player == null || infligirDanio == null) return;
+        if (Vector3.Distance(transform.position, player.position) <= radio)
+        {
+            infligirDanio.IntentarGolpear(player);
+        }
     }
 
     private void RotarHaciaJugador()
@@ -229,7 +299,8 @@ public class AtaqueJefe : EstadoFSM
 
     private void FinAtaque()
     {
-        if (agent.enabled && agent.isOnNavMesh) agent.isStopped = false;
         atacando = false;
+        if (agent != null && agent.enabled && agent.isOnNavMesh) agent.isStopped = false;
+        if (animator != null) animator.Play("Idle");
     }
 }

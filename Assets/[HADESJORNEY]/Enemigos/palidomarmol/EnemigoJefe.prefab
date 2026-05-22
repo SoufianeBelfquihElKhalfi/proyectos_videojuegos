@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 1922654829058931504}
   - component: {fileID: -3655118003531589829}
   - component: {fileID: -5731424577370190139}
+  - component: {fileID: 1498573834689476349}
   m_Layer: 6
   m_Name: EnemigoJefe
   m_TagString: Enemy
@@ -53,11 +54,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6acd8d4a737cfa941976d87723d2529f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  esJugador: 0
   usarVidaGuardadaEntreEscenas: 0
-  duracionParpadeo: 0.3
-  cantidadParpadeos: 3
   corazonesMaximos: 15
   corazonesMitadIniciales: -1
+  colorParpadeo: {r: 1, g: 0, b: 0, a: 1}
+  duracionParpadeo: 0.3
+  cantidadParpadeos: 3
   alMorir:
     m_PersistentCalls:
       m_Calls:
@@ -228,6 +231,28 @@ MonoBehaviour:
   duracionCaida: 1.2
   hacerIntro: 1
   estadoPerseguir: {fileID: 3871358505971979066}
+--- !u!95 &1498573834689476349
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5366638020437931414}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 9b0d03bfa54c1ee4d8ea890388c183f4, type: 3}
+  m_Controller: {fileID: 9100000, guid: 4414a01249e2d8646b5cbe925795ddc5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &6199749086332931343
 PrefabInstance:
   m_ObjectHideFlags: 0
