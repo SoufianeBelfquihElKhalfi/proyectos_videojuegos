@@ -1,11 +1,11 @@
-using Enemy.FSM;
+Ôªøusing Enemy.FSM;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 
 public class AtaqueJefe : EstadoFSM
 {
-    [Header("ConfiguraciÛn de RotaciÛn")]
+    [Header("Configuraci√≥n de Rotaci√≥n")]
     private string[] ordenAtaques = { "embestida", "mazazo", "embestida", "salto", "embestida", "barrido" };
     private int indiceAtaqueActual = 0;
 
@@ -17,13 +17,13 @@ public class AtaqueJefe : EstadoFSM
     [Header("Tiempos")]
     [SerializeField] private float tiempoEntreAtaques = 1.2f;
 
-    [Header("RotaciÛn")]
+    [Header("Rotaci√≥n")]
     [SerializeField] private float velocidadRotacion = 8f;
 
-    [Header("Intro caÌda")]
+    [Header("Intro ca√≠da")]
     [SerializeField] private float alturaInicio = 15f;
     [SerializeField] private float duracionCaida = 3.0f;
-    [SerializeField] private bool hacerIntro = true;
+    [SerializeField] private bool hacerIntro = false; // ‚Üê desactivado por defecto, la cinem√°tica se encarga
     [SerializeField] private EstadoFSM estadoPerseguir;
 
     private Transform player;
@@ -63,25 +63,26 @@ public class AtaqueJefe : EstadoFSM
     {
         if (player == null) return;
 
-        // 1. CONTROL DE LA INTRO (CaÌda inicial)
+        // 1. CONTROL DE LA INTRO (Ca√≠da inicial)
         if (hacerIntro && !introTerminada)
         {
             if (!cayendo)
             {
-                float distanciaAlJugador = Vector3.Distance(new Vector3(transform.position.x, player.position.y, transform.position.z), player.position);
+                float distanciaAlJugador = Vector3.Distance(
+                    new Vector3(transform.position.x, player.position.y, transform.position.z),
+                    player.position);
+
                 if (distanciaAlJugador <= rangoDeteccionIntro)
-                {
                     StartCoroutine(IntroCaida());
-                }
             }
             return;
         }
 
         // 2. COMPROBACIONES DE SEGURIDAD
         if (agent == null || !agent.enabled || !agent.isOnNavMesh) return;
-        if (atacando) return; // Si est· atacando, el Update no toca el Animator
+        if (atacando) return;
 
-        // 3. MOVIMIENTO Y ROTACI”N BASE (Usa los Bools del Animator)
+        // 3. MOVIMIENTO Y ROTACI√ìN BASE
         RotarHaciaJugador();
         ControlarAnimacionMovimiento();
 
@@ -112,7 +113,6 @@ public class AtaqueJefe : EstadoFSM
     {
         if (animator == null || agent == null) return;
 
-        // Si el agente se est· desplazando activamente
         if (agent.remainingDistance > 0.1f || agent.velocity.sqrMagnitude > 0.1f)
         {
             animator.SetBool("caminando", true);
@@ -120,16 +120,15 @@ public class AtaqueJefe : EstadoFSM
         }
         else
         {
-            // Si est· quieto pero rotando de forma pronunciada hacia el jugador
             Vector3 direccionAlJugador = (player.position - transform.position).normalized;
             float angulo = Vector3.Angle(transform.forward, direccionAlJugador);
 
-            if (angulo > 15f) // Si el ·ngulo es notable, activa la animaciÛn de girar
+            if (angulo > 15f)
             {
                 animator.SetBool("caminando", false);
                 animator.SetBool("girando", true);
             }
-            else // Completamente quieto en Idle
+            else
             {
                 animator.SetBool("caminando", false);
                 animator.SetBool("girando", false);
@@ -162,7 +161,7 @@ public class AtaqueJefe : EstadoFSM
         cayendo = true;
         atacando = true;
 
-        if (animator != null) animator.Play("CaÌda");
+        if (animator != null) animator.SetTrigger("caer");
 
         Vector3 suelo = new Vector3(transform.position.x, transform.position.y - alturaInicio, transform.position.z);
         Vector3 inicio = transform.position;
@@ -194,7 +193,7 @@ public class AtaqueJefe : EstadoFSM
     private IEnumerator Mazazo()
     {
         atacando = true;
-        ResetearParametrosMovimiento(); // Apaga caminar/girar para que no estorben
+        ResetearParametrosMovimiento();
 
         float tiempoMaximoPersecucion = 2.5f;
         float distanciaParaGolpear = rangoMazazo;
@@ -218,16 +217,16 @@ public class AtaqueJefe : EstadoFSM
         }
 
         ResetearParametrosMovimiento();
-        if (animator != null) animator.Play("mazazo"); // Forzamos el clip de mazazo de forma absoluta
+        if (animator != null) animator.SetTrigger("mazazo");
 
-        yield return new WaitForSeconds(0.4f); // AnticipaciÛn del golpe
+        yield return new WaitForSeconds(0.4f);
 
         if (Vector3.Distance(transform.position, player.position) <= rangoMazazo + 1.5f)
         {
             if (infligirDanio != null) infligirDanio.IntentarGolpear(player);
         }
 
-        yield return new WaitForSeconds(1.0f); // Fin de la animaciÛn
+        yield return new WaitForSeconds(1.0f);
         FinAtaque();
     }
 
@@ -240,7 +239,7 @@ public class AtaqueJefe : EstadoFSM
         Vector3 destino = player.position;
 
         if (agent != null) agent.enabled = false;
-        if (animator != null) animator.Play("salto"); // Forzamos el clip de salto
+        if (animator != null) animator.SetTrigger("salto");
 
         float t = 0f;
         while (t < 1f)
@@ -257,7 +256,7 @@ public class AtaqueJefe : EstadoFSM
             yield return new WaitForEndOfFrame();
         }
 
-        AplicarDaÒoSiCerca(6f);
+        AplicarDanioSiCerca(6f);
         OndaChoque(7f);
 
         yield return new WaitForSeconds(0.8f);
@@ -271,7 +270,7 @@ public class AtaqueJefe : EstadoFSM
 
         float t = 0f;
         Vector3 direccionCarga = transform.forward;
-        if (animator != null) animator.SetBool("girando", true); // Usa la animaciÛn de girar como carga visual
+        if (animator != null) animator.SetBool("girando", true);
 
         while (t < 0.8f)
         {
@@ -292,19 +291,17 @@ public class AtaqueJefe : EstadoFSM
         if (animator != null) animator.SetBool("girando", true);
 
         yield return new WaitForSeconds(0.4f);
-        AplicarDaÒoSiCerca(5f);
+        AplicarDanioSiCerca(5f);
         EmpujarJugador(8f);
         yield return new WaitForSeconds(0.7f);
         FinAtaque();
     }
 
-    private void AplicarDaÒoSiCerca(float radio)
+    private void AplicarDanioSiCerca(float radio)
     {
         if (player == null || infligirDanio == null) return;
         if (Vector3.Distance(transform.position, player.position) <= radio)
-        {
             infligirDanio.IntentarGolpear(player);
-        }
     }
 
     private void RotarHaciaJugador()
