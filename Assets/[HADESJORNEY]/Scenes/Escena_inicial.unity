@@ -6263,7 +6263,7 @@ MonoBehaviour:
   texto: {fileID: 1912163439}
   mensaje: Avanza con WASD. Esquiva con ESPACIO. El Hades no perdona a los lentos.
   mostrarUnaVez: 1
-  duracionEnPantalla: 4
+  duracionEnPantalla: 5
   duracionFade: 0.3
 --- !u!1001 &2113979148
 PrefabInstance:
