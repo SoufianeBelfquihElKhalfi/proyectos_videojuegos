@@ -193,7 +193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rangoDeteccion: 15
   distanciaDisparo: 8
-  prefabProyectil: {fileID: 919132149155446097, guid: 69800e0728764dd4ea564579d294513b, type: 3}
+  prefabProyectil: {fileID: 4537737509914126809, guid: f37506e4e980264439ab2a3b31499c5f, type: 3}
   puntoDisparo: {fileID: 4937282293473048002}
   cadenciaDisparo: 2
   distanciaMinima: 6
