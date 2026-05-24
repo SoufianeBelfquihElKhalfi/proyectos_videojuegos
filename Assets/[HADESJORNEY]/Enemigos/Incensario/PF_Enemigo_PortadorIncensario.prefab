@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4143986948556402045}
   - component: {fileID: -4995579672940724724}
   - component: {fileID: 4759751360084756910}
-  - component: {fileID: -124856648918149877}
   - component: {fileID: 225849526631632457}
   - component: {fileID: 6170180798692012991}
   - component: {fileID: 3697238576570648250}
@@ -108,7 +107,7 @@ MonoBehaviour:
   alMorir:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -124856648918149877}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MuerteEnemigo, Assembly-CSharp
         m_MethodName: 
         m_Mode: 1
@@ -135,18 +134,6 @@ MonoBehaviour:
   alCambiarVida:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &-124856648918149877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 588417347952441320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f4adb65c985fb7468e3c81f750e18dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &225849526631632457
 MonoBehaviour:
   m_ObjectHideFlags: 0

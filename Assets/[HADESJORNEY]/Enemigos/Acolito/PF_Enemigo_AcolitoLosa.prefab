@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8281141315520992792}
   - component: {fileID: 6507434532081748120}
   - component: {fileID: 3863164281159034767}
-  - component: {fileID: 4427847150830633912}
   - component: {fileID: 8073625863292144675}
   - component: {fileID: 8487638878653078037}
   - component: {fileID: 8507614627477514187}
@@ -112,18 +111,6 @@ MonoBehaviour:
   alMorir:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4427847150830633912}
-        m_TargetAssemblyTypeName: MuerteEnemigo, Assembly-CSharp
-        m_MethodName: Morir
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SalaCombateController, Assembly-CSharp
         m_MethodName: EnemigoDerrotado
@@ -139,18 +126,6 @@ MonoBehaviour:
   alCambiarVida:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4427847150830633912
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3264913934933927597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f4adb65c985fb7468e3c81f750e18dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8073625863292144675
 MonoBehaviour:
   m_ObjectHideFlags: 0
