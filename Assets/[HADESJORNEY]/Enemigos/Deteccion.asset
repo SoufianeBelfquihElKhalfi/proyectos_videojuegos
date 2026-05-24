@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8fb74422b1aa14d8e1db57ea9271f4, type: 3}
   m_Name: Deteccion
   m_EditorClassIdentifier: 
-  m_value: 
+  m_value: Deteccion
