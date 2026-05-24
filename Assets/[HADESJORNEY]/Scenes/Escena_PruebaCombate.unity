@@ -7991,14 +7991,6 @@ PrefabInstance:
       propertyPath: playerCenter
       value: 
       objectReference: {fileID: 90181878}
-    - target: {fileID: 7425308181066597827, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
-      propertyPath: suavizadoSeguimientoSuave
-      value: 0.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 7425308181066597827, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
-      propertyPath: velocidadSeguimientoSuave
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 7793067757123489276, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
       propertyPath: m_Name
       value: ArgosGhostRoot

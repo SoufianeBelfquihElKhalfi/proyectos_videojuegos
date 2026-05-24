@@ -9875,9 +9875,13 @@ MonoBehaviour:
   distanciaMinima: 0.8
   distanciaComoda: 1.55
   distanciaMaxima: 2.4
-  smoothTime: 0.38
-  maxSpeed: 10
   maxSnapDistance: 6
+  margenAceleracionLejos: 1.2
+  margenAceleracionCerca: 0.45
+  suavizadoSeguimientoSuave: 0.65
+  suavizadoSeguimientoFuerte: 0.24
+  velocidadSeguimientoSuave: 2
+  velocidadSeguimientoFuerte: 10
   radioDeriva: 0.18
   frecuenciaDeriva: 0.35
 --- !u!114 &462303008615444144
