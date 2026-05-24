@@ -530,6 +530,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6acd8d4a737cfa941976d87723d2529f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &90181878 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7275646671039893548, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
+  m_PrefabInstance: {fileID: 90181876}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &99126749
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1535,11 +1540,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 412c90d18534f364b811662161c30644, type: 3}
---- !u!4 &292991533 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2256820607302975723, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-  m_PrefabInstance: {fileID: 90181876}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &302541608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2458,6 +2458,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF_Enemigo_PortadorIncensario (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 934917484398135942, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: puntosRuta.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 934917484398135942, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: 'puntosRuta.Array.data[0]'
+      value: 
+      objectReference: {fileID: 104505255}
+    - target: {fileID: 934917484398135942, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: 'puntosRuta.Array.data[1]'
+      value: 
+      objectReference: {fileID: 671578636}
+    - target: {fileID: 934917484398135942, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: 'puntosRuta.Array.data[2]'
+      value: 
+      objectReference: {fileID: 223904527}
+    - target: {fileID: 934917484398135942, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: 'puntosRuta.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1521424118}
     - target: {fileID: 1584909338501983404, guid: 8b64039002b027246930189e5db5a193, type: 3}
       propertyPath: m_LocalPosition.x
       value: -36.04
@@ -4812,7 +4832,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &841850626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6447,6 +6467,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF_Enemigo_PortadorIncensario
       objectReference: {fileID: 0}
+    - target: {fileID: 934917484398135942, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: puntosRuta.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 934917484398135942, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: 'puntosRuta.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1521424118}
+    - target: {fileID: 934917484398135942, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: 'puntosRuta.Array.data[1]'
+      value: 
+      objectReference: {fileID: 223904527}
+    - target: {fileID: 934917484398135942, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: 'puntosRuta.Array.data[2]'
+      value: 
+      objectReference: {fileID: 671578636}
+    - target: {fileID: 934917484398135942, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: 'puntosRuta.Array.data[3]'
+      value: 
+      objectReference: {fileID: 104505255}
     - target: {fileID: 1584909338501983404, guid: 8b64039002b027246930189e5db5a193, type: 3}
       propertyPath: m_LocalPosition.x
       value: -49.52
@@ -7950,7 +7990,7 @@ PrefabInstance:
     - target: {fileID: 7425308181066597827, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
       propertyPath: playerCenter
       value: 
-      objectReference: {fileID: 292991533}
+      objectReference: {fileID: 90181878}
     - target: {fileID: 7793067757123489276, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
       propertyPath: m_Name
       value: ArgosGhostRoot
