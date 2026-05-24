@@ -1114,6 +1114,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF_Enemigo_PortadorIncensario
       objectReference: {fileID: 0}
+    - target: {fileID: 934917484398135942, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: 'puntosRuta.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1622977008}
+    - target: {fileID: 934917484398135942, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: 'puntosRuta.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1434091105}
+    - target: {fileID: 934917484398135942, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: 'puntosRuta.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1811301695}
     - target: {fileID: 1584909338501983404, guid: 8b64039002b027246930189e5db5a193, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.5
@@ -1158,18 +1170,6 @@ PrefabInstance:
       propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1233282641}
-    - target: {fileID: 5705614470497967891, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: 'ruta.Array.data[0]'
-      value: 
-      objectReference: {fileID: 1622977008}
-    - target: {fileID: 5705614470497967891, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: 'ruta.Array.data[1]'
-      value: 
-      objectReference: {fileID: 1434091105}
-    - target: {fileID: 5705614470497967891, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: 'ruta.Array.data[2]'
-      value: 
-      objectReference: {fileID: 1811301695}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

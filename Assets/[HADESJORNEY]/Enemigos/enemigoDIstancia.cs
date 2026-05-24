@@ -84,7 +84,6 @@ public class EnemigoDistancia : MonoBehaviour
     private void ActualizarAnimacionMovimiento()
     {
         if (agente == null || animator == null) return;
-        animator.SetBool("correr", agente.velocity.magnitude > 0.1f);
     }
 
     // ---------- ESTADO: PATRULLAR ----------
@@ -268,11 +267,9 @@ public class EnemigoDistancia : MonoBehaviour
     {
         estaDisparando = false;
         tiempoUltimaDecision = 0f;
-        if (animator != null)
-        {
-            animator.ResetTrigger("Disparar");
-            animator.SetTrigger("Golpe");
-        }
+        
+        animator.ResetTrigger("Disparar");
+        
         tiempoUltimoDisparo = Time.time;
     }
 
