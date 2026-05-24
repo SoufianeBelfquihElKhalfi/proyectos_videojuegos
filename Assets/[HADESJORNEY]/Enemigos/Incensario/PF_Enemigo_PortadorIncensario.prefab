@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 225849526631632457}
   - component: {fileID: 6170180798692012991}
   - component: {fileID: 3697238576570648250}
+  - component: {fileID: 5705614470497967891}
+  - component: {fileID: 4767513439656271597}
   m_Layer: 6
   m_Name: PF_Enemigo_PortadorIncensario
   m_TagString: Enemy
@@ -98,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   esJugador: 0
+  usaMuerteEnemigoComun: 1
   usarVidaGuardadaEntreEscenas: 0
   corazonesMaximos: 1
   corazonesMitadIniciales: -1
@@ -107,18 +110,6 @@ MonoBehaviour:
   alMorir:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MuerteEnemigo, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SalaCombateController, Assembly-CSharp
         m_MethodName: EnemigoDerrotado
@@ -198,6 +189,42 @@ MonoBehaviour:
   puntosRuta: []
   prefabExclamacion: {fileID: 629870405857442683, guid: 907c7f23531e941459e9c64a7d5c7257, type: 3}
   puntoExclamacion: {fileID: 986394621675776536}
+--- !u!114 &5705614470497967891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588417347952441320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446a57bfb7a30d44aa1493749dd75f09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nombre: {fileID: 11400000, guid: a29210d9d3dd0d545b0d0f1fc1e16cae, type: 2}
+  inicial: 1
+  ruta:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &4767513439656271597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588417347952441320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3129b1c08dde63a47b995023544e1c49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  componentesADesactivar:
+  - {fileID: 3697238576570648250}
+  - {fileID: 4143986948556402045}
+  - {fileID: 5705614470497967891}
+  collidersADesactivar:
+  - {fileID: -4995579672940724724}
 --- !u!1 &1673987647173703564
 GameObject:
   m_ObjectHideFlags: 0
