@@ -1115,6 +1115,10 @@ PrefabInstance:
       value: PF_Enemigo_PortadorIncensario
       objectReference: {fileID: 0}
     - target: {fileID: 934917484398135942, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: prefabProyectil
+      value: 
+      objectReference: {fileID: 4537737509914126809, guid: f37506e4e980264439ab2a3b31499c5f, type: 3}
+    - target: {fileID: 934917484398135942, guid: 8b64039002b027246930189e5db5a193, type: 3}
       propertyPath: 'puntosRuta.Array.data[0]'
       value: 
       objectReference: {fileID: 1622977008}
