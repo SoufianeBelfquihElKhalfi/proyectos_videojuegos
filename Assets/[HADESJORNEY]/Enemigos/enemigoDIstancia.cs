@@ -32,9 +32,8 @@ public class EnemigoDistancia : MonoBehaviour
     [Header("Patrulla")]
     [SerializeField] private Transform[] puntosRuta;
 
-    [Header("Detección Visual")]
-    [SerializeField] private GameObject prefabExclamacion;
-    [SerializeField] private Transform puntoExclamacion;
+    [Header("Aviso de detección")]
+    [SerializeField] private AvisoDeteccionEnemigo avisoDeteccion;
 
     private Transform jugador;
     private NavMeshAgent agente;
@@ -131,16 +130,7 @@ public class EnemigoDistancia : MonoBehaviour
         estadoActual = Estado.Detectando;
         agente.isStopped = true;
 
-        GameObject exclamacion = null;
-        if (prefabExclamacion != null && puntoExclamacion != null)
-        {
-            exclamacion = Instantiate(prefabExclamacion, puntoExclamacion.position, Quaternion.identity);
-            exclamacion.transform.SetParent(puntoExclamacion);
-        }
-
-        yield return new WaitForSeconds(1f);
-
-        if (exclamacion != null) Destroy(exclamacion);
+        yield return avisoDeteccion.MostrarYEsperar();
 
         agente.isStopped = false;
         estadoActual = Estado.Combate;

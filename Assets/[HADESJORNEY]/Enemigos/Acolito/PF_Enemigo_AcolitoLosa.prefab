@@ -20,6 +20,8 @@ GameObject:
   - component: {fileID: 4641693284489832636}
   - component: {fileID: 8428176289164798717}
   - component: {fileID: 8710095951740385529}
+  - component: {fileID: 2434691421168828128}
+  - component: {fileID: 4931997019506706537}
   m_Layer: 6
   m_Name: PF_Enemigo_AcolitoLosa
   m_TagString: Enemy
@@ -43,6 +45,7 @@ Transform:
   - {fileID: 6750299355934503614}
   - {fileID: 1878582675142394921}
   - {fileID: 7949026850423848353}
+  - {fileID: 3720231859494884855}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &8281141315520992792
@@ -145,7 +148,9 @@ MonoBehaviour:
       m_Calls: []
   patrulla: {fileID: 11400000, guid: a29210d9d3dd0d545b0d0f1fc1e16cae, type: 2}
   ataque: {fileID: 11400000, guid: 85d9a32424a1c25418bcd68a313471e6, type: 2}
+  deteccion: {fileID: 11400000, guid: e9670b8bf5e858945a62615a052d01a4, type: 2}
   rangoDeteccion: 10
+  avisoDeteccion: {fileID: 2434691421168828128}
 --- !u!114 &8487638878653078037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,8 +281,38 @@ MonoBehaviour:
   - {fileID: 8487638878653078037}
   - {fileID: 8281141315520992792}
   - {fileID: 8428176289164798717}
+  - {fileID: 2434691421168828128}
   collidersADesactivar:
   - {fileID: 6507434532081748120}
+--- !u!114 &2434691421168828128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3264913934933927597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab241fc02f90a8428eed77a29111eba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabExclamacion: {fileID: 629870405857442683, guid: 907c7f23531e941459e9c64a7d5c7257, type: 3}
+  puntoAparicion: {fileID: 3720231859494884855}
+  duracion: 1
+--- !u!114 &4931997019506706537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3264913934933927597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9ba6b8fe7673204492e4e638efb1c1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nombre: {fileID: 11400000, guid: e9670b8bf5e858945a62615a052d01a4, type: 2}
+  inicial: 0
 --- !u!1 &4002025617285446722
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,6 +402,37 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4946656260836265796}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7190583216180553137
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3720231859494884855}
+  m_Layer: 6
+  m_Name: puntoExclamacion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3720231859494884855
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7190583216180553137}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.84, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
