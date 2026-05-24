@@ -9872,14 +9872,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followTarget: {fileID: 0}
   playerCenter: {fileID: 0}
-  distanciaMinima: 0.9
-  distanciaComoda: 1.35
-  distanciaMaxima: 1.9
-  smoothTime: 0.18
-  maxSpeed: 12
-  maxSnapDistance: 5
-  radioDeriva: 0.3
-  frecuenciaDeriva: 0.45
+  distanciaMinima: 0.8
+  distanciaComoda: 1.55
+  distanciaMaxima: 2.4
+  smoothTime: 0.38
+  maxSpeed: 10
+  maxSnapDistance: 6
+  radioDeriva: 0.18
+  frecuenciaDeriva: 0.35
 --- !u!114 &462303008615444144
 MonoBehaviour:
   m_ObjectHideFlags: 0

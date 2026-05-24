@@ -12,9 +12,17 @@ public class GhostFollower : MonoBehaviour
     [SerializeField] private float distanciaMaxima = 1.9f;
 
     [Header("Movimiento")]
-    [SerializeField] private float smoothTime = 0.22f;
-    [SerializeField] private float maxSpeed = 8f;
-    [SerializeField] private float maxSnapDistance = 5f;
+    [SerializeField] private float maxSnapDistance = 6f;
+
+    [Header("Seguimiento progresivo")]
+    [SerializeField] private float margenAceleracionLejos = 1.2f;
+    [SerializeField] private float margenAceleracionCerca = 0.45f;
+
+    [SerializeField] private float suavizadoSeguimientoSuave = 0.55f;
+    [SerializeField] private float suavizadoSeguimientoFuerte = 0.24f;
+
+    [SerializeField] private float velocidadSeguimientoSuave = 2.5f;
+    [SerializeField] private float velocidadSeguimientoFuerte = 10f;
 
     [Header("Deriva en reposo")]
     [SerializeField] private float radioDeriva = 0.25f;
@@ -53,12 +61,26 @@ public class GhostFollower : MonoBehaviour
         }
         else
         {
+            float intensidadSeguimiento = CalcularIntensidadSeguimiento();
+
+            float suavizadoActual = Mathf.Lerp(
+                suavizadoSeguimientoSuave,
+                suavizadoSeguimientoFuerte,
+                intensidadSeguimiento
+            );
+
+            float velocidadActual = Mathf.Lerp(
+                velocidadSeguimientoSuave,
+                velocidadSeguimientoFuerte,
+                intensidadSeguimiento
+            );
+
             transform.position = Vector3.SmoothDamp(
                 transform.position,
                 posicionObjetivo,
                 ref velocity,
-                smoothTime,
-                maxSpeed
+                suavizadoActual,
+                velocidadActual
             );
         }
 
@@ -115,5 +137,27 @@ public class GhostFollower : MonoBehaviour
         float offsetZ = Mathf.Cos((Time.time + faseDerivaZ) * frecuenciaDeriva) * radioDeriva;
 
         return new Vector3(offsetX, 0f, offsetZ);
+    }
+
+    private float CalcularIntensidadSeguimiento()
+    {
+        Vector3 offset = transform.position - playerCenter.position;
+        offset.y = 0f;
+
+        float distancia = offset.magnitude;
+
+        if (distancia > distanciaMaxima)
+        {
+            float excesoDistancia = distancia - distanciaMaxima;
+            return Mathf.Clamp01(excesoDistancia / margenAceleracionLejos);
+        }
+
+        if (distancia < distanciaMinima)
+        {
+            float excesoCercania = distanciaMinima - distancia;
+            return Mathf.Clamp01(excesoCercania / margenAceleracionCerca);
+        }
+
+        return 0f;
     }
 }
