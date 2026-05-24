@@ -9878,6 +9878,8 @@ MonoBehaviour:
   smoothTime: 0.18
   maxSpeed: 12
   maxSnapDistance: 5
+  radioDeriva: 0.3
+  frecuenciaDeriva: 0.45
 --- !u!114 &462303008615444144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9918,8 +9920,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   follower: {fileID: 7425308181066597827}
   combate: {fileID: 462303008615444144}
-  velocidadRotacionMovimiento: 360
-  velocidadRotacionReposo: 65
+  suavizadoRotacionMovimiento: 0.12
+  suavizadoRotacionReposo: 0.75
+  velocidadMaximaRotacionMovimiento: 720
+  velocidadMaximaRotacionReposo: 120
   velocidadMinimaParaRotar: 0.05
   tiempoMinimoCambioReposo: 1.5
   tiempoMaximoCambioReposo: 3.5
@@ -10100,6 +10104,10 @@ MonoBehaviour:
   swayFrequency: 1.2
   breatheAmount: 0.025
   breatheFrequency: 1.6
+  pitchAmount: 3
+  rollAmount: 5
+  yawAmount: 2
+  rotationFrequency: 0.8
 --- !u!4 &6611263026622874011 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 826b844500f1e354988b7cefe3c9f34a, type: 3}

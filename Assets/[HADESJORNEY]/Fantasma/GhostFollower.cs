@@ -16,6 +16,13 @@ public class GhostFollower : MonoBehaviour
     [SerializeField] private float maxSpeed = 8f;
     [SerializeField] private float maxSnapDistance = 5f;
 
+    [Header("Deriva en reposo")]
+    [SerializeField] private float radioDeriva = 0.25f;
+    [SerializeField] private float frecuenciaDeriva = 0.45f;
+
+    private float faseDerivaX;
+    private float faseDerivaZ;
+
     private Vector3 velocity;
     public Vector3 UltimaDireccionMovimiento { get; private set; }
     public Vector3 UltimaVelocidadMovimiento { get; private set; }
@@ -24,8 +31,12 @@ public class GhostFollower : MonoBehaviour
     {
         transform.position = CalcularPosicionComoda();
         velocity = Vector3.zero;
+
         UltimaDireccionMovimiento = Vector3.zero;
         UltimaVelocidadMovimiento = Vector3.zero;
+
+        faseDerivaX = Random.Range(0f, 100f);
+        faseDerivaZ = Random.Range(0f, 100f);
     }
 
     private void LateUpdate()
@@ -74,7 +85,7 @@ public class GhostFollower : MonoBehaviour
             return CalcularPosicionComoda();
         }
 
-        Vector3 posicionMantenida = transform.position;
+        Vector3 posicionMantenida = transform.position + CalcularDeriva() * Time.deltaTime;
         posicionMantenida.y = followTarget.position.y;
         return posicionMantenida;
     }
@@ -96,5 +107,13 @@ public class GhostFollower : MonoBehaviour
         posicion.y = followTarget.position.y;
 
         return posicion;
+    }
+
+    private Vector3 CalcularDeriva()
+    {
+        float offsetX = Mathf.Sin((Time.time + faseDerivaX) * frecuenciaDeriva) * radioDeriva;
+        float offsetZ = Mathf.Cos((Time.time + faseDerivaZ) * frecuenciaDeriva) * radioDeriva;
+
+        return new Vector3(offsetX, 0f, offsetZ);
     }
 }
