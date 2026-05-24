@@ -1472,8 +1472,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fc7e4bf213cd4d47924c4318a7e6d2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limiteCorazones: 3
+  sistemaVidaJugador: {fileID: 0}
+  maxMejorasVida: 3
+  corazonesExtraPorMejora: 1
   multiplicadorDanio: 1
+  multiplicadorDanioMejorado: 2
 --- !u!4 &219589032 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5253039588846752259, guid: 412c90d18534f364b811662161c30644, type: 3}
@@ -6517,6 +6520,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 945139530723195239, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
+      propertyPath: sistemaVidaJugador
+      value: 
+      objectReference: {fileID: 1034228448}
     - target: {fileID: 4354725985057421533, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
