@@ -56,10 +56,10 @@ public class cinematicaJefe : MonoBehaviour
         if (camaraPrincipal != null) camaraPrincipal.enabled = false;
         if (camaraEntradaJefe != null) camaraEntradaJefe.gameObject.SetActive(true);
 
-        // 4. Posicionar jefe
-        jefeEnEscena.transform.position = puntoSpawnJefe.position;
-        jefeEnEscena.SetActive(true);
+        // 4. Posicionar jefe (sin agente activo)
         DesactivarComportamientoJefe(jefeEnEscena, true);
+        jefeEnEscena.SetActive(true);
+        jefeEnEscena.transform.position = puntoSpawnJefe.position;
 
         // 5. Fade in (de negro a normal)
         yield return Fade(1f, 0f);
@@ -117,7 +117,11 @@ public class cinematicaJefe : MonoBehaviour
         yield return Fade(1f, 0f);
 
         // 10. Reactivar
+        Debug.Log("Reactivando comportamiento del jefe");
         DesactivarComportamientoJefe(jefeEnEscena, false);
+
+        var ataque = jefeEnEscena.GetComponent<AtaqueJefe>();
+        Debug.Log("AtaqueJefe enabled: " + (ataque != null && ataque.enabled));
         if (movimiento != null) movimiento.movimientoHabilitado = true;
         if (combate != null) combate.enabled = true;
     }
