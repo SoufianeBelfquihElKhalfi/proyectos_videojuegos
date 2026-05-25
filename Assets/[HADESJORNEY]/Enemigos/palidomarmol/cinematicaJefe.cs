@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using System.Collections;
 
 
@@ -12,12 +13,20 @@ public class cinematicaJefe : MonoBehaviour
     [SerializeField] private Camera camaraEntradaJefe;
     [SerializeField] private Camera camaraPrincipal;
 
+    [Header("Fade")]
+    [SerializeField] private CanvasGroup fadeNegro;
+    [SerializeField] private float duracionFade = 0.4f;
+
     [Header("Partículas (opcional)")]
     [SerializeField] private GameObject particulasCaida;
     [SerializeField] private GameObject particulasImpacto;
 
+    [Header("Shake del impacto")]
+    [SerializeField] private float duracionShake = 0.3f;
+    [SerializeField] private float fuerzaShake = 0.2f;
+
     [Header("Tiempos")]
-    [SerializeField] private float esperaAntesDeCaer = 1f;
+    [SerializeField] private float esperaAntesDeCaer = 0f;
     [SerializeField] private float duracionCaida = 1.5f;
     [SerializeField] private float esperaTrasImpacto = 1f;
 
@@ -27,7 +36,6 @@ public class cinematicaJefe : MonoBehaviour
     {
         if (activada) return;
         if (!other.CompareTag("Player")) return;
-
         activada = true;
         StartCoroutine(SecuenciaEntrada(other.gameObject));
     }
@@ -41,16 +49,22 @@ public class cinematicaJefe : MonoBehaviour
         var combate = jugador.GetComponent<CombateJugador>();
         if (combate != null) combate.enabled = false;
 
-        // 2. Cambiar cámara
+        // 2. Fade out (a negro)
+        yield return Fade(0f, 1f);
+
+        // 3. Cambiar cámara mientras está negro
         if (camaraPrincipal != null) camaraPrincipal.enabled = false;
         if (camaraEntradaJefe != null) camaraEntradaJefe.gameObject.SetActive(true);
 
-        // 3. Activar jefe y posicionarlo en el aire
+        // 4. Posicionar jefe
         jefeEnEscena.transform.position = puntoSpawnJefe.position;
         jefeEnEscena.SetActive(true);
         DesactivarComportamientoJefe(jefeEnEscena, true);
 
-        // 4. Partículas caída
+        // 5. Fade in (de negro a normal)
+        yield return Fade(1f, 0f);
+
+        // 6. Partículas de caída
         GameObject particulas = null;
         if (particulasCaida != null)
         {
@@ -60,7 +74,7 @@ public class cinematicaJefe : MonoBehaviour
 
         yield return new WaitForSeconds(esperaAntesDeCaer);
 
-        // 5. Caer
+        // 7. Caer
         Vector3 inicio = jefeEnEscena.transform.position;
         Vector3 destino = puntoAterrizaje.position;
         float tiempo = 0f;
@@ -76,22 +90,50 @@ public class cinematicaJefe : MonoBehaviour
 
         jefeEnEscena.transform.position = destino;
 
-        // 6. Impacto
+        // 8. Impacto: partículas + shake
         if (particulasImpacto != null)
             Instantiate(particulasImpacto, destino, Quaternion.identity);
 
         if (particulas != null) Destroy(particulas);
 
+        if (shakeCamara.Instancia != null)
+        {
+            Debug.Log("Llamando al shake");
+            shakeCamara.Instancia.Shake(duracionShake, fuerzaShake);
+        }
+        else
+        {
+            Debug.Log("ShakeCamara.Instancia es null");
+        }
+
         yield return new WaitForSeconds(esperaTrasImpacto);
 
-        // 7. Volver cámara principal
+        // 9. Fade out de nuevo para volver al juego
+        yield return Fade(0f, 1f);
+
         if (camaraEntradaJefe != null) camaraEntradaJefe.gameObject.SetActive(false);
         if (camaraPrincipal != null) camaraPrincipal.enabled = true;
 
-        // 8. Reactivar comportamiento del jefe y jugador
+        yield return Fade(1f, 0f);
+
+        // 10. Reactivar
         DesactivarComportamientoJefe(jefeEnEscena, false);
         if (movimiento != null) movimiento.movimientoHabilitado = true;
         if (combate != null) combate.enabled = true;
+    }
+
+    private IEnumerator Fade(float desde, float hasta)
+    {
+        if (fadeNegro == null) yield break;
+
+        float tiempo = 0f;
+        while (tiempo < duracionFade)
+        {
+            tiempo += Time.deltaTime;
+            fadeNegro.alpha = Mathf.Lerp(desde, hasta, tiempo / duracionFade);
+            yield return null;
+        }
+        fadeNegro.alpha = hasta;
     }
 
     private void DesactivarComportamientoJefe(GameObject jefe, bool desactivar)
