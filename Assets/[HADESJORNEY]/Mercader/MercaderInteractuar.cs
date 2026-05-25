@@ -12,7 +12,7 @@ public class MercaderInteractuar : MonoBehaviour
     [SerializeField] private GameObject textoInteraccion;
     [SerializeField] private GameObject bocadillo;
     [SerializeField] private TMP_Text textoBocadillo;
-    [SerializeField] private string mensajeMercader = "¡Querido Alátor! ¿Qué deseas hacer?";
+    [SerializeField] private string mensajeMercader = "¡Querido Alástor! ¿Qué deseas hacer?";
 
     [Header("Botones del bocadillo")]
     [Tooltip("Botón para curarse (dentro del bocadillo).")]
