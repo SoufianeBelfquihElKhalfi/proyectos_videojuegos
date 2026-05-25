@@ -19,7 +19,7 @@ public class PausaManager : MonoBehaviour
     public string ejeVertical = "Vertical";
 
     [Header("Escena")]
-    public string escenaMenu = "SplashScreen";
+    public string escenaMenu = "MAIN";
 
     private bool pausaActivo = false;
 

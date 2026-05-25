@@ -694,6 +694,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6120368885700007913, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
+      propertyPath: panelGameOver
+      value: 
+      objectReference: {fileID: 1958748373}
     - target: {fileID: 6463228544794707355, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: m_Name
       value: Alastor

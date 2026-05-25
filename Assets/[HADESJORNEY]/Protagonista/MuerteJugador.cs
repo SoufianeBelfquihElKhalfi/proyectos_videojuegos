@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 /* Se ha cambiado por completo este script.
 
- * ANTES: el jugador perd�a toda la vida, se llamaba a MuerteJugador.Morir() y se cargaba SplashScreen directamente.
+ * ANTES: el jugador perd�a toda la vida, se llamaba a MuerteJugador.Morir() y se cargaba MAIN directamente.
 
  * AHORA:
 
@@ -44,7 +44,7 @@ public class MuerteJugador : MonoBehaviour
 
     [Header("Escenas")]
 
-    [SerializeField] private string escenaMenu = "SplashScreen";
+    [SerializeField] private string escenaMenu = "MAIN";
 
     [SerializeField] private bool usarLoadingScreen = true;
 
@@ -117,7 +117,7 @@ public class MuerteJugador : MonoBehaviour
         RestaurarEstado();
         RestaurarDesdeCheckpoint();
 
-        string escenaDestino = "Sala_Inicial";
+        string escenaDestino = "EscenaInicial";
         string mensajeCarga = "Reiniciando partida...";
 
         bool hayCheckpointValido =

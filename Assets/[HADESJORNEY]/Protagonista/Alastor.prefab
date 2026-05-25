@@ -261,7 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelGameOver: {fileID: 0}
   componentesADesactivar: []
-  escenaMenu: SplashScreen
+  escenaMenu: MAIN
   usarLoadingScreen: 1
 --- !u!114 &-73500163641640762
 MonoBehaviour:
@@ -276,6 +276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   esJugador: 1
+  usaMuerteEnemigoComun: 0
   usarVidaGuardadaEntreEscenas: 1
   corazonesMaximos: 3
   corazonesMitadIniciales: -1
@@ -315,6 +316,8 @@ MonoBehaviour:
   maxGolpesCombo: 3
   tiempoEntreGolpes: 0.4
   tiempoResetCombo: 1.2
+  tiempoBloqueoMovimiento: 0.3
+  tiempoBloqueoAtaque: 0.45
   danioPorGolpe: 010000000100000002000000
   retrocesoPorGolpe:
   - 1
@@ -343,6 +346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   esJugador: 0
+  usaMuerteEnemigoComun: 0
   usarVidaGuardadaEntreEscenas: 0
   corazonesMaximos: 3
   corazonesMitadIniciales: -1
@@ -381,7 +385,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelGameOver: {fileID: 0}
   componentesADesactivar: []
-  escenaMenu: SplashScreen
+  escenaMenu: MAIN
   usarLoadingScreen: 1
 --- !u!114 &945139530723195239
 MonoBehaviour:
@@ -395,8 +399,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fc7e4bf213cd4d47924c4318a7e6d2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limiteCorazones: 3
+  sistemaVidaJugador: {fileID: 0}
+  maxMejorasVida: 3
+  corazonesExtraPorMejora: 1
   multiplicadorDanio: 1
+  multiplicadorDanioMejorado: 2
 --- !u!143 &1581732458979445829
 CharacterController:
   m_ObjectHideFlags: 0
