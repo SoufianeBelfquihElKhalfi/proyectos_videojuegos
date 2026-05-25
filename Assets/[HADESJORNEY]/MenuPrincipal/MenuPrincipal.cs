@@ -16,7 +16,7 @@ public class MenuPrincipal : MonoBehaviour
         ReiniciarPartida();
 
         SceneLoader.Load(
-            "Sala_Inicial",
+            "EscenaInicial",
             "Abriendo las puertas del Inframundo..."
         );
     }
