@@ -29,6 +29,10 @@ public class LoadingScreenController : MonoBehaviour
     [SerializeField] private float breathingMaxAlpha = 1f;
     [SerializeField] private float breathingCycleDuration = 2.2f;
 
+    [Header("Fundido entre pantalla de carga y escena destino")]
+    [SerializeField] private float fadeOutAntesDeActivarEscena = 0.25f;
+    [SerializeField] private float fadeInDespuesDeActivarEscena = 0.25f;
+
     // Coroutine principal que maneja la lógica de carga de la escena y las animaciones
     private IEnumerator Start()
     {
@@ -86,6 +90,12 @@ public class LoadingScreenController : MonoBehaviour
 
             if (operation.progress >= 0.9f && shownProgress >= 1f && elapsedTime >= minimumScreenTime)
             {
+                if (ScreenFade.Instance != null)
+                {
+                    yield return ScreenFade.Instance.FundidoANegro(fadeOutAntesDeActivarEscena);
+                    ScreenFade.Instance.FundidoDesdeNegroTrasSiguienteEscena(fadeInDespuesDeActivarEscena);
+                }
+
                 operation.allowSceneActivation = true;
             }
 

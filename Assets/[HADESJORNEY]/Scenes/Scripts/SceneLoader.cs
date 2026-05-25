@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// Clase estática para manejar la carga de escenas con una pantalla de carga personalizada
 public static class SceneLoader
 {
     public const string LoadingSceneName = "LoadingScene";
@@ -9,7 +8,10 @@ public static class SceneLoader
     public static string TargetSceneName { get; private set; }
     public static string LoadingMessage { get; private set; } = "Cargando...";
 
-    // Método para iniciar la carga de una escena con un mensaje opcional
+    private const float DuracionSalidaHaciaCarga = 0.25f;
+    private const float DuracionEntradaPantallaCarga = 0.35f;
+    private const float RetrasoAntesDeMostrarPantallaCarga = 0.08f;
+
     public static void Load(string targetSceneName, string loadingMessage = "Cargando...")
     {
         if (string.IsNullOrWhiteSpace(targetSceneName))
@@ -21,6 +23,18 @@ public static class SceneLoader
         TargetSceneName = targetSceneName;
         LoadingMessage = loadingMessage;
 
-        SceneManager.LoadScene(LoadingSceneName);
+        if (ScreenFade.Instance == null)
+        {
+            Debug.LogWarning("SceneLoader: no hay ScreenFade en la escena. Se cargará sin fundido.");
+            SceneManager.LoadScene(LoadingSceneName);
+            return;
+        }
+
+        ScreenFade.Instance.CargarEscenaConFundido(
+            LoadingSceneName,
+            DuracionSalidaHaciaCarga,
+            DuracionEntradaPantallaCarga,
+            RetrasoAntesDeMostrarPantallaCarga
+        );
     }
 }
