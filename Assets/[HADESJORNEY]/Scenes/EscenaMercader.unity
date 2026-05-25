@@ -2916,7 +2916,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6627529796511674722, guid: baf324519e72e994b8affa15ad43c2d8, type: 3}
       propertyPath: nombreEscena
-      value: Escena_Combate_02
+      value: EscenaCombate02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
