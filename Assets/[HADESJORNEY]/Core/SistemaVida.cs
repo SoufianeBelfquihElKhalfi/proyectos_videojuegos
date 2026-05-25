@@ -119,7 +119,7 @@ public class SistemaVida : MonoBehaviour
             StartCoroutine(flashGolpe.Instancia.MostrarFlash());
         }
 
-        animator.SetTrigger("Danio");
+        animator.SetTrigger("danio");
 
         if (enemigoDistancia != null)
         {
