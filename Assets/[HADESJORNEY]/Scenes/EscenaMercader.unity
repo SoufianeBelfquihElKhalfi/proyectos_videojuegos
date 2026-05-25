@@ -2407,18 +2407,6 @@ PrefabInstance:
       value: 449.99997
       objectReference: {fileID: 0}
     - target: {fileID: 4638745557643882786, guid: f539626d5b6363940bee2c9c3ad95978, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4638745557643882786, guid: f539626d5b6363940bee2c9c3ad95978, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4638745557643882786, guid: f539626d5b6363940bee2c9c3ad95978, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4638745557643882786, guid: f539626d5b6363940bee2c9c3ad95978, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -3283,13 +3271,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pausa: {fileID: 1463341759}
-  primerBotonPausa: {fileID: 0}
+  primerBotonPausa: {fileID: 718723203}
   botonPausa: Pausa
   botonCancelar: Cancel
   botonAceptar: Submit
   ejeHorizontal: Horizontal
   ejeVertical: Vertical
-  escenaMenu: SplashScreen
+  escenaMenu: MAIN
 --- !u!4 &547506345
 Transform:
   m_ObjectHideFlags: 0
@@ -7576,7 +7564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.44705883}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -7612,9 +7600,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 576507130}
   - {fileID: 718723202}
   - {fileID: 1600286840}
+  - {fileID: 576507130}
   m_Father: {fileID: 1861349646}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
