@@ -30,6 +30,7 @@ public class AtaqueJefe : EstadoFSM
     private NavMeshAgent agent;
     private InfligirDanio infligirDanio;
     private Animator animator;
+    private Rigidbody rb;
 
     private bool atacando = false;
     private bool introTerminada = false;
@@ -42,6 +43,7 @@ public class AtaqueJefe : EstadoFSM
         agent = GetComponent<NavMeshAgent>();
         infligirDanio = GetComponent<InfligirDanio>();
         animator = GetComponentInChildren<Animator>();
+        rb = GetComponent<Rigidbody>();
 
         if (agent != null)
         {
@@ -81,15 +83,15 @@ public class AtaqueJefe : EstadoFSM
             return;
         }
 
-        // 2. COMPROBACIONES DE SEGURIDAD (Si está atacando, no permitimos que el Update haga nada más)
+        // 2. COMPROBACIONES DE SEGURIDAD (Si está atacando, bloqueamos el resto del Update)
         if (atacando) return;
         if (agent == null || !agent.enabled || !agent.isOnNavMesh) return;
 
-        // 3. ROTACIÓN Y ANIMACIÓN BASE (¡Solo si NO está atacando!)
+        // 3. ROTACIÓN Y ANIMACIÓN BASE
         RotarHaciaJugador();
         ControlarAnimacionMovimiento();
 
-        // 4. CAMBIO DE ESTADO
+        // 4. CAMBIO DE ESTADO (Perseguir)
         float distancia = Vector3.Distance(transform.position, player.position);
         if (distancia > rangoLargo)
         {
@@ -116,9 +118,13 @@ public class AtaqueJefe : EstadoFSM
     {
         if (animator == null || agent == null) return;
 
-        if ((agent.hasPath && agent.remainingDistance > 0.1f) || agent.velocity.sqrMagnitude > 0.1f)
+        // Evaluamos si el agente se está desplazando realmente
+        bool seEstaMoviendo = (agent.hasPath && agent.remainingDistance > 0.1f) || agent.velocity.sqrMagnitude > 0.1f;
+
+        if (seEstaMoviendo)
         {
             animator.SetBool("caminando", true);
+            animator.SetBool("girando", false); // Si camina, no está estático girando
         }
         else
         {
@@ -128,15 +134,35 @@ public class AtaqueJefe : EstadoFSM
 
     private void RotarHaciaJugador()
     {
-        if (player == null) return;
+        if (player == null)
+        {
+            if (animator != null) animator.SetBool("girando", false);
+            return;
+        }
 
         Vector3 dir = (player.position - transform.position);
-        dir.y = 0; // Mantener el eje Y en 0 evita que el jefe se incline hacia arriba/abajo
+        dir.y = 0; // Evita inclinaciones verticales del jefe
 
-        if (dir.sqrMagnitude > 0.01f) // Evita errores de precisión cuando está "encima" del jugador
+        if (dir.sqrMagnitude > 0.01f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(dir.normalized);
+            float anguloRestante = Quaternion.Angle(transform.rotation, targetRotation);
+
+            // Si el ángulo es amplio, activamos animación de giro (solo si no se está desplazando)
+            if (anguloRestante > 5f && (agent != null && agent.velocity.sqrMagnitude <= 0.1f))
+            {
+                if (animator != null) animator.SetBool("girando", true);
+            }
+            else
+            {
+                if (animator != null) animator.SetBool("girando", false);
+            }
+
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, velocidadRotacion * Time.deltaTime);
+        }
+        else
+        {
+            if (animator != null) animator.SetBool("girando", false);
         }
     }
 
@@ -155,7 +181,8 @@ public class AtaqueJefe : EstadoFSM
         if (animator != null)
         {
             animator.SetBool("caminando", false);
-            animator.Play("Idle");
+            animator.SetBool("girando", false);
+            // Dejamos que las transiciones del Animator manejen la vuelta a Idle de forma fluida
         }
     }
 
@@ -164,17 +191,12 @@ public class AtaqueJefe : EstadoFSM
         cayendo = true;
         atacando = true;
 
-        // Si usas Rigidbody, lo volvemos cinemático para que no interfiera con el Lerp
-        Rigidbody rb = GetComponent<Rigidbody>();
+        // Evitamos interferencias físicas del Rigidbody durante el Lerp manual
         if (rb != null) rb.isKinematic = true;
-
         if (agent != null) agent.enabled = false;
 
-        // Forzamos la animación. Asegúrate de que se llame EXACTAMENTE "Caída" (con tilde) en el Animator
-        if (animator != null)
-        {
-            animator.Play("Caída", 0, 0f); // El 0f fuerza a que empiece desde el principio
-        }
+        // Forzamos el inicio del estado de caída (Asegúrate de que se llame exactamente "Caída" en tu Animator)
+        if (animator != null) animator.Play("Caída", 0, 0f);
 
         Vector3 suelo = new Vector3(transform.position.x, transform.position.y - alturaInicio, transform.position.z);
         Vector3 inicio = transform.position;
@@ -189,7 +211,6 @@ public class AtaqueJefe : EstadoFSM
 
         transform.position = suelo;
 
-        // Restauramos el Rigidbody si existía
         if (rb != null) rb.isKinematic = false;
 
         OndaChoque(8f);
@@ -199,10 +220,10 @@ public class AtaqueJefe : EstadoFSM
         {
             agent.enabled = true;
             yield return new WaitForEndOfFrame();
+            agent.isStopped = false;
 
             if (agent.isOnNavMesh && player != null)
             {
-                agent.isStopped = false;
                 agent.SetDestination(player.position);
             }
         }
@@ -221,11 +242,10 @@ public class AtaqueJefe : EstadoFSM
         float tiempoMaximoPersecucion = 2.0f;
         if (agent != null && agent.isOnNavMesh) agent.isStopped = false;
 
-        // Mientras persigue para dar el mazazo, SÍ queremos que rote hacia el jugador manualmente
         while (Vector3.Distance(transform.position, player.position) > rangoMazazo && tiempoMaximoPersecucion > 0)
         {
             if (agent != null && agent.isOnNavMesh) agent.SetDestination(player.position);
-            RotarHaciaJugador(); // <-- Agregado aquí para mantener el tracking visual limpio mientras corre
+            RotarHaciaJugador();
             if (animator != null) animator.SetBool("caminando", true);
 
             tiempoMaximoPersecucion -= Time.deltaTime;
@@ -254,10 +274,9 @@ public class AtaqueJefe : EstadoFSM
 
     private IEnumerator Salto()
     {
-        atacando = true; // Bloquea el Update inmediatamente
+        atacando = true;
         ResetearParametrosMovimiento();
 
-        // Mirar fijamente al jugador JUSTO antes de saltar, para que el salto tenga sentido
         Vector3 dirAlJugador = (player.position - transform.position);
         dirAlJugador.y = 0;
         if (dirAlJugador != Vector3.zero) transform.rotation = Quaternion.LookRotation(dirAlJugador.normalized);
@@ -299,7 +318,6 @@ public class AtaqueJefe : EstadoFSM
         atacando = true;
         ResetearParametrosMovimiento();
 
-        // Bloquear dirección de carga antes de arrancar
         Vector3 dirAlJugador = (player.position - transform.position);
         dirAlJugador.y = 0;
         if (dirAlJugador != Vector3.zero) transform.rotation = Quaternion.LookRotation(dirAlJugador.normalized);
@@ -309,11 +327,10 @@ public class AtaqueJefe : EstadoFSM
 
         float t = 0f;
         float duracionCarga = 0.6f;
-        Vector3 direccionCarga = transform.forward; // Ahora está asegurada hacia el jugador
+        Vector3 direccionCarga = transform.forward;
 
         while (t < duracionCarga)
         {
-            // Ya no se raya porque Update() no altera el transform.rotation en este bucle
             transform.Translate(direccionCarga * 18f * Time.deltaTime, Space.World);
             AplicarDañoSiCerca(2.5f);
             t += Time.deltaTime;
@@ -329,7 +346,7 @@ public class AtaqueJefe : EstadoFSM
         if (player == null || infligirDanio == null) return;
         if (Vector3.Distance(transform.position, player.position) <= radio)
         {
-            if (infligirDanio != null) infligirDanio.IntentarGolpear(player);
+            infligirDanio.IntentarGolpear(player);
         }
     }
 
