@@ -1,3 +1,4 @@
+using System.Collections;
 using Enemy.FSM;
 using UnityEngine;
 
@@ -5,22 +6,31 @@ public class Patrullero : MaquinaFSM
 {
     [SerializeField] GameString patrulla;
     [SerializeField] GameString ataque;
+    [SerializeField] private GameString deteccion;
     [SerializeField] private float rangoDeteccion = 10f;
+
+    [Header("Aviso de detección")]
+    [SerializeField] private AvisoDeteccionEnemigo avisoDeteccion;
+
     Transform player;
     private Animator animator;
     private bool jugadorDetectado = false;
+    private bool deteccionEnCurso = false;
 
     void Start()
     {
-        var jugador = FindFirstObjectByType<MovimientoAlastor>();
-        if (jugador != null)
-            player = jugador.transform;
+        MovimientoAlastor jugador = FindFirstObjectByType<MovimientoAlastor>();
+        player = jugador.transform;
+
         animator = GetComponentInChildren<Animator>();
     }
 
     void Update()
     {
-        if (player == null) return;
+        if (deteccionEnCurso)
+        {
+            return;
+        }
 
         float distanciaAlPlayer = Vector3.Distance(transform.position, player.position);
 
@@ -28,13 +38,10 @@ public class Patrullero : MaquinaFSM
         {
             if (!jugadorDetectado)
             {
-                jugadorDetectado = true;
-                Debug.Log("Trigger Deteccion activado");
-                if (animator != null)
-                    animator.SetTrigger("Deteccion");
-                else
-                    Debug.Log("Animator null en Patrullero");
+                StartCoroutine(SecuenciaDeteccion());
+                return;
             }
+
             SetEstado(ataque.Value);
         }
         else
@@ -42,6 +49,22 @@ public class Patrullero : MaquinaFSM
             jugadorDetectado = false;
             SetEstado(patrulla.Value);
         }
+    }
+
+    private IEnumerator SecuenciaDeteccion()
+    {
+        deteccionEnCurso = true;
+        jugadorDetectado = true;
+
+        SetEstado(deteccion.Value);
+
+        animator.SetTrigger("Deteccion");
+
+        yield return avisoDeteccion.MostrarYEsperar();
+
+        deteccionEnCurso = false;
+
+        SetEstado(ataque.Value);
     }
 
     private void OnDrawGizmos()

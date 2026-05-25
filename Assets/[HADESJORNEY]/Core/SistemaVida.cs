@@ -7,6 +7,8 @@ public class SistemaVida : MonoBehaviour
 {
     [Header("Configuración")]
     [SerializeField] private bool esJugador = false;
+    [Tooltip("Activar solo en enemigos comunes.")]
+    [SerializeField] private bool usaMuerteEnemigoComun = false;
     [Tooltip("Activar solo en el jugador.")]
     [SerializeField] private bool usarVidaGuardadaEntreEscenas = false;
 
@@ -37,6 +39,8 @@ public class SistemaVida : MonoBehaviour
     private Renderer[] renderersGuardados;
     private Color[] coloresOriginales;
 
+    private MuerteEnemigoComun muerteEnemigoComun;
+
     // Propiedades públicas
     public int VidaActual => corazonesMitadActuales;
     public int VidaMaxima => corazonesMitadMaximos;
@@ -48,6 +52,16 @@ public class SistemaVida : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         movimiento = GetComponent<MovimientoAlastor>();
         enemigoDistancia = GetComponent<EnemigoDistancia>();
+
+        if (usaMuerteEnemigoComun)
+        {
+            muerteEnemigoComun = GetComponent<MuerteEnemigoComun>();
+
+            if (muerteEnemigoComun == null)
+            {
+                throw new MissingComponentException($"{name} usa muerte de enemigo común, pero no tiene MuerteEnemigoComun.");
+            }
+        }
 
         InicializarVida();
         NotificarCambioVida();
@@ -84,22 +98,33 @@ public class SistemaVida : MonoBehaviour
         if (danioMitadCorazones <= 0) return;
         if (esJugador && movimiento != null && movimiento.esInvulnerable) return;
 
-        corazonesMitadActuales = Mathf.Clamp(corazonesMitadActuales - danioMitadCorazones, 0, corazonesMitadMaximos);
+        corazonesMitadActuales = Mathf.Clamp(
+            corazonesMitadActuales - danioMitadCorazones,
+            0,
+            corazonesMitadMaximos
+        );
+
         NotificarCambioVida();
+
+        if (EstaMuerto)
+        {
+            Morir();
+            return;
+        }
 
         IniciarParpadeo();
 
         if (esJugador && flashGolpe.Instancia != null)
+        {
             StartCoroutine(flashGolpe.Instancia.MostrarFlash());
+        }
 
-        if (animator != null)
-            animator.SetTrigger("Danio");
+        animator.SetTrigger("danio");
 
         if (enemigoDistancia != null)
+        {
             enemigoDistancia.RecibirDanioAnimacion();
-
-        if (EstaMuerto)
-            Morir();
+        }
     }
 
     public void Curar(int curacionMitadCorazones)
@@ -194,22 +219,31 @@ public class SistemaVida : MonoBehaviour
 
     private void Morir()
     {
-        if (animator != null)
-            animator.SetTrigger("Muerte");
-
-        if (movimiento != null) movimiento.enabled = false;
-        if (enemigoDistancia != null) enemigoDistancia.enabled = false;
-
-        var combate = GetComponent<CombateJugador>();
-        if (combate != null) combate.enabled = false;
-
-        var collider = GetComponent<Collider>();
-        if (collider != null) collider.enabled = false;
+        animator.SetTrigger("Muerte");
 
         if (esJugador)
-            DesactivarTodosLosEnemigos();
+        {
+            PrepararMuerteJugador();
+        }
+        else if (usaMuerteEnemigoComun)
+        {
+            muerteEnemigoComun.PrepararMuerte();
+        }
 
         StartCoroutine(EsperarMuerte());
+    }
+
+    private void PrepararMuerteJugador()
+    {
+        movimiento.enabled = false;
+
+        CombateJugador combate = GetComponent<CombateJugador>();
+        combate.enabled = false;
+
+        Collider colliderPrincipal = GetComponent<Collider>();
+        colliderPrincipal.enabled = false;
+
+        DesactivarTodosLosEnemigos();
     }
 
     private void DesactivarTodosLosEnemigos()

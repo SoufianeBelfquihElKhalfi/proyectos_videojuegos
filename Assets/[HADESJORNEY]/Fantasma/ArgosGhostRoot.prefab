@@ -9828,6 +9828,7 @@ GameObject:
   - component: {fileID: 6629924287559741552}
   - component: {fileID: 7425308181066597827}
   - component: {fileID: 462303008615444144}
+  - component: {fileID: 206624822195148445}
   m_Layer: 0
   m_Name: ArgosGhostRoot
   m_TagString: Ghost
@@ -9871,13 +9872,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followTarget: {fileID: 0}
   playerCenter: {fileID: 0}
-  smoothTime: 0.18
-  maxSpeed: 12
-  maxSnapDistance: 5
-  horizontalDelay: 0.18
-  wrapAngleThreshold: 100
-  aroundPlayerSpeed: 360
-  minDistanceFromPlayer: 0.8
+  distanciaMinima: 0.8
+  distanciaComoda: 1.55
+  distanciaMaxima: 2.4
+  maxSnapDistance: 6
+  margenAceleracionLejos: 1.2
+  margenAceleracionCerca: 0.45
+  suavizadoSeguimientoSuave: 0.65
+  suavizadoSeguimientoFuerte: 0.24
+  velocidadSeguimientoSuave: 2
+  velocidadSeguimientoFuerte: 10
+  radioDeriva: 0.18
+  frecuenciaDeriva: 0.35
 --- !u!114 &462303008615444144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9904,6 +9910,28 @@ MonoBehaviour:
   enModoCombate: 0
   tiempoRestanteCombate: 0
   tiempoRestanteCooldown: 0
+--- !u!114 &206624822195148445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7793067757123489276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30557c12c847a844e8d4da65195b94ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  follower: {fileID: 7425308181066597827}
+  combate: {fileID: 462303008615444144}
+  suavizadoRotacionMovimiento: 0.12
+  suavizadoRotacionReposo: 0.75
+  velocidadMaximaRotacionMovimiento: 720
+  velocidadMaximaRotacionReposo: 120
+  velocidadMinimaParaRotar: 0.05
+  tiempoMinimoCambioReposo: 1.5
+  tiempoMaximoCambioReposo: 3.5
+  gradosMaximosCambioReposo: 45
 --- !u!1001 &6644311162672031344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9938,19 +9966,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 826b844500f1e354988b7cefe3c9f34a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6532815
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 826b844500f1e354988b7cefe3c9f34a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.6532815
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 826b844500f1e354988b7cefe3c9f34a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.27059805
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 826b844500f1e354988b7cefe3c9f34a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.27059805
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 826b844500f1e354988b7cefe3c9f34a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -9962,7 +9990,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 826b844500f1e354988b7cefe3c9f34a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3887185075125053422, guid: 826b844500f1e354988b7cefe3c9f34a, type: 3}
       propertyPath: m_DirtyAABB
@@ -10080,6 +10108,10 @@ MonoBehaviour:
   swayFrequency: 1.2
   breatheAmount: 0.025
   breatheFrequency: 1.6
+  pitchAmount: 3
+  rollAmount: 5
+  yawAmount: 2
+  rotationFrequency: 0.8
 --- !u!4 &6611263026622874011 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 826b844500f1e354988b7cefe3c9f34a, type: 3}

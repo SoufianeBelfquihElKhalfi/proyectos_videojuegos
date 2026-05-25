@@ -9,6 +9,10 @@ public class CombateJugador : MonoBehaviour
     [SerializeField] private float tiempoEntreGolpes = 2f;
     [SerializeField] private float tiempoResetCombo = 3f;
 
+    [Header("Tiempos de ataque")]
+    [SerializeField] private float tiempoBloqueoMovimiento = 0.3f;
+    [SerializeField] private float tiempoBloqueoAtaque = 0.45f;
+
     [Header("Daño por golpe (medio corazón = 1)")]
     [SerializeField] private int[] danioPorGolpe = { 1, 1, 2 };
 
@@ -89,7 +93,7 @@ public class CombateJugador : MonoBehaviour
     {
         string nombreEscena = SceneManager.GetActiveScene().name;
 
-        if (nombreEscena == "SalaMercader")
+        if (nombreEscena == "EscenaMercader")
         {
             combateHabilitado = false;
         }
@@ -101,36 +105,54 @@ public class CombateJugador : MonoBehaviour
 
     void Atacar()
     {
-        if (!puedeAtacar) return;
+        bool estaAtacando = !puedeAtacar;
+
+        if (estaAtacando && !puedeCancelar)
+            return;
+
         if (!puedeCancelar && Time.time - tiempoUltimoGolpe < tiempoEntreGolpes && golpeActual > 0)
             return;
+
+        CancelInvoke(nameof(ReactivarMovimiento));
+        CancelInvoke(nameof(ResetAtaque));
+
         if (estela != null)
         {
             objetoEstela.SetActive(true);
             estela.Clear();
         }
+
         puedeAtacar = false;
         puedeCancelar = false;
+
         if (movimiento != null)
             movimiento.movimientoHabilitado = false;
+
         tiempoUltimoGolpe = Time.time;
 
-        if (armaVisual != null) armaVisual.Mostrar();
+        if (armaVisual != null)
+            armaVisual.Mostrar();
 
         if (animator != null)
         {
-            Debug.Log("Golpe: " + golpeActual);
-            animator.SetTrigger("Ataque");
             animator.SetInteger("GolpeCombo", golpeActual);
-        }
-        golpeActualParaEvento = golpeActual;
-        golpeActual++;
-        if (golpeActual >= maxGolpesCombo)
-        {
-            golpeActual = 0;
+            animator.SetTrigger("Ataque");
         }
 
-        Invoke(nameof(ResetAtaque), 1f);
+        golpeActualParaEvento = golpeActual;
+
+        golpeActual++;
+        if (golpeActual >= maxGolpesCombo)
+            golpeActual = 0;
+
+        Invoke(nameof(ReactivarMovimiento), tiempoBloqueoMovimiento);
+        Invoke(nameof(ResetAtaque), tiempoBloqueoAtaque);
+    }
+
+    void ReactivarMovimiento()
+    {
+        if (movimiento != null)
+            movimiento.movimientoHabilitado = true;
     }
 
     IEnumerator RetrocesoSuave(Transform objetivo, Vector3 direccion, float distancia)
@@ -155,9 +177,9 @@ public class CombateJugador : MonoBehaviour
     void ResetAtaque()
     {
         puedeAtacar = true;
+        puedeCancelar = false;
 
-        if (movimiento != null)
-            movimiento.movimientoHabilitado = true;
+        ReactivarMovimiento();
 
         if (inputGuardado)
         {
@@ -169,7 +191,6 @@ public class CombateJugador : MonoBehaviour
             if (estela != null)
                 objetoEstela.SetActive(false);
         }
-
     }
 
     void OnDrawGizmosSelected()

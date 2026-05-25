@@ -59,6 +59,19 @@ public class AtaqueJefe : EstadoFSM
     private Quaternion OffsetModelo => Quaternion.Euler(0f, offsetModeloY, 0f);
     private Vector3 ForwardVisual => transform.rotation * Quaternion.Euler(0f, -offsetModeloY, 0f) * Vector3.forward;
 
+    /// <summary>
+    /// La cinemática de entrada (cinematicaJefe) llama a esto cuando ella se ha
+    /// encargado de la caída del jefe. Así evitamos que mi OnEnable/IntroCaida
+    /// dispare una segunda caída al reactivarse este componente.
+    /// </summary>
+    public void MarcarIntroCompletada()
+    {
+        introInicializada = true;
+        introTerminada = true;
+        cayendo = false;
+        atacando = false;
+    }
+
     private void OnEnable()
     {
         player = FindFirstObjectByType<MovimientoAlastor>()?.transform;
@@ -151,7 +164,7 @@ public class AtaqueJefe : EstadoFSM
             Vector3 dirMov = agent.velocity;
             dirMov.y = 0f;
             if (dirMov.sqrMagnitude > 0.04f) GirarHacia(dirMov);
-            else                              GirarHacia(dirAlJugador);
+            else GirarHacia(dirAlJugador);
 
             ActualizarAnimaciones(moviendose: true, anguloAlJugador);
         }
@@ -199,9 +212,9 @@ public class AtaqueJefe : EstadoFSM
     {
         switch (nombre)
         {
-            case "mazazo":    StartCoroutine(Mazazo());    break;
+            case "mazazo": StartCoroutine(Mazazo()); break;
             case "embestida": StartCoroutine(Embestida()); break;
-            case "salto":     StartCoroutine(Salto());     break;
+            case "salto": StartCoroutine(Salto()); break;
         }
     }
 
@@ -223,21 +236,37 @@ public class AtaqueJefe : EstadoFSM
         if (rb != null) rb.isKinematic = true;
         if (agent != null) agent.enabled = false;
 
+        // Animator: garantizamos que existe, que está enabled y que el estado
+        // Caer queda activo antes de la primera caída del Lerp.
+        if (animator == null) animator = GetComponentInChildren<Animator>();
+        if (animator == null) animator = GetComponent<Animator>();
+
         if (animator != null)
         {
-            // Reset por si quedó modificado en una pasada anterior.
+            animator.enabled = true;
             animator.speed = 1f;
 
-            // Estiramos/encogemos el clip "caer" para que dure exactamente duracionCaida.
+            // Ajustamos la velocidad para que el clip dure exactamente duracionCaida.
             float caerLength = ObtenerDuracionClip("caer");
             if (caerLength > 0.01f && duracionCaida > 0.05f)
                 animator.speed = caerLength / duracionCaida;
 
-            // Forzamos la entrada al state Caer. Update() inmediato para que
-            // el animator empiece a sample-ar el clip en el frame actual y
-            // no haya un frame "muerto" en Idle.
-            animator.Play("Caer", 0, 0f);
+            // Forzamos el estado por hash (más fiable que el nombre por temas de
+            // codificación/case). Trigger por si la FSM lo necesitase.
+            int hashCaer = Animator.StringToHash("Caer");
+            animator.ResetTrigger("caer");
+            animator.Play(hashCaer, 0, 0f);
+            animator.SetTrigger("caer");
             animator.Update(0f);
+
+            Debug.Log($"[Jefe] IntroCaida → state Caer activado. animator.enabled={animator.enabled}, " +
+                      $"speed={animator.speed}, clipCaerLen={caerLength}, duracionCaida={duracionCaida}, " +
+                      $"currentState.fullPathHash={animator.GetCurrentAnimatorStateInfo(0).fullPathHash}, " +
+                      $"esperadoCaerHash={hashCaer}");
+        }
+        else
+        {
+            Debug.LogWarning("[Jefe] IntroCaida: no se encontró Animator. La caída se hará sin animación.");
         }
 
         Vector3 suelo = new Vector3(transform.position.x, transform.position.y - alturaInicio, transform.position.z);

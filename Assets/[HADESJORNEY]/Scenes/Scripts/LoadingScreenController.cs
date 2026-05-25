@@ -18,7 +18,7 @@ public class LoadingScreenController : MonoBehaviour
     [SerializeField] private float fadeInDuration = 0.3f;
 
     // Nombre de la escena a cargar si no se especifica una escena destino
-    private const string FallbackSceneName = "SplashScreen";
+    private const string FallbackSceneName = "MAIN";
 
     // Referencias para la animación de respiración del arte en la pantalla de carga
     [SerializeField] private CanvasGroup canvasGroup;
@@ -29,6 +29,10 @@ public class LoadingScreenController : MonoBehaviour
     [SerializeField] private float breathingMaxAlpha = 1f;
     [SerializeField] private float breathingCycleDuration = 2.2f;
 
+    [Header("Fundido entre pantalla de carga y escena destino")]
+    [SerializeField] private float fadeOutAntesDeActivarEscena = 0.25f;
+    [SerializeField] private float fadeInDespuesDeActivarEscena = 0.25f;
+
     // Coroutine principal que maneja la lógica de carga de la escena y las animaciones
     private IEnumerator Start()
     {
@@ -36,7 +40,7 @@ public class LoadingScreenController : MonoBehaviour
 
         if (string.IsNullOrWhiteSpace(targetScene))
         {
-            Debug.LogWarning("LoadingScreen: no hay escena destino. Volviendo a SplashScreen");
+            Debug.LogWarning("LoadingScreen: no hay escena destino. Volviendo a MAIN");
             SceneManager.LoadScene(FallbackSceneName);
             yield break;
         }
@@ -86,6 +90,12 @@ public class LoadingScreenController : MonoBehaviour
 
             if (operation.progress >= 0.9f && shownProgress >= 1f && elapsedTime >= minimumScreenTime)
             {
+                if (ScreenFade.Instance != null)
+                {
+                    yield return ScreenFade.Instance.FundidoANegro(fadeOutAntesDeActivarEscena);
+                    ScreenFade.Instance.FundidoDesdeNegroTrasSiguienteEscena(fadeInDespuesDeActivarEscena);
+                }
+
                 operation.allowSceneActivation = true;
             }
 

@@ -12,10 +12,11 @@ GameObject:
   - component: {fileID: 4143986948556402045}
   - component: {fileID: -4995579672940724724}
   - component: {fileID: 4759751360084756910}
-  - component: {fileID: -124856648918149877}
   - component: {fileID: 225849526631632457}
   - component: {fileID: 6170180798692012991}
-  - component: {fileID: 3697238576570648250}
+  - component: {fileID: 4767513439656271597}
+  - component: {fileID: 934917484398135942}
+  - component: {fileID: 4432534018472034938}
   m_Layer: 6
   m_Name: PF_Enemigo_PortadorIncensario
   m_TagString: Enemy
@@ -52,10 +53,10 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 360
-  m_StoppingDistance: 0.2
+  m_StoppingDistance: 0.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -99,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   esJugador: 0
+  usaMuerteEnemigoComun: 1
   usarVidaGuardadaEntreEscenas: 0
   corazonesMaximos: 1
   corazonesMitadIniciales: -1
@@ -108,18 +110,6 @@ MonoBehaviour:
   alMorir:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -124856648918149877}
-        m_TargetAssemblyTypeName: MuerteEnemigo, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SalaCombateController, Assembly-CSharp
         m_MethodName: EnemigoDerrotado
@@ -135,18 +125,6 @@ MonoBehaviour:
   alCambiarVida:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &-124856648918149877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 588417347952441320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f4adb65c985fb7468e3c81f750e18dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &225849526631632457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +163,7 @@ MonoBehaviour:
   numeroDePrefabs: 3
   dropFragmento: 1
   prefabFragmento: {fileID: 7680720925938580253, guid: 7a02b5abbe777a946a738852a3bdde22, type: 3}
---- !u!114 &3697238576570648250
+--- !u!114 &4767513439656271597
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,10 +172,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 588417347952441320}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1d33cbd14984224d843811bf6dc9efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 3129b1c08dde63a47b995023544e1c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rangoDeteccion: 12
+  componentesADesactivar:
+  - {fileID: 934917484398135942}
+  - {fileID: 4143986948556402045}
+  - {fileID: 4432534018472034938}
+  collidersADesactivar:
+  - {fileID: -4995579672940724724}
+--- !u!114 &934917484398135942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588417347952441320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97669011cadae2b4eae215a24e2571f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rangoDeteccion: 15
   distanciaDisparo: 8
   prefabProyectil: {fileID: 4537737509914126809, guid: f37506e4e980264439ab2a3b31499c5f, type: 3}
   puntoDisparo: {fileID: 4937282293473048002}
@@ -208,9 +204,26 @@ MonoBehaviour:
   intervaloDecisionMax: 1.2
   distanciaStrafeMin: 2
   distanciaStrafeMax: 4
-  puntosRuta: []
+  puntosRuta:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  avisoDeteccion: {fileID: 4432534018472034938}
+--- !u!114 &4432534018472034938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588417347952441320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab241fc02f90a8428eed77a29111eba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   prefabExclamacion: {fileID: 629870405857442683, guid: 907c7f23531e941459e9c64a7d5c7257, type: 3}
-  puntoExclamacion: {fileID: 986394621675776536}
+  puntoAparicion: {fileID: 986394621675776536}
+  duracion: 1
 --- !u!1 &1673987647173703564
 GameObject:
   m_ObjectHideFlags: 0

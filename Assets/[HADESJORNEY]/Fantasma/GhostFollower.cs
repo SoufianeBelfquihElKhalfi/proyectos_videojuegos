@@ -1,145 +1,163 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GhostFollower : MonoBehaviour
 {
+    [Header("Referencias")]
     [SerializeField] private Transform followTarget;
     [SerializeField] private Transform playerCenter;
 
-    [Header("Follow")]
-    [SerializeField] private float smoothTime = 0.24f;
-    [SerializeField] private float maxSpeed = 12f;
+    [Header("Distancia al jugador")]
+    [SerializeField] private float distanciaMinima = 0.9f;
+    [SerializeField] private float distanciaComoda = 1.35f;
+    [SerializeField] private float distanciaMaxima = 1.9f;
 
-    [Header("Snap")]
-    [SerializeField] private float maxSnapDistance = 5f;
+    [Header("Movimiento")]
+    [SerializeField] private float maxSnapDistance = 6f;
 
-    [Header("Horizontal Delay")]
-    [SerializeField] private float horizontalDelay = 0.18f;
+    [Header("Seguimiento progresivo")]
+    [SerializeField] private float margenAceleracionLejos = 1.2f;
+    [SerializeField] private float margenAceleracionCerca = 0.45f;
 
-    [Header("Avoid Crossing Player")]
-    [SerializeField] private float wrapAngleThreshold = 110f;
-    [SerializeField] private float aroundPlayerSpeed = 140f;
-    [SerializeField] private float minDistanceFromPlayer = 1.1f;
+    [SerializeField] private float suavizadoSeguimientoSuave = 0.55f;
+    [SerializeField] private float suavizadoSeguimientoFuerte = 0.24f;
+
+    [SerializeField] private float velocidadSeguimientoSuave = 2.5f;
+    [SerializeField] private float velocidadSeguimientoFuerte = 10f;
+
+    [Header("Deriva en reposo")]
+    [SerializeField] private float radioDeriva = 0.25f;
+    [SerializeField] private float frecuenciaDeriva = 0.45f;
+
+    private float faseDerivaX;
+    private float faseDerivaZ;
 
     private Vector3 velocity;
+    public Vector3 UltimaDireccionMovimiento { get; private set; }
+    public Vector3 UltimaVelocidadMovimiento { get; private set; }
 
-    private struct PositionSample
+    private void Start()
     {
-        public Vector3 position;
-        public float time;
-
-        public PositionSample(Vector3 position, float time)
-        {
-            this.position = position;
-            this.time = time;
-        }
-    }
-
-    private Queue<PositionSample> positionHistory = new Queue<PositionSample>();
-
-    void Start()
-    {
-        if (followTarget == null) return;
-
-        transform.position = followTarget.position;
-        positionHistory.Clear();
-        positionHistory.Enqueue(new PositionSample(followTarget.position, Time.time));
+        transform.position = CalcularPosicionComoda();
         velocity = Vector3.zero;
+
+        UltimaDireccionMovimiento = Vector3.zero;
+        UltimaVelocidadMovimiento = Vector3.zero;
+
+        faseDerivaX = Random.Range(0f, 100f);
+        faseDerivaZ = Random.Range(0f, 100f);
     }
 
-    void LateUpdate()
+    private void LateUpdate()
     {
-        if (followTarget == null) return;
+        Vector3 posicionAnterior = transform.position;
+        Vector3 posicionObjetivo = CalcularSiguientePosicion();
 
-        positionHistory.Enqueue(new PositionSample(followTarget.position, Time.time));
+        float distanciaAlObjetivo = Vector3.Distance(transform.position, posicionObjetivo);
 
-        while (positionHistory.Count > 1 && Time.time - positionHistory.Peek().time > horizontalDelay)
+        if (distanciaAlObjetivo > maxSnapDistance)
         {
-            positionHistory.Dequeue();
-        }
-
-        Vector3 delayedPosition = positionHistory.Peek().position;
-
-        Vector3 rawTargetPosition = new Vector3(
-            delayedPosition.x,
-            followTarget.position.y,
-            delayedPosition.z
-        );
-
-        bool isWrapping = false;
-        Vector3 targetPosition = rawTargetPosition;
-
-        if (playerCenter != null)
-        {
-            targetPosition = GetSafeTargetPosition(rawTargetPosition, out isWrapping);
-        }
-
-        float distance = Vector3.Distance(transform.position, targetPosition);
-
-        if (!isWrapping && distance > maxSnapDistance)
-        {
-            transform.position = targetPosition;
+            transform.position = posicionObjetivo;
             velocity = Vector3.zero;
         }
         else
         {
+            float intensidadSeguimiento = CalcularIntensidadSeguimiento();
+
+            float suavizadoActual = Mathf.Lerp(
+                suavizadoSeguimientoSuave,
+                suavizadoSeguimientoFuerte,
+                intensidadSeguimiento
+            );
+
+            float velocidadActual = Mathf.Lerp(
+                velocidadSeguimientoSuave,
+                velocidadSeguimientoFuerte,
+                intensidadSeguimiento
+            );
+
             transform.position = Vector3.SmoothDamp(
                 transform.position,
-                targetPosition,
+                posicionObjetivo,
                 ref velocity,
-                smoothTime,
-                maxSpeed
+                suavizadoActual,
+                velocidadActual
             );
         }
+
+        Vector3 desplazamiento = transform.position - posicionAnterior;
+        desplazamiento.y = 0f;
+
+        UltimaDireccionMovimiento = desplazamiento;
+        UltimaVelocidadMovimiento = desplazamiento / Time.deltaTime;
     }
 
-    Vector3 GetSafeTargetPosition(Vector3 rawTargetPosition, out bool isWrapping)
+    private Vector3 CalcularSiguientePosicion()
     {
-        isWrapping = false;
+        Vector3 posicionJugador = playerCenter.position;
+        Vector3 offsetActual = transform.position - posicionJugador;
+        offsetActual.y = 0f;
 
-        if (playerCenter == null)
-            return rawTargetPosition;
+        float distanciaActual = offsetActual.magnitude;
 
-        Vector3 playerPos = playerCenter.position;
+        bool estaDemasiadoLejos = distanciaActual > distanciaMaxima;
+        bool estaDemasiadoCerca = distanciaActual < distanciaMinima;
 
-        Vector3 currentFromPlayer = transform.position - playerPos;
-        Vector3 targetFromPlayer = rawTargetPosition - playerPos;
-
-        currentFromPlayer.y = 0f;
-        targetFromPlayer.y = 0f;
-
-        if (targetFromPlayer.sqrMagnitude < 0.0001f)
-            return rawTargetPosition;
-
-        float targetRadius = Mathf.Max(targetFromPlayer.magnitude, minDistanceFromPlayer);
-
-        if (currentFromPlayer.sqrMagnitude < 0.0001f)
+        if (estaDemasiadoLejos || estaDemasiadoCerca)
         {
-            currentFromPlayer = targetFromPlayer.normalized * targetRadius;
+            return CalcularPosicionComoda();
         }
 
-        float angle = Vector3.Angle(currentFromPlayer, targetFromPlayer);
+        Vector3 posicionMantenida = transform.position + CalcularDeriva() * Time.deltaTime;
+        posicionMantenida.y = followTarget.position.y;
+        return posicionMantenida;
+    }
 
-        if (angle < wrapAngleThreshold)
+    private Vector3 CalcularPosicionComoda()
+    {
+        Vector3 direccionDeseada = followTarget.position - playerCenter.position;
+        direccionDeseada.y = 0f;
+
+        if (direccionDeseada.sqrMagnitude < 0.001f)
         {
-            Vector3 safeOffset = targetFromPlayer.normalized * targetRadius;
-            Vector3 safePosition = playerPos + safeOffset;
-            safePosition.y = rawTargetPosition.y;
-            return safePosition;
+            direccionDeseada = -playerCenter.forward;
+            direccionDeseada.y = 0f;
         }
 
-        isWrapping = true;
+        direccionDeseada.Normalize();
 
-        Vector3 rotatedDirection = Vector3.RotateTowards(
-            currentFromPlayer.normalized,
-            targetFromPlayer.normalized,
-            aroundPlayerSpeed * Mathf.Deg2Rad * Time.deltaTime,
-            0f
-        );
+        Vector3 posicion = playerCenter.position + direccionDeseada * distanciaComoda;
+        posicion.y = followTarget.position.y;
 
-        Vector3 wrappedPosition = playerPos + rotatedDirection * targetRadius;
-        wrappedPosition.y = rawTargetPosition.y;
+        return posicion;
+    }
 
-        return wrappedPosition;
+    private Vector3 CalcularDeriva()
+    {
+        float offsetX = Mathf.Sin((Time.time + faseDerivaX) * frecuenciaDeriva) * radioDeriva;
+        float offsetZ = Mathf.Cos((Time.time + faseDerivaZ) * frecuenciaDeriva) * radioDeriva;
+
+        return new Vector3(offsetX, 0f, offsetZ);
+    }
+
+    private float CalcularIntensidadSeguimiento()
+    {
+        Vector3 offset = transform.position - playerCenter.position;
+        offset.y = 0f;
+
+        float distancia = offset.magnitude;
+
+        if (distancia > distanciaMaxima)
+        {
+            float excesoDistancia = distancia - distanciaMaxima;
+            return Mathf.Clamp01(excesoDistancia / margenAceleracionLejos);
+        }
+
+        if (distancia < distanciaMinima)
+        {
+            float excesoCercania = distanciaMinima - distancia;
+            return Mathf.Clamp01(excesoCercania / margenAceleracionCerca);
+        }
+
+        return 0f;
     }
 }

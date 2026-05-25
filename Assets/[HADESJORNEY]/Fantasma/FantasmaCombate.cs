@@ -34,6 +34,8 @@ public class FantasmaCombate : MonoBehaviour
     private Animator animator;
     private Material[][] materialesOriginales;
 
+    private Transform objetivoActual;
+
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -81,7 +83,7 @@ public class FantasmaCombate : MonoBehaviour
     void ComprobarSiLaHabilidadFantasmaSePuedeUsarEnLaEscena()
     {
         string nombreEscena = SceneManager.GetActiveScene().name;
-        habilidadEHabilitada = nombreEscena != "SalaMercader";
+        habilidadEHabilitada = nombreEscena != "EscenaMercader";
     }
 
     void EntrarModoCombate()
@@ -138,7 +140,7 @@ public class FantasmaCombate : MonoBehaviour
     {
         if (prefabFlecha == null || puntoDisparo == null) return;
 
-        Transform objetivo = BuscarEnemigoMasCercano();
+        Transform objetivo = ObtenerObjetivoActual();
         if (objetivo == null) return;
 
         Vector3 direccionInicial = (objetivo.position - puntoDisparo.position).normalized;
@@ -193,4 +195,26 @@ public class FantasmaCombate : MonoBehaviour
     public float TiempoRestanteCooldown => tiempoRestanteCooldown;
     public float DuracionCombate => duracionCombate;
     public float Cooldown => cooldown;
+
+    public Transform ObtenerObjetivoActual()
+    {
+        if (!enModoCombate)
+        {
+            objetivoActual = null;
+            return null;
+        }
+
+        if (objetivoActual != null)
+        {
+            float distancia = Vector3.Distance(transform.position, objetivoActual.position);
+
+            if (distancia <= radioDeteccion)
+            {
+                return objetivoActual;
+            }
+        }
+
+        objetivoActual = BuscarEnemigoMasCercano();
+        return objetivoActual;
+    }
 }

@@ -12,7 +12,7 @@ public class MejoraTienda : MonoBehaviour
 
     [Header("Mejora")]
     public TipoMejora tipoMejora;
-    public int coste = 60;
+    public int coste = 0;
 
     [Header("UI")]
     public TextMeshProUGUI textoPrecio;
@@ -53,20 +53,30 @@ public class MejoraTienda : MonoBehaviour
         {
             textoPrecio.color = puedeComprar ? colorNormal : colorBloqueado;
         }
+
+        if (botonComprar != null)
+        {
+            botonComprar.interactable = puedeComprar;
+        }
     }
 
     bool PuedeComprar()
     {
         if (InventarioAlmas.Instancia == null) return false;
         if (InventarioAlmas.Instancia.Almas < coste) return false;
+        if (EstadisticasJugador.Instancia == null) return false;
 
         if (tipoMejora == TipoMejora.GranadaPersefone)
         {
-            if (EstadisticasJugador.Instancia == null) return false;
             return EstadisticasJugador.Instancia.PuedeMejorarVida();
         }
 
-        return true;
+        if (tipoMejora == TipoMejora.SalAres)
+        {
+            return EstadisticasJugador.Instancia.PuedeMejorarDanio();
+        }
+
+        return false;
     }
 
     public void Comprar()

@@ -3,29 +3,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-
-/* Se ha cambiado por completo este script.
-
- * ANTES: el jugador perd�a toda la vida, se llamaba a MuerteJugador.Morir() y se cargaba SplashScreen directamente.
-
- * AHORA:
-
- * - evita que Morir() se ejecute varias veces,
-
- * - desactiva scripts del jugador,
-
- * - pausa el juego con Time.timeScale = 0,
-
- * - muestra el panel de muerte si existe, si no existe, usa fallback al men�
-
- * - permite reintentar cargando la escena actual (cambiar para checkpoints)
-
- * - permite volver al men�
-
- * - usa SceneLoader.
-
- */
-
 public class MuerteJugador : MonoBehaviour
 
 {
@@ -44,7 +21,7 @@ public class MuerteJugador : MonoBehaviour
 
     [Header("Escenas")]
 
-    [SerializeField] private string escenaMenu = "SplashScreen";
+    [SerializeField] private string escenaMenu = "MAIN";
 
     [SerializeField] private bool usarLoadingScreen = true;
 
@@ -117,7 +94,7 @@ public class MuerteJugador : MonoBehaviour
         RestaurarEstado();
         RestaurarDesdeCheckpoint();
 
-        string escenaDestino = "Sala_Inicial";
+        string escenaDestino = "EscenaInicial";
         string mensajeCarga = "Reiniciando partida...";
 
         bool hayCheckpointValido =
