@@ -4933,6 +4933,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be86cafcfe5bc6940a271f3d0f297b1a, type: 3}
+--- !u!114 &884559708 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3863164281159034767, guid: be86cafcfe5bc6940a271f3d0f297b1a, type: 3}
+  m_PrefabInstance: {fileID: 884559707}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6acd8d4a737cfa941976d87723d2529f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &885276697 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1902607053335064396, guid: d334d57686d2fcc43a0c3fb4cc352942, type: 3}
@@ -12176,7 +12187,7 @@ PrefabInstance:
     - target: {fileID: 1455380715838146745, guid: cba0b5f2e64d3d6468866983ff18d683, type: 3}
       propertyPath: 'enemigos.Array.data[1]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 884559708}
     - target: {fileID: 2030782161354349196, guid: cba0b5f2e64d3d6468866983ff18d683, type: 3}
       propertyPath: m_LocalPosition.x
       value: -161.505
