@@ -15,7 +15,7 @@ public class runaMensaje : MonoBehaviour
 
     [Header("Comportamiento")]
     [SerializeField] private float duracionEnPantalla = 5f;
-    [SerializeField] private KeyCode tecla = KeyCode.E;
+    [SerializeField] private KeyCode tecla = KeyCode.F;
 
     private bool jugadorCerca = false;
     private Coroutine activa;

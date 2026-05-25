@@ -6573,6 +6573,10 @@ PrefabInstance:
       value: Quad
       objectReference: {fileID: 0}
     - target: {fileID: 3357138994053850855, guid: 2e14df787aa69ec4fbea2373c4e0dafb, type: 3}
+      propertyPath: tecla
+      value: 102
+      objectReference: {fileID: 0}
+    - target: {fileID: 3357138994053850855, guid: 2e14df787aa69ec4fbea2373c4e0dafb, type: 3}
       propertyPath: texto
       value: 
       objectReference: {fileID: 1912163439}
