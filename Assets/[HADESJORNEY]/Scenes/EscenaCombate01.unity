@@ -4198,7 +4198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 342fb3bac12d6af4e9271509dfa6de2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fantasmaCombate: {fileID: 0}
+  fantasmaCombate: {fileID: 1306508913}
   iconoFondo: {fileID: 399763501}
   iconoFill: {fileID: 1293442302}
   textoCooldown: {fileID: 1485453729}
@@ -7470,6 +7470,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28ef1ae8c1f983543bee0c8520d8edff, type: 3}
+--- !u!114 &1306508913 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 462303008615444144, guid: cc3ef7eee3ed5d24cbd9d20d514d9c5e, type: 3}
+  m_PrefabInstance: {fileID: 1377580861}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afabc0f8b100a3d45bd71b40d00b003f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1327752086 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5253039588846752259, guid: 412c90d18534f364b811662161c30644, type: 3}
