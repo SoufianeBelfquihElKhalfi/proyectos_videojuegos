@@ -93,7 +93,7 @@ public class CombateJugador : MonoBehaviour
     {
         string nombreEscena = SceneManager.GetActiveScene().name;
 
-        if (nombreEscena == "SalaMercader")
+        if (nombreEscena == "EscenaMercader")
         {
             combateHabilitado = false;
         }

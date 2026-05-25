@@ -83,7 +83,7 @@ public class FantasmaCombate : MonoBehaviour
     void ComprobarSiLaHabilidadFantasmaSePuedeUsarEnLaEscena()
     {
         string nombreEscena = SceneManager.GetActiveScene().name;
-        habilidadEHabilitada = nombreEscena != "SalaMercader";
+        habilidadEHabilitada = nombreEscena != "EscenaMercader";
     }
 
     void EntrarModoCombate()
