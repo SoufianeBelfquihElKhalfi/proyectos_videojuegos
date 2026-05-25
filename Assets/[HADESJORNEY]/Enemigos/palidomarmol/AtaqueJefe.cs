@@ -6,7 +6,6 @@ using System.Collections;
 public class AtaqueJefe : EstadoFSM
 {
     [Header("Configuración de Combo de Ataques")]
-    // SE ELIMINÓ "barrido" DEL ARRAY
     private string[] ordenAtaques = { "embestida", "mazazo", "embestida", "salto", "embestida" };
     private int indiceAtaqueActual = 0;
 
@@ -19,7 +18,7 @@ public class AtaqueJefe : EstadoFSM
     [SerializeField] private float tiempoEntreAtaques = 1.5f;
 
     [Header("Rotación Base")]
-    [SerializeField] private float velocidadRotacion = 8f; // Suavidad con la que encara al jugador
+    [SerializeField] private float velocidadRotacion = 8f;
 
     [Header("Intro caída")]
     [SerializeField] private float alturaInicio = 15f;
@@ -42,11 +41,13 @@ public class AtaqueJefe : EstadoFSM
         player = FindFirstObjectByType<MovimientoAlastor>()?.transform;
         agent = GetComponent<NavMeshAgent>();
         infligirDanio = GetComponent<InfligirDanio>();
-
-        // CORRECCIÓN SINTAXIS AQUÍ:
         animator = GetComponentInChildren<Animator>();
 
-        if (agent != null) agent.updateRotation = false; // Controlamos la rotación por script para que sea limpia
+        if (agent != null)
+        {
+            agent.updateRotation = false; // Desactivamos la rotación automática del NavMesh
+            agent.updateUpAxis = false;   // Evita tirones en el eje vertical
+        }
 
         if (hacerIntro)
         {
@@ -66,7 +67,7 @@ public class AtaqueJefe : EstadoFSM
     {
         if (player == null) return;
 
-        // 1. CONTROL DE LA INTRO (Caída inicial)
+        // 1. CONTROL DE LA INTRO
         if (hacerIntro && !introTerminada)
         {
             if (!cayendo)
@@ -80,11 +81,11 @@ public class AtaqueJefe : EstadoFSM
             return;
         }
 
-        // 2. COMPROBACIONES DE SEGURIDAD
-        if (agent == null || !agent.enabled || !agent.isOnNavMesh) return;
+        // 2. COMPROBACIONES DE SEGURIDAD (Si está atacando, no permitimos que el Update haga nada más)
         if (atacando) return;
+        if (agent == null || !agent.enabled || !agent.isOnNavMesh) return;
 
-        // 3. ROTACIÓN Y ANIMACIÓN BASE
+        // 3. ROTACIÓN Y ANIMACIÓN BASE (¡Solo si NO está atacando!)
         RotarHaciaJugador();
         ControlarAnimacionMovimiento();
 
@@ -115,7 +116,6 @@ public class AtaqueJefe : EstadoFSM
     {
         if (animator == null || agent == null) return;
 
-        // Si el agente se está moviendo físicamente en el NavMesh
         if ((agent.hasPath && agent.remainingDistance > 0.1f) || agent.velocity.sqrMagnitude > 0.1f)
         {
             animator.SetBool("caminando", true);
@@ -129,11 +129,14 @@ public class AtaqueJefe : EstadoFSM
     private void RotarHaciaJugador()
     {
         if (player == null) return;
-        Vector3 dir = (player.position - transform.position).normalized;
-        dir.y = 0;
-        if (dir != Vector3.zero)
+
+        Vector3 dir = (player.position - transform.position);
+        dir.y = 0; // Mantener el eje Y en 0 evita que el jefe se incline hacia arriba/abajo
+
+        if (dir.sqrMagnitude > 0.01f) // Evita errores de precisión cuando está "encima" del jugador
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), velocidadRotacion * Time.deltaTime);
+            Quaternion targetRotation = Quaternion.LookRotation(dir.normalized);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, velocidadRotacion * Time.deltaTime);
         }
     }
 
@@ -144,7 +147,6 @@ public class AtaqueJefe : EstadoFSM
             case "mazazo": StartCoroutine(Mazazo()); break;
             case "salto": StartCoroutine(Salto()); break;
             case "embestida": StartCoroutine(Embestida()); break;
-                // SE ELIMINÓ EL CASO DE BARRIDO AQUÍ
         }
     }
 
@@ -153,7 +155,7 @@ public class AtaqueJefe : EstadoFSM
         if (animator != null)
         {
             animator.SetBool("caminando", false);
-            animator.Play("Idle"); // Asegura que regrese al nodo naranja "Idle" de tu Animator
+            animator.Play("Idle");
         }
     }
 
@@ -162,7 +164,17 @@ public class AtaqueJefe : EstadoFSM
         cayendo = true;
         atacando = true;
 
-        if (animator != null) animator.Play("Caída");
+        // Si usas Rigidbody, lo volvemos cinemático para que no interfiera con el Lerp
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null) rb.isKinematic = true;
+
+        if (agent != null) agent.enabled = false;
+
+        // Forzamos la animación. Asegúrate de que se llame EXACTAMENTE "Caída" (con tilde) en el Animator
+        if (animator != null)
+        {
+            animator.Play("Caída", 0, 0f); // El 0f fuerza a que empiece desde el principio
+        }
 
         Vector3 suelo = new Vector3(transform.position.x, transform.position.y - alturaInicio, transform.position.z);
         Vector3 inicio = transform.position;
@@ -176,6 +188,10 @@ public class AtaqueJefe : EstadoFSM
         }
 
         transform.position = suelo;
+
+        // Restauramos el Rigidbody si existía
+        if (rb != null) rb.isKinematic = false;
+
         OndaChoque(8f);
         yield return new WaitForSeconds(0.6f);
 
@@ -183,10 +199,10 @@ public class AtaqueJefe : EstadoFSM
         {
             agent.enabled = true;
             yield return new WaitForEndOfFrame();
-            agent.isStopped = false;
 
             if (agent.isOnNavMesh && player != null)
             {
+                agent.isStopped = false;
                 agent.SetDestination(player.position);
             }
         }
@@ -205,9 +221,11 @@ public class AtaqueJefe : EstadoFSM
         float tiempoMaximoPersecucion = 2.0f;
         if (agent != null && agent.isOnNavMesh) agent.isStopped = false;
 
+        // Mientras persigue para dar el mazazo, SÍ queremos que rote hacia el jugador manualmente
         while (Vector3.Distance(transform.position, player.position) > rangoMazazo && tiempoMaximoPersecucion > 0)
         {
             if (agent != null && agent.isOnNavMesh) agent.SetDestination(player.position);
+            RotarHaciaJugador(); // <-- Agregado aquí para mantener el tracking visual limpio mientras corre
             if (animator != null) animator.SetBool("caminando", true);
 
             tiempoMaximoPersecucion -= Time.deltaTime;
@@ -236,8 +254,13 @@ public class AtaqueJefe : EstadoFSM
 
     private IEnumerator Salto()
     {
-        atacando = true;
+        atacando = true; // Bloquea el Update inmediatamente
         ResetearParametrosMovimiento();
+
+        // Mirar fijamente al jugador JUSTO antes de saltar, para que el salto tenga sentido
+        Vector3 dirAlJugador = (player.position - transform.position);
+        dirAlJugador.y = 0;
+        if (dirAlJugador != Vector3.zero) transform.rotation = Quaternion.LookRotation(dirAlJugador.normalized);
 
         Vector3 inicio = transform.position;
         Vector3 destino = player.position;
@@ -276,15 +299,21 @@ public class AtaqueJefe : EstadoFSM
         atacando = true;
         ResetearParametrosMovimiento();
 
+        // Bloquear dirección de carga antes de arrancar
+        Vector3 dirAlJugador = (player.position - transform.position);
+        dirAlJugador.y = 0;
+        if (dirAlJugador != Vector3.zero) transform.rotation = Quaternion.LookRotation(dirAlJugador.normalized);
+
         if (animator != null) animator.Play("embestir");
         yield return new WaitForSeconds(0.3f);
 
         float t = 0f;
         float duracionCarga = 0.6f;
-        Vector3 direccionCarga = transform.forward;
+        Vector3 direccionCarga = transform.forward; // Ahora está asegurada hacia el jugador
 
         while (t < duracionCarga)
         {
+            // Ya no se raya porque Update() no altera el transform.rotation en este bucle
             transform.Translate(direccionCarga * 18f * Time.deltaTime, Space.World);
             AplicarDañoSiCerca(2.5f);
             t += Time.deltaTime;
@@ -294,8 +323,6 @@ public class AtaqueJefe : EstadoFSM
         yield return new WaitForSeconds(0.5f);
         FinAtaque();
     }
-
-    // SE ELIMINÓ POR COMPLETO LA CORRUTINA BARRIDO() DE AQUÍ
 
     private void AplicarDañoSiCerca(float radio)
     {
