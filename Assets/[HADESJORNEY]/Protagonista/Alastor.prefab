@@ -186,7 +186,6 @@ GameObject:
   - component: {fileID: -73500163641640762}
   - component: {fileID: 8919980005731924212}
   - component: {fileID: 9006032280513914664}
-  - component: {fileID: 6120368885700007913}
   - component: {fileID: 945139530723195239}
   - component: {fileID: 1581732458979445829}
   - component: {fileID: 3634187348101386907}
@@ -261,7 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelGameOver: {fileID: 0}
   componentesADesactivar: []
-  escenaMenu: SplashScreen
+  escenaMenu: MAIN
   usarLoadingScreen: 1
 --- !u!114 &-73500163641640762
 MonoBehaviour:
@@ -276,6 +275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   esJugador: 1
+  usaMuerteEnemigoComun: 0
   usarVidaGuardadaEntreEscenas: 1
   corazonesMaximos: 3
   corazonesMitadIniciales: -1
@@ -315,6 +315,8 @@ MonoBehaviour:
   maxGolpesCombo: 3
   tiempoEntreGolpes: 0.4
   tiempoResetCombo: 1.2
+  tiempoBloqueoMovimiento: 0.3
+  tiempoBloqueoAtaque: 0.45
   danioPorGolpe: 010000000100000002000000
   retrocesoPorGolpe:
   - 1
@@ -343,6 +345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   esJugador: 0
+  usaMuerteEnemigoComun: 0
   usarVidaGuardadaEntreEscenas: 0
   corazonesMaximos: 3
   corazonesMitadIniciales: -1
@@ -352,7 +355,7 @@ MonoBehaviour:
   alMorir:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6120368885700007913}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MuerteJugador, Assembly-CSharp
         m_MethodName: Morir
         m_Mode: 1
@@ -367,22 +370,6 @@ MonoBehaviour:
   alCambiarVida:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6120368885700007913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6463228544794707355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78043cd3f978659438eb90c62f8e6083, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panelGameOver: {fileID: 0}
-  componentesADesactivar: []
-  escenaMenu: SplashScreen
-  usarLoadingScreen: 1
 --- !u!114 &945139530723195239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,8 +382,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fc7e4bf213cd4d47924c4318a7e6d2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limiteCorazones: 3
+  sistemaVidaJugador: {fileID: 0}
+  maxMejorasVida: 3
+  corazonesExtraPorMejora: 1
   multiplicadorDanio: 1
+  multiplicadorDanioMejorado: 2
 --- !u!143 &1581732458979445829
 CharacterController:
   m_ObjectHideFlags: 0

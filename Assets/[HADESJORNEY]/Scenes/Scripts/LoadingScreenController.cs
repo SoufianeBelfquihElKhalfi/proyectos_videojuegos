@@ -18,7 +18,7 @@ public class LoadingScreenController : MonoBehaviour
     [SerializeField] private float fadeInDuration = 0.3f;
 
     // Nombre de la escena a cargar si no se especifica una escena destino
-    private const string FallbackSceneName = "SplashScreen";
+    private const string FallbackSceneName = "MAIN";
 
     // Referencias para la animación de respiración del arte en la pantalla de carga
     [SerializeField] private CanvasGroup canvasGroup;
@@ -40,7 +40,7 @@ public class LoadingScreenController : MonoBehaviour
 
         if (string.IsNullOrWhiteSpace(targetScene))
         {
-            Debug.LogWarning("LoadingScreen: no hay escena destino. Volviendo a SplashScreen");
+            Debug.LogWarning("LoadingScreen: no hay escena destino. Volviendo a MAIN");
             SceneManager.LoadScene(FallbackSceneName);
             yield break;
         }

@@ -202,7 +202,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1999161258}
         m_TargetAssemblyTypeName: MuerteJugador, Assembly-CSharp
         m_MethodName: Reintentar
         m_Mode: 1
@@ -1005,9 +1005,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6272437019516206938, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
+      propertyPath: panelGameOver
+      value: 
+      objectReference: {fileID: 1116205665}
     - target: {fileID: 6463228544794707355, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: m_Name
       value: Alastor
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006032280513914664, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6946,7 +6954,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1999161258}
         m_TargetAssemblyTypeName: MuerteJugador, Assembly-CSharp
         m_MethodName: VolverAlMenu
         m_Mode: 1
@@ -11707,6 +11715,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5253039588846752259, guid: 412c90d18534f364b811662161c30644, type: 3}
   m_PrefabInstance: {fileID: 224821495}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1999161258 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6272437019516206938, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
+  m_PrefabInstance: {fileID: 202454057}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78043cd3f978659438eb90c62f8e6083, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2000309988
 PrefabInstance:
   m_ObjectHideFlags: 0
