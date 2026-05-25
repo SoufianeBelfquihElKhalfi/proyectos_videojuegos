@@ -6,7 +6,8 @@ using System.Collections;
 public class AtaqueJefe : EstadoFSM
 {
     [Header("Configuración de Combo de Ataques")]
-    private string[] ordenAtaques = { "embestida", "mazazo", "embestida", "salto", "embestida", "barrido" };
+    // SE ELIMINÓ "barrido" DEL ARRAY
+    private string[] ordenAtaques = { "embestida", "mazazo", "embestida", "salto", "embestida" };
     private int indiceAtaqueActual = 0;
 
     [Header("Distancias")]
@@ -143,7 +144,7 @@ public class AtaqueJefe : EstadoFSM
             case "mazazo": StartCoroutine(Mazazo()); break;
             case "salto": StartCoroutine(Salto()); break;
             case "embestida": StartCoroutine(Embestida()); break;
-            case "barrido": StartCoroutine(Barrido()); break;
+                // SE ELIMINÓ EL CASO DE BARRIDO AQUÍ
         }
     }
 
@@ -294,33 +295,14 @@ public class AtaqueJefe : EstadoFSM
         FinAtaque();
     }
 
-    private IEnumerator Barrido()
-    {
-        atacando = true;
-        ResetearParametrosMovimiento();
-
-        if (agent != null && agent.isOnNavMesh)
-        {
-            agent.isStopped = true;
-            agent.velocity = Vector3.zero;
-        }
-
-        if (animator != null) animator.Play("mazazo");
-
-        yield return new WaitForSeconds(0.3f);
-        AplicarDañoSiCerca(5f);
-        EmpujarJugador(10f);
-
-        yield return new WaitForSeconds(0.7f);
-        FinAtaque();
-    }
+    // SE ELIMINÓ POR COMPLETO LA CORRUTINA BARRIDO() DE AQUÍ
 
     private void AplicarDañoSiCerca(float radio)
     {
         if (player == null || infligirDanio == null) return;
         if (Vector3.Distance(transform.position, player.position) <= radio)
         {
-            infligirDanio.IntentarGolpear(player);
+            if (infligirDanio != null) infligirDanio.IntentarGolpear(player);
         }
     }
 
