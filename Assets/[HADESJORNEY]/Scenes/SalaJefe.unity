@@ -13136,34 +13136,78 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
       propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
-      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
-      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 343396209}
+    - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1351339829}
+    - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1351339836}
     - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
       propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
-      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetTrigger
       objectReference: {fileID: 0}
     - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
-      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: set_enabled
+      objectReference: {fileID: 0}
+    - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: set_enabled
+      objectReference: {fileID: 0}
+    - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UnityEngine.Animator, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
-      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: AtaqueJefe, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: UnityEngine.AI.NavMeshAgent, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: morir
       objectReference: {fileID: 0}
     - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
       propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
+      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4378979892740356960, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
@@ -15219,6 +15263,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c722357a9d14a6249a09c4ed04fbd25b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!195 &1351339836 stripped
+NavMeshAgent:
+  m_CorrespondingSourceObject: {fileID: 1988742261835483692, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
+  m_PrefabInstance: {fileID: 986799571}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1365060163 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5253039588846752259, guid: 412c90d18534f364b811662161c30644, type: 3}
