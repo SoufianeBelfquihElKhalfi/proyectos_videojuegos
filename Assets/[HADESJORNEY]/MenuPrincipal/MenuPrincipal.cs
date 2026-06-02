@@ -23,6 +23,8 @@ public class MenuPrincipal : MonoBehaviour
 
     private void ReiniciarPartida()
     {
+        Time.timeScale = 1f;
+
         if (InventarioAlmas.Instancia != null)
         {
             InventarioAlmas.Instancia.ResetearInventario();
@@ -36,6 +38,10 @@ public class MenuPrincipal : MonoBehaviour
         DatosGlobales.hayDatosVida = false;
         DatosGlobales.vidaActual = 0;
         DatosGlobales.vidaMaxima = 0;
+
+        EstadisticasJugador.ResetearEstadisticasGlobales();
+
+        Debug.Log("Partida reiniciada completamente.");
     }
 
     public void AbrirOpciones()

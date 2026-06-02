@@ -92,6 +92,11 @@ public class MuerteJugador : MonoBehaviour
     public void Reintentar()
     {
         RestaurarEstado();
+
+        // Resetear mejoras del jugador
+        EstadisticasJugador.ResetearEstadisticasGlobales();
+
+        // Restaurar inventario y vida desde checkpoint si existe
         RestaurarDesdeCheckpoint();
 
         string escenaDestino = "EscenaInicial";

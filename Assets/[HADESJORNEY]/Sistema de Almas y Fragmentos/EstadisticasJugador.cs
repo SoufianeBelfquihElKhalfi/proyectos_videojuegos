@@ -106,4 +106,30 @@ public class EstadisticasJugador : MonoBehaviour
         Debug.Log("Ahora el multiplicador de daño es: " + multiplicadorDanio);
         Debug.Log("Los golpes que hacían medio corazón ahora hacen un corazón entero.");
     }
+
+    public void ResetearEstadisticas()
+    {
+        mejorasVidaCompradas = 0;
+
+        mejoraDanioComprada = false;
+        multiplicadorDanio = 1f;
+
+        mejoraDanioGlobalComprada = false;
+        multiplicadorDanioGlobal = 1f;
+
+        Debug.Log("Estadísticas del jugador reseteadas.");
+    }
+
+    public static void ResetearEstadisticasGlobales()
+    {
+        mejoraDanioGlobalComprada = false;
+        multiplicadorDanioGlobal = 1f;
+
+        if (Instancia != null)
+        {
+            Instancia.ResetearEstadisticas();
+        }
+
+        Debug.Log("Estadísticas globales reseteadas.");
+    }
 }
