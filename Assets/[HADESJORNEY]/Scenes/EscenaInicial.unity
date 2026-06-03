@@ -3229,7 +3229,9 @@ PrefabInstance:
       propertyPath: capaEnemigos.m_Bits
       value: 576
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9006032280513914664, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
+    - {fileID: 6120368885700007913, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

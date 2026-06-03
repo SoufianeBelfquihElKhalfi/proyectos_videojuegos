@@ -185,8 +185,6 @@ GameObject:
   - component: {fileID: 6272437019516206938}
   - component: {fileID: -73500163641640762}
   - component: {fileID: 8919980005731924212}
-  - component: {fileID: 9006032280513914664}
-  - component: {fileID: 6120368885700007913}
   - component: {fileID: 945139530723195239}
   - component: {fileID: 1581732458979445829}
   - component: {fileID: 3634187348101386907}
@@ -333,60 +331,6 @@ MonoBehaviour:
   efectoDestello: {fileID: 4451901390537816450, guid: 99c6182954312f546a02fa76fcdb0973, type: 3}
   objetoEstela: {fileID: 3540883254399516836}
   armaVisual: {fileID: 0}
---- !u!114 &9006032280513914664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6463228544794707355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6acd8d4a737cfa941976d87723d2529f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  esJugador: 0
-  usaMuerteEnemigoComun: 0
-  usarVidaGuardadaEntreEscenas: 0
-  corazonesMaximos: 3
-  corazonesMitadIniciales: -1
-  colorParpadeo: {r: 1, g: 0, b: 0, a: 1}
-  duracionParpadeo: 0.3
-  cantidadParpadeos: 3
-  alMorir:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MuerteJugador, Assembly-CSharp
-        m_MethodName: Morir
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  alCambiarVida:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &6120368885700007913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6463228544794707355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78043cd3f978659438eb90c62f8e6083, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panelGameOver: {fileID: 0}
-  componentesADesactivar: []
-  escenaMenu: MAIN
-  usarLoadingScreen: 1
 --- !u!114 &945139530723195239
 MonoBehaviour:
   m_ObjectHideFlags: 0
