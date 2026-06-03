@@ -1595,50 +1595,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 87b296779eedec046b7d609bef2a552c, type: 3}
   m_PrefabInstance: {fileID: 1663255539}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &214170413
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 214170415}
-  - component: {fileID: 214170414}
-  m_Layer: 0
-  m_Name: CheckpointData
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &214170414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214170413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e02f9e0502d32864aaf0bfd4dff564e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &214170415
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214170413}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.135829, y: 0.017542377, z: -25.143919}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &221508090 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5253039588846752259, guid: 412c90d18534f364b811662161c30644, type: 3}
@@ -5798,7 +5754,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 90181879}
         m_TargetAssemblyTypeName: MuerteJugador, Assembly-CSharp
         m_MethodName: VolverAlMenu
         m_Mode: 1
@@ -6246,7 +6202,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 90181879}
         m_TargetAssemblyTypeName: MuerteJugador, Assembly-CSharp
         m_MethodName: Reintentar
         m_Mode: 1
@@ -15261,7 +15217,6 @@ SceneRoots:
   - {fileID: 102503456}
   - {fileID: 841850627}
   - {fileID: 1377580861}
-  - {fileID: 214170415}
   - {fileID: 1791673670}
   - {fileID: 1649964832}
   - {fileID: 1557895825}

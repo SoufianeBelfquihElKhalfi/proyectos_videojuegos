@@ -319,4 +319,23 @@ public class SistemaVida : MonoBehaviour
     {
         alCambiarVida?.Invoke(corazonesMitadActuales, corazonesMitadMaximos);
     }
+
+    public void EstablecerVidaDesdeCheckpoint(int vidaActual, int vidaMaxima)
+    {
+        if (vidaMaxima <= 0)
+        {
+            throw new System.ArgumentOutOfRangeException(nameof(vidaMaxima), "La vida maxima del checkpoint debe ser mayor que 0.");
+        }
+
+        if (vidaActual < 0 || vidaActual > vidaMaxima)
+        {
+            throw new System.ArgumentOutOfRangeException(nameof(vidaActual), "La vida actual del checkpoint no es valida.");
+        }
+
+        corazonesMitadMaximos = vidaMaxima;
+        corazonesMitadActuales = vidaActual;
+        corazonesMaximos = corazonesMitadMaximos / 2;
+
+        NotificarCambioVida();
+    }
 }

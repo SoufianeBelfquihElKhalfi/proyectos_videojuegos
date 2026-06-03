@@ -1132,18 +1132,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Alastor
       objectReference: {fileID: 0}
-    - target: {fileID: 8818612011707343341, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.52
-      objectReference: {fileID: 0}
-    - target: {fileID: 8818612011707343341, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.22
-      objectReference: {fileID: 0}
-    - target: {fileID: 9006032280513914664, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-      propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5687,50 +5675,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1990477704767873178, guid: 07f1d484e9d37ac4f980c2458342fea7, type: 3}
   m_PrefabInstance: {fileID: 2017243569}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &811845630
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 811845632}
-  - component: {fileID: 811845631}
-  m_Layer: 0
-  m_Name: CheckpointData
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &811845631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 811845630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e02f9e0502d32864aaf0bfd4dff564e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &811845632
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 811845630}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.135829, y: 0.017542377, z: -25.143919}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &823519061 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 805932474989920479, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
@@ -14192,7 +14136,6 @@ SceneRoots:
   - {fileID: 1932282126}
   - {fileID: 1826952323}
   - {fileID: 496777930}
-  - {fileID: 811845632}
   - {fileID: 723947026}
   - {fileID: 1231947032}
   - {fileID: 222509365}

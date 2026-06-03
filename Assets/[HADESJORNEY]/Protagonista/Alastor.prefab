@@ -261,6 +261,11 @@ MonoBehaviour:
   componentesADesactivar: []
   escenaMenu: MAIN
   usarLoadingScreen: 1
+  escenaInicial: EscenaInicial
+  escenaMercader: EscenaMercader
+  escenasDespuesDelMercader:
+  - EscenaCombate02
+  - SalaJefe
 --- !u!114 &-73500163641640762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5500,6 +5505,14 @@ PrefabInstance:
     - target: {fileID: -6874584590210671055, guid: c8090aef9f025114da79d8518ea5d3f0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -1.2748909
+      objectReference: {fileID: 0}
+    - target: {fileID: -6803186898478926095, guid: c8090aef9f025114da79d8518ea5d3f0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.52
+      objectReference: {fileID: 0}
+    - target: {fileID: -6803186898478926095, guid: c8090aef9f025114da79d8518ea5d3f0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.22
       objectReference: {fileID: 0}
     - target: {fileID: -6803169544883306252, guid: c8090aef9f025114da79d8518ea5d3f0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

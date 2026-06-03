@@ -47,17 +47,14 @@ public class RespawnJugador : MonoBehaviour
     {
         CharacterController cc = GetComponent<CharacterController>();
 
-        if (cc != null)
+        if (cc == null)
         {
-            cc.enabled = false;
+            throw new MissingComponentException($"{name}: RespawnJugador necesita CharacterController para recolocar al jugador.");
         }
 
+        cc.enabled = false;
         transform.position = posicion;
-
-        if (cc != null)
-        {
-            cc.enabled = true;
-        }
+        cc.enabled = true;
     }
 
     private void RestaurarVida(CheckpointData datos)
@@ -66,18 +63,15 @@ public class RespawnJugador : MonoBehaviour
 
         if (vida == null)
         {
-            return;
+            throw new MissingComponentException($"{name}: RespawnJugador necesita SistemaVida en el mismo GameObject.");
         }
 
-        int corazones = datos.VidaMaximaGuardada / 2;
-        vida.CambiarCorazonesMaximos(corazones, false);
+        vida.EstablecerVidaDesdeCheckpoint(
+            datos.VidaGuardada,
+            datos.VidaMaximaGuardada
+        );
 
-        int diferencia = datos.VidaMaximaGuardada - datos.VidaGuardada;
-
-        if (diferencia > 0)
-        {
-            vida.RecibirDanio(diferencia);
-        }
+        vida.GuardarVida();
     }
 
     private void RestaurarInventario(CheckpointData datos)
@@ -86,8 +80,7 @@ public class RespawnJugador : MonoBehaviour
 
         if (inventario == null)
         {
-            Debug.LogWarning("RespawnJugador: InventarioAlmas.Instancia es null.");
-            return;
+            throw new MissingReferenceException("No existe InventarioAlmas. Debe existir antes de restaurar un checkpoint.");
         }
 
         inventario.EstablecerInventario(
