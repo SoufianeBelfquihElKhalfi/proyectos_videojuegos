@@ -613,7 +613,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1346513475}
         m_TargetAssemblyTypeName: PausaManager, Assembly-CSharp
         m_MethodName: Menu
         m_Mode: 1
@@ -6837,7 +6837,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1346513475}
         m_TargetAssemblyTypeName: PausaManager, Assembly-CSharp
         m_MethodName: Reanudar
         m_Mode: 1
@@ -9005,14 +9005,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c79d88a4c727ae4695c5eb519d2f426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pausa: {fileID: 0}
-  primerBotonPausa: {fileID: 0}
+  pausa: {fileID: 1616170499}
+  primerBotonPausa: {fileID: 935791850}
   botonPausa: Pausa
   botonCancelar: Cancel
   botonAceptar: Submit
   ejeHorizontal: Horizontal
   ejeVertical: Vertical
-  escenaMenu: SplashScreen
+  escenaMenu: MAIN
 --- !u!4 &1346513476
 Transform:
   m_ObjectHideFlags: 0
@@ -10895,9 +10895,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1742810866}
   - {fileID: 935791849}
   - {fileID: 96489025}
+  - {fileID: 1742810866}
   m_Father: {fileID: 1932282126}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -10919,7 +10919,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.44705883}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
