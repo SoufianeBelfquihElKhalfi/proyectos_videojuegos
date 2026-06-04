@@ -17,13 +17,20 @@ public class mainMenuFx : MonoBehaviour
     [SerializeField] private float slideFrom = -600f;
     [SerializeField] private float entranceDuration = 0.5f;
     [SerializeField] private float stagger = 0.12f;
-    private void Start()
+    private void OnEnable()
     {
+        if (logo != null)
             StartCoroutine(breathe());
-            StartCoroutine(buttonsEntrance());
-            StartCoroutine(pulseGlow());
-    }
 
+        if (logoGlow != null)
+            StartCoroutine(pulseGlow());
+
+        StartCoroutine(buttonsEntrance());
+    }
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
     private IEnumerator breathe()
     {
         Vector3 baseScale = logo.localScale;

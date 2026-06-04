@@ -13011,6 +13011,9 @@ MonoBehaviour:
   colorDisponible: {r: 1, g: 1, b: 1, a: 1}
   colorEnCombate: {r: 1, g: 1, b: 0, a: 1}
   colorCooldown: {r: 0.3, g: 0.3, b: 0.3, a: 1}
+  iconoRaiz: {fileID: 560496601}
+  punchScale: 1.25
+  punchDuration: 0.25
 --- !u!4 &1957714720 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 35aa669d020c8d845b913badb4ebfff7, type: 3}

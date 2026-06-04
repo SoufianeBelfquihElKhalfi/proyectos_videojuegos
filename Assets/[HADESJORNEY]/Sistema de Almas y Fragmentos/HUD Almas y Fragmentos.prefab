@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3628660232880577298}
   - component: {fileID: 6835222151133609292}
   - component: {fileID: 1818431106381488906}
+  - component: {fileID: 6576757670669342306}
   m_Layer: 5
   m_Name: HUD Almas y Fragmentos
   m_TagString: Untagged
@@ -28,7 +29,7 @@ RectTransform:
   m_GameObject: {fileID: 462538767061648074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.4, y: 2.4, z: 2.4}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7427351859285054769}
@@ -105,6 +106,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &6576757670669342306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462538767061648074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3c2d5175f934e6478541749d9c88c0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textoAlmas: {fileID: 853260841684560010}
+  textoFragmentos: {fileID: 3606276290373651621}
+  fxAlmas: {fileID: 5240298004742830271}
+  fxFragmentos: {fileID: 669292752771028681}
 --- !u!1 &1586654359086041727
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,6 +224,7 @@ GameObject:
   - component: {fileID: 4056384581816323775}
   - component: {fileID: 3427276784973137512}
   - component: {fileID: 3606276290373651621}
+  - component: {fileID: 669292752771028681}
   m_Layer: 5
   m_Name: Texto fragmentos
   m_TagString: Untagged
@@ -333,6 +351,25 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &669292752771028681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3175765972328012112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 782bdc942ee865048b4aad3ba24f2ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texto: {fileID: 3606276290373651621}
+  countDuration: 0.4
+  punchScale: 1.3
+  punchDuration: 0.2
+  icono: {fileID: 8907363059344140227}
+  iconPunchScale: 1.25
+  iconPunchDuration: 0.25
 --- !u!1 &5420566120465396763
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,6 +381,7 @@ GameObject:
   - component: {fileID: 8907363059344140227}
   - component: {fileID: 6618880460111032441}
   - component: {fileID: 6539675062656694710}
+  - component: {fileID: 379842387138789682}
   m_Layer: 5
   m_Name: HUD Fragmentos
   m_TagString: Untagged
@@ -409,6 +447,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &379842387138789682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5420566120465396763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6414b44d7c89eb41afb55d825a9ee1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amplitude: 2
+  duration: 2.5
 --- !u!1 &5696114787261006519
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,6 +511,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoAlmas: {fileID: 853260841684560010}
   textoFragmentos: {fileID: 3606276290373651621}
+  fxAlmas: {fileID: 0}
+  fxFragmentos: {fileID: 0}
 --- !u!1 &7132340600130939169
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,6 +524,7 @@ GameObject:
   - component: {fileID: 2835224918955088693}
   - component: {fileID: 8297951670325555185}
   - component: {fileID: 853260841684560010}
+  - component: {fileID: 5240298004742830271}
   m_Layer: 5
   m_Name: Texto almas
   m_TagString: Untagged
@@ -596,6 +651,25 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5240298004742830271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7132340600130939169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 782bdc942ee865048b4aad3ba24f2ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texto: {fileID: 853260841684560010}
+  countDuration: 0.4
+  punchScale: 1.3
+  punchDuration: 0.2
+  icono: {fileID: 7427351859285054769}
+  iconPunchScale: 1.25
+  iconPunchDuration: 0.25
 --- !u!1 &8253095236754958372
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,6 +681,7 @@ GameObject:
   - component: {fileID: 7427351859285054769}
   - component: {fileID: 4551887737861618766}
   - component: {fileID: 2726274692823239093}
+  - component: {fileID: 8883067873998835441}
   m_Layer: 5
   m_Name: HUD Almas
   m_TagString: Untagged
@@ -672,3 +747,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8883067873998835441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8253095236754958372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6414b44d7c89eb41afb55d825a9ee1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amplitude: 2
+  duration: 2.5

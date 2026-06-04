@@ -1424,6 +1424,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoAlmas: {fileID: 2132903555}
   textoFragmentos: {fileID: 285287223}
+  fxAlmas: {fileID: 0}
+  fxFragmentos: {fileID: 0}
 --- !u!1 &205291064
 GameObject:
   m_ObjectHideFlags: 0
@@ -8738,6 +8740,9 @@ MonoBehaviour:
   colorDisponible: {r: 1, g: 1, b: 1, a: 1}
   colorEnCombate: {r: 1, g: 1, b: 0, a: 1}
   colorCooldown: {r: 0.3, g: 0.3, b: 0.3, a: 1}
+  iconoRaiz: {fileID: 556740343}
+  punchScale: 1.25
+  punchDuration: 0.25
 --- !u!224 &1743133894
 RectTransform:
   m_ObjectHideFlags: 0

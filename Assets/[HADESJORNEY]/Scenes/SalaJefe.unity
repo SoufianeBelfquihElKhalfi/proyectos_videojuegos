@@ -19331,6 +19331,9 @@ MonoBehaviour:
   colorDisponible: {r: 1, g: 1, b: 1, a: 1}
   colorEnCombate: {r: 1, g: 1, b: 0, a: 1}
   colorCooldown: {r: 0.3, g: 0.3, b: 0.3, a: 1}
+  iconoRaiz: {fileID: 272579177}
+  punchScale: 1.25
+  punchDuration: 0.25
 --- !u!224 &1930488246
 RectTransform:
   m_ObjectHideFlags: 0
