@@ -31,6 +31,10 @@ public class CombateJugador : MonoBehaviour
     [SerializeField] private GameObject objetoEstela;
     private TrailRenderer estela;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip[] sonidosAtaque;
+    [SerializeField] private float volumenAtaque = 1f;
 
     [Header("Visual")]
     [SerializeField] private ArmaVisual armaVisual;
@@ -49,16 +53,23 @@ public class CombateJugador : MonoBehaviour
     void Start()
     {
         movimiento = GetComponent<MovimientoAlastor>();
+
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("Click detectado. CombateHabilitado: " + combateHabilitado);
         }
+
         if (movimiento == null)
             Debug.Log("MovimientoAlastor es null");
         else
             Debug.Log("MovimientoAlastor encontrado");
+
         animator = GetComponentInChildren<Animator>();
         ComprobarSiSePuedeAtacarEnLaEscena();
+
         if (animator == null)
             Debug.Log("Animator es null");
         else
@@ -88,7 +99,14 @@ public class CombateJugador : MonoBehaviour
                 inputGuardado = true;
         }
     }
+    private void ReproducirSonidoAtaque()
+    {
+        if (audioSource == null || sonidosAtaque == null || sonidosAtaque.Length == 0)
+            return;
 
+        int indice = Mathf.Clamp(golpeActualParaEvento, 0, sonidosAtaque.Length - 1);
+        audioSource.PlayOneShot(sonidosAtaque[indice], volumenAtaque);
+    }
     void ComprobarSiSePuedeAtacarEnLaEscena()
     {
         string nombreEscena = SceneManager.GetActiveScene().name;
@@ -138,6 +156,8 @@ public class CombateJugador : MonoBehaviour
             animator.SetInteger("GolpeCombo", golpeActual);
             animator.SetTrigger("Ataque");
         }
+
+        ReproducirSonidoAtaque();
 
         golpeActualParaEvento = golpeActual;
 

@@ -185,6 +185,10 @@ public class MovimientoAlastor : MonoBehaviour
         {
             tiempoPisada = 0f;
             estabaMoviendose = false;
+
+            if (audioSource != null && audioSource.isPlaying)
+                audioSource.Stop();
+
             return;
         }
 
