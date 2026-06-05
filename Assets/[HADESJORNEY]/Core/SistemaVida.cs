@@ -7,8 +7,10 @@ public class SistemaVida : MonoBehaviour
 {
     [Header("Configuración")]
     [SerializeField] private bool esJugador = false;
+
     [Tooltip("Activar solo en enemigos comunes.")]
     [SerializeField] private bool usaMuerteEnemigoComun = false;
+
     [Tooltip("Activar solo en el jugador.")]
     [SerializeField] private bool usarVidaGuardadaEntreEscenas = false;
 
@@ -24,6 +26,11 @@ public class SistemaVida : MonoBehaviour
     [Header("Eventos")]
     public UnityEvent alMorir;
     public UnityEvent<int, int> alCambiarVida;
+
+    [Header("Audio vida baja")]
+    [SerializeField] private AudioSource audioSourceVida;
+    [SerializeField] private AudioClip sonidoVidaBaja;
+    [SerializeField] private float volumenVidaBaja = 1f;
 
     // Estado
     private int corazonesMitadMaximos;
@@ -53,6 +60,9 @@ public class SistemaVida : MonoBehaviour
         movimiento = GetComponent<MovimientoAlastor>();
         enemigoDistancia = GetComponent<EnemigoDistancia>();
 
+        if (audioSourceVida == null)
+            audioSourceVida = GetComponent<AudioSource>();
+
         if (usaMuerteEnemigoComun)
         {
             muerteEnemigoComun = GetComponent<MuerteEnemigoComun>();
@@ -65,6 +75,7 @@ public class SistemaVida : MonoBehaviour
 
         InicializarVida();
         NotificarCambioVida();
+        ComprobarSonidoVidaBaja();
     }
 
     private void InicializarVida()
@@ -105,6 +116,7 @@ public class SistemaVida : MonoBehaviour
         );
 
         NotificarCambioVida();
+        ComprobarSonidoVidaBaja();
 
         if (EstaMuerto)
         {
@@ -119,7 +131,8 @@ public class SistemaVida : MonoBehaviour
             StartCoroutine(flashGolpe.Instancia.MostrarFlash());
         }
 
-        animator.SetTrigger("danio");
+        if (animator != null)
+            animator.SetTrigger("danio");
 
         if (enemigoDistancia != null)
         {
@@ -132,8 +145,14 @@ public class SistemaVida : MonoBehaviour
         if (EstaMuerto) return;
         if (curacionMitadCorazones <= 0) return;
 
-        corazonesMitadActuales = Mathf.Clamp(corazonesMitadActuales + curacionMitadCorazones, 0, corazonesMitadMaximos);
+        corazonesMitadActuales = Mathf.Clamp(
+            corazonesMitadActuales + curacionMitadCorazones,
+            0,
+            corazonesMitadMaximos
+        );
+
         NotificarCambioVida();
+        ComprobarSonidoVidaBaja();
     }
 
     public void CambiarCorazonesMaximos(int nuevosCorazones, bool rellenarVida = true)
@@ -146,6 +165,7 @@ public class SistemaVida : MonoBehaviour
             : Mathf.Clamp(corazonesMitadActuales, 0, corazonesMitadMaximos);
 
         NotificarCambioVida();
+        ComprobarSonidoVidaBaja();
     }
 
     public void GuardarVida()
@@ -153,6 +173,47 @@ public class SistemaVida : MonoBehaviour
         DatosGlobales.vidaActual = corazonesMitadActuales;
         DatosGlobales.vidaMaxima = corazonesMitadMaximos;
         DatosGlobales.hayDatosVida = true;
+    }
+
+    // ---------- AUDIO VIDA BAJA ----------
+
+    private void ComprobarSonidoVidaBaja()
+    {
+        if (!esJugador) return;
+
+        bool vidaBaja = corazonesMitadActuales <= 1 && corazonesMitadActuales > 0;
+
+        if (vidaBaja)
+        {
+            IniciarSonidoVidaBajaLoop();
+        }
+        else
+        {
+            DetenerSonidoVidaBajaLoop();
+        }
+    }
+
+    private void IniciarSonidoVidaBajaLoop()
+    {
+        if (audioSourceVida == null || sonidoVidaBaja == null)
+            return;
+
+        if (audioSourceVida.isPlaying)
+            return;
+
+        audioSourceVida.clip = sonidoVidaBaja;
+        audioSourceVida.volume = volumenVidaBaja;
+        audioSourceVida.loop = true;
+        audioSourceVida.Play();
+    }
+
+    private void DetenerSonidoVidaBajaLoop()
+    {
+        if (audioSourceVida == null)
+            return;
+
+        if (audioSourceVida.isPlaying)
+            audioSourceVida.Stop();
     }
 
     // ---------- PARPADEO ----------
@@ -219,7 +280,10 @@ public class SistemaVida : MonoBehaviour
 
     private void Morir()
     {
-        animator.SetTrigger("Muerte");
+        DetenerSonidoVidaBajaLoop();
+
+        if (animator != null)
+            animator.SetTrigger("Muerte");
 
         if (esJugador)
         {
@@ -235,13 +299,16 @@ public class SistemaVida : MonoBehaviour
 
     private void PrepararMuerteJugador()
     {
-        movimiento.enabled = false;
+        if (movimiento != null)
+            movimiento.enabled = false;
 
         CombateJugador combate = GetComponent<CombateJugador>();
-        combate.enabled = false;
+        if (combate != null)
+            combate.enabled = false;
 
         Collider colliderPrincipal = GetComponent<Collider>();
-        colliderPrincipal.enabled = false;
+        if (colliderPrincipal != null)
+            colliderPrincipal.enabled = false;
 
         DesactivarTodosLosEnemigos();
     }
@@ -309,6 +376,7 @@ public class SistemaVida : MonoBehaviour
                     }
                 }
             }
+
             yield return null;
         }
 
@@ -337,5 +405,6 @@ public class SistemaVida : MonoBehaviour
         corazonesMaximos = corazonesMitadMaximos / 2;
 
         NotificarCambioVida();
+        ComprobarSonidoVidaBaja();
     }
 }

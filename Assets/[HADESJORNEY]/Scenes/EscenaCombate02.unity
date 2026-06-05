@@ -1132,6 +1132,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Alastor
       objectReference: {fileID: 0}
+    - target: {fileID: 8919980005731924212, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
+      propertyPath: 'sonidosAtaque.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 87d9386efc4efae40ad8287690d53939, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9628,6 +9632,13 @@ MonoBehaviour:
   corazonLleno: {fileID: 21300000, guid: 7bf83b75144c64347bd0864d0252fa53, type: 3}
   medioCorazon: {fileID: 21300000, guid: cd93449d7a4ba0a46993dd6e87c13800, type: 3}
   corazonVacio: {fileID: 21300000, guid: 8c9621c4d77ba01458f30128077fa551, type: 3}
+  shakeMagnitude: 12
+  shakeDuration: 0.3
+  punchScale: 1.4
+  punchDuration: 0.25
+  umbralVidaBaja: 0.3
+  latidoScale: 1.12
+  latidoDuration: 0.7
 --- !u!1001 &1434712763
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13014,6 +13025,10 @@ MonoBehaviour:
   iconoRaiz: {fileID: 560496601}
   punchScale: 1.25
   punchDuration: 0.25
+  textoPunchScale: 1.4
+  textoPunchDuration: 0.2
+  latidoScale: 1.08
+  latidoDuracion: 2
 --- !u!4 &1957714720 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 35aa669d020c8d845b913badb4ebfff7, type: 3}
