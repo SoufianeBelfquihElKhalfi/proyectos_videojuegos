@@ -20,6 +20,9 @@ public class MovimientoAlastor : MonoBehaviour
 
     [Header("Pisadas")]
     [SerializeField] private float intervaloPisada = 0.3f;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip sonidoPisada;
+    [SerializeField] private float volumenPisada = 1f;
 
     [Header("Animator")]
     public Animator anim;
@@ -45,6 +48,9 @@ public class MovimientoAlastor : MonoBehaviour
     private Coroutine dashActivo;
     private Coroutine retrocesoActivo;
 
+    //Movimiento alastor
+    private bool estabaMoviendose = false;
+
     private void Awake()
     {
         cc = GetComponent<CharacterController>();
@@ -53,6 +59,9 @@ public class MovimientoAlastor : MonoBehaviour
     private void Start()
     {
         dash = GetComponent<EfectoDash>();
+
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
 
         if (Camera.main == null)
         {
@@ -175,15 +184,34 @@ public class MovimientoAlastor : MonoBehaviour
         if (!moviendose)
         {
             tiempoPisada = 0f;
+            estabaMoviendose = false;
+            return;
+        }
+
+        if (!estabaMoviendose)
+        {
+            ReproducirPisada();
+            tiempoPisada = 0f;
+            estabaMoviendose = true;
             return;
         }
 
         tiempoPisada += Time.deltaTime;
+
         if (tiempoPisada >= intervaloPisada)
         {
-            if (particulasPisada != null) particulasPisada.Play();
+            ReproducirPisada();
             tiempoPisada = 0f;
         }
+    }
+
+    private void ReproducirPisada()
+    {
+        if (particulasPisada != null)
+            particulasPisada.Play();
+
+        if (audioSource != null && sonidoPisada != null)
+            audioSource.PlayOneShot(sonidoPisada, volumenPisada);
     }
 
     private IEnumerator Dash()
