@@ -8,6 +8,28 @@ using TMPro;
 
 public class MercaderInteractuar : MonoBehaviour
 {
+    [Header("Aparición de botones")]
+    [SerializeField] private CanvasGroup grupoBotones;
+    [SerializeField] private float fadeBotonesDialogo = 0.3f;
+
+    [Header("Wiggle del retrato")]
+    [SerializeField] private Transform retratoMercader;
+    [SerializeField] private float wiggleAngulo = 4f;
+    [SerializeField] private float wiggleVelocidad = 18f;
+    private Coroutine wiggleRoutine;
+
+    [Header("Aparición del bocadillo")]
+    [SerializeField] private CanvasGroup bocadilloCanvasGroup;
+    [SerializeField] private float fadeBocadillo = 0.25f;
+    [SerializeField] private float escalaInicialBocadillo = 0.85f;
+    private Coroutine aparicionRoutine;
+
+    [Header("Typewriter")]
+    [SerializeField] private float velocidadTexto = 0.03f;   // segundos por letra
+    private Coroutine typewriterRoutine;
+    private bool escribiendo;
+    private string textoCompleto;
+
     [Header("UI")]
     [SerializeField] private GameObject textoInteraccion;
     [SerializeField] private GameObject bocadillo;
@@ -104,6 +126,11 @@ public class MercaderInteractuar : MonoBehaviour
 
         if (bocadilloMostrado)
         {
+            if (escribiendo && (BotonPulsado(botonInteractuar) || BotonPulsado(botonClickRaton)))
+            {
+                CompletarTexto();
+                return;
+            }
             if (BotonPulsado(botonCerrar)) CerrarBocadillo();
             return;
         }
@@ -193,8 +220,24 @@ public class MercaderInteractuar : MonoBehaviour
         bocadilloMostrado = true;
 
         if (textoInteraccion != null) textoInteraccion.SetActive(false);
-        if (textoBocadillo != null) textoBocadillo.text = mensajeMercader;
         if (bocadillo != null) bocadillo.SetActive(true);
+
+        // ocultar botones al abrir
+        if (grupoBotones != null)
+        {
+            grupoBotones.alpha = 0f;
+            grupoBotones.interactable = false;
+            grupoBotones.blocksRaycasts = false;
+        }
+
+        // animación de entrada del bocadillo
+        if (bocadilloCanvasGroup != null)
+        {
+            if (aparicionRoutine != null) StopCoroutine(aparicionRoutine);
+            aparicionRoutine = StartCoroutine(AparecerBocadillo());
+        }
+
+        if (textoBocadillo != null) IniciarTypewriter(mensajeMercader);
     }
 
     private void CerrarBocadillo(bool mostrarTextoInteraccion = true)
@@ -359,5 +402,103 @@ public class MercaderInteractuar : MonoBehaviour
             if (!string.IsNullOrWhiteSpace(botonInteractuar)) modulo.submitButton = botonInteractuar;
             if (!string.IsNullOrWhiteSpace(botonCerrar)) modulo.cancelButton = botonCerrar;
         }
+    }
+    private void IniciarTypewriter(string texto)
+    {
+        textoCompleto = texto;
+        if (typewriterRoutine != null) StopCoroutine(typewriterRoutine);
+        typewriterRoutine = StartCoroutine(Typewriter());
+    }
+
+    private IEnumerator Typewriter()
+    {
+        escribiendo = true;
+        textoBocadillo.text = "";
+
+        if (retratoMercader != null)
+        {
+            if (wiggleRoutine != null) StopCoroutine(wiggleRoutine);
+            wiggleRoutine = StartCoroutine(WiggleRetrato());
+        }
+
+        foreach (char c in textoCompleto)
+        {
+            textoBocadillo.text += c;
+            yield return new WaitForSeconds(velocidadTexto);
+        }
+
+        escribiendo = false;
+        typewriterRoutine = null;
+        PararWiggle();
+        MostrarBotones();
+    }
+
+    private void CompletarTexto()
+    {
+        if (typewriterRoutine != null) StopCoroutine(typewriterRoutine);
+        textoBocadillo.text = textoCompleto;
+        escribiendo = false;
+        typewriterRoutine = null;
+        PararWiggle();
+        MostrarBotones();
+    }
+    private IEnumerator AparecerBocadillo()
+    {
+        Transform tr = bocadilloCanvasGroup.transform;
+        Vector3 baseScale = Vector3.one;
+        Vector3 desde = baseScale * escalaInicialBocadillo;
+
+        bocadilloCanvasGroup.alpha = 0f;
+        tr.localScale = desde;
+
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime / fadeBocadillo;
+            float e = Mathf.Clamp01(t);
+            bocadilloCanvasGroup.alpha = e;
+            tr.localScale = Vector3.LerpUnclamped(desde, baseScale, 1f - Mathf.Pow(1f - e, 3f));
+            yield return null;
+        }
+        bocadilloCanvasGroup.alpha = 1f;
+        tr.localScale = baseScale;
+    }
+    private IEnumerator WiggleRetrato()
+    {
+        float t = 0f;
+        while (true)
+        {
+            t += Time.deltaTime * wiggleVelocidad;
+            float angulo = Mathf.Sin(t) * wiggleAngulo;
+            retratoMercader.localRotation = Quaternion.Euler(0f, 0f, angulo);
+            yield return null;
+        }
+    }
+
+    private void PararWiggle()
+    {
+        if (wiggleRoutine != null) StopCoroutine(wiggleRoutine);
+        wiggleRoutine = null;
+        if (retratoMercader != null)
+            retratoMercader.localRotation = Quaternion.identity;   // endereza al terminar
+    }
+    private void MostrarBotones()
+    {
+        if (grupoBotones != null)
+            StartCoroutine(FadeBotones());
+    }
+
+    private IEnumerator FadeBotones()
+    {
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime / fadeBotonesDialogo;
+            grupoBotones.alpha = Mathf.Clamp01(t);
+            yield return null;
+        }
+        grupoBotones.alpha = 1f;
+        grupoBotones.interactable = true;
+        grupoBotones.blocksRaycasts = true;
     }
 }

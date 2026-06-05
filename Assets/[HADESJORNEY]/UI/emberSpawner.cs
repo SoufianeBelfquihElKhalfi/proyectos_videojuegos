@@ -27,7 +27,21 @@ public class emberSpawner : MonoBehaviour
 
     private int alive;
 
-    private void Start() => StartCoroutine(spawnLoop());
+    private void OnEnable()
+    {
+        StartCoroutine(spawnLoop());
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();   // para el spawnLoop y todas las animaciones de brasas
+
+        // limpia las brasas que quedaron (hijos creados por el spawner)
+        for (int i = transform.childCount - 1; i >= 0; i--)
+            Destroy(transform.GetChild(i).gameObject);
+
+        alive = 0;
+    }
 
     private IEnumerator spawnLoop()
     {
@@ -68,24 +82,19 @@ public class emberSpawner : MonoBehaviour
         float phase = Random.Range(0f, Mathf.PI * 2f);
         Color baseColor = img.color;
         float t = 0f;
-
         while (t < lifetime)
         {
             t += Time.deltaTime;
             float n = t / lifetime;
-
             var p = rect.anchoredPosition;
             p.y += speed * Time.deltaTime;
             p.x = startX + Mathf.Sin(t * swayFrequency + phase) * swayAmplitude;
             rect.anchoredPosition = p;
-
             var c = baseColor;
             c.a = 1f - n;
             img.color = c;
-
             yield return null;
         }
-
         alive--;
         Destroy(rect.gameObject);
     }

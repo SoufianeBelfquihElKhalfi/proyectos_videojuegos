@@ -29,10 +29,15 @@ public class buttonHoverFx : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (hoverGlow != null) setGlowAlpha(0f);   // empieza invisible
         if (targetImage != null) originalColor = targetImage.color;
     }
-
+    private void OnEnable()
+    {
+        Debug.Log(gameObject.name + " baseScale = " + baseScale);
+        baseScale = transform.localScale;
+    }
     // ---------- HOVER ----------
     public void OnPointerEnter(PointerEventData e)
     {
+        Debug.Log("Hover ENTER en " + gameObject.name);
         scaleTo(baseScale * hoverScale);
         glowTo(glowMaxAlpha);
     }
@@ -55,7 +60,7 @@ public class buttonHoverFx : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         float t = 0f;
         while (t < 1f)
         {
-            t += Time.deltaTime / duration;
+            t += Time.unscaledDeltaTime / duration;   // <-- unscaled, no deltaTime
             transform.localScale = Vector3.LerpUnclamped(start, target, easeOutQuad(Mathf.Clamp01(t)));
             yield return null;
         }
