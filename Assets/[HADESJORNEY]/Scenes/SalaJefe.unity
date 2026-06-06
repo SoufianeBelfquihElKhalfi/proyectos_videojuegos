@@ -2948,6 +2948,61 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5253039588846752259, guid: 412c90d18534f364b811662161c30644, type: 3}
   m_PrefabInstance: {fileID: 423414336}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &366146463
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 366146465}
+  - component: {fileID: 366146464}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &366146464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366146463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c9469479c5ddd240b53ef94394869b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grupoMusica: {fileID: -6194016101060009748, guid: 099916fb617d9bd479456e30b44bf95d, type: 2}
+  grupoSFX: {fileID: -19948470983878636, guid: 099916fb617d9bd479456e30b44bf95d, type: 2}
+  fuenteMusica: {fileID: 0}
+  fuenteSFX2D: {fileID: 0}
+  sonidos:
+  - id: EnemigoElectrificado
+    clip: {fileID: 8300000, guid: 982e8cb2b1417e54eb97a3a1c3c3a409, type: 3}
+    volumen: 1
+    pitch: 1
+  distanciaMinima3D: 1
+  distanciaMaxima3D: 15
+--- !u!4 &366146465
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366146463}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 386.5, y: 265.8125, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &369306652
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12205,6 +12260,13 @@ MonoBehaviour:
   corazonLleno: {fileID: 21300000, guid: 7bf83b75144c64347bd0864d0252fa53, type: 3}
   medioCorazon: {fileID: 21300000, guid: cd93449d7a4ba0a46993dd6e87c13800, type: 3}
   corazonVacio: {fileID: 21300000, guid: 8c9621c4d77ba01458f30128077fa551, type: 3}
+  shakeMagnitude: 12
+  shakeDuration: 0.3
+  punchScale: 1.4
+  punchDuration: 0.25
+  umbralVidaBaja: 0.3
+  latidoScale: 1.12
+  latidoDuration: 0.7
 --- !u!1001 &867595258
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19334,6 +19396,10 @@ MonoBehaviour:
   iconoRaiz: {fileID: 272579177}
   punchScale: 1.25
   punchDuration: 0.25
+  textoPunchScale: 1.4
+  textoPunchDuration: 0.2
+  latidoScale: 1.08
+  latidoDuracion: 2
 --- !u!224 &1930488246
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20727,3 +20793,4 @@ SceneRoots:
   - {fileID: 20921785}
   - {fileID: 93108455}
   - {fileID: 379758372}
+  - {fileID: 366146465}

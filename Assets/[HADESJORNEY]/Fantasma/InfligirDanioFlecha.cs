@@ -1,4 +1,5 @@
 using UnityEngine;
+using Dapasa.Audio;
 
 public class InfligirDanioFlecha : MonoBehaviour
 {
@@ -47,6 +48,13 @@ public class InfligirDanioFlecha : MonoBehaviour
             return;
 
         vida.RecibirDanio(danioMitadCorazones);
+
+       
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.ReproducirSFX3D("EnemigoElectrificado", vida.transform.position);
+        }
 
         if (destruirAlImpactar)
         {
