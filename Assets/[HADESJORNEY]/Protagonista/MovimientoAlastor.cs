@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Dapasa.Audio;
 
 [RequireComponent(typeof(CharacterController))]
 public class MovimientoAlastor : MonoBehaviour
@@ -20,9 +21,9 @@ public class MovimientoAlastor : MonoBehaviour
 
     [Header("Pisadas")]
     [SerializeField] private float intervaloPisada = 0.3f;
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip sonidoPisada;
-    [SerializeField] private float volumenPisada = 1f;
+
+    [Header("Audio")]
+    [SerializeField] private string idSonidoPisada = "pisada_alastor";
 
     [Header("Animator")]
     public Animator anim;
@@ -44,12 +45,10 @@ public class MovimientoAlastor : MonoBehaviour
     private float tiempoPisada;
     private float tiempoUltimoDash = -999f;
     private bool isInKnockback = false;
+    private bool estabaMoviendose = false;
 
     private Coroutine dashActivo;
     private Coroutine retrocesoActivo;
-
-    //Movimiento alastor
-    private bool estabaMoviendose = false;
 
     private void Awake()
     {
@@ -59,9 +58,6 @@ public class MovimientoAlastor : MonoBehaviour
     private void Start()
     {
         dash = GetComponent<EfectoDash>();
-
-        if (audioSource == null)
-            audioSource = GetComponent<AudioSource>();
 
         if (Camera.main == null)
         {
@@ -101,7 +97,13 @@ public class MovimientoAlastor : MonoBehaviour
         {
             velocidadHorizontal = Vector3.zero;
             velocidadActual = 0f;
-            anim.SetBool("correr", false);
+
+            if (anim != null)
+                anim.SetBool("correr", false);
+
+            estabaMoviendose = false;
+            tiempoPisada = 0f;
+
             return;
         }
 
@@ -115,7 +117,6 @@ public class MovimientoAlastor : MonoBehaviour
 
     private Vector3 ObtenerDireccionInput()
     {
-        // Recalcular ejes de cámara cada frame por si rota
         Vector3 forward = camTransform.forward;
         forward.y = 0f;
         forward.Normalize();
@@ -135,9 +136,12 @@ public class MovimientoAlastor : MonoBehaviour
         Vector3 objetivo = direccionInput * speed;
         float factor = direccionInput.magnitude > 0.1f ? aceleracion : deceleracion;
 
-        velocidadHorizontal = Vector3.MoveTowards(velocidadHorizontal, objetivo, factor * Time.deltaTime);
+        velocidadHorizontal = Vector3.MoveTowards(
+            velocidadHorizontal,
+            objetivo,
+            factor * Time.deltaTime
+        );
 
-        // Evita micro-residuos de velocidad
         if (velocidadHorizontal.magnitude < 0.05f)
             velocidadHorizontal = Vector3.zero;
 
@@ -169,6 +173,7 @@ public class MovimientoAlastor : MonoBehaviour
         if (direccionInput.magnitude < 0.1f) return;
 
         Quaternion objetivo = Quaternion.LookRotation(direccionInput);
+
         transform.rotation = Quaternion.RotateTowards(
             transform.rotation,
             objetivo,
@@ -179,16 +184,14 @@ public class MovimientoAlastor : MonoBehaviour
     private void ActualizarAnimacionYPisadas(Vector3 direccionInput)
     {
         bool moviendose = direccionInput.magnitude > 0.01f;
-        anim.SetBool("correr", moviendose);
+
+        if (anim != null)
+            anim.SetBool("correr", moviendose);
 
         if (!moviendose)
         {
             tiempoPisada = 0f;
             estabaMoviendose = false;
-
-            if (audioSource != null && audioSource.isPlaying)
-                audioSource.Stop();
-
             return;
         }
 
@@ -214,18 +217,28 @@ public class MovimientoAlastor : MonoBehaviour
         if (particulasPisada != null)
             particulasPisada.Play();
 
-        if (audioSource != null && sonidoPisada != null)
-            audioSource.PlayOneShot(sonidoPisada, volumenPisada);
+        if (AudioManager.Instance == null)
+        {
+            Debug.LogWarning("No hay AudioManager en la escena.");
+            return;
+        }
+
+        AudioManager.Instance.ReproducirSFX2D(idSonidoPisada);
     }
 
     private IEnumerator Dash()
     {
         isDashing = true;
         esInvulnerable = true;
-        anim.SetBool("dash", true);
-        if (dash != null) dash.Activar();
+
+        if (anim != null)
+            anim.SetBool("dash", true);
+
+        if (dash != null)
+            dash.Activar();
 
         float tiempo = 0f;
+
         while (tiempo < dashDuration)
         {
             tiempo += Time.deltaTime;
@@ -240,8 +253,13 @@ public class MovimientoAlastor : MonoBehaviour
 
         isDashing = false;
         esInvulnerable = false;
-        anim.SetBool("dash", false);
-        if (dash != null) dash.Desactivar();
+
+        if (anim != null)
+            anim.SetBool("dash", false);
+
+        if (dash != null)
+            dash.Desactivar();
+
         dashActivo = null;
     }
 
@@ -250,19 +268,23 @@ public class MovimientoAlastor : MonoBehaviour
         if (!isActiveAndEnabled || cc == null) return;
 
         direccion.y = 0f;
+
         if (direccion.sqrMagnitude <= 0.001f) return;
 
         direccion.Normalize();
 
-        // Cancela dash si está activo
         if (dashActivo != null)
         {
             StopCoroutine(dashActivo);
             dashActivo = null;
             isDashing = false;
             esInvulnerable = false;
-            anim.SetBool("dash", false);
-            if (dash != null) dash.Desactivar();
+
+            if (anim != null)
+                anim.SetBool("dash", false);
+
+            if (dash != null)
+                dash.Desactivar();
         }
 
         if (retrocesoActivo != null)

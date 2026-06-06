@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using Dapasa.Audio;
 
 public class CombateJugador : MonoBehaviour
 {
@@ -32,35 +33,27 @@ public class CombateJugador : MonoBehaviour
     private TrailRenderer estela;
 
     [Header("Audio")]
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip[] sonidosAtaque;
-    [SerializeField] private float volumenAtaque = 1f;
+    [SerializeField] private string idSonidoAtaqueAire = "ataque_espada_aire";
+    [SerializeField] private string idSonidoAtaqueGolpe = "ataque_espada_golpe";
 
     [Header("Visual")]
     [SerializeField] private ArmaVisual armaVisual;
-
-
 
     private int golpeActual = 0;
     private float tiempoUltimoGolpe;
     private bool puedeAtacar = true;
     private bool combateHabilitado = true;
     private bool inputGuardado = false;
+
     private Animator animator;
     private MovimientoAlastor movimiento;
+
     private int golpeActualParaEvento;
     private bool puedeCancelar = false;
+
     void Start()
     {
         movimiento = GetComponent<MovimientoAlastor>();
-
-        if (audioSource == null)
-            audioSource = GetComponent<AudioSource>();
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Debug.Log("Click detectado. CombateHabilitado: " + combateHabilitado);
-        }
 
         if (movimiento == null)
             Debug.Log("MovimientoAlastor es null");
@@ -94,19 +87,12 @@ public class CombateJugador : MonoBehaviour
             if (puedeAtacar)
                 Atacar();
             else if (puedeCancelar)
-                Atacar(); // cancela la animación actual y enlaza el siguiente
+                Atacar();
             else
                 inputGuardado = true;
         }
     }
-    private void ReproducirSonidoAtaque()
-    {
-        if (audioSource == null || sonidosAtaque == null || sonidosAtaque.Length == 0)
-            return;
 
-        int indice = Mathf.Clamp(golpeActualParaEvento, 0, sonidosAtaque.Length - 1);
-        audioSource.PlayOneShot(sonidosAtaque[indice], volumenAtaque);
-    }
     void ComprobarSiSePuedeAtacarEnLaEscena()
     {
         string nombreEscena = SceneManager.GetActiveScene().name;
@@ -151,17 +137,16 @@ public class CombateJugador : MonoBehaviour
         if (armaVisual != null)
             armaVisual.Mostrar();
 
+        golpeActualParaEvento = golpeActual;
+
         if (animator != null)
         {
             animator.SetInteger("GolpeCombo", golpeActual);
             animator.SetTrigger("Ataque");
         }
 
-        ReproducirSonidoAtaque();
-
-        golpeActualParaEvento = golpeActual;
-
         golpeActual++;
+
         if (golpeActual >= maxGolpesCombo)
             golpeActual = 0;
 
@@ -186,10 +171,13 @@ public class CombateJugador : MonoBehaviour
         while (tiempo < duracionRetroceso)
         {
             if (objetivo == null) yield break;
+
             tiempo += Time.deltaTime;
             float t = tiempo / duracionRetroceso;
             float curva = 1f - Mathf.Pow(1f - t, 3f);
+
             objetivo.position = Vector3.Lerp(inicio, destino, curva);
+
             yield return null;
         }
     }
@@ -216,37 +204,52 @@ public class CombateJugador : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         if (puntoAtaque == null) return;
+
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(puntoAtaque.position, rangoAtaque);
     }
+
     public void AplicarDanioGolpe()
     {
         Collider[] enemigos = Physics.OverlapSphere(puntoAtaque.position, rangoAtaque, capaEnemigos);
 
         int danio = danioPorGolpe[golpeActualParaEvento];
+
         if (EstadisticasJugador.Instancia != null)
             danio = Mathf.CeilToInt(danio * EstadisticasJugador.Instancia.multiplicadorDanio);
 
         float retroceso = retrocesoPorGolpe[golpeActualParaEvento];
         bool maniquiGolpeado = false;
-        bool algunEnemigoGolpeado = false; // NUEVO
+        bool algunEnemigoGolpeado = false;
 
         foreach (Collider enemigo in enemigos)
         {
             SistemaVida vida = enemigo.GetComponentInParent<SistemaVida>();
+
             if (vida != null)
             {
                 vida.RecibirDanio(danio);
-                algunEnemigoGolpeado = true; // NUEVO
+                algunEnemigoGolpeado = true;
 
                 if (efectoGolpe != null)
                 {
-                    GameObject efecto = Instantiate(efectoGolpe, enemigo.transform.position + Vector3.up, Quaternion.identity);
+                    GameObject efecto = Instantiate(
+                        efectoGolpe,
+                        enemigo.transform.position + Vector3.up,
+                        Quaternion.identity
+                    );
+
                     Destroy(efecto, 0.5f);
                 }
+
                 if (efectoDestello != null)
                 {
-                    GameObject destello = Instantiate(efectoDestello, enemigo.transform.position + Vector3.up, Quaternion.identity);
+                    GameObject destello = Instantiate(
+                        efectoDestello,
+                        enemigo.transform.position + Vector3.up,
+                        Quaternion.identity
+                    );
+
                     Destroy(destello, 0.3f);
                 }
 
@@ -255,36 +258,53 @@ public class CombateJugador : MonoBehaviour
                     if (!maniquiGolpeado)
                     {
                         Maniqui maniqui = enemigo.GetComponentInParent<Maniqui>();
+
                         if (maniqui != null)
                         {
                             maniqui.RecibirDanio();
                             maniquiGolpeado = true;
                         }
                     }
+
                     continue;
                 }
 
                 Transform enemigoRoot = vida.transform;
                 Vector3 direccion = (enemigoRoot.position - transform.position).normalized;
                 direccion.y = 0;
+
                 StartCoroutine(RetrocesoSuave(enemigoRoot, direccion, retroceso));
             }
         }
 
-        // NUEVO: Hitstop solo si se ha conectado algún golpe
+        ReproducirSonidoAtaque(algunEnemigoGolpeado);
+
         if (algunEnemigoGolpeado)
         {
-            // Más fuerte en el último golpe del combo
-            float duracionHitstop = (golpeActualParaEvento == maxGolpesCombo - 1) ? 0.1f : 0.05f;
+            float duracionHitstop = golpeActualParaEvento == maxGolpesCombo - 1 ? 0.1f : 0.05f;
             StartCoroutine(Hitstop(duracionHitstop));
         }
     }
+
+    private void ReproducirSonidoAtaque(bool golpeoEnemigo)
+    {
+        if (AudioManager.Instance == null)
+        {
+            Debug.LogWarning("No hay AudioManager en la escena.");
+            return;
+        }
+
+        string idSonido = golpeoEnemigo ? idSonidoAtaqueGolpe : idSonidoAtaqueAire;
+        AudioManager.Instance.ReproducirSFX2D(idSonido);
+    }
+
     IEnumerator Hitstop(float duracion)
     {
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(duracion);
         Time.timeScale = 1f;
     }
+
     public void AbrirVentanaCombo()
     {
         puedeCancelar = true;

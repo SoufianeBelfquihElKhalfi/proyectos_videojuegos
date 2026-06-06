@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using Dapasa.Audio;
 
 public class SistemaVida : MonoBehaviour
 {
@@ -28,9 +29,7 @@ public class SistemaVida : MonoBehaviour
     public UnityEvent<int, int> alCambiarVida;
 
     [Header("Audio vida baja")]
-    [SerializeField] private AudioSource audioSourceVida;
-    [SerializeField] private AudioClip sonidoVidaBaja;
-    [SerializeField] private float volumenVidaBaja = 1f;
+    [SerializeField] private string idSonidoVidaBaja = "vida_baja";
 
     // Estado
     private int corazonesMitadMaximos;
@@ -60,8 +59,6 @@ public class SistemaVida : MonoBehaviour
         movimiento = GetComponent<MovimientoAlastor>();
         enemigoDistancia = GetComponent<EnemigoDistancia>();
 
-        if (audioSourceVida == null)
-            audioSourceVida = GetComponent<AudioSource>();
 
         if (usaMuerteEnemigoComun)
         {
@@ -192,28 +189,20 @@ public class SistemaVida : MonoBehaviour
             DetenerSonidoVidaBajaLoop();
         }
     }
-
     private void IniciarSonidoVidaBajaLoop()
     {
-        if (audioSourceVida == null || sonidoVidaBaja == null)
+        if (AudioManager.Instance == null)
             return;
 
-        if (audioSourceVida.isPlaying)
-            return;
-
-        audioSourceVida.clip = sonidoVidaBaja;
-        audioSourceVida.volume = volumenVidaBaja;
-        audioSourceVida.loop = true;
-        audioSourceVida.Play();
+        AudioManager.Instance.ReproducirSFXLoop2D(idSonidoVidaBaja);
     }
 
     private void DetenerSonidoVidaBajaLoop()
     {
-        if (audioSourceVida == null)
+        if (AudioManager.Instance == null)
             return;
 
-        if (audioSourceVida.isPlaying)
-            audioSourceVida.Stop();
+        AudioManager.Instance.PararSFXLoop2D(idSonidoVidaBaja);
     }
 
     // ---------- PARPADEO ----------

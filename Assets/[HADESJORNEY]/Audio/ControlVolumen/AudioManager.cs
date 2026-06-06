@@ -28,6 +28,7 @@ namespace Dapasa.Audio
         [Header("Audio Sources 2D")]
         [SerializeField] private AudioSource fuenteMusica;
         [SerializeField] private AudioSource fuenteSFX2D;
+        [SerializeField] private AudioSource fuenteSFXLoop2D;
 
         [Header("Lista general de sonidos")]
         [SerializeField] private List<Sonido> sonidos = new List<Sonido>();
@@ -74,6 +75,13 @@ namespace Dapasa.Audio
                 fuenteSFX2D = sfxGO.AddComponent<AudioSource>();
             }
 
+            if (fuenteSFXLoop2D == null)
+            {
+                GameObject sfxLoopGO = new GameObject("Fuente_SFX_Loop_2D");
+                sfxLoopGO.transform.SetParent(transform);
+                fuenteSFXLoop2D = sfxLoopGO.AddComponent<AudioSource>();
+            }
+
             fuenteMusica.playOnAwake = false;
             fuenteMusica.loop = true;
             fuenteMusica.spatialBlend = 0f;
@@ -81,6 +89,10 @@ namespace Dapasa.Audio
             fuenteSFX2D.playOnAwake = false;
             fuenteSFX2D.loop = false;
             fuenteSFX2D.spatialBlend = 0f;
+
+            fuenteSFXLoop2D.playOnAwake = false;
+            fuenteSFXLoop2D.loop = true;
+            fuenteSFXLoop2D.spatialBlend = 0f;
 
             if (grupoMusica != null)
             {
@@ -90,6 +102,11 @@ namespace Dapasa.Audio
             if (grupoSFX != null)
             {
                 fuenteSFX2D.outputAudioMixerGroup = grupoSFX;
+            }
+
+            if (grupoSFX != null)
+            {
+                fuenteSFXLoop2D.outputAudioMixerGroup = grupoSFX;
             }
         }
 
@@ -178,6 +195,47 @@ namespace Dapasa.Audio
 
             fuenteSFX2D.pitch = 1f;
             fuenteSFX2D.PlayOneShot(clip, volumen);
+        }
+
+        //para los loop
+        public void ReproducirSFXLoop2D(string id)
+        {
+            Sonido sonido = ObtenerSonido(id);
+
+            if (sonido == null)
+                return;
+
+            if (fuenteSFXLoop2D.clip == sonido.clip && fuenteSFXLoop2D.isPlaying)
+                return;
+
+            fuenteSFXLoop2D.clip = sonido.clip;
+            fuenteSFXLoop2D.volume = sonido.volumen;
+            fuenteSFXLoop2D.pitch = sonido.pitch;
+            fuenteSFXLoop2D.loop = true;
+            fuenteSFXLoop2D.Play();
+        }
+
+        public void PararSFXLoop2D(string id)
+        {
+            Sonido sonido = ObtenerSonido(id);
+
+            if (sonido == null)
+                return;
+
+            if (fuenteSFXLoop2D.clip == sonido.clip && fuenteSFXLoop2D.isPlaying)
+            {
+                fuenteSFXLoop2D.Stop();
+                fuenteSFXLoop2D.clip = null;
+            }
+        }
+
+        public void PararSFXLoop2D()
+        {
+            if (fuenteSFXLoop2D != null && fuenteSFXLoop2D.isPlaying)
+            {
+                fuenteSFXLoop2D.Stop();
+                fuenteSFXLoop2D.clip = null;
+            }
         }
 
         // -----------------------------
