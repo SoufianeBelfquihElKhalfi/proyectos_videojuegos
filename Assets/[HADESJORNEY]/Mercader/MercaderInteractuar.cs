@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using Dapasa.Audio;
 
 public class MercaderInteractuar : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class MercaderInteractuar : MonoBehaviour
     private Coroutine aparicionRoutine;
 
     [Header("Typewriter")]
-    [SerializeField] private float velocidadTexto = 0.03f;   // segundos por letra
+    [SerializeField] private float velocidadTexto = 0.03f;
     private Coroutine typewriterRoutine;
     private bool escribiendo;
     private string textoCompleto;
@@ -37,26 +38,22 @@ public class MercaderInteractuar : MonoBehaviour
     [SerializeField] private string mensajeMercader = "¡Querido Alástor! ¿Qué deseas hacer?";
 
     [Header("Botones del bocadillo")]
-    [Tooltip("Botón para curarse (dentro del bocadillo).")]
     [SerializeField] private Button botonCurarse;
-    [Tooltip("Botón para abrir la tienda (dentro del bocadillo).")]
     [SerializeField] private Button botonComerciar;
 
     [Header("Curación")]
-    [Tooltip("Cantidad de mitades de corazón que recupera al curarse.")]
     [SerializeField] private int curacionMitadCorazones = 2;
-    [Tooltip("Tag del jugador para encontrar su SistemaVida.")]
     [SerializeField] private string tagJugador = "Player";
+
+    [Header("Audio")]
+    [SerializeField] private string idSonidoCurarse = "curarse_mercader";
 
     [Header("Tienda")]
     [SerializeField] private GameObject tienda;
 
     [Header("Input Manager antiguo")]
-    [Tooltip("Botón del Input Manager para hablar, aceptar o avanzar.")]
     [SerializeField] private string botonInteractuar = "Submit";
-    [Tooltip("Botón del Input Manager para cerrar o cancelar.")]
     [SerializeField] private string botonCerrar = "Cancel";
-    [Tooltip("Botón del Input Manager para clic/selección con ratón.")]
     [SerializeField] private string botonClickRaton = "Fire1";
 
     [Header("Ratón")]
@@ -72,10 +69,6 @@ public class MercaderInteractuar : MonoBehaviour
     [SerializeField] private string ejeUIHorizontal = "Horizontal";
     [SerializeField] private string ejeUIVertical = "Vertical";
 
-    // ─────────────────────────────────────────
-    //  Estado privado
-    // ─────────────────────────────────────────
-
     private bool jugadorCerca;
     private bool bocadilloMostrado;
     private bool tiendaAbierta;
@@ -86,12 +79,7 @@ public class MercaderInteractuar : MonoBehaviour
     private Coroutine coroutineSeleccion;
     private readonly HashSet<string> botonesNoEncontrados = new HashSet<string>();
 
-    // Referencia cacheada al SistemaVida del jugador
     private SistemaVida sistemaVidaJugador;
-
-    // ─────────────────────────────────────────
-    //  Inicialización
-    // ─────────────────────────────────────────
 
     private void Start()
     {
@@ -112,10 +100,6 @@ public class MercaderInteractuar : MonoBehaviour
         if (botonComerciar != null) botonComerciar.onClick.RemoveListener(OnClickComerciar);
     }
 
-    // ─────────────────────────────────────────
-    //  Update
-    // ─────────────────────────────────────────
-
     private void Update()
     {
         if (tiendaAbierta)
@@ -131,6 +115,7 @@ public class MercaderInteractuar : MonoBehaviour
                 CompletarTexto();
                 return;
             }
+
             if (BotonPulsado(botonCerrar)) CerrarBocadillo();
             return;
         }
@@ -141,16 +126,15 @@ public class MercaderInteractuar : MonoBehaviour
             Interactuar();
     }
 
-    // ─────────────────────────────────────────
-    //  Input helpers
-    // ─────────────────────────────────────────
-
     private bool BotonPulsado(string nombreBoton)
     {
         if (string.IsNullOrWhiteSpace(nombreBoton)) return false;
         if (botonesNoEncontrados.Contains(nombreBoton)) return false;
 
-        try { return Input.GetButtonDown(nombreBoton); }
+        try
+        {
+            return Input.GetButtonDown(nombreBoton);
+        }
         catch (ArgumentException)
         {
             botonesNoEncontrados.Add(nombreBoton);
@@ -166,18 +150,16 @@ public class MercaderInteractuar : MonoBehaviour
         if (camaraRaycast == null) return false;
 
         Ray ray = camaraRaycast.ScreenPointToRay(Input.mousePosition);
+
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             return hit.collider != null &&
                    (hit.collider.gameObject == gameObject ||
                     hit.collider.transform.IsChildOf(transform));
         }
+
         return false;
     }
-
-    // ─────────────────────────────────────────
-    //  Trigger
-    // ─────────────────────────────────────────
 
     private void OnTriggerEnter(Collider other)
     {
@@ -185,11 +167,10 @@ public class MercaderInteractuar : MonoBehaviour
 
         jugadorCerca = true;
 
-        // Cachear SistemaVida subiendo desde el collider que entró
-        // (funciona aunque el collider sea un hijo de Alastor)
         if (sistemaVidaJugador == null)
         {
             sistemaVidaJugador = other.GetComponentInParent<SistemaVida>();
+
             if (sistemaVidaJugador == null)
                 sistemaVidaJugador = other.GetComponentInChildren<SistemaVida>();
         }
@@ -209,11 +190,10 @@ public class MercaderInteractuar : MonoBehaviour
             textoInteraccion.SetActive(false);
     }
 
-    // ─────────────────────────────────────────
-    //  Flujo principal
-    // ─────────────────────────────────────────
-
-    private void Interactuar() => MostrarBocadillo();
+    private void Interactuar()
+    {
+        MostrarBocadillo();
+    }
 
     private void MostrarBocadillo()
     {
@@ -222,7 +202,6 @@ public class MercaderInteractuar : MonoBehaviour
         if (textoInteraccion != null) textoInteraccion.SetActive(false);
         if (bocadillo != null) bocadillo.SetActive(true);
 
-        // ocultar botones al abrir
         if (grupoBotones != null)
         {
             grupoBotones.alpha = 0f;
@@ -230,21 +209,22 @@ public class MercaderInteractuar : MonoBehaviour
             grupoBotones.blocksRaycasts = false;
         }
 
-        // animación de entrada del bocadillo
         if (bocadilloCanvasGroup != null)
         {
             if (aparicionRoutine != null) StopCoroutine(aparicionRoutine);
             aparicionRoutine = StartCoroutine(AparecerBocadillo());
         }
 
-        if (textoBocadillo != null) IniciarTypewriter(mensajeMercader);
+        if (textoBocadillo != null)
+            IniciarTypewriter(mensajeMercader);
     }
 
     private void CerrarBocadillo(bool mostrarTextoInteraccion = true)
     {
         bocadilloMostrado = false;
 
-        if (bocadillo != null) bocadillo.SetActive(false);
+        if (bocadillo != null)
+            bocadillo.SetActive(false);
 
         if (EventSystem.current != null)
             EventSystem.current.SetSelectedGameObject(null);
@@ -253,10 +233,6 @@ public class MercaderInteractuar : MonoBehaviour
             textoInteraccion.SetActive(true);
     }
 
-    // ─────────────────────────────────────────
-    //  Callbacks botones del bocadillo
-    // ─────────────────────────────────────────
-
     private void OnClickCurarse()
     {
         CerrarBocadillo(mostrarTextoInteraccion: false);
@@ -264,6 +240,7 @@ public class MercaderInteractuar : MonoBehaviour
         if (sistemaVidaJugador != null)
         {
             sistemaVidaJugador.Curar(curacionMitadCorazones);
+            ReproducirSonidoCurarse();
         }
         else
         {
@@ -274,15 +251,22 @@ public class MercaderInteractuar : MonoBehaviour
             textoInteraccion.SetActive(true);
     }
 
+    private void ReproducirSonidoCurarse()
+    {
+        if (AudioManager.Instance == null)
+        {
+            Debug.LogWarning("No hay AudioManager en la escena.");
+            return;
+        }
+
+        AudioManager.Instance.ReproducirSFX2D(idSonidoCurarse);
+    }
+
     private void OnClickComerciar()
     {
         CerrarBocadillo(mostrarTextoInteraccion: false);
         AbrirTienda();
     }
-
-    // ─────────────────────────────────────────
-    //  Tienda
-    // ─────────────────────────────────────────
 
     private void AbrirTienda()
     {
@@ -316,10 +300,6 @@ public class MercaderInteractuar : MonoBehaviour
             textoInteraccion.SetActive(true);
     }
 
-    // ─────────────────────────────────────────
-    //  Cursor
-    // ─────────────────────────────────────────
-
     private void GuardarYMostrarCursor()
     {
         if (!controlarCursorEnTienda) return;
@@ -338,10 +318,6 @@ public class MercaderInteractuar : MonoBehaviour
         Cursor.visible = cursorVisibleAnterior;
         Cursor.lockState = cursorLockAnterior;
     }
-
-    // ─────────────────────────────────────────
-    //  Navegación UI
-    // ─────────────────────────────────────────
 
     private void PrepararNavegacionUI()
     {
@@ -363,6 +339,7 @@ public class MercaderInteractuar : MonoBehaviour
         yield return null;
 
         int intentos = 0;
+
         while (elemento != null && !elemento.gameObject.activeInHierarchy && intentos < 10)
         {
             yield return null;
@@ -391,6 +368,7 @@ public class MercaderInteractuar : MonoBehaviour
         if (!configurarStandaloneInputModule) return;
 
         var modulo = EventSystem.current.GetComponent<StandaloneInputModule>();
+
         if (modulo == null)
         {
             EventSystem.current.gameObject.AddComponent<StandaloneInputModule>();
@@ -403,10 +381,14 @@ public class MercaderInteractuar : MonoBehaviour
             if (!string.IsNullOrWhiteSpace(botonCerrar)) modulo.cancelButton = botonCerrar;
         }
     }
+
     private void IniciarTypewriter(string texto)
     {
         textoCompleto = texto;
-        if (typewriterRoutine != null) StopCoroutine(typewriterRoutine);
+
+        if (typewriterRoutine != null)
+            StopCoroutine(typewriterRoutine);
+
         typewriterRoutine = StartCoroutine(Typewriter());
     }
 
@@ -429,19 +411,24 @@ public class MercaderInteractuar : MonoBehaviour
 
         escribiendo = false;
         typewriterRoutine = null;
+
         PararWiggle();
         MostrarBotones();
     }
 
     private void CompletarTexto()
     {
-        if (typewriterRoutine != null) StopCoroutine(typewriterRoutine);
+        if (typewriterRoutine != null)
+            StopCoroutine(typewriterRoutine);
+
         textoBocadillo.text = textoCompleto;
         escribiendo = false;
         typewriterRoutine = null;
+
         PararWiggle();
         MostrarBotones();
     }
+
     private IEnumerator AparecerBocadillo()
     {
         Transform tr = bocadilloCanvasGroup.transform;
@@ -452,36 +439,48 @@ public class MercaderInteractuar : MonoBehaviour
         tr.localScale = desde;
 
         float t = 0f;
+
         while (t < 1f)
         {
             t += Time.deltaTime / fadeBocadillo;
             float e = Mathf.Clamp01(t);
+
             bocadilloCanvasGroup.alpha = e;
             tr.localScale = Vector3.LerpUnclamped(desde, baseScale, 1f - Mathf.Pow(1f - e, 3f));
+
             yield return null;
         }
+
         bocadilloCanvasGroup.alpha = 1f;
         tr.localScale = baseScale;
     }
+
     private IEnumerator WiggleRetrato()
     {
         float t = 0f;
+
         while (true)
         {
             t += Time.deltaTime * wiggleVelocidad;
             float angulo = Mathf.Sin(t) * wiggleAngulo;
+
             retratoMercader.localRotation = Quaternion.Euler(0f, 0f, angulo);
+
             yield return null;
         }
     }
 
     private void PararWiggle()
     {
-        if (wiggleRoutine != null) StopCoroutine(wiggleRoutine);
+        if (wiggleRoutine != null)
+            StopCoroutine(wiggleRoutine);
+
         wiggleRoutine = null;
+
         if (retratoMercader != null)
-            retratoMercader.localRotation = Quaternion.identity;   // endereza al terminar
+            retratoMercader.localRotation = Quaternion.identity;
     }
+
     private void MostrarBotones()
     {
         if (grupoBotones != null)
@@ -491,12 +490,14 @@ public class MercaderInteractuar : MonoBehaviour
     private IEnumerator FadeBotones()
     {
         float t = 0f;
+
         while (t < 1f)
         {
             t += Time.deltaTime / fadeBotonesDialogo;
             grupoBotones.alpha = Mathf.Clamp01(t);
             yield return null;
         }
+
         grupoBotones.alpha = 1f;
         grupoBotones.interactable = true;
         grupoBotones.blocksRaycasts = true;

@@ -60,7 +60,7 @@ MonoBehaviour:
     pitch: 1
   - id: ataque_espada_aire
     clip: {fileID: 8300000, guid: 871ddfa39263f2747b842d2e98ff67e9, type: 3}
-    volumen: 1
+    volumen: 0
     pitch: 1
   - id: ataque_espada_golpe
     clip: {fileID: 8300000, guid: 13786de88e2a71b4bbbe53c6348de635, type: 3}
@@ -69,6 +69,10 @@ MonoBehaviour:
   - id: pisada_alastor
     clip: {fileID: 8300000, guid: 01742e143595a0a4fa21172ee7d8d86e, type: 3}
     volumen: 0.5
+    pitch: 1
+  - id: curarse_mercader
+    clip: {fileID: 8300000, guid: 3da920a441939554fafdfaee3b9a950a, type: 3}
+    volumen: 0.3
     pitch: 1
   distanciaMinima3D: 1
   distanciaMaxima3D: 15
