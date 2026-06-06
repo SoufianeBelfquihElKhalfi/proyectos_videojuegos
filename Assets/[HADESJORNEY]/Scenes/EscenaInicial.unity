@@ -3280,7 +3280,7 @@ PrefabInstance:
     - target: {fileID: -73500163641640762, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: audioSourceVida
       value: 
-      objectReference: {fileID: 2143356315}
+      objectReference: {fileID: 0}
     - target: {fileID: -73500163641640762, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: alCambiarVida.m_PersistentCalls.m_Calls.Array.size
       value: 0
@@ -3344,7 +3344,7 @@ PrefabInstance:
     - target: {fileID: 8919980005731924212, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: audioSource
       value: 
-      objectReference: {fileID: 2143356315}
+      objectReference: {fileID: 0}
     - target: {fileID: 8919980005731924212, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: sonidoAtaque
       value: 
@@ -9494,11 +9494,6 @@ Transform:
 --- !u!4 &2143356313 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 805932474989920479, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
-  m_PrefabInstance: {fileID: 792704010}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &2143356315 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 5189145329245229291, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
   m_PrefabInstance: {fileID: 792704010}
   m_PrefabAsset: {fileID: 0}
 --- !u!82 &2143356323
