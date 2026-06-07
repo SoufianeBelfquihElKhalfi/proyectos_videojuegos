@@ -80,6 +80,18 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 49715d649e56bb4489210a254b95ef06, type: 3}
     volumen: 0.3
     pitch: 1
+  - id: ui_hover
+    clip: {fileID: 8300000, guid: 59674406149166b49a77462f98fbf054, type: 3}
+    volumen: 0.3
+    pitch: 1
+  - id: ui_select
+    clip: {fileID: 8300000, guid: e785d8e2e58408749ac84cef3ee0e142, type: 3}
+    volumen: 0.5
+    pitch: 1
+  - id: ui_back
+    clip: {fileID: 8300000, guid: 82f30aa4f9315a24c82519391c327761, type: 3}
+    volumen: 0.4
+    pitch: 1
   distanciaMinima3D: 1
   distanciaMaxima3D: 15
 --- !u!82 &-3115857716586114669

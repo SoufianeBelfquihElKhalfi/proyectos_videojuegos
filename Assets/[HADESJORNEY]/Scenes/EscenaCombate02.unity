@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 12133424}
   - component: {fileID: 12133423}
   - component: {fileID: 12133422}
+  - component: {fileID: 12133425}
   m_Layer: 5
   m_Name: RetryButton
   m_TagString: Untagged
@@ -252,6 +253,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 12133420}
   m_CullTransparentMesh: 1
+--- !u!114 &12133425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 12133420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f4442274c98474c8518ea4715f5119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScale: 1.06
+  duration: 0.15
+  hoverGlow: {fileID: 0}
+  glowMaxAlpha: 0.6
+  targetImage: {fileID: 12133423}
+  flashColor: {r: 1, g: 0.9, b: 0.5, a: 1}
+  flashDuration: 0.2
+  idSonidoHover: ui_hover
+  sonarHoverConSeleccion: 1
 --- !u!4 &23287222 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5253039588846752259, guid: 412c90d18534f364b811662161c30644, type: 3}
@@ -542,6 +564,7 @@ GameObject:
   - component: {fileID: 96489028}
   - component: {fileID: 96489027}
   - component: {fileID: 96489026}
+  - component: {fileID: 96489029}
   m_Layer: 5
   m_Name: BotonMenu
   m_TagString: Untagged
@@ -663,6 +686,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 96489024}
   m_CullTransparentMesh: 1
+--- !u!114 &96489029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96489024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f4442274c98474c8518ea4715f5119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScale: 1.06
+  duration: 0.15
+  hoverGlow: {fileID: 0}
+  glowMaxAlpha: 0.6
+  targetImage: {fileID: 96489027}
+  flashColor: {r: 1, g: 0.9, b: 0.5, a: 1}
+  flashDuration: 0.2
+  idSonidoHover: ui_hover
+  sonarHoverConSeleccion: 1
 --- !u!1001 &103863088
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6770,6 +6814,7 @@ GameObject:
   - component: {fileID: 935791852}
   - component: {fileID: 935791851}
   - component: {fileID: 935791850}
+  - component: {fileID: 935791853}
   m_Layer: 5
   m_Name: BotonReanudar
   m_TagString: Untagged
@@ -6891,6 +6936,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 935791848}
   m_CullTransparentMesh: 1
+--- !u!114 &935791853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935791848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f4442274c98474c8518ea4715f5119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScale: 1.06
+  duration: 0.15
+  hoverGlow: {fileID: 0}
+  glowMaxAlpha: 0.6
+  targetImage: {fileID: 935791851}
+  flashColor: {r: 1, g: 0.9, b: 0.5, a: 1}
+  flashDuration: 0.2
+  idSonidoHover: ui_hover
+  sonarHoverConSeleccion: 1
 --- !u!1001 &952997872
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7618,6 +7684,7 @@ GameObject:
   - component: {fileID: 1126028599}
   - component: {fileID: 1126028598}
   - component: {fileID: 1126028597}
+  - component: {fileID: 1126028600}
   m_Layer: 5
   m_Name: MenuButton
   m_TagString: Untagged
@@ -7739,6 +7806,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1126028595}
   m_CullTransparentMesh: 1
+--- !u!114 &1126028600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126028595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f4442274c98474c8518ea4715f5119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScale: 1.06
+  duration: 0.15
+  hoverGlow: {fileID: 0}
+  glowMaxAlpha: 0.6
+  targetImage: {fileID: 1126028598}
+  flashColor: {r: 1, g: 0.9, b: 0.5, a: 1}
+  flashDuration: 0.2
+  idSonidoHover: ui_hover
+  sonarHoverConSeleccion: 1
 --- !u!4 &1129881835 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5253039588846752259, guid: 412c90d18534f364b811662161c30644, type: 3}
@@ -9074,6 +9162,8 @@ MonoBehaviour:
   ejeHorizontal: Horizontal
   ejeVertical: Vertical
   escenaMenu: MAIN
+  idSonidoSeleccion: ui_select
+  idSonidoVolver: ui_back
 --- !u!4 &1346513476
 Transform:
   m_ObjectHideFlags: 0

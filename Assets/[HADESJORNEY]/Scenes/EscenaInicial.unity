@@ -337,6 +337,8 @@ MonoBehaviour:
   ejeHorizontal: Horizontal
   ejeVertical: Vertical
   escenaMenu: MAIN
+  idSonidoSeleccion: ui_select
+  idSonidoVolver: ui_back
 --- !u!4 &46133785
 Transform:
   m_ObjectHideFlags: 0
@@ -3398,6 +3400,7 @@ GameObject:
   - component: {fileID: 802477941}
   - component: {fileID: 802477940}
   - component: {fileID: 802477939}
+  - component: {fileID: 802477942}
   m_Layer: 5
   m_Name: BotonMenu
   m_TagString: Untagged
@@ -3519,6 +3522,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 802477937}
   m_CullTransparentMesh: 1
+--- !u!114 &802477942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802477937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f4442274c98474c8518ea4715f5119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScale: 1.06
+  duration: 0.15
+  hoverGlow: {fileID: 0}
+  glowMaxAlpha: 0.6
+  targetImage: {fileID: 802477940}
+  flashColor: {r: 1, g: 0.9, b: 0.5, a: 1}
+  flashDuration: 0.2
+  idSonidoHover: ui_hover
+  sonarHoverConSeleccion: 1
 --- !u!1001 &826416294
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6838,6 +6862,7 @@ GameObject:
   - component: {fileID: 1613617735}
   - component: {fileID: 1613617734}
   - component: {fileID: 1613617733}
+  - component: {fileID: 1613617736}
   m_Layer: 5
   m_Name: BotonReanudar
   m_TagString: Untagged
@@ -6959,6 +6984,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1613617731}
   m_CullTransparentMesh: 1
+--- !u!114 &1613617736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613617731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f4442274c98474c8518ea4715f5119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScale: 1.06
+  duration: 0.15
+  hoverGlow: {fileID: 0}
+  glowMaxAlpha: 0.6
+  targetImage: {fileID: 1613617734}
+  flashColor: {r: 1, g: 0.9, b: 0.5, a: 1}
+  flashDuration: 0.2
+  idSonidoHover: ui_hover
+  sonarHoverConSeleccion: 1
 --- !u!1001 &1613965926
 PrefabInstance:
   m_ObjectHideFlags: 0
