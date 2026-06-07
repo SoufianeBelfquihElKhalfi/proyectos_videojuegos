@@ -31,6 +31,9 @@ public class SistemaVida : MonoBehaviour
     [Header("Audio vida baja")]
     [SerializeField] private string idSonidoVidaBaja = "vida_baja";
 
+    [Header("Audio daño jugador")]
+    [SerializeField] private string idSonidoRecibirGolpeJugador = "alastor_recibe_golpe";
+
     // Estado
     private int corazonesMitadMaximos;
     private int corazonesMitadActuales;
@@ -58,7 +61,6 @@ public class SistemaVida : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         movimiento = GetComponent<MovimientoAlastor>();
         enemigoDistancia = GetComponent<EnemigoDistancia>();
-
 
         if (usaMuerteEnemigoComun)
         {
@@ -113,6 +115,10 @@ public class SistemaVida : MonoBehaviour
         );
 
         NotificarCambioVida();
+
+        if (esJugador)
+            ReproducirSonidoRecibirGolpeJugador();
+
         ComprobarSonidoVidaBaja();
 
         if (EstaMuerto)
@@ -172,7 +178,20 @@ public class SistemaVida : MonoBehaviour
         DatosGlobales.hayDatosVida = true;
     }
 
-    // ---------- AUDIO VIDA BAJA ----------
+    // ---------- AUDIO ----------
+
+    private void ReproducirSonidoRecibirGolpeJugador()
+    {
+        if (!esJugador) return;
+
+        if (AudioManager.Instance == null)
+        {
+            Debug.LogWarning("No hay AudioManager en la escena.");
+            return;
+        }
+
+        AudioManager.Instance.ReproducirSFX2D(idSonidoRecibirGolpeJugador);
+    }
 
     private void ComprobarSonidoVidaBaja()
     {
@@ -189,6 +208,7 @@ public class SistemaVida : MonoBehaviour
             DetenerSonidoVidaBajaLoop();
         }
     }
+
     private void IniciarSonidoVidaBajaLoop()
     {
         if (AudioManager.Instance == null)
