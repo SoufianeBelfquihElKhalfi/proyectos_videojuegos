@@ -1,9 +1,14 @@
 using UnityEngine;
+using Dapasa.Audio;
 
 public class MenuPrincipal : MonoBehaviour
 {
     public GameObject canvasMenuPrincipal;
     public GameObject canvasOpciones;
+
+    [Header("Audio UI")]
+    [SerializeField] private string idSonidoSeleccion = "ui_select";
+    [SerializeField] private string idSonidoVolver = "ui_back";
 
     private void Start()
     {
@@ -13,6 +18,8 @@ public class MenuPrincipal : MonoBehaviour
 
     public void CargarEscena()
     {
+        ReproducirSonidoUI(idSonidoSeleccion);
+
         ReiniciarPartida();
 
         SceneLoader.Load(
@@ -46,19 +53,39 @@ public class MenuPrincipal : MonoBehaviour
 
     public void AbrirOpciones()
     {
+        ReproducirSonidoUI(idSonidoSeleccion);
+
         canvasMenuPrincipal.SetActive(false);
         canvasOpciones.SetActive(true);
     }
 
     public void VolverAlMenu()
     {
+        ReproducirSonidoUI(idSonidoVolver);
+
         canvasOpciones.SetActive(false);
         canvasMenuPrincipal.SetActive(true);
     }
 
     public void SalirDelJuego()
     {
+        ReproducirSonidoUI(idSonidoSeleccion);
+
         Application.Quit();
         Debug.Log("Saliendo del juego...");
+    }
+
+    private void ReproducirSonidoUI(string idSonido)
+    {
+        if (string.IsNullOrWhiteSpace(idSonido))
+            return;
+
+        if (AudioManager.Instance == null)
+        {
+            Debug.LogWarning($"{name}: no hay AudioManager en la escena.");
+            return;
+        }
+
+        AudioManager.Instance.ReproducirSFX2D(idSonido);
     }
 }

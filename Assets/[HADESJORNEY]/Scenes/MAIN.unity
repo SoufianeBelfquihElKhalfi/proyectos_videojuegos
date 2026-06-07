@@ -964,6 +964,7 @@ GameObject:
   - component: {fileID: 447191839}
   - component: {fileID: 447191838}
   - component: {fileID: 447191837}
+  - component: {fileID: 447191840}
   m_Layer: 5
   m_Name: BotonVolver
   m_TagString: Untagged
@@ -1085,6 +1086,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 447191835}
   m_CullTransparentMesh: 1
+--- !u!114 &447191840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447191835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f4442274c98474c8518ea4715f5119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScale: 1.06
+  duration: 0.15
+  hoverGlow: {fileID: 0}
+  glowMaxAlpha: 0.6
+  targetImage: {fileID: 447191838}
+  flashColor: {r: 1, g: 0.9, b: 0.5, a: 1}
+  flashDuration: 0.2
+  idSonidoHover: ui_hover
+  sonarHoverConSeleccion: 1
 --- !u!1 &511215950
 GameObject:
   m_ObjectHideFlags: 0
@@ -2788,6 +2810,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasMenuPrincipal: {fileID: 1655337965}
   canvasOpciones: {fileID: 142143966}
+  idSonidoSeleccion: ui_select
+  idSonidoVolver: ui_back
 --- !u!114 &1268507765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3358,6 +3382,8 @@ MonoBehaviour:
   targetImage: {fileID: 1448244309}
   flashColor: {r: 1, g: 0.9, b: 0.5, a: 1}
   flashDuration: 0.2
+  idSonidoHover: ui_hover
+  sonarHoverConSeleccion: 1
 --- !u!1 &1461715083
 GameObject:
   m_ObjectHideFlags: 0
@@ -3949,6 +3975,8 @@ MonoBehaviour:
   targetImage: {fileID: 1702969581}
   flashColor: {r: 1, g: 0.9, b: 0.5, a: 1}
   flashDuration: 0.2
+  idSonidoHover: ui_hover
+  sonarHoverConSeleccion: 1
 --- !u!1 &1712618125
 GameObject:
   m_ObjectHideFlags: 0
@@ -4340,6 +4368,8 @@ MonoBehaviour:
   targetImage: {fileID: 1772485695}
   flashColor: {r: 1, g: 0.9, b: 0.5, a: 1}
   flashDuration: 0.2
+  idSonidoHover: ui_hover
+  sonarHoverConSeleccion: 1
 --- !u!1 &1791373397
 GameObject:
   m_ObjectHideFlags: 0

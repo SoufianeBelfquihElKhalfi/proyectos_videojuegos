@@ -1,9 +1,10 @@
+using Dapasa.Audio;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class buttonHoverFx : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class ButtonHoverFx : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, ISelectHandler, IDeselectHandler
 {
     [Header("Hover - escala")]
     [SerializeField] private float hoverScale = 1.06f;
@@ -18,6 +19,10 @@ public class buttonHoverFx : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] private Color flashColor = new Color(1f, 0.9f, 0.5f);
     [SerializeField] private float flashDuration = 0.2f;
 
+    [Header("Sonido UI")]
+    [SerializeField] private string idSonidoHover = "ui_hover";
+    [SerializeField] private bool sonarHoverConSeleccion = true;
+
     private Vector3 baseScale;
     private Coroutine scaleRoutine;
     private Coroutine glowRoutine;
@@ -31,15 +36,14 @@ public class buttonHoverFx : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     }
     private void OnEnable()
     {
-        Debug.Log(gameObject.name + " baseScale = " + baseScale);
         baseScale = transform.localScale;
     }
     // ---------- HOVER ----------
     public void OnPointerEnter(PointerEventData e)
     {
-        Debug.Log("Hover ENTER en " + gameObject.name);
         scaleTo(baseScale * hoverScale);
         glowTo(glowMaxAlpha);
+        ReproducirSonido(idSonidoHover);
     }
 
     public void OnPointerExit(PointerEventData e)
@@ -80,7 +84,7 @@ public class buttonHoverFx : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         float t = 0f;
         while (t < 1f)
         {
-            t += Time.deltaTime / duration;
+            t += Time.unscaledDeltaTime / duration;
             setGlowAlpha(Mathf.Lerp(start, targetAlpha, Mathf.Clamp01(t)));
             yield return null;
         }
@@ -112,14 +116,14 @@ public class buttonHoverFx : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         float t = 0f;
         while (t < 1f)
         {
-            t += Time.deltaTime / (flashDuration * 0.3f);
+            t += Time.unscaledDeltaTime / (flashDuration * 0.3f);
             targetImage.color = Color.Lerp(originalColor, flashColor, Mathf.Clamp01(t));
             yield return null;
         }
         t = 0f;
         while (t < 1f)
         {
-            t += Time.deltaTime / (flashDuration * 0.7f);
+            t += Time.unscaledDeltaTime / (flashDuration * 0.7f);
             targetImage.color = Color.Lerp(flashColor, originalColor, Mathf.Clamp01(t));
             yield return null;
         }
@@ -135,4 +139,35 @@ public class buttonHoverFx : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (hoverGlow != null) setGlowAlpha(0f);
     }
     private static float easeOutQuad(float t) => 1f - (1f - t) * (1f - t);
+
+    public void OnSelect(BaseEventData e)
+    {
+        scaleTo(baseScale * hoverScale);
+        glowTo(glowMaxAlpha);
+
+        if (sonarHoverConSeleccion)
+        {
+            ReproducirSonido(idSonidoHover);
+        }
+    }
+
+    public void OnDeselect(BaseEventData e)
+    {
+        scaleTo(baseScale);
+        glowTo(0f);
+    }
+
+    private void ReproducirSonido(string idSonido)
+    {
+        if (string.IsNullOrWhiteSpace(idSonido))
+            return;
+
+        if (AudioManager.Instance == null)
+        {
+            Debug.LogWarning($"{name}: no hay AudioManager en la escena.");
+            return;
+        }
+
+        AudioManager.Instance.ReproducirSFX2D(idSonido);
+    }
 }

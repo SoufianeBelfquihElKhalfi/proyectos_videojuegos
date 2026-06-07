@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Dapasa.Audio;
 
 public class MuerteJugador : MonoBehaviour
 {
@@ -22,6 +23,10 @@ public class MuerteJugador : MonoBehaviour
         "EscenaCombate02",
         "SalaJefe"
     };
+
+    [Header("Audio UI")]
+    [SerializeField] private string idSonidoSeleccion = "ui_select";
+    [SerializeField] private string idSonidoVolver = "ui_back";
 
     private bool haMuerto = false;
 
@@ -88,6 +93,8 @@ public class MuerteJugador : MonoBehaviour
 
     public void Reintentar()
     {
+        ReproducirSonidoUI(idSonidoSeleccion);
+
         PrepararCambioDeEscena();
 
         string escenaActual = SceneManager.GetActiveScene().name;
@@ -136,6 +143,8 @@ public class MuerteJugador : MonoBehaviour
 
     public void VolverAlMenu()
     {
+        ReproducirSonidoUI(idSonidoVolver);
+
         PrepararCambioDeEscena();
         ReiniciarRunDesdeElPrincipio();
         CargarEscena(escenaMenu, "Volviendo al menu...");
@@ -201,5 +210,19 @@ public class MuerteJugador : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void ReproducirSonidoUI(string idSonido)
+    {
+        if (string.IsNullOrWhiteSpace(idSonido))
+            return;
+
+        if (AudioManager.Instance == null)
+        {
+            Debug.LogWarning($"{name}: no hay AudioManager en la escena.");
+            return;
+        }
+
+        AudioManager.Instance.ReproducirSFX2D(idSonido);
     }
 }

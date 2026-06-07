@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Dapasa.Audio;
 
 public class PausaManager : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class PausaManager : MonoBehaviour
 
     [Header("Escena")]
     public string escenaMenu = "MAIN";
+
+    [Header("Audio UI")]
+    [SerializeField] private string idSonidoSeleccion = "ui_select";
+    [SerializeField] private string idSonidoVolver = "ui_back";
 
     private bool pausaActivo = false;
 
@@ -42,6 +47,11 @@ public class PausaManager : MonoBehaviour
     {
         if (BotonPulsado(botonPausa))
         {
+            if (pausaActivo)
+            {
+                ReproducirSonidoUI(idSonidoVolver);
+            }
+
             ToggleMenu();
             return;
         }
@@ -133,6 +143,8 @@ public class PausaManager : MonoBehaviour
 
     public void Reanudar()
     {
+        ReproducirSonidoUI(idSonidoVolver);
+
         pausaActivo = false;
 
         if (pausa != null)
@@ -147,6 +159,8 @@ public class PausaManager : MonoBehaviour
 
     public void Menu()
     {
+        ReproducirSonidoUI(idSonidoSeleccion);
+
         Time.timeScale = 1f;
         SceneManager.LoadScene(escenaMenu);
     }
@@ -197,5 +211,19 @@ public class PausaManager : MonoBehaviour
         inputModule.verticalAxis = ejeVertical;
         inputModule.submitButton = botonAceptar;
         inputModule.cancelButton = botonCancelar;
+    }
+
+    private void ReproducirSonidoUI(string idSonido)
+    {
+        if (string.IsNullOrWhiteSpace(idSonido))
+            return;
+
+        if (AudioManager.Instance == null)
+        {
+            Debug.LogWarning($"{name}: no hay AudioManager en la escena.");
+            return;
+        }
+
+        AudioManager.Instance.ReproducirSFX2D(idSonido);
     }
 }

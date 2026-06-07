@@ -2985,6 +2985,7 @@ MonoBehaviour:
   grupoSFX: {fileID: -19948470983878636, guid: 099916fb617d9bd479456e30b44bf95d, type: 2}
   fuenteMusica: {fileID: 0}
   fuenteSFX2D: {fileID: 0}
+  fuenteSFXLoop2D: {fileID: 0}
   sonidos:
   - id: EnemigoElectrificado
     clip: {fileID: 8300000, guid: 982e8cb2b1417e54eb97a3a1c3c3a409, type: 3}
@@ -4760,6 +4761,7 @@ GameObject:
   - component: {fileID: 559788756}
   - component: {fileID: 559788755}
   - component: {fileID: 559788754}
+  - component: {fileID: 559788757}
   m_Layer: 5
   m_Name: BotonMenu
   m_TagString: Untagged
@@ -4881,6 +4883,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 559788752}
   m_CullTransparentMesh: 1
+--- !u!114 &559788757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559788752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f4442274c98474c8518ea4715f5119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScale: 1.06
+  duration: 0.15
+  hoverGlow: {fileID: 0}
+  glowMaxAlpha: 0.6
+  targetImage: {fileID: 559788755}
+  flashColor: {r: 1, g: 0.9, b: 0.5, a: 1}
+  flashDuration: 0.2
+  idSonidoHover: ui_hover
+  sonarHoverConSeleccion: 1
 --- !u!1 &562256854
 GameObject:
   m_ObjectHideFlags: 0
@@ -13569,6 +13592,7 @@ GameObject:
   - component: {fileID: 1071314681}
   - component: {fileID: 1071314680}
   - component: {fileID: 1071314679}
+  - component: {fileID: 1071314682}
   m_Layer: 5
   m_Name: RetryButton
   m_TagString: Untagged
@@ -13690,6 +13714,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1071314677}
   m_CullTransparentMesh: 1
+--- !u!114 &1071314682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071314677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f4442274c98474c8518ea4715f5119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScale: 1.06
+  duration: 0.15
+  hoverGlow: {fileID: 0}
+  glowMaxAlpha: 0.6
+  targetImage: {fileID: 1071314680}
+  flashColor: {r: 1, g: 0.9, b: 0.5, a: 1}
+  flashDuration: 0.2
+  idSonidoHover: ui_hover
+  sonarHoverConSeleccion: 1
 --- !u!4 &1080535425 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5253039588846752259, guid: 412c90d18534f364b811662161c30644, type: 3}
@@ -19044,6 +19089,7 @@ GameObject:
   - component: {fileID: 1877042443}
   - component: {fileID: 1877042442}
   - component: {fileID: 1877042441}
+  - component: {fileID: 1877042444}
   m_Layer: 5
   m_Name: BotonReanudar
   m_TagString: Untagged
@@ -19165,6 +19211,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1877042439}
   m_CullTransparentMesh: 1
+--- !u!114 &1877042444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877042439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f4442274c98474c8518ea4715f5119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScale: 1.06
+  duration: 0.15
+  hoverGlow: {fileID: 0}
+  glowMaxAlpha: 0.6
+  targetImage: {fileID: 1877042442}
+  flashColor: {r: 1, g: 0.9, b: 0.5, a: 1}
+  flashDuration: 0.2
+  idSonidoHover: ui_hover
+  sonarHoverConSeleccion: 1
 --- !u!4 &1884427649 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8571752941189831136, guid: bba4f46d9ba5e5143b9c2b06945d6da9, type: 3}
@@ -19437,6 +19504,7 @@ GameObject:
   - component: {fileID: 1941595756}
   - component: {fileID: 1941595755}
   - component: {fileID: 1941595754}
+  - component: {fileID: 1941595757}
   m_Layer: 5
   m_Name: MenuButton
   m_TagString: Untagged
@@ -19558,6 +19626,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1941595752}
   m_CullTransparentMesh: 1
+--- !u!114 &1941595757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941595752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f4442274c98474c8518ea4715f5119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScale: 1.06
+  duration: 0.15
+  hoverGlow: {fileID: 0}
+  glowMaxAlpha: 0.6
+  targetImage: {fileID: 1941595755}
+  flashColor: {r: 1, g: 0.9, b: 0.5, a: 1}
+  flashDuration: 0.2
+  idSonidoHover: ui_hover
+  sonarHoverConSeleccion: 1
 --- !u!1 &1946385769
 GameObject:
   m_ObjectHideFlags: 0
@@ -20198,6 +20287,8 @@ MonoBehaviour:
   ejeHorizontal: Horizontal
   ejeVertical: Vertical
   escenaMenu: MAIN
+  idSonidoSeleccion: ui_select
+  idSonidoVolver: ui_back
 --- !u!4 &2028310486
 Transform:
   m_ObjectHideFlags: 0
