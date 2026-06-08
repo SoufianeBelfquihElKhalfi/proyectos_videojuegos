@@ -50,6 +50,8 @@ public class SistemaVida : MonoBehaviour
 
     private MuerteEnemigoComun muerteEnemigoComun;
 
+    private SonidosEnemigos sonidosEnemigo;
+
     // Propiedades públicas
     public int VidaActual => corazonesMitadActuales;
     public int VidaMaxima => corazonesMitadMaximos;
@@ -69,6 +71,16 @@ public class SistemaVida : MonoBehaviour
             if (muerteEnemigoComun == null)
             {
                 throw new MissingComponentException($"{name} usa muerte de enemigo común, pero no tiene MuerteEnemigoComun.");
+            }
+        }
+
+        if (!esJugador && CompareTag("Enemy"))
+        {
+            sonidosEnemigo = GetComponent<SonidosEnemigos>();
+
+            if (sonidosEnemigo == null)
+            {
+                throw new MissingComponentException($"{name}: es un enemigo, pero no tiene SonidosEnemigo.");
             }
         }
 
@@ -125,6 +137,11 @@ public class SistemaVida : MonoBehaviour
         {
             Morir();
             return;
+        }
+
+        if (!esJugador && sonidosEnemigo != null)
+        {
+            sonidosEnemigo.ReproducirRecibirGolpe();
         }
 
         IniciarParpadeo();
@@ -290,6 +307,11 @@ public class SistemaVida : MonoBehaviour
     private void Morir()
     {
         DetenerSonidoVidaBajaLoop();
+
+        if (!esJugador && sonidosEnemigo != null)
+        {
+            sonidosEnemigo.ReproducirMuerte();
+        }
 
         if (animator != null)
             animator.SetTrigger("Muerte");
