@@ -1,4 +1,6 @@
+using Dapasa.Audio;
 using UnityEngine;
+using Dapasa.Audio;
 
 /* CAMBIOS REALIZADOS:
  * Ya se usa cantidad.
@@ -22,6 +24,9 @@ public class DropAlma : MonoBehaviour
     [SerializeField] private float alturaFlotacion = 0.5f;
     [SerializeField] private float floatAmplitud = 0.15f;
     [SerializeField] private float floatFrecuencia = 2f;
+
+    [Header("Sonido")]
+    [SerializeField] private string idSonidoRecoger = "RecogerAlma";
 
     private Rigidbody rb;
     private Transform jugador;
@@ -109,6 +114,11 @@ public class DropAlma : MonoBehaviour
             case TipoDrop.FragmentoDeAlma:
                 InventarioAlmas.Instancia.AgregarFragmento(cantidad);
                 break;
+        }
+
+        if (AudioManager.Instance != null && !string.IsNullOrEmpty(idSonidoRecoger))
+        {
+            AudioManager.Instance.ReproducirSFX2D(idSonidoRecoger);
         }
 
         Destroy(gameObject);

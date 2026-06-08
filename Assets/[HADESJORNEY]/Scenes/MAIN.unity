@@ -914,7 +914,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   group: 2
-  _testClip: {fileID: 8300000, guid: eb290283771df1547a916af2ebe6a926, type: 3}
+  _testClip: {fileID: 8300000, guid: 25bc754aee9995844824ef73722e79e4, type: 3}
 --- !u!1 &317828123
 GameObject:
   m_ObjectHideFlags: 0
@@ -2426,7 +2426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   group: 0
-  _testClip: {fileID: 8300000, guid: eb290283771df1547a916af2ebe6a926, type: 3}
+  _testClip: {fileID: 8300000, guid: 25bc754aee9995844824ef73722e79e4, type: 3}
 --- !u!114 &1016909851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3086,23 +3086,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.size
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[11].id
-      value: 
+      value: RecogerAlma
       objectReference: {fileID: 0}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[11].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 8f18eaf58b57edc41ab50b8c62d53acf, type: 3}
+      objectReference: {fileID: 8300000, guid: 219090fa8ff095448847e8f0f1b0eb9a, type: 3}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[11].pitch
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[11].volumen
-      value: 1
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 7455499834511146746, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: m_Name
