@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4767513439656271597}
   - component: {fileID: 934917484398135942}
   - component: {fileID: 4432534018472034938}
+  - component: {fileID: 2470377848015005063}
   m_Layer: 6
   m_Name: PF_Enemigo_PortadorIncensario
   m_TagString: Enemy
@@ -125,6 +126,8 @@ MonoBehaviour:
   alCambiarVida:
     m_PersistentCalls:
       m_Calls: []
+  idSonidoVidaBaja: vida_baja
+  idSonidoRecibirGolpeJugador: alastor_recibe_golpe
 --- !u!114 &225849526631632457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +227,22 @@ MonoBehaviour:
   prefabExclamacion: {fileID: 629870405857442683, guid: 907c7f23531e941459e9c64a7d5c7257, type: 3}
   puntoAparicion: {fileID: 986394621675776536}
   duracion: 1
+--- !u!114 &2470377848015005063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588417347952441320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49be8493bf4a4ff4796f07ccf01e4ff9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idAlerta: enemigo_alerta
+  idAtaque: enemigo_ataque
+  idRecibirGolpe: recibir_golpe_enemigo
+  idMuerte: muerte_enemigo
 --- !u!1 &1673987647173703564
 GameObject:
   m_ObjectHideFlags: 0

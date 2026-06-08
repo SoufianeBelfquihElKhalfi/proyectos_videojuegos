@@ -22,6 +22,8 @@ public class Ataque : EstadoFSM
     private bool atacando = false;
     private bool siguienteAtaqueEsCorte = false;
 
+    private SonidosEnemigos sonidosEnemigo;
+
     private void OnEnable()
     {
         var jugador = FindFirstObjectByType<MovimientoAlastor>();
@@ -50,6 +52,16 @@ public class Ataque : EstadoFSM
         {
             agent.isStopped = false;
             agent.updateRotation = false;
+        }
+
+        if (sonidosEnemigo == null)
+        {
+            sonidosEnemigo = GetComponent<SonidosEnemigos>();
+
+            if (sonidosEnemigo == null)
+            {
+                throw new MissingComponentException($"{name}: falta SonidosEnemigo.");
+            }
         }
 
         atacando = false;
@@ -104,6 +116,8 @@ public class Ataque : EstadoFSM
         agent.isStopped = true;
 
         bool usarCorte = alternarAtaques && siguienteAtaqueEsCorte;
+
+        sonidosEnemigo.ReproducirAtaque();
 
         if (animacion != null)
         {
