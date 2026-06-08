@@ -14325,13 +14325,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[2].volumen
-      value: 0.5
+      propertyPath: sonidos.Array.data[11].id
+      value: game_over
       objectReference: {fileID: 0}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[4].volumen
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: sonidos.Array.data[11].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: a413aecab55698b4ead5ff5be7b6334c, type: 3}
     - target: {fileID: 7455499834511146746, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: m_Name
       value: AudioManager

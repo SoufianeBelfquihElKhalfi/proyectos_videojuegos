@@ -34,6 +34,9 @@ public class SistemaVida : MonoBehaviour
     [Header("Audio daño jugador")]
     [SerializeField] private string idSonidoRecibirGolpeJugador = "alastor_recibe_golpe";
 
+    [Header("Audio muerte jugador")]
+    [SerializeField] private string idSonidoMuerteJugador = "game_over";
+
     // Estado
     private int corazonesMitadMaximos;
     private int corazonesMitadActuales;
@@ -193,6 +196,19 @@ public class SistemaVida : MonoBehaviour
         AudioManager.Instance.ReproducirSFX2D(idSonidoRecibirGolpeJugador);
     }
 
+    private void ReproducirSonidoMuerteJugador()
+    {
+        if (!esJugador) return;
+
+        if (AudioManager.Instance == null)
+        {
+            Debug.LogWarning("No hay AudioManager en la escena.");
+            return;
+        }
+
+        AudioManager.Instance.ReproducirSFX2D(idSonidoMuerteJugador);
+    }
+
     private void ComprobarSonidoVidaBaja()
     {
         if (!esJugador) return;
@@ -291,6 +307,9 @@ public class SistemaVida : MonoBehaviour
     {
         DetenerSonidoVidaBajaLoop();
 
+        if (esJugador)
+            ReproducirSonidoMuerteJugador();
+
         if (animator != null)
             animator.SetTrigger("Muerte");
 
@@ -336,12 +355,15 @@ public class SistemaVida : MonoBehaviour
 
     private IEnumerator EsperarMuerte()
     {
+        if (esJugador)
+        {
+            alMorir?.Invoke();
+            yield break;
+        }
+
         yield return new WaitForSeconds(2f);
 
         alMorir?.Invoke();
-
-        if (esJugador)
-            yield break;
 
         yield return DesvanecerYDestruir();
     }

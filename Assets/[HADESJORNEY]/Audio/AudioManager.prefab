@@ -93,7 +93,15 @@ MonoBehaviour:
     volumen: 0.4
     pitch: 1
   - id: alastor_recibe_golpe
-    clip: {fileID: 8300000, guid: 0a2fe4778308c9846879bf6885688f36, type: 3}
+    clip: {fileID: 8300000, guid: 93640b00ac7bd8a4c900760be661a522, type: 3}
+    volumen: 0.5
+    pitch: 1
+  - id: alastor_recibe_golpe
+    clip: {fileID: 8300000, guid: 93640b00ac7bd8a4c900760be661a522, type: 3}
+    volumen: 0.5
+    pitch: 1
+  - id: game_over
+    clip: {fileID: 8300000, guid: a413aecab55698b4ead5ff5be7b6334c, type: 3}
     volumen: 1
     pitch: 1
   distanciaMinima3D: 1
