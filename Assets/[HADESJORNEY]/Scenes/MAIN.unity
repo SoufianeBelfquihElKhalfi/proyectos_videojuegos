@@ -914,8 +914,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   group: 2
-  _testClip: {fileID: 0}
-  _testSource: {fileID: 0}
+  _testClip: {fileID: 8300000, guid: eb290283771df1547a916af2ebe6a926, type: 3}
 --- !u!1 &317828123
 GameObject:
   m_ObjectHideFlags: 0
@@ -2373,7 +2372,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   group: 1
   _testClip: {fileID: 0}
-  _testSource: {fileID: 0}
 --- !u!1 &1016909848
 GameObject:
   m_ObjectHideFlags: 0
@@ -2428,8 +2426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   group: 0
-  _testClip: {fileID: 0}
-  _testSource: {fileID: 0}
+  _testClip: {fileID: 8300000, guid: eb290283771df1547a916af2ebe6a926, type: 3}
 --- !u!114 &1016909851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3086,6 +3083,26 @@ PrefabInstance:
     - target: {fileID: 3797974469099956534, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[11].id
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[11].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8f18eaf58b57edc41ab50b8c62d53acf, type: 3}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[11].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[11].volumen
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7455499834511146746, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: m_Name
