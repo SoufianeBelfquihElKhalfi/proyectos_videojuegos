@@ -53,6 +53,8 @@ public class SistemaVida : MonoBehaviour
 
     private MuerteEnemigoComun muerteEnemigoComun;
 
+    private SonidosEnemigos sonidosEnemigo;
+
     // Propiedades públicas
     public int VidaActual => corazonesMitadActuales;
     public int VidaMaxima => corazonesMitadMaximos;
@@ -72,6 +74,26 @@ public class SistemaVida : MonoBehaviour
             if (muerteEnemigoComun == null)
             {
                 throw new MissingComponentException($"{name} usa muerte de enemigo común, pero no tiene MuerteEnemigoComun.");
+            }
+        }
+
+        if (!esJugador)
+        {
+            sonidosEnemigo = GetComponent<SonidosEnemigos>();
+
+            if (sonidosEnemigo == null)
+            {
+                sonidosEnemigo = GetComponentInParent<SonidosEnemigos>();
+            }
+
+            if (sonidosEnemigo == null)
+            {
+                sonidosEnemigo = GetComponentInChildren<SonidosEnemigos>();
+            }
+
+            if (CompareTag("Enemy") && sonidosEnemigo == null)
+            {
+                throw new MissingComponentException($"{name}: es un enemigo, pero no tiene SonidosEnemigos.");
             }
         }
 
@@ -129,6 +151,8 @@ public class SistemaVida : MonoBehaviour
             Morir();
             return;
         }
+
+        ReproducirSonidoRecibirGolpeEnemigo();
 
         IniciarParpadeo();
 
@@ -239,6 +263,17 @@ public class SistemaVida : MonoBehaviour
             return;
 
         AudioManager.Instance.PararSFXLoop2D(idSonidoVidaBaja);
+    }
+
+    private void ReproducirSonidoRecibirGolpeEnemigo()
+    {
+        if (esJugador)
+            return;
+
+        if (sonidosEnemigo == null)
+            return;
+
+        sonidosEnemigo.ReproducirRecibirGolpe();
     }
 
     // ---------- PARPADEO ----------

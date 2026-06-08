@@ -10,6 +10,18 @@ public class AvisoDeteccionEnemigo : MonoBehaviour
 
     private GameObject avisoActual;
 
+    private SonidosEnemigos sonidosEnemigo;
+
+    private void Awake()
+    {
+        sonidosEnemigo = GetComponentInParent<SonidosEnemigos>();
+
+        if (sonidosEnemigo == null)
+        {
+            throw new MissingComponentException($"{name}: falta SonidosEnemigo en el enemigo padre.");
+        }
+    }
+
     public void Mostrar()
     {
         StartCoroutine(MostrarDuranteDuracion());
@@ -46,6 +58,8 @@ public class AvisoDeteccionEnemigo : MonoBehaviour
 
         avisoActual.transform.localPosition = Vector3.zero;
         avisoActual.transform.localRotation = Quaternion.identity;
+
+        sonidosEnemigo.ReproducirAlerta();
     }
 
     private void OcultarAviso()

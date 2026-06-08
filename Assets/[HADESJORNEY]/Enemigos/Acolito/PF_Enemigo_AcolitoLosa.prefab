@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 8710095951740385529}
   - component: {fileID: 2434691421168828128}
   - component: {fileID: 4931997019506706537}
+  - component: {fileID: 3849826434429938167}
   m_Layer: 6
   m_Name: PF_Enemigo_AcolitoLosa
   m_TagString: Enemy
@@ -131,6 +132,8 @@ MonoBehaviour:
   alCambiarVida:
     m_PersistentCalls:
       m_Calls: []
+  idSonidoVidaBaja: vida_baja
+  idSonidoRecibirGolpeJugador: alastor_recibe_golpe
 --- !u!114 &8073625863292144675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,6 +318,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nombre: {fileID: 11400000, guid: e9670b8bf5e858945a62615a052d01a4, type: 2}
   inicial: 0
+--- !u!114 &3849826434429938167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3264913934933927597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49be8493bf4a4ff4796f07ccf01e4ff9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idAlerta: enemigo_alerta
+  idAtaque: enemigo_ataque
+  idRecibirGolpe: recibir_golpe_enemigo
+  idMuerte: muerte_enemigo
 --- !u!1 &4002025617285446722
 GameObject:
   m_ObjectHideFlags: 0

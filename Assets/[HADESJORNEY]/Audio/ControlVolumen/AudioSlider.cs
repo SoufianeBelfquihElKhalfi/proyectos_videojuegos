@@ -8,35 +8,29 @@ namespace Dapasa.Audio
     public class AudioSlider : MonoBehaviour
     {
         [SerializeField] private AudioGroups group;
-
         [Header("Test")]
         [SerializeField] private AudioClip _testClip;
-        [SerializeField] private AudioSource _testSource;
 
         private Slider _slider;
+        private Coroutine _testCoroutine;
 
         private IEnumerator Start()
         {
             _slider = GetComponent<Slider>();
-
             yield return null;
 
             float value;
-
             switch (group)
             {
                 case AudioGroups.Master:
                     value = DbToLineal(AudioVolumeManager.Instance.MasterVolume);
                     break;
-
                 case AudioGroups.Musica:
                     value = DbToLineal(AudioVolumeManager.Instance.MusicVolume);
                     break;
-
                 case AudioGroups.Sfx:
                     value = DbToLineal(AudioVolumeManager.Instance.SfxVolume);
                     break;
-
                 default:
                     value = 1f;
                     break;
@@ -45,30 +39,38 @@ namespace Dapasa.Audio
             _slider.value = value;
             _slider.onValueChanged.AddListener(ChangeValue);
         }
+
         private void ChangeValue(float value)
         {
             float vol = value == 0 ? -80f : LinealToDb(value);
-
             switch (group)
             {
                 case AudioGroups.Master:
                     AudioVolumeManager.Instance.MasterVolume = vol;
                     break;
-
                 case AudioGroups.Musica:
                     AudioVolumeManager.Instance.MusicVolume = vol;
                     break;
-
                 case AudioGroups.Sfx:
                     AudioVolumeManager.Instance.SfxVolume = vol;
                     break;
             }
+
+            if (_testCoroutine != null) StopCoroutine(_testCoroutine);
+            _testCoroutine = StartCoroutine(TestVolumeDelay());
         }
+
+        private IEnumerator TestVolumeDelay()
+        {
+            yield return new WaitForSeconds(0.3f);
+            TestVolume();
+        }
+
         public void TestVolume()
         {
-            if (_testClip != null && _testSource != null)
+            if (_testClip != null)
             {
-                _testSource.PlayOneShot(_testClip);
+                AudioManager.Instance.ReproducirSFX2D(_testClip);
             }
         }
 
