@@ -74,13 +74,23 @@ public class SistemaVida : MonoBehaviour
             }
         }
 
-        if (!esJugador && CompareTag("Enemy"))
+        if (!esJugador)
         {
             sonidosEnemigo = GetComponent<SonidosEnemigos>();
 
             if (sonidosEnemigo == null)
             {
-                throw new MissingComponentException($"{name}: es un enemigo, pero no tiene SonidosEnemigo.");
+                sonidosEnemigo = GetComponentInParent<SonidosEnemigos>();
+            }
+
+            if (sonidosEnemigo == null)
+            {
+                sonidosEnemigo = GetComponentInChildren<SonidosEnemigos>();
+            }
+
+            if (CompareTag("Enemy") && sonidosEnemigo == null)
+            {
+                throw new MissingComponentException($"{name}: es un enemigo, pero no tiene SonidosEnemigos.");
             }
         }
 
@@ -139,10 +149,7 @@ public class SistemaVida : MonoBehaviour
             return;
         }
 
-        if (!esJugador && sonidosEnemigo != null)
-        {
-            sonidosEnemigo.ReproducirRecibirGolpe();
-        }
+        ReproducirSonidoRecibirGolpeEnemigo();
 
         IniciarParpadeo();
 
@@ -240,6 +247,17 @@ public class SistemaVida : MonoBehaviour
             return;
 
         AudioManager.Instance.PararSFXLoop2D(idSonidoVidaBaja);
+    }
+
+    private void ReproducirSonidoRecibirGolpeEnemigo()
+    {
+        if (esJugador)
+            return;
+
+        if (sonidosEnemigo == null)
+            return;
+
+        sonidosEnemigo.ReproducirRecibirGolpe();
     }
 
     // ---------- PARPADEO ----------
