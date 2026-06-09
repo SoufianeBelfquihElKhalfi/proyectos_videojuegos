@@ -19,9 +19,6 @@ public class MovimientoAlastor : MonoBehaviour
     [SerializeField] private float dashCooldown = 0.5f;
     [SerializeField] private ParticleSystem particulasPisada;
 
-    [Header("Pisadas")]
-    [SerializeField] private float intervaloPisada = 0.3f;
-
     [Header("Audio")]
     [SerializeField] private string idSonidoPisada = "pisada_alastor";
 
@@ -42,10 +39,8 @@ public class MovimientoAlastor : MonoBehaviour
     // Estado interno
     private Vector3 velocidadHorizontal;
     private float velocidadVertical;
-    private float tiempoPisada;
     private float tiempoUltimoDash = -999f;
     private bool isInKnockback = false;
-    private bool estabaMoviendose = false;
 
     private Coroutine dashActivo;
     private Coroutine retrocesoActivo;
@@ -87,7 +82,9 @@ public class MovimientoAlastor : MonoBehaviour
 
         tiempoUltimoDash = Time.time;
 
-        if (dashActivo != null) StopCoroutine(dashActivo);
+        if (dashActivo != null)
+            StopCoroutine(dashActivo);
+
         dashActivo = StartCoroutine(Dash());
     }
 
@@ -101,18 +98,16 @@ public class MovimientoAlastor : MonoBehaviour
             if (anim != null)
                 anim.SetBool("correr", false);
 
-            estabaMoviendose = false;
-            tiempoPisada = 0f;
-
             return;
         }
 
         Vector3 direccionInput = ObtenerDireccionInput();
+
         ActualizarVelocidad(direccionInput);
         AplicarGravedad();
         AplicarMovimiento();
         ActualizarRotacion(direccionInput);
-        ActualizarAnimacionYPisadas(direccionInput);
+        ActualizarAnimacion(direccionInput);
     }
 
     private Vector3 ObtenerDireccionInput()
@@ -165,6 +160,7 @@ public class MovimientoAlastor : MonoBehaviour
     {
         Vector3 movimiento = velocidadHorizontal;
         movimiento.y = velocidadVertical;
+
         cc.Move(movimiento * Time.deltaTime);
     }
 
@@ -181,39 +177,22 @@ public class MovimientoAlastor : MonoBehaviour
         );
     }
 
-    private void ActualizarAnimacionYPisadas(Vector3 direccionInput)
+    private void ActualizarAnimacion(Vector3 direccionInput)
     {
         bool moviendose = direccionInput.magnitude > 0.01f;
 
         if (anim != null)
             anim.SetBool("correr", moviendose);
-
-        if (!moviendose)
-        {
-            tiempoPisada = 0f;
-            estabaMoviendose = false;
-            return;
-        }
-
-        if (!estabaMoviendose)
-        {
-            ReproducirPisada();
-            tiempoPisada = 0f;
-            estabaMoviendose = true;
-            return;
-        }
-
-        tiempoPisada += Time.deltaTime;
-
-        if (tiempoPisada >= intervaloPisada)
-        {
-            ReproducirPisada();
-            tiempoPisada = 0f;
-        }
     }
 
-    private void ReproducirPisada()
+    // Esta función la llamas desde Animation Events en la animación de correr/caminar.
+    public void EventoPisada()
     {
+        if (!movimientoHabilitado) return;
+        if (isDashing || isInKnockback) return;
+        if (velocidadActual <= 0.1f) return;
+        if (!cc.isGrounded) return;
+
         if (particulasPisada != null)
             particulasPisada.Play();
 
@@ -246,6 +225,7 @@ public class MovimientoAlastor : MonoBehaviour
 
             Vector3 movimiento = transform.forward * dashSpeed;
             movimiento.y = velocidadVertical;
+
             cc.Move(movimiento * Time.deltaTime);
 
             yield return null;
@@ -328,5 +308,8 @@ public class MovimientoAlastor : MonoBehaviour
         retrocesoActivo = null;
     }
 
-    public bool EstaMoviendose() => velocidadActual > 0.1f;
+    public bool EstaMoviendose()
+    {
+        return velocidadActual > 0.1f;
+    }
 }

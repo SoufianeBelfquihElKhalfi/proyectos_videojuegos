@@ -69,7 +69,7 @@ MonoBehaviour:
     volumen: 0.5
     pitch: 1
   - id: pisada_alastor
-    clip: {fileID: 8300000, guid: 01742e143595a0a4fa21172ee7d8d86e, type: 3}
+    clip: {fileID: 8300000, guid: ad3cffa2acbd5e941baa1ad5be3f1e82, type: 3}
     volumen: 1
     pitch: 1
   - id: curarse_mercader
