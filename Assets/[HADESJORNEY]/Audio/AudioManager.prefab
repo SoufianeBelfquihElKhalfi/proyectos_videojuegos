@@ -70,7 +70,7 @@ MonoBehaviour:
     pitch: 1
   - id: pisada_alastor
     clip: {fileID: 8300000, guid: ad3cffa2acbd5e941baa1ad5be3f1e82, type: 3}
-    volumen: 1
+    volumen: 0.5
     pitch: 1
   - id: curarse_mercader
     clip: {fileID: 8300000, guid: 3da920a441939554fafdfaee3b9a950a, type: 3}
@@ -96,37 +96,13 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 93640b00ac7bd8a4c900760be661a522, type: 3}
     volumen: 0.5
     pitch: 1
-  - id: alastor_recibe_golpe
-    clip: {fileID: 8300000, guid: 93640b00ac7bd8a4c900760be661a522, type: 3}
-    volumen: 0.5
+  - id: RecogerAlma
+    clip: {fileID: 8300000, guid: 219090fa8ff095448847e8f0f1b0eb9a, type: 3}
+    volumen: 0.3
     pitch: 1
   - id: game_over
     clip: {fileID: 8300000, guid: a413aecab55698b4ead5ff5be7b6334c, type: 3}
-    volumen: 1
-    pitch: 1
-  - id: enemigo_alerta
-    clip: {fileID: 8300000, guid: e744056a291cd304688784cb0bdfe4cc, type: 3}
-    volumen: 1
-    pitch: 1
-  - id: enemigo_ataque
-    clip: {fileID: 8300000, guid: ac9a4c67de24d1e4d90e542e7a12b537, type: 3}
-    volumen: 1
-    pitch: 1
-  - id: golpe_impacto
-    clip: {fileID: 8300000, guid: 2990190d95526ec4587ee898b1ce391a, type: 3}
-    volumen: 1
-    pitch: 1
-  - id: muerte_enemigo
-    clip: {fileID: 8300000, guid: 56fe7fff0a8cbd64b81df989f3b3e3c3, type: 3}
-    volumen: 1
-    pitch: 1
-  - id: recibir_golpe_enemigo
-    clip: {fileID: 8300000, guid: 7ffb0299490325942a5e472ff7a7d1b0, type: 3}
-    volumen: 1
-    pitch: 1
-  - id: proyectil
-    clip: {fileID: 8300000, guid: e67221a248a16854381a099f085be561, type: 3}
-    volumen: 1
+    volumen: 0.5
     pitch: 1
   distanciaMinima3D: 1
   distanciaMaxima3D: 15
