@@ -3003,38 +3003,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.size
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[11].id
-      value: RecogerAlma
-      objectReference: {fileID: 0}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[12].id
-      value: dash
-      objectReference: {fileID: 0}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[11].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 219090fa8ff095448847e8f0f1b0eb9a, type: 3}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[12].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 0ae80a876e2519641aec58febbde502b, type: 3}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[11].pitch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[11].volumen
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[12].volumen
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7455499834511146746, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: m_Name
       value: AudioManager
