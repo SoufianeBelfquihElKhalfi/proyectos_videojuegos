@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Dapasa.Audio;
+using Dapasa.Audio;
 
 [RequireComponent(typeof(CharacterController))]
 public class MovimientoAlastor : MonoBehaviour
@@ -21,6 +22,7 @@ public class MovimientoAlastor : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField] private string idSonidoPisada = "pisada_alastor";
+    [SerializeField] private string idSonidoDash = "dash";
 
     [Header("Animator")]
     public Animator anim;
@@ -215,6 +217,11 @@ public class MovimientoAlastor : MonoBehaviour
 
         if (dash != null)
             dash.Activar();
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.ReproducirSFX2D(idSonidoDash);
+        }
 
         float tiempo = 0f;
 
