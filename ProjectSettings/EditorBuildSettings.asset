@@ -22,13 +22,16 @@ EditorBuildSettings:
     guid: ebc9d220b8f681b46b490059ab41f515
   - enabled: 1
     path: Assets/[HADESJORNEY]/Scenes/EscenaCombate02.unity
-    guid: b5b7fa434abf0e04c8d050ee12ed17aa
+    guid: 179336a15a3b5204a809c4c90aed666a
   - enabled: 1
     path: Assets/[HADESJORNEY]/Scenes/SalaJefe.unity
     guid: 43ca67c91fe53cd4196d0497ad3fdbf8
   - enabled: 0
-    path: Assets/[HADESJORNEY]/Scenes/Sala_Jefe.unity
+    path: Assets/[HADESJORNEY]/Scenes/EscenaCombate02.unity
     guid: 179336a15a3b5204a809c4c90aed666a
+  - enabled: 1
+    path: Assets/[HADESJORNEY]/Scenes/EscenaCreditos.unity
+    guid: b1a13386a4f473d449ecf9b13bbd452e
   - enabled: 0
     path: Assets/Scenes/Escena_1.unity
     guid: ae491b96bdd43524ebd572eeb47f365b
