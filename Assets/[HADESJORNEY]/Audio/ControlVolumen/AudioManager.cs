@@ -53,6 +53,11 @@ namespace Dapasa.Audio
             }
         }
 
+        void Start()
+        {
+            AudioManager.Instance.ReproducirMusica("musica");
+        }
+
         private void Inicializar()
         {
             PrepararFuentes();
