@@ -9266,7 +9266,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7bf83b75144c64347bd0864d0252fa53, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9928bddd285586c49a8bc3e7f0ad58a2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9935,9 +9935,9 @@ MonoBehaviour:
   sistemaVida: {fileID: 823519062}
   prefabCorazon: {fileID: 1327497606}
   contenedorCorazones: {fileID: 1872630608}
-  corazonLleno: {fileID: 21300000, guid: 7bf83b75144c64347bd0864d0252fa53, type: 3}
-  medioCorazon: {fileID: 21300000, guid: cd93449d7a4ba0a46993dd6e87c13800, type: 3}
-  corazonVacio: {fileID: 21300000, guid: 8c9621c4d77ba01458f30128077fa551, type: 3}
+  corazonLleno: {fileID: 21300000, guid: 9928bddd285586c49a8bc3e7f0ad58a2, type: 3}
+  medioCorazon: {fileID: 21300000, guid: 280c3879ee613954ab281fcab47586c2, type: 3}
+  corazonVacio: {fileID: 21300000, guid: aa6342e0fc3f3f348938aa52c40e1f04, type: 3}
   shakeMagnitude: 12
   shakeDuration: 0.3
   punchScale: 1.4
@@ -12423,7 +12423,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e8e005c38776b6f498fec49102193eaa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9e69b3eabf019de4da32533b6162e77e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
