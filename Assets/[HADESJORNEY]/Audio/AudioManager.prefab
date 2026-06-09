@@ -70,7 +70,7 @@ MonoBehaviour:
     pitch: 1
   - id: pisada_alastor
     clip: {fileID: 8300000, guid: ad3cffa2acbd5e941baa1ad5be3f1e82, type: 3}
-    volumen: 1
+    volumen: 0.5
     pitch: 1
   - id: curarse_mercader
     clip: {fileID: 8300000, guid: 3da920a441939554fafdfaee3b9a950a, type: 3}
@@ -99,6 +99,10 @@ MonoBehaviour:
   - id: RecogerAlma
     clip: {fileID: 8300000, guid: 219090fa8ff095448847e8f0f1b0eb9a, type: 3}
     volumen: 0.3
+    pitch: 1
+  - id: game_over
+    clip: {fileID: 8300000, guid: a413aecab55698b4ead5ff5be7b6334c, type: 3}
+    volumen: 0.5
     pitch: 1
   distanciaMinima3D: 1
   distanciaMaxima3D: 15
