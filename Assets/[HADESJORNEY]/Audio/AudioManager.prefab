@@ -70,7 +70,7 @@ MonoBehaviour:
     pitch: 1
   - id: pisada_alastor
     clip: {fileID: 8300000, guid: ad3cffa2acbd5e941baa1ad5be3f1e82, type: 3}
-    volumen: 0.5
+    volumen: 0.3
     pitch: 1
   - id: curarse_mercader
     clip: {fileID: 8300000, guid: 3da920a441939554fafdfaee3b9a950a, type: 3}
@@ -98,14 +98,14 @@ MonoBehaviour:
     pitch: 1
   - id: RecogerAlma
     clip: {fileID: 8300000, guid: 219090fa8ff095448847e8f0f1b0eb9a, type: 3}
-    volumen: 0.3
+    volumen: 0.5
     pitch: 1
   - id: dash
     clip: {fileID: 8300000, guid: 0ae80a876e2519641aec58febbde502b, type: 3}
     volumen: 1
     pitch: 1
   distanciaMinima3D: 1
-  distanciaMaxima3D: 15
+  distanciaMaxima3D: 35
 --- !u!82 &-3115857716586114669
 AudioSource:
   m_ObjectHideFlags: 0
