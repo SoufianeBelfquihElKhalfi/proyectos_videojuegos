@@ -105,7 +105,7 @@ MonoBehaviour:
   usarVidaGuardadaEntreEscenas: 0
   corazonesMaximos: 1
   corazonesMitadIniciales: -1
-  colorParpadeo: {r: 0, g: 0, b: 0, a: 1}
+  colorParpadeo: {r: 1, g: 0, b: 0, a: 1}
   duracionParpadeo: 0.3
   cantidadParpadeos: 3
   alMorir:
@@ -128,6 +128,7 @@ MonoBehaviour:
       m_Calls: []
   idSonidoVidaBaja: vida_baja
   idSonidoRecibirGolpeJugador: alastor_recibe_golpe
+  idSonidoMuerteJugador: game_over
 --- !u!114 &225849526631632457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,6 +212,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   avisoDeteccion: {fileID: 4432534018472034938}
 --- !u!114 &4432534018472034938
 MonoBehaviour:
@@ -243,6 +245,12 @@ MonoBehaviour:
   idAtaque: enemigo_ataque
   idRecibirGolpe: recibir_golpe_enemigo
   idMuerte: muerte_enemigo
+  idPisada: pisada_enemigo
+  pitchMinPisada: 1
+  pitchMaxPisada: 1.15
+  volumenMinPisada: 0.55
+  volumenMaxPisada: 0.85
+  tiempoMinimoEntrePisadas: 0.12
 --- !u!1 &1673987647173703564
 GameObject:
   m_ObjectHideFlags: 0
@@ -5447,6 +5455,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 545f6bec8bdb187488d5f59786b48db6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5972685501483680646}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 545f6bec8bdb187488d5f59786b48db6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8886265891832195616}
   m_SourcePrefab: {fileID: 100100000, guid: 545f6bec8bdb187488d5f59786b48db6, type: 3}
 --- !u!4 &513152482379669304 stripped
 Transform:
@@ -5502,6 +5513,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0710fe76aa0cc4f4c85c46f8e1499993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8886265891832195616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6501041914143102721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe325edcd2e2c4d4087d5cfd4e73ee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocidadMinimaParaPisada: 0.1
 --- !u!1001 &7262532753817079042
 PrefabInstance:
   m_ObjectHideFlags: 0
