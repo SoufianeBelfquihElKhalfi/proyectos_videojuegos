@@ -1,32 +1,112 @@
+using Dapasa.Audio;
 using UnityEngine;
 
 public class ControladorSala : MonoBehaviour
 {
+    [Header("Puerta")]
     [SerializeField] private Animator animatorPuerta;
-    [SerializeField] private SistemaVida[] enemigos;
-    private int enemigosVivos = 0;
+    [SerializeField] private Transform puntoSonidoPuerta;
 
-    void Start()
+    [Header("Enemigos")]
+    [SerializeField] private SistemaVida[] enemigos;
+
+    [Header("Audio")]
+    [SerializeField] private string idSonidoAbrirPuerta = "abrir_puerta";
+
+    private int enemigosVivos;
+    private bool puertaAbierta;
+
+    private void Awake()
     {
-        enemigosVivos = enemigos.Length;
-        foreach (var enemigo in enemigos)
+        ValidarConfiguracion();
+    }
+
+    private void Start()
+    {
+        enemigosVivos = 0;
+
+        foreach (SistemaVida enemigo in enemigos)
         {
-            if (enemigo != null)
-                enemigo.alMorir.AddListener(EnemigoMuerto);
+            if (enemigo == null)
+            {
+                throw new MissingReferenceException($"{name}: hay un enemigo sin asignar en la lista.");
+            }
+
+            if (enemigo.EstaMuerto)
+            {
+                continue;
+            }
+
+            enemigo.alMorir.AddListener(EnemigoMuerto);
+            enemigosVivos++;
+        }
+
+        if (enemigosVivos == 0)
+        {
+            AbrirPuerta();
         }
     }
 
     public void EnemigoMuerto()
     {
+        if (puertaAbierta)
+        {
+            return;
+        }
+
         enemigosVivos--;
+
         Debug.Log("Enemigo muerto. Quedan: " + enemigosVivos);
+
         if (enemigosVivos <= 0)
+        {
             AbrirPuerta();
+        }
     }
 
-    void AbrirPuerta()
+    private void AbrirPuerta()
     {
-        if (animatorPuerta != null)
-            animatorPuerta.SetTrigger("Abrir");
+        if (puertaAbierta)
+        {
+            return;
+        }
+
+        puertaAbierta = true;
+
+        ReproducirSonidoAbrirPuerta();
+
+        animatorPuerta.SetTrigger("Abrir");
+    }
+
+    private void ReproducirSonidoAbrirPuerta()
+    {
+        if (AudioManager.Instance == null)
+        {
+            throw new MissingReferenceException($"{name}: falta AudioManager en la escena.");
+        }
+
+        Vector3 posicionSonido = puntoSonidoPuerta != null
+            ? puntoSonidoPuerta.position
+            : animatorPuerta.transform.position;
+
+        AudioManager.Instance.ReproducirSFX3D(idSonidoAbrirPuerta, posicionSonido);
+    }
+
+    private void ValidarConfiguracion()
+    {
+        if (animatorPuerta == null)
+        {
+            throw new MissingReferenceException($"{name}: falta asignar animatorPuerta.");
+        }
+
+        if (enemigos == null || enemigos.Length == 0)
+        {
+            throw new System.InvalidOperationException($"{name}: la sala no tiene enemigos asignados.");
+        }
+
+        if (string.IsNullOrWhiteSpace(idSonidoAbrirPuerta))
+        {
+            throw new System.InvalidOperationException($"{name}: idSonidoAbrirPuerta está vacío.");
+        }
     }
 }
