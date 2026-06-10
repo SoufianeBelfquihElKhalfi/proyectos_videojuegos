@@ -128,7 +128,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d6befdbc4522be6499f71a90cf7ac3e9, type: 3}
     volumen: 1
     pitch: 1
-  - id: rcibir_golpe_enemigo
+  - id: recibir_golpe_enemigo
     clip: {fileID: 8300000, guid: 7ffb0299490325942a5e472ff7a7d1b0, type: 3}
     volumen: 1
     pitch: 1

@@ -220,6 +220,17 @@ public class SistemaVida : MonoBehaviour
         AudioManager.Instance.ReproducirSFX2D(idSonidoRecibirGolpeJugador);
     }
 
+    private void ReproducirSonidoMuerteEnemigo()
+    {
+        if (esJugador)
+            return;
+
+        if (sonidosEnemigo == null)
+            return;
+
+        sonidosEnemigo.ReproducirMuerte();
+    }
+
     private void ReproducirSonidoMuerteJugador()
     {
         if (!esJugador) return;
@@ -343,7 +354,13 @@ public class SistemaVida : MonoBehaviour
         DetenerSonidoVidaBajaLoop();
 
         if (esJugador)
+        {
             ReproducirSonidoMuerteJugador();
+        }
+        else
+        {
+            ReproducirSonidoMuerteEnemigo();
+        }
 
         if (animator != null)
             animator.SetTrigger("Muerte");
