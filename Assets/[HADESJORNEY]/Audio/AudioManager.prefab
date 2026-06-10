@@ -120,8 +120,16 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 56fe7fff0a8cbd64b81df989f3b3e3c3, type: 3}
     volumen: 1
     pitch: 1
-  - id: muerte_enemigo
-    clip: {fileID: 8300000, guid: 56fe7fff0a8cbd64b81df989f3b3e3c3, type: 3}
+  - id: musica
+    clip: {fileID: 8300000, guid: 4ccd576c0aa3f2e49a330e01b6ac381c, type: 3}
+    volumen: 1
+    pitch: 1
+  - id: abrir_puerta
+    clip: {fileID: 8300000, guid: d6befdbc4522be6499f71a90cf7ac3e9, type: 3}
+    volumen: 1
+    pitch: 1
+  - id: rcibir_golpe_enemigo
+    clip: {fileID: 8300000, guid: 7ffb0299490325942a5e472ff7a7d1b0, type: 3}
     volumen: 1
     pitch: 1
   distanciaMinima3D: 1
