@@ -5352,10 +5352,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8487638878653078037, guid: be86cafcfe5bc6940a271f3d0f297b1a, type: 3}
-      propertyPath: ruta.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8487638878653078037, guid: be86cafcfe5bc6940a271f3d0f297b1a, type: 3}
       propertyPath: 'ruta.Array.data[0]'
       value: 
       objectReference: {fileID: 671578636}
@@ -6651,10 +6647,6 @@ PrefabInstance:
       value: PF_Enemigo_PortadorIncensario
       objectReference: {fileID: 0}
     - target: {fileID: 934917484398135942, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: puntosRuta.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 934917484398135942, guid: 8b64039002b027246930189e5db5a193, type: 3}
       propertyPath: 'puntosRuta.Array.data[0]'
       value: 
       objectReference: {fileID: 1521424118}
@@ -6709,62 +6701,6 @@ PrefabInstance:
     - target: {fileID: 1584909338501983404, guid: 8b64039002b027246930189e5db5a193, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1830006704909261352, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: 'puntosRuta.Array.data[0]'
-      value: 
-      objectReference: {fileID: 1521424118}
-    - target: {fileID: 1830006704909261352, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: 'puntosRuta.Array.data[1]'
-      value: 
-      objectReference: {fileID: 223904527}
-    - target: {fileID: 1830006704909261352, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: 'puntosRuta.Array.data[2]'
-      value: 
-      objectReference: {fileID: 671578636}
-    - target: {fileID: 1830006704909261352, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: 'puntosRuta.Array.data[3]'
-      value: 
-      objectReference: {fileID: 104505255}
-    - target: {fileID: 1835004264168806087, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: m_WarningMessage
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3697238576570648250, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: cadenciaDisparo
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3697238576570648250, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: puntosRuta.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3697238576570648250, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: 'puntosRuta.Array.data[0]'
-      value: 
-      objectReference: {fileID: 1521424118}
-    - target: {fileID: 3697238576570648250, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: 'puntosRuta.Array.data[1]'
-      value: 
-      objectReference: {fileID: 223904527}
-    - target: {fileID: 3697238576570648250, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: 'puntosRuta.Array.data[2]'
-      value: 
-      objectReference: {fileID: 671578636}
-    - target: {fileID: 3697238576570648250, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: 'puntosRuta.Array.data[3]'
-      value: 
-      objectReference: {fileID: 104505255}
-    - target: {fileID: 4759751360084756910, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: colorParpadeo.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759751360084756910, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: colorParpadeo.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759751360084756910, guid: 8b64039002b027246930189e5db5a193, type: 3}
-      propertyPath: colorParpadeo.r
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

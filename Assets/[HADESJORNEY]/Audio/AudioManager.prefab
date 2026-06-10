@@ -77,7 +77,7 @@ MonoBehaviour:
     volumen: 0.3
     pitch: 1
   - id: ambiente
-    clip: {fileID: 8300000, guid: 7dae0574571a96549a93be9b6933f5e7, type: 3}
+    clip: {fileID: 8300000, guid: dc8e45fe1f34ca84a906097d6ac15528, type: 3}
     volumen: 0.3
     pitch: 1
   - id: ui_hover
@@ -131,6 +131,10 @@ MonoBehaviour:
   - id: recibir_golpe_enemigo
     clip: {fileID: 8300000, guid: 7ffb0299490325942a5e472ff7a7d1b0, type: 3}
     volumen: 1
+    pitch: 1
+  - id: pisada_enemigo
+    clip: {fileID: 8300000, guid: 49e1548de804e514a892fef2d9281c34, type: 3}
+    volumen: 0.4
     pitch: 1
   distanciaMinima3D: 1
   distanciaMaxima3D: 35
