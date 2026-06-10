@@ -201,6 +201,26 @@ namespace Dapasa.Audio
             fuenteSFX2D.pitch = 1f;
             fuenteSFX2D.PlayOneShot(clip, volumen);
         }
+        public void ReproducirSFX2DConVariacion(
+        string id,
+        float pitchMin = 0.9f,
+        float pitchMax = 1.1f,
+        float volumenMin = 0.9f,
+        float volumenMax = 1f
+        )
+        {
+            Sonido sonido = ObtenerSonido(id);
+
+            if (sonido == null)
+            return;
+
+            float pitchAleatorio = Random.Range(pitchMin, pitchMax);
+            float volumenAleatorio = Random.Range(volumenMin, volumenMax);
+
+            fuenteSFX2D.pitch = sonido.pitch * pitchAleatorio;
+            fuenteSFX2D.PlayOneShot(sonido.clip, sonido.volumen * volumenAleatorio);
+        }
+
 
         //para los loop
         public void ReproducirSFXLoop2D(string id)

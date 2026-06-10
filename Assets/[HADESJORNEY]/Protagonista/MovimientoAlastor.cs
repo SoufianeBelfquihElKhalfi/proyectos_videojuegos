@@ -15,14 +15,19 @@ public class MovimientoAlastor : MonoBehaviour
     [SerializeField] private float multiplicadorCaida = 1.5f;
 
     [Header("Dash")]
+    [SerializeField] private string idSonidoDash = "dash";
     [SerializeField] private float dashSpeed = 25f;
     [SerializeField] private float dashDuration = 0.3f;
     [SerializeField] private float dashCooldown = 0.5f;
     [SerializeField] private ParticleSystem particulasPisada;
 
-    [Header("Audio")]
+    [Header("Audio Pisadas")]
     [SerializeField] private string idSonidoPisada = "pisada_alastor";
-    [SerializeField] private string idSonidoDash = "dash";
+    [SerializeField] private float pitchMinPisada = 0.92f;
+    [SerializeField] private float pitchMaxPisada = 1.08f;
+    [SerializeField] private float volumenMinPisada = 0.85f;
+    [SerializeField] private float volumenMaxPisada = 1f;
+    [SerializeField] private float tiempoMinimoEntrePisadas = 0.12f;
 
     [Header("Animator")]
     public Animator anim;
@@ -204,7 +209,13 @@ public class MovimientoAlastor : MonoBehaviour
             return;
         }
 
-        AudioManager.Instance.ReproducirSFX2D(idSonidoPisada);
+        AudioManager.Instance.ReproducirSFX2DConVariacion(
+            idSonidoPisada,
+            pitchMinPisada,
+            pitchMaxPisada,
+            volumenMinPisada,
+            volumenMaxPisada
+        );
     }
 
     private IEnumerator Dash()
