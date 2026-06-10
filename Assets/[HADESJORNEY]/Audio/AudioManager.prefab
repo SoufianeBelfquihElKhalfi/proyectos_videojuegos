@@ -132,6 +132,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 7ffb0299490325942a5e472ff7a7d1b0, type: 3}
     volumen: 1
     pitch: 1
+  - id: pisada_enemigo
+    clip: {fileID: 8300000, guid: 49e1548de804e514a892fef2d9281c34, type: 3}
+    volumen: 0.4
+    pitch: 1
   distanciaMinima3D: 1
   distanciaMaxima3D: 35
 --- !u!82 &-3115857716586114669

@@ -315,6 +315,31 @@ namespace Dapasa.Audio
             Destroy(audioGO, duracion + 0.2f);
         }
 
+        public void ReproducirSFX3DConVariacion(
+            string id,
+            Vector3 posicion,
+            float pitchMin = 0.9f,
+            float pitchMax = 1.1f,
+            float volumenMin = 0.9f,
+            float volumenMax = 1f
+        )
+        {
+            Sonido sonido = ObtenerSonido(id);
+
+            if (sonido == null)
+                return;
+
+            float pitchAleatorio = Random.Range(pitchMin, pitchMax);
+            float volumenAleatorio = Random.Range(volumenMin, volumenMax);
+
+            CrearAudio3D(
+                sonido.clip,
+                posicion,
+                sonido.volumen * volumenAleatorio,
+                sonido.pitch * pitchAleatorio
+            );
+        }
+
         // -----------------------------
         // UTILIDAD
         // -----------------------------

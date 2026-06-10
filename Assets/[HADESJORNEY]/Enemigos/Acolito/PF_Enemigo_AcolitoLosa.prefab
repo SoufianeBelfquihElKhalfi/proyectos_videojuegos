@@ -134,6 +134,7 @@ MonoBehaviour:
       m_Calls: []
   idSonidoVidaBaja: vida_baja
   idSonidoRecibirGolpeJugador: alastor_recibe_golpe
+  idSonidoMuerteJugador: game_over
 --- !u!114 &8073625863292144675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,6 +170,7 @@ MonoBehaviour:
   nombre: {fileID: 11400000, guid: a29210d9d3dd0d545b0d0f1fc1e16cae, type: 2}
   inicial: 1
   ruta:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -334,6 +336,12 @@ MonoBehaviour:
   idAtaque: enemigo_ataque
   idRecibirGolpe: recibir_golpe_enemigo
   idMuerte: muerte_enemigo
+  idPisada: pisada_enemigo
+  pitchMinPisada: 0.9
+  pitchMaxPisada: 1.05
+  volumenMinPisada: 0.7
+  volumenMaxPisada: 1
+  tiempoMinimoEntrePisadas: 0.12
 --- !u!1 &4002025617285446722
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,13 +605,34 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -5480977901411583989, guid: 03a7c90861554c4459f360825a604d49, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7324500149303094528}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 03a7c90861554c4459f360825a604d49, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2485820746397137135}
   m_SourcePrefab: {fileID: 100100000, guid: 03a7c90861554c4459f360825a604d49, type: 3}
 --- !u!4 &6354146919334838239 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5480977901411583989, guid: 03a7c90861554c4459f360825a604d49, type: 3}
   m_PrefabInstance: {fileID: 7764717401018517460}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7422135078568721029 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 03a7c90861554c4459f360825a604d49, type: 3}
+  m_PrefabInstance: {fileID: 7764717401018517460}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2485820746397137135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7422135078568721029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe325edcd2e2c4d4087d5cfd4e73ee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocidadMinimaParaPisada: 0.1
 --- !u!4 &7803445314244681791 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 03a7c90861554c4459f360825a604d49, type: 3}
