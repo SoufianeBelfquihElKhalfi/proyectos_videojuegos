@@ -5311,6 +5311,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF_Enemigo_AcolitoLosa
       objectReference: {fileID: 0}
+    - target: {fileID: 4641693284489832636, guid: be86cafcfe5bc6940a271f3d0f297b1a, type: 3}
+      propertyPath: heartFull
+      value: 
+      objectReference: {fileID: 21300000, guid: ab90b3b62e57fcb45b42d29c567c5e30, type: 3}
+    - target: {fileID: 4641693284489832636, guid: be86cafcfe5bc6940a271f3d0f297b1a, type: 3}
+      propertyPath: heartHalf
+      value: 
+      objectReference: {fileID: 21300000, guid: c53f884ff9b9d59428eb493a5fb8d8e5, type: 3}
+    - target: {fileID: 4641693284489832636, guid: be86cafcfe5bc6940a271f3d0f297b1a, type: 3}
+      propertyPath: heartEmpty
+      value: 
+      objectReference: {fileID: 21300000, guid: aa6342e0fc3f3f348938aa52c40e1f04, type: 3}
     - target: {fileID: 4946656260836265796, guid: be86cafcfe5bc6940a271f3d0f297b1a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -35.989212
@@ -6642,6 +6654,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 225849526631632457, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: heartFull
+      value: 
+      objectReference: {fileID: 21300000, guid: ab90b3b62e57fcb45b42d29c567c5e30, type: 3}
+    - target: {fileID: 225849526631632457, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: heartHalf
+      value: 
+      objectReference: {fileID: 21300000, guid: c53f884ff9b9d59428eb493a5fb8d8e5, type: 3}
+    - target: {fileID: 225849526631632457, guid: 8b64039002b027246930189e5db5a193, type: 3}
+      propertyPath: heartEmpty
+      value: 
+      objectReference: {fileID: 21300000, guid: aa6342e0fc3f3f348938aa52c40e1f04, type: 3}
     - target: {fileID: 588417347952441320, guid: 8b64039002b027246930189e5db5a193, type: 3}
       propertyPath: m_Name
       value: PF_Enemigo_PortadorIncensario
@@ -13920,7 +13944,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 33b4ea4063f00854995a27343012dc1f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1b9303a37eea9564e89602ebecdb0159, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
