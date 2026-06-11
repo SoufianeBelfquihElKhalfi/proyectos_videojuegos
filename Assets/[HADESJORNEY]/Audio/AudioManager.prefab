@@ -106,7 +106,7 @@ MonoBehaviour:
     pitch: 1
   - id: proyectil
     clip: {fileID: 8300000, guid: e67221a248a16854381a099f085be561, type: 3}
-    volumen: 1
+    volumen: 0.5
     pitch: 1
   - id: enemigo_alerta
     clip: {fileID: 8300000, guid: e744056a291cd304688784cb0bdfe4cc, type: 3}
@@ -148,6 +148,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a5733b4a1084c8547b726138a4d6d0a8, type: 3}
     volumen: 0.5
     pitch: 1.75
+  - id: game_over
+    clip: {fileID: 8300000, guid: a413aecab55698b4ead5ff5be7b6334c, type: 3}
+    volumen: 1
+    pitch: 1
   distanciaMinima3D: 1
   distanciaMaxima3D: 35
 --- !u!82 &-3115857716586114669
