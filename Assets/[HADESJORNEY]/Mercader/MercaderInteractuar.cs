@@ -46,7 +46,9 @@ public class MercaderInteractuar : MonoBehaviour
     [SerializeField] private string tagJugador = "Player";
 
     [Header("Audio")]
-    [SerializeField] private string idSonidoCurarse = "curarse_mercader";
+    [SerializeField] private string idSonidoCurarse = "curar";
+    [SerializeField] private string idSonidoHablar = "mercaderhablar1";
+    [SerializeField] private string idSonidoNoCompra = "nocompra";
 
     [Header("Tienda")]
     [SerializeField] private GameObject tienda;
@@ -104,7 +106,11 @@ public class MercaderInteractuar : MonoBehaviour
     {
         if (tiendaAbierta)
         {
-            if (BotonPulsado(botonCerrar)) CerrarTienda();
+            if (BotonPulsado(botonCerrar))
+            {
+                ReproducirSonido(idSonidoNoCompra);
+                CerrarTienda();
+            }
             return;
         }
 
@@ -202,6 +208,9 @@ public class MercaderInteractuar : MonoBehaviour
         if (textoInteraccion != null) textoInteraccion.SetActive(false);
         if (bocadillo != null) bocadillo.SetActive(true);
 
+        // REPRODUCIR SONIDO: Al empezar a hablar el mercader
+        ReproducirSonido(idSonidoHablar);
+
         if (grupoBotones != null)
         {
             grupoBotones.alpha = 0f;
@@ -240,7 +249,8 @@ public class MercaderInteractuar : MonoBehaviour
         if (sistemaVidaJugador != null)
         {
             sistemaVidaJugador.Curar(curacionMitadCorazones);
-            ReproducirSonidoCurarse();
+            // REPRODUCIR SONIDO: Al curarse
+            ReproducirSonido(idSonidoCurarse);
         }
         else
         {
@@ -251,15 +261,24 @@ public class MercaderInteractuar : MonoBehaviour
             textoInteraccion.SetActive(true);
     }
 
-    private void ReproducirSonidoCurarse()
+    // Método público para conectarlo desde el OnClick del botón VOLVER de la tienda.
+    public void ReproducirSonidoNoCompra()
+    {
+        ReproducirSonido(idSonidoNoCompra);
+    }
+
+    private void ReproducirSonido(string idSonido)
     {
         if (AudioManager.Instance == null)
         {
-            Debug.LogWarning("No hay AudioManager en la escena.");
+            Debug.LogWarning("No hay AudioManager en la escena para reproducir: " + idSonido);
             return;
         }
 
-        AudioManager.Instance.ReproducirSFX2D(idSonidoCurarse);
+        if (!string.IsNullOrEmpty(idSonido))
+        {
+            AudioManager.Instance.ReproducirSFX2D(idSonido);
+        }
     }
 
     private void OnClickComerciar()
