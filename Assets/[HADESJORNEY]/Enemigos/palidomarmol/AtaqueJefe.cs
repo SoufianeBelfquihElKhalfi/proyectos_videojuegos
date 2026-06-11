@@ -2,6 +2,7 @@ using Enemy.FSM;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using Dapasa.Audio;
 
 public class AtaqueJefe : EstadoFSM
 {
@@ -22,6 +23,12 @@ public class AtaqueJefe : EstadoFSM
     [SerializeField] private float anguloParaGirarEnSitio = 60f;
     [SerializeField] private float anguloFinGiroEnSitio = 15f;
 
+    [Header("Audio")]
+    [SerializeField] private string idSonidoGolpeJefe = "golpe_jefe";
+    [SerializeField] private string idSonidoCaida = "caida";
+    [Tooltip("Segundos ANTES de que el salto toque el suelo a los que suena 'caida'.")]
+    [SerializeField] private float anticipoCaidaSalto = 0.15f;
+
     [Header("Intro caída")]
     [SerializeField] private float alturaInicio = 15f;
     [SerializeField] private float duracionCaida = 2.0f;
@@ -33,6 +40,8 @@ public class AtaqueJefe : EstadoFSM
     private InfligirDanio infligirDanio;
     private Animator animator;
     private Rigidbody rb;
+    private SistemaVida sistemaVida;
+    private bool muerteDetectada = false;
 
     private bool atacando = false;
     private bool introTerminada = false;
@@ -64,6 +73,7 @@ public class AtaqueJefe : EstadoFSM
         infligirDanio = GetComponent<InfligirDanio>();
         animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
+        sistemaVida = GetComponent<SistemaVida>();
 
         if (agent != null)
         {
@@ -91,6 +101,24 @@ public class AtaqueJefe : EstadoFSM
 
     private void Update()
     {
+        // Si SistemaVida marca muerte, dejamos de meter ruido al animator
+        // (sin esto AtaqueJefe seguiría haciendo Play("mazazo") y SetBool
+        // sobre el animator, machacando la transición a "muerte" que dispara
+        // SistemaVida.Morir → la animación de muerte se vería un instante y
+        // el jefe volvería a Idle/caminar).
+        if (sistemaVida != null && sistemaVida.EstaMuerto)
+        {
+            if (!muerteDetectada)
+            {
+                muerteDetectada = true;
+                atacando = true;        // bloquea cualquier ataque en cola
+                StopAllCoroutines();    // corta coroutines de Mazazo/Embestida/Salto en curso
+                ParaAgente();
+                ResetearParametrosMovimiento();
+            }
+            return;
+        }
+
         if (player == null) return;
 
         // intro
@@ -152,6 +180,13 @@ public class AtaqueJefe : EstadoFSM
         }
     }
 
+
+    private void ReproducirSonidoSFX(string id)
+    {
+        if (AudioManager.Instance == null) return;
+        if (string.IsNullOrEmpty(id)) return;
+        AudioManager.Instance.ReproducirSFX2D(id);
+    }
 
     private void ParaAgente()
     {
@@ -340,8 +375,13 @@ public class AtaqueJefe : EstadoFSM
 
         yield return new WaitForSeconds(0.4f);
 
-        if (Vector3.Distance(transform.position, player.position) <= rangoMazazo + 1.0f)
-            if (infligirDanio != null) infligirDanio.IntentarGolpear(player);
+        // golpe_jefe solo si el mazazo conecta de verdad con el jugador.
+        if (Vector3.Distance(transform.position, player.position) <= rangoMazazo + 1.0f
+            && infligirDanio != null
+            && infligirDanio.IntentarGolpear(player))
+        {
+            ReproducirSonidoSFX(idSonidoGolpeJefe);
+        }
 
         yield return new WaitForSeconds(0.8f);
         FinAtaque();
@@ -370,6 +410,7 @@ public class AtaqueJefe : EstadoFSM
         float t = 0f;
         float duracionCarga = 0.6f;
         float velocidadCarga = 18f;
+        bool golpeEmbestidaSonado = false;
 
         while (t < duracionCarga)
         {
@@ -379,7 +420,13 @@ public class AtaqueJefe : EstadoFSM
             else
                 transform.Translate(paso, Space.World);
 
-            AplicarDañoSiCerca(2.5f);
+            // Solo el primer impacto del dash dispara golpe_jefe.
+            if (AplicarDañoSiCerca(2.5f) && !golpeEmbestidaSonado)
+            {
+                golpeEmbestidaSonado = true;
+                ReproducirSonidoSFX(idSonidoGolpeJefe);
+            }
+
             t += Time.deltaTime;
             yield return null;
         }
@@ -424,6 +471,8 @@ public class AtaqueJefe : EstadoFSM
         float duracionSalto = 1.2f;
         float alturaArco = 6f;
 
+        bool caidaSaltoSonada = false;
+
         while (t < duracionSalto)
         {
             t += Time.deltaTime;
@@ -436,10 +485,19 @@ public class AtaqueJefe : EstadoFSM
             if (dirVuelo.sqrMagnitude > 0.01f)
                 transform.rotation = Quaternion.LookRotation(dirVuelo.normalized) * OffsetModelo;
 
+            // "caida" suena un poco ANTES del aterrizaje, así llega justo en el impacto.
+            if (!caidaSaltoSonada && t >= duracionSalto - anticipoCaidaSalto)
+            {
+                caidaSaltoSonada = true;
+                ReproducirSonidoSFX(idSonidoCaida);
+            }
+
             yield return null;
         }
 
         transform.position = new Vector3(destino.x, inicio.y, destino.z);
+
+        if (!caidaSaltoSonada) ReproducirSonidoSFX(idSonidoCaida);
 
         if (agent != null)
         {
@@ -459,11 +517,11 @@ public class AtaqueJefe : EstadoFSM
         FinAtaque();
     }
 
-    private void AplicarDañoSiCerca(float radio)
+    private bool AplicarDañoSiCerca(float radio)
     {
-        if (player == null || infligirDanio == null) return;
-        if (Vector3.Distance(transform.position, player.position) <= radio)
-            infligirDanio.IntentarGolpear(player);
+        if (player == null || infligirDanio == null) return false;
+        if (Vector3.Distance(transform.position, player.position) > radio) return false;
+        return infligirDanio.IntentarGolpear(player);
     }
 
     private void OndaChoque(float radio)

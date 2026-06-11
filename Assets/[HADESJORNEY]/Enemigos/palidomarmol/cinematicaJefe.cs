@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 using System.Collections;
+using Dapasa.Audio;
 
 
 public class cinematicaJefe : MonoBehaviour
@@ -24,6 +25,16 @@ public class cinematicaJefe : MonoBehaviour
     [Header("Shake del impacto")]
     [SerializeField] private float duracionShake = 0.3f;
     [SerializeField] private float fuerzaShake = 0.2f;
+
+    [Header("Audio del impacto")]
+    [SerializeField] private string idSonidoCaida = "caida";
+    [SerializeField] private string idSonidoGrunido = "caida_grunido";
+
+    // Estos timings los fijamos AQUÍ en el script para que sean la única fuente
+    // de verdad. No son [SerializeField] a propósito: el Inspector NO los toca,
+    // ni el .unity puede tener overrides. Si quieres cambiarlos, edítalos aquí.
+    private const float ANTICIPO_CAIDA   = 0.25f;
+    private const float RETRASO_GRUNIDO  = 1f;
 
     [Header("Tiempos")]
     [SerializeField] private float esperaAntesDeCaer = 0f;
@@ -98,6 +109,7 @@ public class cinematicaJefe : MonoBehaviour
         Vector3 inicio = jefeEnEscena.transform.position;
         Vector3 destino = puntoAterrizaje.position;
         float tiempo = 0f;
+        bool caidaSonada = false;
 
         while (tiempo < duracionCaida)
         {
@@ -105,15 +117,32 @@ public class cinematicaJefe : MonoBehaviour
             float t = tiempo / duracionCaida;
             t = t * t;
             jefeEnEscena.transform.position = Vector3.Lerp(inicio, destino, t);
+
+            // Cuando estamos a ANTICIPO_CAIDA segundos del aterrizaje, suena "caida".
+            if (!caidaSonada && tiempo >= duracionCaida - ANTICIPO_CAIDA)
+            {
+                caidaSonada = true;
+                if (AudioManager.Instance != null && !string.IsNullOrEmpty(idSonidoCaida))
+                    AudioManager.Instance.ReproducirSFX2D(idSonidoCaida);
+            }
+
             yield return null;
         }
 
         jefeEnEscena.transform.position = destino;
 
+        // Por si ANTICIPO_CAIDA era mayor que la duración total, garantizamos
+        // que el sonido suena al menos al aterrizar.
+        if (!caidaSonada && AudioManager.Instance != null && !string.IsNullOrEmpty(idSonidoCaida))
+            AudioManager.Instance.ReproducirSFX2D(idSonidoCaida);
+
         // Restauramos la velocidad del animator para el resto del combate.
         if (animJefe != null) animJefe.speed = 1f;
 
-        // 8. Impacto: part�culas + shake
+        // 8. Impacto: el "caida_grunido" entra con un pequeño retraso desde aquí
+        // (lo programamos sin bloquear el resto del flujo).
+        StartCoroutine(ReproducirGrunidoConRetraso());
+
         if (particulasImpacto != null)
             Instantiate(particulasImpacto, destino, Quaternion.identity);
 
@@ -164,6 +193,15 @@ public class cinematicaJefe : MonoBehaviour
             yield return null;
         }
         fadeNegro.alpha = hasta;
+    }
+
+    private IEnumerator ReproducirGrunidoConRetraso()
+    {
+        if (RETRASO_GRUNIDO > 0f)
+            yield return new WaitForSeconds(RETRASO_GRUNIDO);
+
+        if (AudioManager.Instance != null && !string.IsNullOrEmpty(idSonidoGrunido))
+            AudioManager.Instance.ReproducirSFX2D(idSonidoGrunido);
     }
 
     private float ObtenerDuracionClip(Animator anim, string nombre)
