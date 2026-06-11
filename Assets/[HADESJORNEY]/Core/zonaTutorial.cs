@@ -17,20 +17,42 @@ public class zonaTutorial : MonoBehaviour
     [SerializeField] private float duracionEnPantalla = 4f;
     [SerializeField] private float duracionFade = 0.3f;
 
+    private static zonaTutorial tutorialActivo;
+
     private bool mostrado = false;
     private Coroutine rutinaActiva;
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
+
+        MostrarMensajeManual();
+    }
+
+    public void MostrarMensajeManual()
+    {
         if (mostrarUnaVez && mostrado) return;
 
-        if (rutinaActiva != null) StopCoroutine(rutinaActiva);
-        rutinaActiva = StartCoroutine(MostrarMensaje());
+        if (tutorialActivo != null && tutorialActivo != this)
+            tutorialActivo.DetenerRutinaActiva();
+
+        if (rutinaActiva != null)
+            StopCoroutine(rutinaActiva);
+
+        tutorialActivo = this;
+        rutinaActiva = StartCoroutine(RutinaMostrarMensaje());
         mostrado = true;
     }
 
-    private IEnumerator MostrarMensaje()
+    private void DetenerRutinaActiva()
+    {
+        if (rutinaActiva != null)
+            StopCoroutine(rutinaActiva);
+
+        rutinaActiva = null;
+    }
+
+    private IEnumerator RutinaMostrarMensaje()
     {
         texto.text = mensaje;
         panelTexto.SetActive(true);
@@ -38,36 +60,42 @@ public class zonaTutorial : MonoBehaviour
         CanvasGroup grupo = ObtenerCanvasGroup();
         grupo.alpha = 0f;
 
-        // Fade in
         yield return Fade(grupo, 0f, 1f);
 
-        // Mantener en pantalla
         yield return new WaitForSeconds(duracionEnPantalla);
 
-        // Fade out
         yield return Fade(grupo, 1f, 0f);
 
-        panelTexto.SetActive(false);
+        if (tutorialActivo == this)
+        {
+            panelTexto.SetActive(false);
+            tutorialActivo = null;
+        }
+
         rutinaActiva = null;
     }
 
     private IEnumerator Fade(CanvasGroup grupo, float desde, float hasta)
     {
         float tiempo = 0f;
+
         while (tiempo < duracionFade)
         {
             tiempo += Time.deltaTime;
             grupo.alpha = Mathf.Lerp(desde, hasta, tiempo / duracionFade);
             yield return null;
         }
+
         grupo.alpha = hasta;
     }
 
     private CanvasGroup ObtenerCanvasGroup()
     {
         CanvasGroup grupo = panelTexto.GetComponent<CanvasGroup>();
+
         if (grupo == null)
             grupo = panelTexto.AddComponent<CanvasGroup>();
+
         return grupo;
     }
 }

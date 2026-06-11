@@ -3823,6 +3823,56 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e680c94739b8f7147a02935ea1e9eb35, type: 3}
+--- !u!1 &965347652
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 965347654}
+  - component: {fileID: 965347653}
+  m_Layer: 0
+  m_Name: TutorialArgos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &965347653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965347652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e623c753a44079498badf4ddd7bd7c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelTexto: {fileID: 969319400}
+  texto: {fileID: 1912163439}
+  mensaje: Argos puede ayudarte en combate. Pulsa [E / Y] para activar Hijo del Rayo.
+  mostrarUnaVez: 1
+  duracionEnPantalla: 5
+  duracionFade: 0.3
+--- !u!4 &965347654
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965347652}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &969319400 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6704255727801238466, guid: e6d3cca014d84d646890528d2512b139, type: 3}
@@ -4472,6 +4522,34 @@ PrefabInstance:
     - target: {fileID: 2026779307265970977, guid: 61c703b1271a62c49a772563f31521e5, type: 3}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3197326231246582908, guid: 61c703b1271a62c49a772563f31521e5, type: 3}
+      propertyPath: alSerGolpeadoPorPrimeraVez.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3197326231246582908, guid: 61c703b1271a62c49a772563f31521e5, type: 3}
+      propertyPath: alSerGolpeadoPorPrimeraVez.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3197326231246582908, guid: 61c703b1271a62c49a772563f31521e5, type: 3}
+      propertyPath: alSerGolpeadoPorPrimeraVez.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 965347653}
+    - target: {fileID: 3197326231246582908, guid: 61c703b1271a62c49a772563f31521e5, type: 3}
+      propertyPath: alSerGolpeadoPorPrimeraVez.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3197326231246582908, guid: 61c703b1271a62c49a772563f31521e5, type: 3}
+      propertyPath: alSerGolpeadoPorPrimeraVez.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MostrarMensajeManual
+      objectReference: {fileID: 0}
+    - target: {fileID: 3197326231246582908, guid: 61c703b1271a62c49a772563f31521e5, type: 3}
+      propertyPath: alSerGolpeadoPorPrimeraVez.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: zonaTutorial, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3197326231246582908, guid: 61c703b1271a62c49a772563f31521e5, type: 3}
+      propertyPath: alSerGolpeadoPorPrimeraVez.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6633513567103756663, guid: 61c703b1271a62c49a772563f31521e5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5275,8 +5353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelTexto: {fileID: 969319400}
   texto: {fileID: 1912163439}
-  mensaje: Golpea con clic izquierdo. Tres golpes encadenados completan tu combo.
-    el Hades no perdona a los lentos
+  mensaje: "Golpea al maniqu\xED con [Clic izquierdo / X]."
   mostrarUnaVez: 1
   duracionEnPantalla: 5
   duracionFade: 0.3
@@ -8768,7 +8845,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6273459691086065524, guid: 1a1faeb2465c9b941a11391b6e94a1a0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9331,7 +9408,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelTexto: {fileID: 969319400}
   texto: {fileID: 1912163439}
-  mensaje: Avanza con WASD. Esquiva con ESPACIO. El Hades no perdona a los lentos.
+  mensaje: Avanza con [WASD / Stick Izquierdo] y squiva con [Espacio / B]. El Hades
+    no perdona a los lentos.
   mostrarUnaVez: 1
   duracionEnPantalla: 5
   duracionFade: 0.3
@@ -9876,6 +9954,7 @@ SceneRoots:
   - {fileID: 1730401910}
   - {fileID: 2105807665}
   - {fileID: 1266180969}
+  - {fileID: 965347654}
   - {fileID: 5152226895048574480}
   - {fileID: 1568505991}
   - {fileID: 1968041933}

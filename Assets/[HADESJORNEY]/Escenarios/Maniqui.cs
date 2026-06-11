@@ -1,11 +1,16 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Maniqui : MonoBehaviour
 {
+    [Header("Eventos")]
+    [SerializeField] private UnityEvent alSerGolpeadoPorPrimeraVez = new UnityEvent();
+
     private Animator animator;
     private bool golpeando = false;
+    private bool primerGolpeRegistrado = false;
 
-    void Start()
+    private void Start()
     {
         animator = GetComponentInChildren<Animator>();
     }
@@ -13,9 +18,14 @@ public class Maniqui : MonoBehaviour
     public void RecibirDanio()
     {
         if (golpeando) return;
+
         golpeando = true;
 
-        Debug.Log("Animacion activada");
+        if (!primerGolpeRegistrado)
+        {
+            primerGolpeRegistrado = true;
+            alSerGolpeadoPorPrimeraVez.Invoke();
+        }
 
         if (animator != null)
             animator.SetTrigger("Hit");
