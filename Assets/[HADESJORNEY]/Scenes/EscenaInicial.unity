@@ -339,6 +339,7 @@ MonoBehaviour:
   botonAceptar: Submit
   ejeHorizontal: Horizontal
   ejeVertical: Vertical
+  teclaPausaWebGL: 112
   escenaMenu: MAIN
   idSonidoSeleccion: ui_select
   idSonidoVolver: ui_back
