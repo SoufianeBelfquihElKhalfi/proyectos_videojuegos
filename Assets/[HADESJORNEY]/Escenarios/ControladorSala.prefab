@@ -45,3 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animatorPuerta: {fileID: 4651645870680363498, guid: c3eda70072f00314fab86fd3928fc476, type: 3}
+  puntoSonidoPuerta: {fileID: 0}
+  enemigos: []
+  idSonidoAbrirPuerta: abrir_puerta
+  idMusicaPatrulla: ambiente

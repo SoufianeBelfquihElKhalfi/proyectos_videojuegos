@@ -214,6 +214,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   avisoDeteccion: {fileID: 4432534018472034938}
+  idMusicaDeteccion: combate
+  idMusicaPatrulla: ambiente
 --- !u!114 &4432534018472034938
 MonoBehaviour:
   m_ObjectHideFlags: 0
