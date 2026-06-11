@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 1922654829058931504}
   - component: {fileID: -3655118003531589829}
   - component: {fileID: -5731424577370190139}
+  - component: {fileID: 7766554433221100998}
   m_Layer: 6
   m_Name: EnemigoJefe
   m_TagString: Enemy
@@ -237,6 +238,28 @@ MonoBehaviour:
   hacerIntro: 1
   estadoPerseguir: {fileID: 3871358505971979066}
   offsetModeloY: 0
+--- !u!114 &7766554433221100998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5366638020437931414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49be8493bf4a4ff4796f07ccf01e4ff9, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  idAlerta: enemigo_alerta
+  idAtaque: enemigo_ataque
+  idRecibirGolpe: recibir_golpe_enemigo
+  idMuerte: muerte
+  idPisada: pisada_enemigo
+  pitchMinPisada: 0.92
+  pitchMaxPisada: 1.08
+  volumenMinPisada: 0.75
+  volumenMaxPisada: 1
+  tiempoMinimoEntrePisadas: 0.12
 --- !u!1001 &7903771901030123249
 PrefabInstance:
   m_ObjectHideFlags: 0
