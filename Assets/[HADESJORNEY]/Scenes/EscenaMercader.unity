@@ -3313,9 +3313,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pausa: {fileID: 1463341759}
   primerBotonPausa: {fileID: 718723203}
-  panelMenuPausa: {fileID: 7230137976941675686}
+  panelMenuPausa: {fileID: 7230137976941675684}
   panelOpciones: {fileID: 7230137976941675685}
-  primerControlOpciones: {fileID: 7230137976941675684}
+  primerControlOpciones: {fileID: 7230137976941675686}
   botonPausa: Pausa
   botonCancelar: Cancel
   botonAceptar: Submit
@@ -5685,7 +5685,6 @@ MonoBehaviour:
   mensajeMercader: "\xBFQu\xE9 deseas, querido Alastor?"
   mensajeMercaderSegundo: "\xBFEst\xE1s herido o quieres comprar algo?"
   mensajeCuracion: "Ten m\xE1s cuidado la pr\xF3xima."
-  mensajeCompra: '-'
   mensajeSinCompra: Mucho mirar y poco comprar.
   botonCurarse: {fileID: 606496958}
   botonComerciar: {fileID: 1773807222}
@@ -5694,7 +5693,6 @@ MonoBehaviour:
   idSonidoHablarPrimero: mercaderhablar1
   idSonidoHablarSegundo: mercaderhablar2
   idSonidoCurarse: curar
-  idSonidoCompra: mercadercompra
   idSonidoSalirSinComprar: salir_sin_comprar
   tienda: {fileID: 39600727}
   botonInteractuar: Submit
@@ -15904,6 +15902,27 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 497c69f9996807f4b97d28413a8a1afd, type: 3}
+--- !u!1 &7230137976941675684 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2899634062097723658, guid: 497c69f9996807f4b97d28413a8a1afd, type: 3}
+  m_PrefabInstance: {fileID: 7230137976941675683}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7230137976941675685 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 561189254117825518, guid: 497c69f9996807f4b97d28413a8a1afd, type: 3}
+  m_PrefabInstance: {fileID: 7230137976941675683}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7230137976941675686 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4078363462781934951, guid: 497c69f9996807f4b97d28413a8a1afd, type: 3}
+  m_PrefabInstance: {fileID: 7230137976941675683}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7427351860099552362
 RectTransform:
   m_ObjectHideFlags: 0
