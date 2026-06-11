@@ -54,7 +54,7 @@ MonoBehaviour:
   sonidos:
   - id: EnemigoElectrificado
     clip: {fileID: 8300000, guid: 982e8cb2b1417e54eb97a3a1c3c3a409, type: 3}
-    volumen: 1
+    volumen: 0.6
     pitch: 3
   - id: vida_baja
     clip: {fileID: 8300000, guid: b9e6ff91ba29b4845b194363ed7a06af, type: 3}
@@ -134,9 +134,9 @@ MonoBehaviour:
     pitch: 1
   - id: pisada_enemigo
     clip: {fileID: 8300000, guid: 49e1548de804e514a892fef2d9281c34, type: 3}
-    volumen: 0.4
+    volumen: 0.5
     pitch: 1
-  - id: mercaderhablar
+  - id: mercaderhablar1
     clip: {fileID: 8300000, guid: 890f82452f7c4124c87d74d208fb28d2, type: 3}
     volumen: 0.5
     pitch: 1.75
@@ -144,18 +144,18 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: b2e110defeecbc847a154f163fa929ee, type: 3}
     volumen: 0.5
     pitch: 1.75
-  - id: nocompra
-    clip: {fileID: 8300000, guid: a5733b4a1084c8547b726138a4d6d0a8, type: 3}
-    volumen: 0.5
+  - id: error_compra
+    clip: {fileID: 8300000, guid: 2a3576c06afacc440be2831b9a4efba6, type: 3}
+    volumen: 0.712
     pitch: 1.75
-  - id: game_over
-    clip: {fileID: 8300000, guid: a413aecab55698b4ead5ff5be7b6334c, type: 3}
+  - id: CompraExitosa
+    clip: {fileID: 8300000, guid: 79edd20cfee74c3448662b4f9da27ca9, type: 3}
+    volumen: 0.722
+    pitch: 1.75
+  - id: HijoDelRayo
+    clip: {fileID: 8300000, guid: b42c0e74445383943adbe65c0ef4e17a, type: 3}
     volumen: 1
-    pitch: 1
-  - id: musica_mercader
-    clip: {fileID: 8300000, guid: f1207fbc027580f488da0c21a7f5b7d9, type: 3}
-    volumen: 1
-    pitch: 1
+    pitch: 1.75
   - id: caida
     clip: {fileID: 8300000, guid: 508fd4bb04f1ed343a92888e71017079, type: 3}
     volumen: 1
@@ -172,10 +172,14 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: ddaa00c8b85507d49b601f3f11f68c0d, type: 3}
     volumen: 1
     pitch: 1
-  - id: combate
-    clip: {fileID: 8300000, guid: 3f550783d95365847900438f2953d501, type: 3}
+  - id: mercaderhablar2
+    clip: {fileID: 8300000, guid: bde8d71e818ed8249b1a85173f8ad905, type: 3}
     volumen: 1
-    pitch: 1
+    pitch: 1.75
+  - id: salir_sin_comprar
+    clip: {fileID: 8300000, guid: a5733b4a1084c8547b726138a4d6d0a8, type: 3}
+    volumen: 1
+    pitch: 1.75
   distanciaMinima3D: 1
   distanciaMaxima3D: 35
 --- !u!82 &-3115857716586114669

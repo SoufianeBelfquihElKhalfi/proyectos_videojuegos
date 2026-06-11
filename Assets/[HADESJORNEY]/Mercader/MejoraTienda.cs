@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -20,32 +19,52 @@ public class MejoraTienda : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textoPrecio;
     [SerializeField] private Button botonComprar;
 
-    [Header("Audio")]
-    [SerializeField] private string idSonidoCompraExitosa = "CompraExitosa";
-    [SerializeField] private string idSonidoNoCompra = "nocompra";
+    [Header("Mercader")]
+    [SerializeField] private MercaderInteractuar mercaderInteractuar;
 
-    private readonly Color colorDisponible = Color.white;
-    private readonly Color colorNoDisponible = Color.red;
+    [Header("Audio")]
+    [SerializeField]
+    private string idSonidoCompraExitosa =
+        "CompraExitosa";
+
+    [SerializeField]
+    private string idSonidoErrorCompra =
+        "error_compra";
+
+    private readonly Color colorDisponible =
+        Color.white;
+
+    private readonly Color colorNoDisponible =
+        Color.red;
 
     private void Start()
     {
         if (botonComprar != null)
         {
-            botonComprar.onClick.AddListener(Comprar);
+            botonComprar.onClick.AddListener(
+                Comprar
+            );
         }
         else
         {
             Debug.LogWarning(
-                "MejoraTienda: no se ha asignado el botón de compra.",
+                "MejoraTienda: no se ha asignado " +
+                "el botón de compra.",
                 this
             );
         }
 
+        if (mercaderInteractuar == null)
+        {
+            mercaderInteractuar =
+                FindFirstObjectByType<MercaderInteractuar>();
+        }
+
         if (InventarioAlmas.Instancia != null)
         {
-            InventarioAlmas.Instancia.OnAlmasCambiaron.AddListener(
-                AlCambiarAlmas
-            );
+            InventarioAlmas.Instancia
+                .OnAlmasCambiaron
+                .AddListener(AlCambiarAlmas);
         }
 
         ActualizarEstado();
@@ -55,14 +74,16 @@ public class MejoraTienda : MonoBehaviour
     {
         if (botonComprar != null)
         {
-            botonComprar.onClick.RemoveListener(Comprar);
+            botonComprar.onClick.RemoveListener(
+                Comprar
+            );
         }
 
         if (InventarioAlmas.Instancia != null)
         {
-            InventarioAlmas.Instancia.OnAlmasCambiaron.RemoveListener(
-                AlCambiarAlmas
-            );
+            InventarioAlmas.Instancia
+                .OnAlmasCambiaron
+                .RemoveListener(AlCambiarAlmas);
         }
     }
 
@@ -82,14 +103,8 @@ public class MejoraTienda : MonoBehaviour
                 : colorNoDisponible;
         }
 
-        /*
-         * El botón debe seguir activo aunque falten almas.
-         * De esta forma se puede pulsar y reproducir "nocompra".
-         */
         if (botonComprar != null)
-        {
             botonComprar.interactable = true;
-        }
     }
 
     private bool TieneAlmasSuficientes()
@@ -101,17 +116,19 @@ public class MejoraTienda : MonoBehaviour
     private bool MejoraDisponible()
     {
         if (EstadisticasJugador.Instancia == null)
-        {
             return false;
-        }
 
         switch (tipoMejora)
         {
             case TipoMejora.GranadaPersefone:
-                return EstadisticasJugador.Instancia.PuedeMejorarVida();
+                return EstadisticasJugador
+                    .Instancia
+                    .PuedeMejorarVida();
 
             case TipoMejora.SalAres:
-                return EstadisticasJugador.Instancia.PuedeMejorarDanio();
+                return EstadisticasJugador
+                    .Instancia
+                    .PuedeMejorarDanio();
 
             default:
                 return false;
@@ -120,7 +137,8 @@ public class MejoraTienda : MonoBehaviour
 
     private bool PuedeComprar()
     {
-        return TieneAlmasSuficientes() && MejoraDisponible();
+        return TieneAlmasSuficientes() &&
+               MejoraDisponible();
     }
 
     public void Comprar()
@@ -128,7 +146,8 @@ public class MejoraTienda : MonoBehaviour
         if (InventarioAlmas.Instancia == null)
         {
             Debug.LogWarning(
-                "MejoraTienda: no se ha encontrado InventarioAlmas.",
+                "MejoraTienda: no se ha encontrado " +
+                "InventarioAlmas.",
                 this
             );
 
@@ -138,43 +157,57 @@ public class MejoraTienda : MonoBehaviour
         if (EstadisticasJugador.Instancia == null)
         {
             Debug.LogWarning(
-                "MejoraTienda: no se ha encontrado EstadisticasJugador.",
+                "MejoraTienda: no se ha encontrado " +
+                "EstadisticasJugador.",
                 this
             );
 
             return;
         }
 
-        /*
-         * Si faltan almas o la mejora ya está al máximo,
-         * no realiza la compra y reproduce "nocompra".
-         */
         if (!PuedeComprar())
         {
-            ReproducirSonido(idSonidoNoCompra);
+            ReproducirSonido(
+                idSonidoErrorCompra
+            );
+
             ActualizarEstado();
             return;
         }
 
         bool compraPagada =
-            InventarioAlmas.Instancia.GastarAlmas(coste);
+            InventarioAlmas.Instancia
+                .GastarAlmas(coste);
 
-        /*
-         * Comprobación adicional por si el pago no puede realizarse.
-         */
         if (!compraPagada)
         {
-            ReproducirSonido(idSonidoNoCompra);
+            ReproducirSonido(
+                idSonidoErrorCompra
+            );
+
             ActualizarEstado();
             return;
         }
 
         AplicarMejora();
 
-        /*
-         * La compra se ha pagado y la mejora se ha aplicado.
-         */
-        ReproducirSonido(idSonidoCompraExitosa);
+        ReproducirSonido(
+            idSonidoCompraExitosa
+        );
+
+        if (mercaderInteractuar != null)
+        {
+            mercaderInteractuar
+                .NotificarCompraRealizada();
+        }
+        else
+        {
+            Debug.LogWarning(
+                "MejoraTienda: no se encontró " +
+                "MercaderInteractuar.",
+                this
+            );
+        }
 
         ActualizarEstado();
     }
@@ -185,34 +218,42 @@ public class MejoraTienda : MonoBehaviour
         {
             case TipoMejora.GranadaPersefone:
 
-                EstadisticasJugador.Instancia.MejorarVida();
+                EstadisticasJugador
+                    .Instancia
+                    .MejorarVida();
+
                 break;
 
             case TipoMejora.SalAres:
 
-                EstadisticasJugador.Instancia.MejorarDanio();
+                EstadisticasJugador
+                    .Instancia
+                    .MejorarDanio();
+
                 break;
         }
     }
 
-    private void ReproducirSonido(string idSonido)
+    private void ReproducirSonido(
+        string idSonido
+    )
     {
         if (string.IsNullOrWhiteSpace(idSonido))
-        {
             return;
-        }
 
         if (AudioManager.Instance == null)
         {
             Debug.LogWarning(
-                "MejoraTienda: no se ha encontrado AudioManager.",
+                "MejoraTienda: no se ha encontrado " +
+                "AudioManager.",
                 this
             );
 
             return;
         }
 
-        AudioManager.Instance.ReproducirSFX2D(idSonido);
+        AudioManager.Instance.ReproducirSFX2D(
+            idSonido
+        );
     }
 }
-

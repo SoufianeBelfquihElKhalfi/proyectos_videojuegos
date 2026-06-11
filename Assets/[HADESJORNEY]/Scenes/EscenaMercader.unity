@@ -5558,8 +5558,9 @@ MonoBehaviour:
   coste: 60
   textoPrecio: {fileID: 1038266505}
   botonComprar: {fileID: 1038266504}
+  mercaderInteractuar: {fileID: 1063713619}
   idSonidoCompraExitosa: CompraExitosa
-  idSonidoNoCompra: nocompra
+  idSonidoErrorCompra: error_compra
 --- !u!4 &1042869140 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1990477704767873178, guid: 07f1d484e9d37ac4f980c2458342fea7, type: 3}
@@ -5673,18 +5674,25 @@ MonoBehaviour:
   bocadilloCanvasGroup: {fileID: 1348605353}
   fadeBocadillo: 0.25
   escalaInicialBocadillo: 0.85
+  tiempoVisibleRespuesta: 2
   velocidadTexto: 0.03
   textoInteraccion: {fileID: 1154744703}
   bocadillo: {fileID: 1348605350}
   textoBocadillo: {fileID: 703704344}
-  mensajeMercader: "\xA1Querido Al\xE1stor! \xBFQu\xE9 deseas comprar?"
+  mensajeMercader: "\xBFQu\xE9 deseas, querido Alastor?"
+  mensajeMercaderSegundo: "\xBFEst\xE1s herido o quieres comprar algo?"
+  mensajeCuracion: "Ten m\xE1s cuidado la pr\xF3xima."
+  mensajeCompra: '-'
+  mensajeSinCompra: Mucho mirar y poco comprar.
   botonCurarse: {fileID: 606496958}
   botonComerciar: {fileID: 1773807222}
   curacionMitadCorazones: 99
   tagJugador: Player
+  idSonidoHablarPrimero: mercaderhablar1
+  idSonidoHablarSegundo: mercaderhablar2
   idSonidoCurarse: curar
-  idSonidoHablar: mercaderhablar
-  idSonidoNoCompra: nocompra
+  idSonidoCompra: mercadercompra
+  idSonidoSalirSinComprar: salir_sin_comprar
   tienda: {fileID: 39600727}
   botonInteractuar: Submit
   botonCerrar: Cancel
@@ -9784,8 +9792,9 @@ MonoBehaviour:
   coste: 60
   textoPrecio: {fileID: 2037703472}
   botonComprar: {fileID: 2037703471}
+  mercaderInteractuar: {fileID: 1063713619}
   idSonidoCompraExitosa: CompraExitosa
-  idSonidoNoCompra: nocompra
+  idSonidoErrorCompra: error_compra
 --- !u!1 &2043672707
 GameObject:
   m_ObjectHideFlags: 0
