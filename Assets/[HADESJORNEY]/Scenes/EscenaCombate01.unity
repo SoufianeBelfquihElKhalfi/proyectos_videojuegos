@@ -2042,8 +2042,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idMusicaCombate: combate
-  idMusicaExploracion: ambiente
   duracionFade: 1.5
+  idAmbienteCueva: ambiente
 --- !u!4 &297134160
 Transform:
   m_ObjectHideFlags: 0
@@ -9705,6 +9705,8 @@ MonoBehaviour:
   botonAceptar: Submit
   ejeHorizontal: Horizontal
   ejeVertical: Vertical
+  teclaPausaWebGL: 112
+  botonCancelarWebGL: SinCancelar
   escenaMenu: MAIN
   idSonidoSeleccion: ui_select
   idSonidoVolver: ui_back

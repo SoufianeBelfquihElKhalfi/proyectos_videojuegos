@@ -54,8 +54,6 @@ namespace Dapasa.Audio
             }
         }
 
-        // Start() eliminado: la música la arranca cada escena con su propio componente
-        // (MusicaMenu en el menú, GestorMusicaCombate en la cueva)
 
         private void Inicializar()
         {
@@ -140,10 +138,6 @@ namespace Dapasa.Audio
             }
         }
 
-        // -----------------------------
-        // MÚSICA
-        // -----------------------------
-
         public void ReproducirMusica(string id, bool reiniciarSiYaSuena = false)
         {
             Sonido sonido = ObtenerSonido(id);
@@ -166,6 +160,26 @@ namespace Dapasa.Audio
             fuenteMusica.Stop();
         }
 
+        public void FadeOutMusica(float duracion = 1.5f)
+        {
+            if (corrutinaFadeMusica != null)
+                StopCoroutine(corrutinaFadeMusica);
+
+            corrutinaFadeMusica = StartCoroutine(FadeOutMusicaCorrutina(duracion));
+        }
+
+        private IEnumerator FadeOutMusicaCorrutina(float duracion)
+        {
+            float volInicial = fuenteMusica.volume;
+            for (float t = 0; t < duracion; t += Time.deltaTime)
+            {
+                fuenteMusica.volume = Mathf.Lerp(volInicial, 0f, t / duracion);
+                yield return null;
+            }
+            fuenteMusica.Stop();
+            fuenteMusica.volume = volInicial;
+        }
+
         public void PausarMusica()
         {
             fuenteMusica.Pause();
@@ -176,10 +190,6 @@ namespace Dapasa.Audio
             fuenteMusica.UnPause();
         }
 
-        // -----------------------------
-        // SFX 2D
-        // UI, botones, menús, sonidos globales
-        // -----------------------------
 
         public void ReproducirSFX2D(string id)
         {
@@ -221,7 +231,6 @@ namespace Dapasa.Audio
         }
 
 
-        //para los loop
         public void ReproducirSFXLoop2D(string id)
         {
             Sonido sonido = ObtenerSonido(id);
@@ -261,11 +270,6 @@ namespace Dapasa.Audio
                 fuenteSFXLoop2D.clip = null;
             }
         }
-
-        // -----------------------------
-        // SFX 3D
-        // Enemigos, impactos, proyectiles, mundo
-        // -----------------------------
 
         public void ReproducirSFX3D(string id, Vector3 posicion)
         {
@@ -338,10 +342,6 @@ namespace Dapasa.Audio
                 sonido.pitch * pitchAleatorio
             );
         }
-
-        // -----------------------------
-        // UTILIDAD
-        // -----------------------------
 
         private Sonido ObtenerSonido(string id)
         {
