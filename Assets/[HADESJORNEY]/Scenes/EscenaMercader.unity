@@ -1689,8 +1689,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4585769575122899665, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: idAmbiente
-      value: ambiente
+      value: musica_mercader
       objectReference: {fileID: 0}
+    - target: {fileID: -3115857716586114669, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: m_Volume
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: -3115857716586114669, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: f1207fbc027580f488da0c21a7f5b7d9, type: 3}
+    - target: {fileID: -3115857716586114669, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -6194016101060009748, guid: 099916fb617d9bd479456e30b44bf95d, type: 2}
     - target: {fileID: 3797974469099956534, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 41.49997
@@ -1781,7 +1793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[24].volumen
-      value: 1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 7455499834511146746, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: m_Name
