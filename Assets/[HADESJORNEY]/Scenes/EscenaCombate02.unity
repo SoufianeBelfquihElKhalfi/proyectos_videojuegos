@@ -884,10 +884,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3041954558124931973, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a79228e26701a464c94460ee0418ac37, type: 2}
+    - target: {fileID: 3041954558124931973, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5269912817379750549, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
       propertyPath: fantasmaCombate
       value: 
       objectReference: {fileID: 573456126}
+    - target: {fileID: 5735309726027621115, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a79228e26701a464c94460ee0418ac37, type: 2}
+    - target: {fileID: 5735309726027621115, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6246007196352898619, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -895,6 +911,14 @@ PrefabInstance:
     - target: {fileID: 6246007196352898619, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6379373152530159717, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a79228e26701a464c94460ee0418ac37, type: 2}
+    - target: {fileID: 6379373152530159717, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6943545811822481582, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
       propertyPath: m_Pivot.x
@@ -981,6 +1005,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
+--- !u!1 &198361526 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9194343526809809103, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
+  m_PrefabInstance: {fileID: 198361525}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &202454057
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1032,7 +1061,7 @@ PrefabInstance:
     - target: {fileID: 6272437019516206938, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: panelGameOver
       value: 
-      objectReference: {fileID: 978540987}
+      objectReference: {fileID: 198361526}
     - target: {fileID: 6463228544794707355, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: m_Name
       value: Alastor
