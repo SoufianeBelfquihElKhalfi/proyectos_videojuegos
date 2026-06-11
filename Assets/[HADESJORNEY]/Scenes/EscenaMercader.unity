@@ -1608,11 +1608,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 412c90d18534f364b811662161c30644, type: 3}
---- !u!4 &252792849 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3797974469099956534, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-  m_PrefabInstance: {fileID: 265509541}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &252843624
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1679,131 +1674,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8511238956358842669, guid: e680c94739b8f7147a02935ea1e9eb35, type: 3}
   m_PrefabInstance: {fileID: 1172067344}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &265509541
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 547506345}
-    m_Modifications:
-    - target: {fileID: -4585769575122899665, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: idAmbiente
-      value: musica_mercader
-      objectReference: {fileID: 0}
-    - target: {fileID: -3115857716586114669, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: m_Volume
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: -3115857716586114669, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: m_Resource
-      value: 
-      objectReference: {fileID: 8300000, guid: f1207fbc027580f488da0c21a7f5b7d9, type: 3}
-    - target: {fileID: -3115857716586114669, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: -6194016101060009748, guid: 099916fb617d9bd479456e30b44bf95d, type: 2}
-    - target: {fileID: 3797974469099956534, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 41.49997
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797974469099956534, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.287506
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797974469099956534, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797974469099956534, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797974469099956534, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797974469099956534, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797974469099956534, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797974469099956534, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797974469099956534, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797974469099956534, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.size
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[22].id
-      value: curar
-      objectReference: {fileID: 0}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[23].id
-      value: nocompra
-      objectReference: {fileID: 0}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[24].id
-      value: musica_mercader
-      objectReference: {fileID: 0}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[22].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: b2e110defeecbc847a154f163fa929ee, type: 3}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[23].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 2a3576c06afacc440be2831b9a4efba6, type: 3}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[24].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: f1207fbc027580f488da0c21a7f5b7d9, type: 3}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[21].pitch
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[22].pitch
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[23].pitch
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[24].pitch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[23].volumen
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: sonidos.Array.data[24].volumen
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7455499834511146746, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
-      propertyPath: m_Name
-      value: AudioManager
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
 --- !u!1 &285287222
 GameObject:
   m_ObjectHideFlags: 0
@@ -3463,8 +3333,7 @@ Transform:
   m_LocalPosition: {x: 345.00003, y: 268.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 252792849}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &550243284
