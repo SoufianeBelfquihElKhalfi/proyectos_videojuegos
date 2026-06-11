@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,8 +24,14 @@ public class PausaManager : MonoBehaviour
     public string ejeHorizontal = "Horizontal";
     public string ejeVertical = "Vertical";
 
-    [Header("Tecla de pausa en WebGL")]
+    [Header("Configuración WebGL")]
     [SerializeField] private KeyCode teclaPausaWebGL = KeyCode.P;
+
+    /*
+     * Este botón debe existir en el Input Manager,
+     * pero no debe tener ninguna tecla asignada.
+     */
+    [SerializeField] private string botonCancelarWebGL = "SinCancelar";
 
     [Header("Escena")]
     public string escenaMenu = "MAIN";
@@ -47,6 +54,8 @@ public class PausaManager : MonoBehaviour
         pausaActivo = false;
         opcionesActivo = false;
 
+        Time.timeScale = 1f;
+
         if (pausa != null)
         {
             pausa.SetActive(false);
@@ -62,16 +71,14 @@ public class PausaManager : MonoBehaviour
             panelOpciones.SetActive(false);
         }
 
-        Time.timeScale = 1f;
-
         AsegurarEventSystem();
     }
 
     private void Update()
     {
         /*
-         * En WebGL usa la tecla P.
-         * En el Editor y en otros builds usa el botón "Pausa"
+         * WebGL: utiliza P.
+         * Editor y otras plataformas: utiliza el botón "Pausa"
          * configurado en el Input Manager.
          */
         if (BotonPausaPulsado())
@@ -92,8 +99,8 @@ public class PausaManager : MonoBehaviour
         }
 
         /*
-         * En WebGL no se utiliza Escape para controlar la pausa.
-         * En el Editor y otros builds sí se utiliza "Cancel".
+         * En WebGL siempre devuelve false.
+         * Por tanto, Escape no cierra ni modifica la pausa.
          */
         if (pausaActivo && BotonCancelarPulsado())
         {
@@ -110,8 +117,8 @@ public class PausaManager : MonoBehaviour
         }
 
         /*
-         * Si se pierde la selección de la interfaz,
-         * vuelve a seleccionar el elemento correspondiente.
+         * Recupera la selección si se pierde al usar teclado
+         * o mando.
          */
         if (
             pausaActivo &&
@@ -142,10 +149,6 @@ public class PausaManager : MonoBehaviour
     private bool BotonCancelarPulsado()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
-        /*
-         * En la versión WebGL Escape no controla el menú.
-         * Para volver o cerrar se utiliza también la tecla P.
-         */
         return false;
 #else
         return BotonPulsado(botonCancelar);
@@ -292,7 +295,9 @@ public class PausaManager : MonoBehaviour
         Application.Quit();
 
 #if UNITY_EDITOR
-        Debug.Log("Application.Quit no cierra el juego dentro del Editor.");
+        Debug.Log(
+            "Application.Quit no cierra el juego dentro del Editor."
+        );
 #endif
     }
 
@@ -346,12 +351,16 @@ public class PausaManager : MonoBehaviour
                 panelMenuPausa.GetComponentInChildren<Selectable>(true);
         }
 
-        if (primerBotonPausa == null || EventSystem.current == null)
+        if (
+            primerBotonPausa == null ||
+            EventSystem.current == null
+        )
         {
             return;
         }
 
         EventSystem.current.SetSelectedGameObject(null);
+
         EventSystem.current.SetSelectedGameObject(
             primerBotonPausa.gameObject
         );
@@ -361,7 +370,10 @@ public class PausaManager : MonoBehaviour
 
     private void SeleccionarControlOpciones()
     {
-        if (primerControlOpciones == null && panelOpciones != null)
+        if (
+            primerControlOpciones == null &&
+            panelOpciones != null
+        )
         {
             primerControlOpciones =
                 panelOpciones.GetComponentInChildren<Selectable>(true);
@@ -372,12 +384,16 @@ public class PausaManager : MonoBehaviour
 
     private void Seleccionar(Selectable seleccionable)
     {
-        if (seleccionable == null || EventSystem.current == null)
+        if (
+            seleccionable == null ||
+            EventSystem.current == null
+        )
         {
             return;
         }
 
         EventSystem.current.SetSelectedGameObject(null);
+
         EventSystem.current.SetSelectedGameObject(
             seleccionable.gameObject
         );
@@ -411,7 +427,16 @@ public class PausaManager : MonoBehaviour
         inputModule.horizontalAxis = ejeHorizontal;
         inputModule.verticalAxis = ejeVertical;
         inputModule.submitButton = botonAceptar;
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        /*
+         * En WebGL el EventSystem utiliza un botón vacío.
+         * Así Escape no se interpreta como Cancel.
+         */
+        inputModule.cancelButton = botonCancelarWebGL;
+#else
         inputModule.cancelButton = botonCancelar;
+#endif
     }
 
     private void ReproducirSonidoUI(string idSonido)
@@ -437,8 +462,8 @@ public class PausaManager : MonoBehaviour
     private void OnDestroy()
     {
         /*
-         * Evita que el juego se quede congelado si el objeto
-         * se destruye mientras el menú está abierto.
+         * Evita que el juego se quede congelado si se cambia
+         * de escena mientras el menú está abierto.
          */
         if (pausaActivo)
         {
@@ -446,3 +471,4 @@ public class PausaManager : MonoBehaviour
         }
     }
 }
+
