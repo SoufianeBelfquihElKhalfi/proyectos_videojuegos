@@ -1754,7 +1754,7 @@ PrefabInstance:
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[23].clip
       value: 
-      objectReference: {fileID: 8300000, guid: a5733b4a1084c8547b726138a4d6d0a8, type: 3}
+      objectReference: {fileID: 8300000, guid: 2a3576c06afacc440be2831b9a4efba6, type: 3}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[24].clip
       value: 
@@ -6055,8 +6055,8 @@ MonoBehaviour:
   coste: 60
   textoPrecio: {fileID: 1038266505}
   botonComprar: {fileID: 1038266504}
-  audioSource: {fileID: 0}
-  sonidoError: {fileID: 0}
+  idSonidoCompraExitosa: CompraExitosa
+  idSonidoNoCompra: nocompra
 --- !u!4 &1042869140 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1990477704767873178, guid: 07f1d484e9d37ac4f980c2458342fea7, type: 3}
@@ -6487,6 +6487,7 @@ MonoBehaviour:
   velocidadFlecha: 15
   intervaloDisparo: 1
   radioDeteccion: 10
+  idSonidoHijoDelRayo: HijoDelRayo
   materialHijoDelRayo: {fileID: 0}
   vfxBurst: {fileID: 0}
   vfxLoop: {fileID: 0}
@@ -7533,18 +7534,6 @@ MonoBehaviour:
       - m_Target: {fileID: 1357742886}
         m_TargetAssemblyTypeName: BotonCerrarTienda, Assembly-CSharp
         m_MethodName: CerrarTienda
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1063713619}
-        m_TargetAssemblyTypeName: MercaderInteractuar, Assembly-CSharp
-        m_MethodName: ReproducirSonidoNoCompra
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10657,8 +10646,8 @@ MonoBehaviour:
   coste: 60
   textoPrecio: {fileID: 2037703472}
   botonComprar: {fileID: 2037703471}
-  audioSource: {fileID: 0}
-  sonidoError: {fileID: 0}
+  idSonidoCompraExitosa: CompraExitosa
+  idSonidoNoCompra: nocompra
 --- !u!1 &2043672707
 GameObject:
   m_ObjectHideFlags: 0
