@@ -11712,7 +11712,7 @@ PrefabInstance:
       objectReference: {fileID: 285253926}
     - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
       propertyPath: corazonesMaximos
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4353696231194767546, guid: d4b5e9b60adc54b41bb078c99374623e, type: 3}
       propertyPath: alMorir.m_PersistentCalls.m_Calls.Array.size
@@ -16337,7 +16337,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2078859327}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2284533064419967186, guid: 497c69f9996807f4b97d28413a8a1afd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -16468,48 +16468,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 497c69f9996807f4b97d28413a8a1afd, type: 3}
---- !u!224 &1787870524 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5243952925594900545, guid: 497c69f9996807f4b97d28413a8a1afd, type: 3}
-  m_PrefabInstance: {fileID: 1787870523}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1787870525 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6153934206348189235, guid: 497c69f9996807f4b97d28413a8a1afd, type: 3}
-  m_PrefabInstance: {fileID: 1787870523}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1787870526 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5661241350840978352, guid: 497c69f9996807f4b97d28413a8a1afd, type: 3}
-  m_PrefabInstance: {fileID: 1787870523}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1787870527 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4078363462781934951, guid: 497c69f9996807f4b97d28413a8a1afd, type: 3}
-  m_PrefabInstance: {fileID: 1787870523}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1787870528 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 561189254117825518, guid: 497c69f9996807f4b97d28413a8a1afd, type: 3}
-  m_PrefabInstance: {fileID: 1787870523}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1787870529 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2899634062097723658, guid: 497c69f9996807f4b97d28413a8a1afd, type: 3}
-  m_PrefabInstance: {fileID: 1787870523}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1790368101
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18072,6 +18030,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pausa: {fileID: 0}
   primerBotonPausa: {fileID: 0}
+  panelMenuPausa: {fileID: 0}
+  panelOpciones: {fileID: 0}
+  primerControlOpciones: {fileID: 0}
   botonPausa: Pausa
   botonCancelar: Cancel
   botonAceptar: Submit
@@ -18582,3 +18543,4 @@ SceneRoots:
   - {fileID: 93108455}
   - {fileID: 379758372}
   - {fileID: 1142865526}
+  - {fileID: 1787870523}
