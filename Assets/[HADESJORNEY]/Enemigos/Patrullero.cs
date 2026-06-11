@@ -13,9 +13,6 @@ public class Patrullero : MaquinaFSM
     [Header("Aviso de detección")]
     [SerializeField] private AvisoDeteccionEnemigo avisoDeteccion;
 
-    [Header("Música")]
-    [SerializeField] private string idMusicaDeteccion = "musica_combate";
-
     Transform player;
     private Animator animator;
     private bool jugadorDetectado = false;
@@ -50,9 +47,20 @@ public class Patrullero : MaquinaFSM
         }
         else
         {
+            if (jugadorDetectado)
+            {
+                GestorMusicaCombate.Instance.SalirCombate(this);
+            }
+
             jugadorDetectado = false;
             SetEstado(patrulla.Value);
         }
+    }
+
+    private void OnDisable()
+    {
+        if (GestorMusicaCombate.Instance != null)
+            GestorMusicaCombate.Instance.SalirCombate(this);
     }
 
     private IEnumerator SecuenciaDeteccion()
@@ -63,7 +71,7 @@ public class Patrullero : MaquinaFSM
         SetEstado(deteccion.Value);
         animator.SetTrigger("Deteccion");
 
-        AudioManager.Instance.ReproducirMusicaConFade(idMusicaDeteccion);
+        GestorMusicaCombate.Instance.EntrarCombate(this);
 
         yield return avisoDeteccion.MostrarYEsperar();
 
