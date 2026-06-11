@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -359,5 +360,48 @@ namespace Dapasa.Audio
             Debug.LogWarning("AudioManager: no existe ningún sonido con id: " + id);
             return null;
         }
+        private Coroutine corrutinaFadeMusica;
+
+        public void ReproducirMusicaConFade(string id, float duracionFade = 1.5f)
+        {
+            Sonido sonido = ObtenerSonido(id);
+            if (sonido == null || (fuenteMusica.clip == sonido.clip && fuenteMusica.isPlaying))
+                return;
+
+            if (corrutinaFadeMusica != null)
+                StopCoroutine(corrutinaFadeMusica);
+
+            corrutinaFadeMusica = StartCoroutine(TransicionMusica(sonido, duracionFade));
+        }
+
+        private IEnumerator TransicionMusica(Sonido nuevoSonido, float duracionTotal)
+        {
+            float mitadTiempo = duracionTotal / 2f;
+
+            if (fuenteMusica.isPlaying)
+            {
+                float volInicial = fuenteMusica.volume;
+                for (float t = 0; t < mitadTiempo; t += Time.deltaTime)
+                {
+                    fuenteMusica.volume = Mathf.Lerp(volInicial, 0f, t / mitadTiempo);
+                    yield return null;
+                }
+            }
+
+            fuenteMusica.Stop();
+            fuenteMusica.clip = nuevoSonido.clip;
+            fuenteMusica.volume = 0f;
+            fuenteMusica.pitch = nuevoSonido.pitch;
+            fuenteMusica.Play();
+
+            for (float t = 0; t < mitadTiempo; t += Time.deltaTime)
+            {
+                fuenteMusica.volume = Mathf.Lerp(0f, nuevoSonido.volumen, t / mitadTiempo);
+                yield return null;
+            }
+
+            fuenteMusica.volume = nuevoSonido.volumen;
+        }
     }
+
 }

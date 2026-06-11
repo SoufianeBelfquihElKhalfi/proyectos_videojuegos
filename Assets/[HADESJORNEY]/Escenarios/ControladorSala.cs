@@ -12,6 +12,7 @@ public class ControladorSala : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField] private string idSonidoAbrirPuerta = "abrir_puerta";
+    [SerializeField] private string idMusicaPatrulla = "musica";
 
     private int enemigosVivos;
     private bool puertaAbierta;
@@ -56,11 +57,10 @@ public class ControladorSala : MonoBehaviour
 
         enemigosVivos--;
 
-        Debug.Log("Enemigo muerto. Quedan: " + enemigosVivos);
-
         if (enemigosVivos <= 0)
         {
             AbrirPuerta();
+            AudioManager.Instance.ReproducirMusicaConFade(idMusicaPatrulla);
         }
     }
 

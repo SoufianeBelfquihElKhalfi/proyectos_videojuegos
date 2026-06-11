@@ -155,6 +155,8 @@ MonoBehaviour:
   deteccion: {fileID: 11400000, guid: e9670b8bf5e858945a62615a052d01a4, type: 2}
   rangoDeteccion: 10
   avisoDeteccion: {fileID: 2434691421168828128}
+  idMusicaDeteccion: combate
+  idMusicaPatrulla: ambiente
 --- !u!114 &8487638878653078037
 MonoBehaviour:
   m_ObjectHideFlags: 0

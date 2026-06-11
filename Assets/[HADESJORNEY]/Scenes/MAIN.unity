@@ -3006,7 +3006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.size
-      value: 26
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[24].id
@@ -3015,6 +3015,26 @@ PrefabInstance:
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[25].id
       value: HijoDelRayo
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[26].id
+      value: caida
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[27].id
+      value: caida_grunido
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[28].id
+      value: golpe_jefe
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[29].id
+      value: muerte
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[30].id
+      value: hablarmercader2
       objectReference: {fileID: 0}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[23].clip
@@ -3029,12 +3049,36 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: b42c0e74445383943adbe65c0ef4e17a, type: 3}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[26].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 508fd4bb04f1ed343a92888e71017079, type: 3}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[27].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5200a50682b35be47820d542b6aa466c, type: 3}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[28].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: b0bf400b032358e479bf075cf051e44c, type: 3}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[29].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: ddaa00c8b85507d49b601f3f11f68c0d, type: 3}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[30].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: bde8d71e818ed8249b1a85173f8ad905, type: 3}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[24].pitch
       value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[25].pitch
       value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[26].pitch
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[0].volumen
@@ -3682,10 +3726,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3

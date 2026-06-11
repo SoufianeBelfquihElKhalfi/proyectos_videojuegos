@@ -78,7 +78,7 @@ MonoBehaviour:
     pitch: 1
   - id: ambiente
     clip: {fileID: 8300000, guid: dc8e45fe1f34ca84a906097d6ac15528, type: 3}
-    volumen: 0.3
+    volumen: 1
     pitch: 1
   - id: ui_hover
     clip: {fileID: 8300000, guid: 59674406149166b49a77462f98fbf054, type: 3}
@@ -150,6 +150,30 @@ MonoBehaviour:
     pitch: 1.75
   - id: game_over
     clip: {fileID: 8300000, guid: a413aecab55698b4ead5ff5be7b6334c, type: 3}
+    volumen: 1
+    pitch: 1
+  - id: musica_mercader
+    clip: {fileID: 8300000, guid: f1207fbc027580f488da0c21a7f5b7d9, type: 3}
+    volumen: 1
+    pitch: 1
+  - id: caida
+    clip: {fileID: 8300000, guid: 508fd4bb04f1ed343a92888e71017079, type: 3}
+    volumen: 1
+    pitch: 1
+  - id: caida_grunido
+    clip: {fileID: 8300000, guid: 5200a50682b35be47820d542b6aa466c, type: 3}
+    volumen: 1
+    pitch: 1
+  - id: golpe_jefe
+    clip: {fileID: 8300000, guid: b0bf400b032358e479bf075cf051e44c, type: 3}
+    volumen: 1
+    pitch: 1
+  - id: muerte
+    clip: {fileID: 8300000, guid: ddaa00c8b85507d49b601f3f11f68c0d, type: 3}
+    volumen: 1
+    pitch: 1
+  - id: combate
+    clip: {fileID: 8300000, guid: 3f550783d95365847900438f2953d501, type: 3}
     volumen: 1
     pitch: 1
   distanciaMinima3D: 1
