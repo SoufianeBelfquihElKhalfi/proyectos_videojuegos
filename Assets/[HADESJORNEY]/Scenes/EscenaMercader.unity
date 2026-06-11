@@ -1745,7 +1745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[24].id
-      value: ambiente_mercader
+      value: musica_mercader
       objectReference: {fileID: 0}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[22].clip
@@ -1758,7 +1758,7 @@ PrefabInstance:
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[24].clip
       value: 
-      objectReference: {fileID: 8300000, guid: d218ea13dcb37af4786d03e1b1ffa254, type: 3}
+      objectReference: {fileID: 8300000, guid: f1207fbc027580f488da0c21a7f5b7d9, type: 3}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[21].pitch
       value: 1.25
@@ -6055,8 +6055,8 @@ MonoBehaviour:
   coste: 60
   textoPrecio: {fileID: 1038266505}
   botonComprar: {fileID: 1038266504}
-  audioSource: {fileID: 0}
-  sonidoError: {fileID: 0}
+  idSonidoCompraExitosa: CompraExitosa
+  idSonidoNoCompra: nocompra
 --- !u!4 &1042869140 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1990477704767873178, guid: 07f1d484e9d37ac4f980c2458342fea7, type: 3}
@@ -6487,6 +6487,7 @@ MonoBehaviour:
   velocidadFlecha: 15
   intervaloDisparo: 1
   radioDeteccion: 10
+  idSonidoHijoDelRayo: HijoDelRayo
   materialHijoDelRayo: {fileID: 0}
   vfxBurst: {fileID: 0}
   vfxLoop: {fileID: 0}
@@ -10657,8 +10658,8 @@ MonoBehaviour:
   coste: 60
   textoPrecio: {fileID: 2037703472}
   botonComprar: {fileID: 2037703471}
-  audioSource: {fileID: 0}
-  sonidoError: {fileID: 0}
+  idSonidoCompraExitosa: CompraExitosa
+  idSonidoNoCompra: nocompra
 --- !u!1 &2043672707
 GameObject:
   m_ObjectHideFlags: 0
