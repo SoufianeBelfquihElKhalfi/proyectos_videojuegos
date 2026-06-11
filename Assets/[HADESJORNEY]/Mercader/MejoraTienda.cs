@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Dapasa.Audio;
 
 public class MejoraTienda : MonoBehaviour
 {
@@ -18,20 +19,22 @@ public class MejoraTienda : MonoBehaviour
     public TextMeshProUGUI textoPrecio;
     public Button botonComprar;
 
-    [Header("Sonido")]
-    public AudioSource audioSource;
-    public AudioClip sonidoError;
+    [Header("Audio")]
+    [SerializeField] private string idSonidoCompraExitosa = "CompraExitosa";
+    [SerializeField] private string idSonidoNoCompra = "nocompra";
 
     private Color colorNormal = Color.white;
     private Color colorBloqueado = Color.red;
 
-    void Start()
+    private void Start()
     {
         ActualizarEstado();
 
         if (InventarioAlmas.Instancia != null)
         {
-            InventarioAlmas.Instancia.OnAlmasCambiaron.AddListener(delegate { ActualizarEstado(); });
+            InventarioAlmas.Instancia.OnAlmasCambiaron.AddListener(
+                delegate { ActualizarEstado(); }
+            );
         }
 
         if (botonComprar != null)
@@ -40,7 +43,15 @@ public class MejoraTienda : MonoBehaviour
         }
     }
 
-    void ActualizarEstado()
+    private void OnDestroy()
+    {
+        if (botonComprar != null)
+        {
+            botonComprar.onClick.RemoveListener(Comprar);
+        }
+    }
+
+    private void ActualizarEstado()
     {
         if (textoPrecio != null)
         {
@@ -51,20 +62,37 @@ public class MejoraTienda : MonoBehaviour
 
         if (textoPrecio != null)
         {
-            textoPrecio.color = puedeComprar ? colorNormal : colorBloqueado;
+            textoPrecio.color = puedeComprar
+                ? colorNormal
+                : colorBloqueado;
         }
 
+        /*
+         * Se mantiene activo incluso cuando no se puede comprar.
+         * Así el jugador puede pulsarlo y escuchar "nocompra".
+         */
         if (botonComprar != null)
         {
-            botonComprar.interactable = puedeComprar;
+            botonComprar.interactable = true;
         }
     }
 
-    bool PuedeComprar()
+    private bool PuedeComprar()
     {
-        if (InventarioAlmas.Instancia == null) return false;
-        if (InventarioAlmas.Instancia.Almas < coste) return false;
-        if (EstadisticasJugador.Instancia == null) return false;
+        if (InventarioAlmas.Instancia == null)
+        {
+            return false;
+        }
+
+        if (InventarioAlmas.Instancia.Almas < coste)
+        {
+            return false;
+        }
+
+        if (EstadisticasJugador.Instancia == null)
+        {
+            return false;
+        }
 
         if (tipoMejora == TipoMejora.GranadaPersefone)
         {
@@ -81,29 +109,38 @@ public class MejoraTienda : MonoBehaviour
 
     public void Comprar()
     {
+        // No tiene suficientes almas o la mejora está al máximo.
         if (!PuedeComprar())
         {
-            ReproducirError();
+            ReproducirSonido(idSonidoNoCompra);
             ActualizarEstado();
             return;
         }
 
         bool pagado = InventarioAlmas.Instancia.GastarAlmas(coste);
 
+        // Seguridad adicional por si no se consigue realizar el pago.
         if (!pagado)
         {
-            ReproducirError();
+            ReproducirSonido(idSonidoNoCompra);
             ActualizarEstado();
             return;
         }
 
         AplicarMejora();
+
+        // La compra se ha pagado y la mejora se ha aplicado.
+        ReproducirSonido(idSonidoCompraExitosa);
+
         ActualizarEstado();
     }
 
-    void AplicarMejora()
+    private void AplicarMejora()
     {
-        if (EstadisticasJugador.Instancia == null) return;
+        if (EstadisticasJugador.Instancia == null)
+        {
+            return;
+        }
 
         if (tipoMejora == TipoMejora.GranadaPersefone)
         {
@@ -115,11 +152,18 @@ public class MejoraTienda : MonoBehaviour
         }
     }
 
-    void ReproducirError()
+    private void ReproducirSonido(string idSonido)
     {
-        if (audioSource != null && sonidoError != null)
+        if (AudioManager.Instance == null)
         {
-            audioSource.PlayOneShot(sonidoError);
+            Debug.LogWarning(
+                "MejoraTienda: no se ha encontrado el AudioManager.",
+                this
+            );
+
+            return;
         }
+
+        AudioManager.Instance.ReproducirSFX2D(idSonido);
     }
 }

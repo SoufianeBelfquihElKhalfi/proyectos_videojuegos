@@ -3005,8 +3005,56 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.size
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[24].id
+      value: CompraExitosa
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[25].id
+      value: HijoDelRayo
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[23].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 2a3576c06afacc440be2831b9a4efba6, type: 3}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[24].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 79edd20cfee74c3448662b4f9da27ca9, type: 3}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[25].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: b42c0e74445383943adbe65c0ef4e17a, type: 3}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[24].pitch
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[25].pitch
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[0].volumen
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[20].volumen
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[23].volumen
+      value: 0.712
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[24].volumen
+      value: 0.722
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[25].volumen
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7455499834511146746, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: m_Name

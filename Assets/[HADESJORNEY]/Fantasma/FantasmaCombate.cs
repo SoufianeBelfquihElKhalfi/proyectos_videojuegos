@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Dapasa.Audio;
 
 
 public class FantasmaCombate : MonoBehaviour
@@ -12,7 +13,10 @@ public class FantasmaCombate : MonoBehaviour
     public float velocidadFlecha = 15f;
     public float intervaloDisparo = 1f;
     public float radioDeteccion = 10f;
- 
+
+    [Header("Audio")]
+    [SerializeField] private string idSonidoHijoDelRayo = "HijoDelRayo";
+
 
     [Header("Visual Combate")]
     public Material materialHijoDelRayo;
@@ -101,6 +105,13 @@ public class FantasmaCombate : MonoBehaviour
         if (vfxLoop != null) vfxLoop.Play();
         if (VFXLight != null) VFXLight.enabled = true;
 
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.ReproducirSFX3D(
+                idSonidoHijoDelRayo,
+                transform.position
+            );
+        }
     }
 
     void SalirModoCombate()
