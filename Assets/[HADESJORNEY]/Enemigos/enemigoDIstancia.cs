@@ -123,7 +123,7 @@ public class EnemigoDistancia : MonoBehaviour
         estadoActual = Estado.Detectando;
         agente.isStopped = true;
 
-        AudioManager.Instance.ReproducirMusica(idMusicaDeteccion);
+        AudioManager.Instance.ReproducirMusicaConFade(idMusicaDeteccion);
 
         yield return avisoDeteccion.MostrarYEsperar();
 

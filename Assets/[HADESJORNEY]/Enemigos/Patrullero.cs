@@ -63,7 +63,7 @@ public class Patrullero : MaquinaFSM
         SetEstado(deteccion.Value);
         animator.SetTrigger("Deteccion");
 
-        AudioManager.Instance.ReproducirMusica(idMusicaDeteccion);
+        AudioManager.Instance.ReproducirMusicaConFade(idMusicaDeteccion);
 
         yield return avisoDeteccion.MostrarYEsperar();
 

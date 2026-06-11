@@ -60,7 +60,7 @@ public class ControladorSala : MonoBehaviour
         if (enemigosVivos <= 0)
         {
             AbrirPuerta();
-            AudioManager.Instance.ReproducirMusica(idMusicaPatrulla);
+            AudioManager.Instance.ReproducirMusicaConFade(idMusicaPatrulla);
         }
     }
 
