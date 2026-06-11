@@ -3321,6 +3321,8 @@ MonoBehaviour:
   botonAceptar: Submit
   ejeHorizontal: Horizontal
   ejeVertical: Vertical
+  teclaPausaWebGL: 112
+  botonCancelarWebGL: SinCancelar
   escenaMenu: MAIN
   idSonidoSeleccion: ui_select
   idSonidoVolver: ui_back
@@ -9430,7 +9432,7 @@ GameObject:
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &2003777627
 AudioSource:
   m_ObjectHideFlags: 0

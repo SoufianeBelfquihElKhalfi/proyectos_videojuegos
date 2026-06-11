@@ -340,6 +340,7 @@ MonoBehaviour:
   ejeHorizontal: Horizontal
   ejeVertical: Vertical
   teclaPausaWebGL: 112
+  botonCancelarWebGL: SinCancelar
   escenaMenu: MAIN
   idSonidoSeleccion: ui_select
   idSonidoVolver: ui_back
@@ -7085,8 +7086,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idMusicaCombate: combate
-  idMusicaExploracion: ambiente
   duracionFade: 1.5
+  idAmbienteCueva: ambiente
 --- !u!4 &2082788410
 Transform:
   m_ObjectHideFlags: 0

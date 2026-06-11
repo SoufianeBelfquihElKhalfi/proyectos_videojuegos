@@ -6,9 +6,13 @@ public class GestorMusicaCombate : MonoBehaviour
 {
     public static GestorMusicaCombate Instance { get; private set; }
 
-    [SerializeField] private string idMusicaCombate = "musica_combate";
-    [SerializeField] private string idMusicaExploracion = "musica_cueva";
+    [Header("Música")]
+    [SerializeField] private string idMusicaExploracion = "musica";
+    [SerializeField] private string idMusicaCombate = "combate";
     [SerializeField] private float duracionFade = 1.5f;
+
+    [Header("Ambiente de cueva (suena siempre como SFX loop)")]
+    [SerializeField] private string idAmbienteCueva = "ambiente";
 
     private readonly HashSet<MonoBehaviour> enemigosEnCombate = new HashSet<MonoBehaviour>();
 
@@ -20,6 +24,8 @@ public class GestorMusicaCombate : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.Instance.ReproducirSFXLoop2D(idAmbienteCueva);
+
         AudioManager.Instance.ReproducirMusicaConFade(idMusicaExploracion, duracionFade);
     }
 

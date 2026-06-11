@@ -850,8 +850,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idMusicaCombate: combate
-  idMusicaExploracion: ambiente
   duracionFade: 1.5
+  idAmbienteCueva: ambiente
 --- !u!4 &196315450
 Transform:
   m_ObjectHideFlags: 0
