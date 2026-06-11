@@ -3006,7 +3006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.size
-      value: 30
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[24].id
@@ -3031,6 +3031,10 @@ PrefabInstance:
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[29].id
       value: muerte
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[30].id
+      value: hablarmercader2
       objectReference: {fileID: 0}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[23].clip
@@ -3060,6 +3064,10 @@ PrefabInstance:
       propertyPath: sonidos.Array.data[29].clip
       value: 
       objectReference: {fileID: 8300000, guid: ddaa00c8b85507d49b601f3f11f68c0d, type: 3}
+    - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
+      propertyPath: sonidos.Array.data[30].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: bde8d71e818ed8249b1a85173f8ad905, type: 3}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[24].pitch
       value: 1.75
