@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Dapasa.Audio;
@@ -11,6 +10,13 @@ public class PausaManager : MonoBehaviour
     [Header("Panel de pausa")]
     public GameObject pausa;
     public Selectable primerBotonPausa;
+
+    [Header("Paneles internos")]
+    [SerializeField] private GameObject panelMenuPausa;
+    [SerializeField] private GameObject panelOpciones;
+    [SerializeField] private Selectable primerControlOpciones;
+
+    private bool opcionesActivo = false;
 
     [Header("Input Manager antiguo")]
     public string botonPausa = "Pausa";
@@ -40,6 +46,9 @@ public class PausaManager : MonoBehaviour
             pausa.SetActive(false);
         }
 
+        panelMenuPausa.SetActive(true);
+        panelOpciones.SetActive(false);
+
         AsegurarEventSystem();
     }
 
@@ -47,6 +56,12 @@ public class PausaManager : MonoBehaviour
     {
         if (BotonPulsado(botonPausa))
         {
+            if (pausaActivo && opcionesActivo)
+            {
+                VolverAPausa();
+                return;
+            }
+
             if (pausaActivo)
             {
                 ReproducirSonidoUI(idSonidoVolver);
@@ -58,13 +73,28 @@ public class PausaManager : MonoBehaviour
 
         if (pausaActivo && BotonPulsado(botonCancelar))
         {
-            Reanudar();
+            if (opcionesActivo)
+            {
+                VolverAPausa();
+            }
+            else
+            {
+                Reanudar();
+            }
+
             return;
         }
 
         if (pausaActivo && EventSystem.current != null && EventSystem.current.currentSelectedGameObject == null)
         {
-            SeleccionarPrimerBoton();
+            if (opcionesActivo)
+            {
+                SeleccionarControlOpciones();
+            }
+            else
+            {
+                SeleccionarPrimerBoton();
+            }
         }
     }
 
@@ -127,7 +157,7 @@ public class PausaManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
 
         AsegurarEventSystem();
-        SeleccionarPrimerBoton();
+        MostrarPanelMenuPausa();
     }
 
     private void CerrarPausa()
@@ -146,6 +176,7 @@ public class PausaManager : MonoBehaviour
         ReproducirSonidoUI(idSonidoVolver);
 
         pausaActivo = false;
+        opcionesActivo = false;
 
         if (pausa != null)
         {
@@ -162,7 +193,21 @@ public class PausaManager : MonoBehaviour
         ReproducirSonidoUI(idSonidoSeleccion);
 
         Time.timeScale = 1f;
-        SceneManager.LoadScene(escenaMenu);
+
+        if (string.IsNullOrWhiteSpace(escenaMenu))
+        {
+            throw new InvalidOperationException($"{name}: escenaMenu está vacío.");
+        }
+
+        if (!Application.CanStreamedLevelBeLoaded(escenaMenu))
+        {
+            throw new InvalidOperationException($"{name}: la escena '{escenaMenu}' no está en Build Settings o el nombre no coincide.");
+        }
+
+        SceneLoader.Load(
+            escenaMenu,
+            "Volviendo al menú principal..."
+        );
     }
 
     public void SalirDelJuego()
@@ -225,5 +270,45 @@ public class PausaManager : MonoBehaviour
         }
 
         AudioManager.Instance.ReproducirSFX2D(idSonido);
+    }
+
+    public void AbrirOpciones()
+    {
+        ReproducirSonidoUI(idSonidoSeleccion);
+
+        opcionesActivo = true;
+
+        panelMenuPausa.SetActive(false);
+        panelOpciones.SetActive(true);
+
+        SeleccionarControlOpciones();
+    }
+
+    public void VolverAPausa()
+    {
+        ReproducirSonidoUI(idSonidoVolver);
+        MostrarPanelMenuPausa();
+    }
+
+    private void MostrarPanelMenuPausa()
+    {
+        opcionesActivo = false;
+
+        panelOpciones.SetActive(false);
+        panelMenuPausa.SetActive(true);
+
+        SeleccionarPrimerBoton();
+    }
+
+    private void SeleccionarControlOpciones()
+    {
+        Seleccionar(primerControlOpciones);
+    }
+
+    private void Seleccionar(Selectable seleccionable)
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(seleccionable.gameObject);
+        seleccionable.Select();
     }
 }
