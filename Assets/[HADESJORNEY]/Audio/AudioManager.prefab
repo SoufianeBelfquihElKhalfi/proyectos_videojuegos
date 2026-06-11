@@ -78,7 +78,7 @@ MonoBehaviour:
     pitch: 1
   - id: ambiente
     clip: {fileID: 8300000, guid: dc8e45fe1f34ca84a906097d6ac15528, type: 3}
-    volumen: 0.3
+    volumen: 1
     pitch: 1
   - id: ui_hover
     clip: {fileID: 8300000, guid: 59674406149166b49a77462f98fbf054, type: 3}
@@ -170,6 +170,10 @@ MonoBehaviour:
     pitch: 1
   - id: muerte
     clip: {fileID: 8300000, guid: ddaa00c8b85507d49b601f3f11f68c0d, type: 3}
+    volumen: 1
+    pitch: 1
+  - id: combate
+    clip: {fileID: 8300000, guid: 3f550783d95365847900438f2953d501, type: 3}
     volumen: 1
     pitch: 1
   distanciaMinima3D: 1
