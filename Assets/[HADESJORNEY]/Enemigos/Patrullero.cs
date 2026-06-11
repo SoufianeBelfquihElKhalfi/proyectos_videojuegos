@@ -1,6 +1,7 @@
 using System.Collections;
 using Enemy.FSM;
 using UnityEngine;
+using Dapasa.Audio;
 
 public class Patrullero : MaquinaFSM
 {
@@ -11,6 +12,9 @@ public class Patrullero : MaquinaFSM
 
     [Header("Aviso de detección")]
     [SerializeField] private AvisoDeteccionEnemigo avisoDeteccion;
+
+    [Header("Música")]
+    [SerializeField] private string idMusicaDeteccion = "musica_combate";
 
     Transform player;
     private Animator animator;
@@ -57,13 +61,13 @@ public class Patrullero : MaquinaFSM
         jugadorDetectado = true;
 
         SetEstado(deteccion.Value);
-
         animator.SetTrigger("Deteccion");
+
+        AudioManager.Instance.ReproducirMusica(idMusicaDeteccion);
 
         yield return avisoDeteccion.MostrarYEsperar();
 
         deteccionEnCurso = false;
-
         SetEstado(ataque.Value);
     }
 

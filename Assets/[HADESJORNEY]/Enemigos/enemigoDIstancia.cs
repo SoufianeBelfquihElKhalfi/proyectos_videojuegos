@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using Dapasa.Audio;
 
 public class EnemigoDistancia : MonoBehaviour
 {
@@ -18,15 +19,9 @@ public class EnemigoDistancia : MonoBehaviour
     [Header("Movimiento de combate")]
     [SerializeField] private float distanciaMinima = 6f;
     [SerializeField] private float velocidadRotacion = 8f;
-
-    [Tooltip("Tiempo mínimo entre decisiones de movimiento")]
     [SerializeField] private float intervaloDecisionMin = 0.6f;
-    [Tooltip("Tiempo máximo entre decisiones de movimiento")]
     [SerializeField] private float intervaloDecisionMax = 1.2f;
-
-    [Tooltip("Distancia mínima de strafe")]
     [SerializeField] private float distanciaStrafeMin = 2f;
-    [Tooltip("Distancia máxima de strafe")]
     [SerializeField] private float distanciaStrafeMax = 4f;
 
     [Header("Patrulla")]
@@ -34,6 +29,9 @@ public class EnemigoDistancia : MonoBehaviour
 
     [Header("Aviso de detección")]
     [SerializeField] private AvisoDeteccionEnemigo avisoDeteccion;
+
+    [Header("Música")]
+    [SerializeField] private string idMusicaDeteccion = "musica_combate";
 
     private Transform jugador;
     private NavMeshAgent agente;
@@ -72,7 +70,6 @@ public class EnemigoDistancia : MonoBehaviour
                 EstadoPatrullar(distancia);
                 break;
             case Estado.Detectando:
-                // La corrutina se encarga
                 break;
             case Estado.Combate:
                 EstadoCombate(distancia);
@@ -84,8 +81,6 @@ public class EnemigoDistancia : MonoBehaviour
     {
         if (agente == null || animator == null) return;
     }
-
-    // ---------- ESTADO: PATRULLAR ----------
 
     private void EstadoPatrullar(float distancia)
     {
@@ -123,20 +118,18 @@ public class EnemigoDistancia : MonoBehaviour
         puntoActual = (puntoActual + 1) % puntosRuta.Length;
     }
 
-    // ---------- ESTADO: DETECTANDO ----------
-
     private IEnumerator SecuenciaDeteccion()
     {
         estadoActual = Estado.Detectando;
         agente.isStopped = true;
+
+        AudioManager.Instance.ReproducirMusica(idMusicaDeteccion);
 
         yield return avisoDeteccion.MostrarYEsperar();
 
         agente.isStopped = false;
         estadoActual = Estado.Combate;
     }
-
-    // ---------- ESTADO: COMBATE ----------
 
     private void EstadoCombate(float distancia)
     {
@@ -149,6 +142,7 @@ public class EnemigoDistancia : MonoBehaviour
 
         RotarHaciaJugador();
         if (estaDisparando) return;
+
         if (Time.time - tiempoUltimaDecision >= intervaloActual)
         {
             DecidirMovimientoCombate(distancia);
@@ -179,39 +173,33 @@ public class EnemigoDistancia : MonoBehaviour
 
         if (distancia > distanciaDisparo)
         {
-            // Demasiado lejos: acercarse con desviación lateral
             Vector3 lateral = transform.right * Random.Range(-2f, 2f);
             destino = jugador.position + lateral;
         }
         else if (distancia < distanciaMinima)
         {
-            // Demasiado cerca: huir oblicuamente
             Vector3 huir = (transform.position - jugador.position).normalized;
             Vector3 lateral = transform.right * Random.Range(-1.5f, 1.5f);
             destino = transform.position + huir * (distanciaDisparo - distancia) + lateral;
         }
         else
         {
-            // En rango: variedad de movimientos
             float decision = Random.value;
             Vector3 lateral = transform.right * (Random.value > 0.5f ? 1f : -1f);
             float distanciaStrafe = Random.Range(distanciaStrafeMin, distanciaStrafeMax);
 
             if (decision < 0.6f)
             {
-                // Strafe puro lateral
                 destino = transform.position + lateral * distanciaStrafe;
             }
             else if (decision < 0.85f)
             {
-                // Strafe combinado con acercar/alejar
                 Vector3 haciaJugador = (jugador.position - transform.position).normalized;
                 float acercarse = Random.Range(-1.5f, 1.5f);
                 destino = transform.position + lateral * distanciaStrafe + haciaJugador * acercarse;
             }
             else
             {
-                // Quedarse quieto un momento
                 return;
             }
         }
@@ -219,8 +207,6 @@ public class EnemigoDistancia : MonoBehaviour
         if (NavMesh.SamplePosition(destino, out NavMeshHit hit, 2f, NavMesh.AllAreas))
             agente.SetDestination(hit.position);
     }
-
-    // ---------- DISPARO ----------
 
     private void Disparar()
     {
@@ -257,9 +243,9 @@ public class EnemigoDistancia : MonoBehaviour
     {
         estaDisparando = false;
         tiempoUltimaDecision = 0f;
-        
+
         animator.ResetTrigger("Disparar");
-        
+
         tiempoUltimoDisparo = Time.time;
     }
 
