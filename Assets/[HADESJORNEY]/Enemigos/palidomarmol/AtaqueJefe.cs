@@ -42,6 +42,7 @@ public class AtaqueJefe : EstadoFSM
     private Rigidbody rb;
     private SistemaVida sistemaVida;
     private bool muerteDetectada = false;
+    private bool combateAvisado = false;
 
     private bool atacando = false;
     private bool introTerminada = false;
@@ -115,11 +116,27 @@ public class AtaqueJefe : EstadoFSM
                 StopAllCoroutines();    // corta coroutines de Mazazo/Embestida/Salto en curso
                 ParaAgente();
                 ResetearParametrosMovimiento();
+
+                // Avisar al gestor de música para que vuelva a la música de exploración.
+                if (combateAvisado && GestorMusicaCombate.Instance != null)
+                {
+                    GestorMusicaCombate.Instance.SalirCombate(this);
+                    combateAvisado = false;
+                }
             }
             return;
         }
 
         if (player == null) return;
+
+        // Cuando la intro ha terminado y el jefe entra de verdad en combate,
+        // avisamos UNA sola vez al gestor de música para que cambie a la
+        // música de combate con su crossfade.
+        if (!combateAvisado && introTerminada && GestorMusicaCombate.Instance != null)
+        {
+            combateAvisado = true;
+            GestorMusicaCombate.Instance.EntrarCombate(this);
+        }
 
         // intro
         if (hacerIntro && !introTerminada)
