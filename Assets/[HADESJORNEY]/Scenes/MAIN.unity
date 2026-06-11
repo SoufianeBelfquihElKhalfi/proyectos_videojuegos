@@ -3051,7 +3051,7 @@ PrefabInstance:
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[26].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 508fd4bb04f1ed343a92888e71017079, type: 3}
+      objectReference: {fileID: 8300000, guid: febc8c135beeed748aa26614612a9650, type: 3}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[27].clip
       value: 
@@ -3059,11 +3059,11 @@ PrefabInstance:
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[28].clip
       value: 
-      objectReference: {fileID: 8300000, guid: b0bf400b032358e479bf075cf051e44c, type: 3}
+      objectReference: {fileID: 8300000, guid: 7bae7b8e4d96c6441aa88ee35c91f125, type: 3}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[29].clip
       value: 
-      objectReference: {fileID: 8300000, guid: ddaa00c8b85507d49b601f3f11f68c0d, type: 3}
+      objectReference: {fileID: 8300000, guid: eda7478f52236c34a9833679f25546ee, type: 3}
     - target: {fileID: 7319013707662642326, guid: 6dc5961506ab14e43b960339771fa58b, type: 3}
       propertyPath: sonidos.Array.data[30].clip
       value: 
