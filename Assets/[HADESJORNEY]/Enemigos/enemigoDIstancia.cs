@@ -30,9 +30,6 @@ public class EnemigoDistancia : MonoBehaviour
     [Header("Aviso de detección")]
     [SerializeField] private AvisoDeteccionEnemigo avisoDeteccion;
 
-    [Header("Música")]
-    [SerializeField] private string idMusicaDeteccion = "musica_combate";
-
     private Transform jugador;
     private NavMeshAgent agente;
     private Animator animator;
@@ -75,6 +72,12 @@ public class EnemigoDistancia : MonoBehaviour
                 EstadoCombate(distancia);
                 break;
         }
+    }
+
+    private void OnDisable()
+    {
+        if (GestorMusicaCombate.Instance != null)
+            GestorMusicaCombate.Instance.SalirCombate(this);
     }
 
     private void ActualizarAnimacionMovimiento()
@@ -123,7 +126,7 @@ public class EnemigoDistancia : MonoBehaviour
         estadoActual = Estado.Detectando;
         agente.isStopped = true;
 
-        AudioManager.Instance.ReproducirMusicaConFade(idMusicaDeteccion);
+        GestorMusicaCombate.Instance.EntrarCombate(this);
 
         yield return avisoDeteccion.MostrarYEsperar();
 
@@ -135,6 +138,7 @@ public class EnemigoDistancia : MonoBehaviour
     {
         if (distancia > rangoDeteccion * 1.3f)
         {
+            GestorMusicaCombate.Instance.SalirCombate(this);
             estadoActual = Estado.Patrullar;
             IrAlSiguientePunto();
             return;

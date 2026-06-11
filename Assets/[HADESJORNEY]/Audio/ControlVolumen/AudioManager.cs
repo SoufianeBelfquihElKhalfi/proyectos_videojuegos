@@ -54,10 +54,8 @@ namespace Dapasa.Audio
             }
         }
 
-        void Start()
-        {
-            AudioManager.Instance.ReproducirMusica("musica");
-        }
+        // Start() eliminado: la música la arranca cada escena con su propio componente
+        // (MusicaMenu en el menú, GestorMusicaCombate en la cueva)
 
         private void Inicializar()
         {
@@ -213,7 +211,7 @@ namespace Dapasa.Audio
             Sonido sonido = ObtenerSonido(id);
 
             if (sonido == null)
-            return;
+                return;
 
             float pitchAleatorio = Random.Range(pitchMin, pitchMax);
             float volumenAleatorio = Random.Range(volumenMin, volumenMax);
