@@ -73,16 +73,16 @@ public class ControladorSala : MonoBehaviour
 
         puertaAbierta = true;
 
-        ReproducirSonidoAbrirPuerta();
-
         animatorPuerta.SetTrigger("Abrir");
+        ReproducirSonidoAbrirPuerta();
     }
 
     private void ReproducirSonidoAbrirPuerta()
     {
         if (AudioManager.Instance == null)
         {
-            throw new MissingReferenceException($"{name}: falta AudioManager en la escena.");
+            Debug.LogWarning($"{name}: no hay AudioManager en la escena. La puerta se abre sin sonido.");
+            return;
         }
 
         Vector3 posicionSonido = puntoSonidoPuerta != null
