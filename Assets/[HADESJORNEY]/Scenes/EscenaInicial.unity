@@ -6682,7 +6682,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6273459691086065524, guid: 1a1faeb2465c9b941a11391b6e94a1a0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7085,6 +7085,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f8cdebe7f722774ea7d13d653eaa641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idMusicaExploracion: musica
   idMusicaCombate: combate
   duracionFade: 1.5
   idAmbienteCueva: ambiente
