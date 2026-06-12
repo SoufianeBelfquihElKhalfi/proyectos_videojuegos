@@ -12754,6 +12754,14 @@ PrefabInstance:
       propertyPath: sistemaVida
       value: 
       objectReference: {fileID: 2029340682}
+    - target: {fileID: 438967678199141860, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2029340675}
+    - target: {fileID: 438967678199141860, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: VolverAlMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 1305873015344475563, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -12777,6 +12785,14 @@ PrefabInstance:
     - target: {fileID: 5735309726027621115, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6213880467852045193, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2029340675}
+    - target: {fileID: 6213880467852045193, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Reintentar
       objectReference: {fileID: 0}
     - target: {fileID: 6246007196352898619, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
       propertyPath: m_SizeDelta.x
@@ -18471,6 +18487,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 805932474989920479, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
   m_PrefabInstance: {fileID: 2029340672}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2029340675 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6272437019516206938, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
+  m_PrefabInstance: {fileID: 2029340672}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78043cd3f978659438eb90c62f8e6083, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2029340676 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6284017609261214285, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
@@ -18916,3 +18943,4 @@ SceneRoots:
   - {fileID: 773650832}
   - {fileID: 1061179744}
   - {fileID: 1495041605}
+  - {fileID: 261428957}
