@@ -30,9 +30,6 @@ public class cinematicaJefe : MonoBehaviour
     [SerializeField] private string idSonidoCaida = "caida";
     [SerializeField] private string idSonidoGrunido = "caida_grunido";
 
-    // Estos timings los fijamos AQUÍ en el script para que sean la única fuente
-    // de verdad. No son [SerializeField] a propósito: el Inspector NO los toca,
-    // ni el .unity puede tener overrides. Si quieres cambiarlos, edítalos aquí.
     private const float ANTICIPO_CAIDA   = 0.25f;
     private const float RETRASO_GRUNIDO  = 1f;
 
@@ -53,33 +50,33 @@ public class cinematicaJefe : MonoBehaviour
 
     private IEnumerator SecuenciaEntrada(GameObject jugador)
     {
-        // 1. Bloquear jugador
+        //  Bloquear jugador
         var movimiento = jugador.GetComponent<MovimientoAlastor>();
         if (movimiento != null) movimiento.movimientoHabilitado = false;
 
         var combate = jugador.GetComponent<CombateJugador>();
         if (combate != null) combate.enabled = false;
 
-        // 2. Fade out (a negro)
+        //  Fade out 
         yield return Fade(0f, 1f);
 
-        // 3. Cambiar c�mara mientras est� negro
+        //  Cambiar camara mientras esta negro
         if (camaraPrincipal != null) camaraPrincipal.enabled = false;
         if (camaraEntradaJefe != null) camaraEntradaJefe.gameObject.SetActive(true);
 
-        // 4. Posicionar jefe (sin agente activo)
+        //  Posicionar jefe 
         DesactivarComportamientoJefe(jefeEnEscena, true);
         jefeEnEscena.SetActive(true);
         jefeEnEscena.transform.position = puntoSpawnJefe.position;
 
-        // Cacheamos el Animator del jefe para usarlo más abajo.
+        
         Animator animJefe = jefeEnEscena.GetComponentInChildren<Animator>();
         if (animJefe != null) animJefe.enabled = true;
 
-        // 5. Fade in (de negro a normal)
+        //  Fade in 
         yield return Fade(1f, 0f);
 
-        // 6. Part�culas de ca�da
+        //  Particulas de caida
         GameObject particulas = null;
         if (particulasCaida != null)
         {
@@ -89,9 +86,6 @@ public class cinematicaJefe : MonoBehaviour
 
         yield return new WaitForSeconds(esperaAntesDeCaer);
 
-        // Arrancamos la animación de caída JUSTO antes del descenso. Ajustamos
-        // la velocidad del animator para que el clip "caer" dure exactamente
-        // duracionCaida y la transición Caer→Idle no nos saque a mitad.
         if (animJefe != null)
         {
             animJefe.speed = 1f;
@@ -105,7 +99,7 @@ public class cinematicaJefe : MonoBehaviour
             animJefe.Update(0f);
         }
 
-        // 7. Caer
+        //  Caer
         Vector3 inicio = jefeEnEscena.transform.position;
         Vector3 destino = puntoAterrizaje.position;
         float tiempo = 0f;
@@ -118,7 +112,6 @@ public class cinematicaJefe : MonoBehaviour
             t = t * t;
             jefeEnEscena.transform.position = Vector3.Lerp(inicio, destino, t);
 
-            // Cuando estamos a ANTICIPO_CAIDA segundos del aterrizaje, suena "caida".
             if (!caidaSonada && tiempo >= duracionCaida - ANTICIPO_CAIDA)
             {
                 caidaSonada = true;
@@ -131,16 +124,11 @@ public class cinematicaJefe : MonoBehaviour
 
         jefeEnEscena.transform.position = destino;
 
-        // Por si ANTICIPO_CAIDA era mayor que la duración total, garantizamos
-        // que el sonido suena al menos al aterrizar.
         if (!caidaSonada && AudioManager.Instance != null && !string.IsNullOrEmpty(idSonidoCaida))
             AudioManager.Instance.ReproducirSFX2D(idSonidoCaida);
 
-        // Restauramos la velocidad del animator para el resto del combate.
         if (animJefe != null) animJefe.speed = 1f;
 
-        // 8. Impacto: el "caida_grunido" entra con un pequeño retraso desde aquí
-        // (lo programamos sin bloquear el resto del flujo).
         StartCoroutine(ReproducirGrunidoConRetraso());
 
         if (particulasImpacto != null)
@@ -148,19 +136,10 @@ public class cinematicaJefe : MonoBehaviour
 
         if (particulas != null) Destroy(particulas);
 
-        if (shakeCamara.Instancia != null)
-        {
-            Debug.Log("Llamando al shake");
-            shakeCamara.Instancia.Shake(duracionShake, fuerzaShake);
-        }
-        else
-        {
-            Debug.Log("ShakeCamara.Instancia es null");
-        }
-
+   
         yield return new WaitForSeconds(esperaTrasImpacto);
 
-        // 9. Fade out de nuevo para volver al juego
+        //  Fade out para volver al juego
         yield return Fade(0f, 1f);
 
         if (camaraEntradaJefe != null) camaraEntradaJefe.gameObject.SetActive(false);
@@ -168,15 +147,12 @@ public class cinematicaJefe : MonoBehaviour
 
         yield return Fade(1f, 0f);
 
-        // 10. Reactivar. Antes de reactivar AtaqueJefe le decimos que la intro
-        // ya está hecha, para que su OnEnable no dispare otra caída encima.
-        Debug.Log("Reactivando comportamiento del jefe");
+        
         var ataque = jefeEnEscena.GetComponent<AtaqueJefe>();
         if (ataque != null) ataque.MarcarIntroCompletada();
 
         DesactivarComportamientoJefe(jefeEnEscena, false);
 
-        Debug.Log("AtaqueJefe enabled: " + (ataque != null && ataque.enabled));
         if (movimiento != null) movimiento.movimientoHabilitado = true;
         if (combate != null) combate.enabled = true;
     }
