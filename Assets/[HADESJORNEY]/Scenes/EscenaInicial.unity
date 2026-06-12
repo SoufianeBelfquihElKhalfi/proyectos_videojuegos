@@ -7176,7 +7176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelTexto: {fileID: 969319400}
   texto: {fileID: 1912163439}
-  mensaje: Avanza con [WASD / Stick Izquierdo] y squiva con [Espacio / B]. El Hades
+  mensaje: Avanza con [WASD / Stick Izquierdo] y esquiva con [Espacio / B]. El Hades
     no perdona a los lentos.
   mostrarUnaVez: 1
   duracionEnPantalla: 5
