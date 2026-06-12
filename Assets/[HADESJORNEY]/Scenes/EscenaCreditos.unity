@@ -153,7 +153,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 400, y: 0}
+  m_AnchoredPosition: {x: -420, y: 0}
   m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &25411758
@@ -181,8 +181,8 @@ MonoBehaviour:
     mismos\n\r\n\r\nAgradecimientos:\r\nProfesores\r\nCompa\xF1eros\r\nFamilia\n\r\n\r\nGracias
     por jugar"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 920ae9ec8dc417e4496da7781fd2a29f, type: 2}
-  m_sharedMaterial: {fileID: 2011299150361131183, guid: 920ae9ec8dc417e4496da7781fd2a29f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a79228e26701a464c94460ee0418ac37, type: 2}
+  m_sharedMaterial: {fileID: 7433740729396449713, guid: a79228e26701a464c94460ee0418ac37, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -355,7 +355,7 @@ RectTransform:
   m_GameObject: {fileID: 551166143}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.6505007, y: 1.6505007, z: 1.6505007}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2000535808}
@@ -363,7 +363,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -677, y: -424}
+  m_AnchoredPosition: {x: 577, y: -424}
   m_SizeDelta: {x: 250, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &551166145
@@ -764,7 +764,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 741e86c18f5a8db419e72aa3ce2587f5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0f8ceb694a467ee458dcd8edacace775, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1051,14 +1051,14 @@ RectTransform:
   m_GameObject: {fileID: 2000535807}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8307384, y: 0.8307384, z: 0.8307384}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 551166144}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -5.8, y: -2}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2000535809
@@ -1081,10 +1081,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Volver
+  m_text: "MEN\xDA"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a79228e26701a464c94460ee0418ac37, type: 2}
+  m_sharedMaterial: {fileID: 7433740729396449713, guid: a79228e26701a464c94460ee0418ac37, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1108,13 +1108,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
