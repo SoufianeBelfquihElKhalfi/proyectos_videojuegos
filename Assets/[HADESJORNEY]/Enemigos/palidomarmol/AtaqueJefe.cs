@@ -102,11 +102,7 @@ public class AtaqueJefe : EstadoFSM
 
     private void Update()
     {
-        // Si SistemaVida marca muerte, dejamos de meter ruido al animator
-        // (sin esto AtaqueJefe seguiría haciendo Play("mazazo") y SetBool
-        // sobre el animator, machacando la transición a "muerte" que dispara
-        // SistemaVida.Morir → la animación de muerte se vería un instante y
-        // el jefe volvería a Idle/caminar).
+    
         if (sistemaVida != null && sistemaVida.EstaMuerto)
         {
             if (!muerteDetectada)
@@ -117,7 +113,7 @@ public class AtaqueJefe : EstadoFSM
                 ParaAgente();
                 ResetearParametrosMovimiento();
 
-                // Avisar al gestor de música para que vuelva a la música de exploración.
+                
                 if (combateAvisado && GestorMusicaCombate.Instance != null)
                 {
                     GestorMusicaCombate.Instance.SalirCombate(this);
@@ -129,9 +125,6 @@ public class AtaqueJefe : EstadoFSM
 
         if (player == null) return;
 
-        // Cuando la intro ha terminado y el jefe entra de verdad en combate,
-        // avisamos UNA sola vez al gestor de música para que cambie a la
-        // música de combate con su crossfade.
         if (!combateAvisado && introTerminada && GestorMusicaCombate.Instance != null)
         {
             combateAvisado = true;
@@ -392,7 +385,6 @@ public class AtaqueJefe : EstadoFSM
 
         yield return new WaitForSeconds(0.4f);
 
-        // golpe_jefe solo si el mazazo conecta de verdad con el jugador.
         if (Vector3.Distance(transform.position, player.position) <= rangoMazazo + 1.0f
             && infligirDanio != null
             && infligirDanio.IntentarGolpear(player))
@@ -437,7 +429,6 @@ public class AtaqueJefe : EstadoFSM
             else
                 transform.Translate(paso, Space.World);
 
-            // Solo el primer impacto del dash dispara golpe_jefe.
             if (AplicarDañoSiCerca(2.5f) && !golpeEmbestidaSonado)
             {
                 golpeEmbestidaSonado = true;
@@ -502,7 +493,6 @@ public class AtaqueJefe : EstadoFSM
             if (dirVuelo.sqrMagnitude > 0.01f)
                 transform.rotation = Quaternion.LookRotation(dirVuelo.normalized) * OffsetModelo;
 
-            // "caida" suena un poco ANTES del aterrizaje, así llega justo en el impacto.
             if (!caidaSaltoSonada && t >= duracionSalto - anticipoCaidaSalto)
             {
                 caidaSaltoSonada = true;
