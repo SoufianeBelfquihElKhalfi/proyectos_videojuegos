@@ -12843,6 +12843,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
+--- !u!1 &1142865527 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9194343526809809103, guid: 302a5546f9673074f90cb2bfca142531, type: 3}
+  m_PrefabInstance: {fileID: 1142865526}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1144101015
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18426,7 +18431,7 @@ PrefabInstance:
     - target: {fileID: 6272437019516206938, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: panelGameOver
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1142865527}
     - target: {fileID: 6463228544794707355, guid: 36f98cb9eb36be7479518d2c76f0cd93, type: 3}
       propertyPath: m_Name
       value: Alastor
@@ -18875,4 +18880,3 @@ SceneRoots:
   - {fileID: 773650832}
   - {fileID: 1061179744}
   - {fileID: 1495041605}
-  - {fileID: 261428957}
